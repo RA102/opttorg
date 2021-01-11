@@ -1,0 +1,14 @@
+User-agent: *
+Disallow: /registration
+Disallow: /login
+Disallow: /admin
+Disallow: /search
+Disallow: /templates/basic_free/js
+Disallow: /templates/basic_free/css
+Disallow: /shop/sort
+Disallow: /shop/vygruzka-mat-eyo/
+Disallow: /shop/udalennye/
+Disallow: /shop/2-ja-ochered/
+Disallow: /shop/poslednjaja-ochered/
+Disallow: /shop/kaspi/
+Sitemap: https://sanmarket.kz/sitemap.xml

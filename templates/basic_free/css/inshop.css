@@ -1,0 +1,10 @@
+/* Замена стандартных стилей InstantShop для шаблона _default_b_ от Tokarev */
+
+.shop_items_sort { margin:7px 0; }
+.shop_items_sort span { color:#375E93; }
+.shop_items_sort a.selected { text-decoration: none;  }
+.shop_items_sort a.selected:hover { text-decoration: none;  }
+.old_price, .new_price {padding:2px 7px;border-radius:6px;}
+.shop_rating{  float:right; overflow:hidden; margin-left:15px; }
+.price_table { margin-top:20px; }
+.price_table td { padding-right:10px; }

@@ -1,0 +1,231 @@
+.map_chars_list {
+    list-style:none;
+    margin:0px;
+    padding:0px;
+    margin-top:10px;
+    font-size:12px;
+}
+
+.map_chars_list li{
+    margin:0px;
+    margin-bottom:6px;
+    clear:both;
+    overflow:hidden;
+}
+
+.map_chars_list .quest{
+	width:50%;
+    max-width:200px;
+    display:block;
+    float:left;
+    color:#337AB7;
+}
+
+.map_chars_list .answer{
+    float:left;
+}
+
+.map_chars_list .grp{
+    padding:4px;
+    padding-left:0px;
+    margin:0px;
+    margin-bottom:4px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+/* ========================================================================== */
+/* ========================================================================== */
+.city_short { margin:8px; }
+
+.city_short_tip{
+    background:url(/components/maps/images/city.png) no-repeat;
+    padding-left:40px;
+}
+
+.city_short_name{
+    color:#375E93;
+    font-size:14px;
+    font-weight: bold;
+    margin-bottom:1px
+}
+
+.city_short_count{
+    color:#666;
+    font-size:12px;
+    margin-bottom:12px
+}
+
+.city_short_link {
+    padding-left:16px;
+    background:url(/components/maps/images/zoom_small.gif) no-repeat left center;
+}
+.city_short_link a{
+    font-size:11px;
+    text-decoration: none;
+    border-bottom: dashed 1px #09c;
+}
+
+.city_short_link a:hover{
+    border-bottom: dashed 1px #375E93;
+}
+
+#inmaps_map_filter {
+    background:#FFF;
+    padding:15px;
+}
+
+#filter_form .title{
+    padding-left:28px;
+    height:24px;
+    line-height:24px;
+    background:url(../images/maps/map-filter.png) no-repeat;
+    font-size:14px;
+    font-weight:bold;
+}
+
+#filter_form a {
+    color: #337AB7;
+    text-decoration:none;
+    border-bottom: dashed 1px #337AB7;
+}
+
+#filter_form a:hover {
+    color: #333;
+    text-decoration: none;
+    border-bottom: dashed 1px #333;
+}
+
+#filter_form .sel_all{
+    margin-bottom:15px;
+    padding-left:29px;
+    font-size:11px;
+}
+#filter_form .sel_all a{
+    color:gray;
+    border-bottom:dashed 1px gray;
+}
+
+#inmaps_map_tree{ padding:0px; list-style:none; margin:0px; padding:0px; margin-bottom:15px; max-height:250px; overflow:auto; }
+
+#inmaps_map_tree li { list-style:none; padding-left:0px; margin:0px; }
+
+#inmaps_map_tree li ul { padding-left: 20px; }
+
+.fullscreen_map{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+}
+
+#citymap{
+    height:500px;
+    border:solid 8px #f9f9f9;
+    border-top:solid 2px #f9f9f9;
+    clear:both;
+
+}
+
+#marker_select{ margin-top:8px; }
+#marker_select select{ width:100%; }
+
+#placemap{
+    height:280px;
+    border:solid 5px #f9f9f9;
+    overflow:hidden;
+    clear:both;
+}
+
+#citypanel {
+    background: #f9f9f9;
+    overflow: hidden;
+    padding:0 6px;
+
+}
+#citypanel #location{
+    padding-top:9px;
+    padding-bottom:7px;
+    float:left;
+}
+
+#citypanel #location a{
+    padding:4px 10px 4px 26px;
+    background:url(/components/maps/images/dropdown_gray.png) no-repeat 6px center #FFF;
+    border:solid 1px #fff;
+    color:#375E93;
+    text-decoration: none;
+    margin:1px;
+
+}
+
+#citypanel #location a:hover{
+    border:solid 1px gray;
+    background:url(/components/maps/images/dropdown.png) no-repeat 6px center #FFF;
+    color:#003399;
+}
+
+#citypanel .marker_loading{
+    float:left;
+    padding:4px;
+    margin-left:10px;
+    margin-top:8px;
+    padding-left:20px;
+    background:url('/components/maps/images/loader.gif') no-repeat left center;
+}
+
+#citypanel #fullscreen_link{
+    float:right;
+    margin-top:5px;
+	margin-left:2px;
+}
+
+#citypanel #map_rss_link{
+    float:right;
+    margin-top:5px;
+}
+
+#citypanel .minimize_button,
+#citypanel .maximize_button{
+
+    text-decoration: none;
+}
+
+#citypanel #marker_pages_link{
+    margin-left:15px;
+    padding-top:9px;
+    padding-bottom:7px;
+    float:left;
+    text-decoration: none;
+    display:none;
+}
+
+#citypanel #marker_pages_link a{
+    padding:3px 6px;
+    margin-right:1px;
+    border-radius:10px;
+    -moz-border-radius:10px;
+}
+
+#citypanel #marker_pages_link a.active{
+    padding:3px 6px;
+    background:#375E93;
+    color:#FFF;
+    text-decoration: none;
+    margin-right:1px;
+}
+
+#citypanel #news_link a:hover{
+    text-decoration: underline;
+}
+#map_find_addr{
+    float:right;
+    padding:5px;
+    margin-right:2px;
+    color:#666;
+}
+
+#map_find_addr input{
+    border:solid 1px #444;
+}

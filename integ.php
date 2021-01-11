@@ -1,0 +1,7 @@
+<?php
+
+$key = "6BB0AC02E47BDF73D98FEB777F3B5294";
+$data = "516.64339813355871446156812merchantname8888888811614202002240739211132F2B2DD7E603A7AAF5E1BC35DEE1F6C9A";
+$decodedKey = pack("H*", $key);
+echo hash_hmac("sha1", $data, $decodedKey);
+

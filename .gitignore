@@ -1,0 +1,15 @@
+#
+/images
+/cache
+
+tmp.*
+temp.*
+
+*.xml
+config.inc.php
+*.zip
+*.rar
+.idea
+*.sql
+/432gsdt55gs34hhj.php
+

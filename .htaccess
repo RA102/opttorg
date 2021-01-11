@@ -1,0 +1,19 @@
+AddDefaultCharset utf-8
+Options -Indexes
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^.htaccess$ - [F]
+
+
+RewriteCond %{REQUEST_URI} !\.(ico|css|js|txt)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !^/admin
+RewriteCond %{REQUEST_FILENAME} !^/migrate
+RewriteCond %{REQUEST_FILENAME} !^/install
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php?%{REQUEST_URI} [QSA,L]
+
+
+php_value auto_prepend_file D:\OSPanel\OpenServer\domains\sanmarket.loc\postlog.php

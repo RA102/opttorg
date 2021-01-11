@@ -1,0 +1,363 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Генератор модуля для iCMS v.1.10.3 - v.1.10.6</title>
+	<style type="text/css">
+		body{
+			background: #AFEEEE;
+		}
+		#tab_01, #tab_02, #tab_03{
+			weight: 100%;
+			empty-cells: show;
+		}
+		#tab_02, #tab_03{
+			border-collapse: separate;
+			border-spacing: 0px 15px;
+		}
+		.hi{width: 5%;}
+		.hail{
+			color: #000080;
+			width: 90%;
+		}
+		#attention{
+			font: bold 150%;
+			color: red;
+		}
+	</style>
+</head>
+<?php
+
+//функция обработки строк файла config
+function sense($line){
+ $st = trim(substr(strstr($line, '='), 1));
+ $st = trim(str_replace("'", '', $st));
+ $st = trim(str_replace(";", '', $st));	
+ return $st;
+}
+// читаем файл config
+	$lines = file('includes/config.inc.php');
+	foreach($lines as $line){
+		if(stripos($line, 'lang')&& !stripos($line, 'is_change_lang')){$lang = sense($line);}
+		if(stripos($line, 'db_host')){$host = sense($line);}
+		if(stripos($line, 'db_base')){$base = sense($line);}
+		if(stripos($line, 'db_user')){$user = sense($line);}
+		if(stripos($line, 'db_pass')){$pass = sense($line);}
+		if(stripos($line, 'template')){$template = sense($line);}
+	}
+
+$charset_in = "UTF-8"; $charset_out = "utf8_general_ci";
+// читаем позиции текущего шаблона
+	$lines = file("templates/{$template}/positions.txt");
+	foreach($lines as $line){
+		if(!strstr($line, '#')){$positions[] = $line;}
+	}
+if($_POST['folder']){	
+	$folder = $_POST['folder'];
+	$name = $_POST['name'];
+	$title = $_POST['title'];
+	$author = $_POST['author']; 
+	$published = $_POST['published']; 
+	$position = $_POST['position']; 
+	$extension = $_POST['admin']; 
+	$prefix = $_POST['prefix']; 
+	$showtitle = $_POST['showtitle']; 
+	$template = $_POST['template']; 
+	mysql_connect($host, $user, $pass);
+	mysql_select_db($base);
+	mysql_query("SET NAMES 'utf8'");
+//echo "ERROR ".mysql_errno()." ".mysql_error()."\n";
+	$sql = "SELECT MAX(ordering) FROM {$prefix}modules";
+	$max_order = mysql_fetch_row(mysql_query($sql));
+	$ordering = $max_order[0]+1;
+	$sql = "SELECT content FROM {$prefix}modules WHERE content='{$folder}'";
+	$f = mysql_fetch_array(mysql_query($sql));
+	if(!$f['content']){
+		$sql = "INSERT INTO `{$prefix}modules` 
+		(`id`, `position`, `name`, `title`, `is_external`, `content`, `ordering`, `showtitle`, `published`, `user`, `config`, `original`, `cache`, `cachetime`, `cacheint`, `template`, `is_strict_bind`, `author`, `version`) 
+		VALUES ('', '{$position}', '{$name}', '{$title}', '1', '{$folder}', '{$ordering}', '{$showtitle}', '{$published}', '0', '', '1', '0', '1', 'HOUR', '{$template}', '0', '{$author}', '1.0')";
+		$q = mysql_query($sql);
+	}
+	// создаем структуру модуля
+	// админка
+if($extension){
+		@mkdir("admin/modules/{$folder}", 0755);
+		$finger = @fopen("admin/modules/{$folder}/backend.{$extension}", 'x');
+	if($extension == 'xml'){
+		$backend_content ="<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<backend>
+	<module>
+        <id>{$folder}</id>
+        <title>{$title}</title>
+    </module> \n
+	<params>
+		<param type=\"number\" name=\"info\" title=\"Информация о штуках\" units=\"шт.\" default=\"3\" />
+	</params>
+</backend>
+		";
+	}
+	if($extension == 'php'){
+		$backend_content = "<?php
+//////////////////////////////////////////////////////////
+//      Админка модуля сгенерирована автоматически      // 
+//      генератор написал stroller7@gmail.com		    // 
+////////////////////////////////////////////////////////// \n
+	\$opt = cmsCore::request('opt', 'str', 'config');
+    \$id  = cmsCore::request('id', 'int', 0);
+	cpAddPathway('{$name}', '?view=modules&do=edit&id='.\$id);
+	\$cfg = \$inCore->loadModuleConfig(\$id);
+	if(\$opt=='saveconfig'){
+	//правила написания массива \$cfg смотрите в документации
+    \$cfg['info']  = cmsCore::request('info', 'int', 3);
+	}
+	\$inCore->saveModuleConfig(\$id, \$cfg);
+?>
+<form id=\"addform\" name=\"addform\" method=\"post\" action=\"index.php?view=modules&do=config&id=<?php echo \$id; ?>\">
+  <input name=\"opt\" type=\"hidden\" value=\"saveconfig\" />
+	<br>Здесь можно присвоить числовое значение элементу массива \$cfg['info'],
+	<br>которое будет определено в  Вашем модуле<br>
+  <input name=\"info\" type=\"text\" value=\"<?php echo \$cfg['info'];?>\" /> <br>
+  <input name=\"save\" type=\"submit\" id=\"save\" value=\"Сохранить\" />
+  <input name=\"back\" type=\"button\" id=\"back\" value=\"Отмена\" onclick=\"window.location.href='index.php?view=components';\"/>
+</form>
+		";
+	}
+		@fwrite($finger, $backend_content);
+		@fclose($finger);
+}
+	// языковой файл
+	@mkdir("languages/{$lang}/modules", 0755);
+	$finger = @fopen("languages/{$lang}/modules/{$folder}.php", 'x');
+	$language_content = "
+<?php
+//////////////////////////////////////////////////////////
+//      Языковой файл сгенерирован автоматически        // 
+//      генератор написал stroller7@gmail.com		    // 
+////////////////////////////////////////////////////////// \n
+if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }  \n
+\$_LANG['HI'] = 'Здравствуй, мир!';
+\$_LANG['units'] = 'Информация о фиговинах из админки';
+?>
+	";
+	@fwrite($finger, $language_content);
+	@fclose($finger);
+	// модуль
+	@mkdir("modules/{$folder}", 0755);
+	$finger = @fopen("modules/{$folder}/module.php", 'x');
+	$module_content = "
+<?php
+//////////////////////////////////////////////////////////
+//     	 Модуль сгенерирован автоматически              // 
+//      генератор написал stroller7@gmail.com		    // 
+////////////////////////////////////////////////////////// \n
+function {$folder}(\$module_id, \$cfg){ \n
+        \$inCore = cmsCore::getInstance();
+        \$inDB   = cmsDatabase::getInstance();
+		\$inActions = cmsActions::getInstance();
+		\$inUser = cmsUser::getInstance();
+		\n
+		global \$_LANG;  \n
+		\$default_cfg = array ( 
+		'units' => 'шт.', 
+		'show' => 1, 
+		'shownum' => 5 
+	);
+	\$cfg = array_merge(\$default_cfg, \$cfg);
+	\$info = \$cfg['info'];
+	
+	cmsPage::initTemplate('modules', '{$folder}')-> 
+	assign('info', \$info)-> 
+	assign('cfg', \$cfg)-> 
+	display('{$folder}.tpl'); \n
+	return true;
+}
+
+?>
+	";
+	@fwrite($finger, $module_content);
+	@fclose($finger);
+	
+	// Создаю пустой файл index.html
+	@$finger = fopen("modules/{$folder}/index.html", 'x');
+	@fclose($finger);
+
+	// шаблон модуля
+	@mkdir("modules/{$folder}", 0755);
+	$finger = @fopen("templates/_default_/modules/{$folder}.tpl", 'x');
+	$tpl_content = "
+{*===========Страница модуля {$folder} ==============*}
+{*===========сгенерирована автоматически ==============*}
+{*=========генератор написал stroller7@gmail.com=======*}
+{\$LANG.HI}<br><br>
+\$info = {\$info}<br>
+{if \$cfg.show}
+{foreach key=key item=property from=\$cfg}
+{\$key}=>{\$property}<br>
+{/foreach}
+{\$LANG.units}: {\$cfg.shownum} {\$cfg.units}
+{/if}
+	";
+	@fwrite($finger, $tpl_content);
+	@fclose($finger);
+} // Конец POST части генератора
+?>
+<body>
+<?php if(!$_POST['folder']){ ?>
+<table id="tab_01">
+	<tr>
+		<td class="hi">&nbsp;</td>
+		<th class="hail">
+			Здравствуйте.<br>
+			Вы запустили генератор модуля для <b>InstantCMS v.1.10.3 - v.1.10.6</b><br><br>
+		</th>
+		<td class="hi">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="hi">&nbsp;</td>
+		<td class="hail">
+			<b>Соглашение</b><br>
+			1. Вы используете эту утилиту "КАК ЕСТЬ", на свое усмотрение и под свою ответственность. Никаких претензий автор утилиты не принимает.<br>
+			В случае, если Вы запустили утилиту по ошибке, просто закройте вкладку в браузере.<br>
+			2. Пока Вы не нажали кнопку "Создать модуль", никакого изменения в файлах и базе данных Вашего сайта не произойдет.<br>
+			3. Утилита производит проверку в таблице cms_modules одноименной папки в поле content. В случае обнаружения одноименной папки запись в БД не происходит, модуль не создается.<br>
+			4. Нажимая на кнопку "Создать модуль", Вы принимаете условия данного соглашения.
+			<br><br>
+			Следуйте расположенным далее инструкциям.</td>
+		<td class="hi">&nbsp;</td>
+	</tr>
+		<?php if($f['content']){ ?>
+		<tr>
+			<td class="hi">&nbsp;</td>
+			<td id="attention"><p>Папка модуля с таким именем уже существует. Утилита ничего не сделала. Попробуйте сначала!</p></td>
+			<td class="hi">&nbsp;</td>
+		</tr>
+	<?php } ?>
+</table>
+<form action="/generator_mod.php"  method="POST" target="_self" accept-charset="utf-8">
+<table id="tab_02">
+<tr>
+	<td>
+		<p>1. Введите имя папки создаваемого модуля (это имя будет использовано для создания структуры модуля): 
+		<input name="folder"  type="text" size="50" maxlength="200" value="mod_"/> <br>
+		<small>Латиницей, без пробелов, с префиксом "mod_", использовать только буквы и цифры, максимальное количество 200 символов</small>
+	</td>
+</tr>
+<tr>
+	<td>
+		<p>2. Введите название создаваемого модуля в админке (поле name таблицы cms_modules): 
+		<input name="name"  type="text" size="50" maxlength="200" value=""/> <br>
+		<small>По русски, пробелы допустимы, любые символы, максимальное количество 200 символов</small>
+	</td>
+</tr>
+<tr>
+	<td>
+		<p>3. Введите название создаваемого модуля на сайте (поле title таблицы cms_modules): 
+		<input name="title"  type="text" size="50" maxlength="200" value=""/> <br>
+		<small>По русски, пробелы допустимы, любые символы, максимальное количество 200 символов</small>
+	</td>
+</tr>
+<tr>
+	<td>
+		<p>4. Укажите автора модуля (поле author таблицы cms_modules): 
+		<input name="author"  type="text" size="50" maxlength="200" value=""/> <br>
+		<small>Любые символы, пробелы допустимы, максимальное количество 200 символов</small>
+	</td>
+</tr>
+<tr>
+	<td>
+		<p>5. Публиковать ли модуль: 
+		<input name="published"  type="checkbox" checked="checked" value="1"/><br>
+		<small>Поставьте галку для публикации или снимите, если хотите опубликовать модуль позже. Вы всегда можете сделать это из админки сайта</small>
+	</td>
+</tr>
+<tr>
+	<td>
+		<p>6. Нужна ли админка модуля и, если нужна, какое расширение файла админки:
+		<select name="admin" >
+			<option value="" checked="checked">не нужна</option>
+			<option value="php" >*.php</option>
+			<option value="xml" >*.xml</option>
+		</select><br>
+		<small>Если админка нужна, выберите *.php или *.xml. Если не нужна, ничего не выбирайте.</small>
+	</td>
+</tr>
+<tr>
+	<td>
+		<p>7. Укажите, в какую позицию текущего шаблона выводить модуль:
+			<select name="position" >
+				<?php 
+							foreach($positions as $position){?>
+								<option value="<?php echo $position; ?>" ><?php echo $position; ?></option>
+				<?php	}
+				?>
+			</select><br>
+			<small>Вы всегда можете изменить позицию модуля из админки сайта</small>
+	</td>
+</tr>
+<tr>
+	<td>
+		<p>8. Следует ли включить вывод заголовка модуля?
+			<input name="showtitle" type="radio" value="1" checked="checked"> Да
+			<input name="showtitle" type="radio" value="0"> Нет
+		<br><small>Вы всегда можете изменить эту опцию из админки сайта</small>
+	</td>
+</tr>
+
+<tr>
+	<td>
+		<p>9. Укажите, какой шаблон использовать для Вашего модуля:
+			<select name="template" >
+				<option value="module.tpl" checked="checked">module.tpl</option>
+				<option value="module_simple.tpl" >module_simple.tpl</option>
+			</select><br>
+		<small>Вы всегда можете изменить эту опцию из админки сайта</small>
+	</td>
+</tr>
+<tr>
+	<td>
+		<p>10. Укажите префикс таблиц базы данных, если он отличен от "cms_":
+		<input name="prefix" type="text" value="cms_" size="4" maxlength="4" /> <br>
+		<small>Латиницей, не более 4 символов</small>
+	</td>
+</tr>
+<tr>
+	<td>
+	<input type="submit" value="Создать модуль">
+	<input type="reset" value="Очистить форму">
+	</td>
+</tr>
+</table>
+</form>
+<?php  }else{
+echo '<br>
+<table id="tab_03">
+<tr>
+<td class="hi">&nbsp;</td>
+<td class="hail">Поздравляю! Наверняка что-то получилось! Однако, не лишним будет убедиться в этом:</td>
+<td class="hi">&nbsp;</td>
+</tr>
+<tr>
+<td class="hi">&nbsp;</td>
+<td class="hail">
+1. Пожалуйста, проверьте появление модуля в админке. <br> 
+2. Затем откройте настройки модуля и поставте галку "Показывать на всех страницах", либо укажите страницу, на которой Вашему модулю следует появляться. <br> 
+3. Откройте сайт и насладитесь лицезрением своего модуля. <br> 
+4. Удалите эту утилиту.</td>
+<td class="hi">&nbsp;</td>
+</tr>
+<tr>
+<td class="hi">&nbsp;</td>
+<td class="hail">Удачи! </td>
+<td class="hi">&nbsp;</td>
+<tr>
+</tr>
+<td class="hi">&nbsp;</td>
+<td class="hail"><a href="http://www.instantcms.ru/users/stroller7">Странник</a> </td>
+<td class="hi">&nbsp;</td>
+</tr>
+</table>
+';}
+?>
+
+</body>
+</html>

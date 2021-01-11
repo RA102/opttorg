@@ -1,0 +1,106 @@
+
+.mod_inshop_cart_list{
+    margin-left:0px;
+    padding-left:0px;
+    list-style:none;
+}
+
+.mod_inshop_cart_list li{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:dotted 1px silver;
+}
+
+.mod_inshop_cart_total{
+    padding-top:10px;
+    border-top:dotted 1px silver;
+    text-align:right;
+}
+
+.mod_inshop_cart_total span{
+    font-weight:bold;
+}
+
+.mod_inshop_front .item_wrap{
+    text-align:center;
+}
+
+.mod_inshop_front .price span{
+    height:34px;
+    display:block;
+    line-height:34px;
+    padding-left:15px;
+    padding-right:0px;
+    background:url(../images/shop_price.gif) no-repeat left top;
+    text-align:center;
+    font-size:14px;
+}
+
+.mod_inshop_front .price {
+    display:block;
+    height:34px;
+    line-height:34px;
+    padding-right:15px;
+    background:url(../images/shop_price.gif) no-repeat right -34px;
+    width:120px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.mod_inshop_front .is_hit{
+    background: url("../images/shop_hit.png") no-repeat scroll 0 0 transparent;
+    height: 81px;
+    left: 60%;
+    position: relative;
+    margin-top: -55px;
+    width: 82px;
+}
+
+/* ========================================================================== */
+/* ========================================================================== */
+
+#inshop_tree{ padding:0px; list-style:none; margin:0px; }
+#inshop_tree ul{
+    margin-left:0px;
+    padding-left:16px;
+}
+#inshop_tree li { list-style:none; margin-left:0px; padding-left:0px; }
+#inshop_tree li span {
+    background:url(/templates/_default_/images/icons/folder.png) no-repeat;
+    padding-left:20px;
+    margin-left:0px;
+    font-weight:bold;
+}
+
+#inshop_tree li span a{
+    font-weight:normal;
+}
+
+#inshop_tree li a.cat_plus,
+#inshop_tree li a.cat_minus,
+#inshop_tree li a.cat_none{
+    display:block;
+    float:left;
+    width:16px;
+    height:16px;
+    margin-right:3px;
+}
+
+#inshop_tree li a.cat_plus{ background:url(../images/shop_cat_plus.png) no-repeat left 2px; }
+#inshop_tree li a.cat_minus{ background:url(../images/shop_cat_minus.png) no-repeat left 2px; }
+
+#upr_p_shop_orders .order{ margin-bottom:15px; }
+#upr_p_shop_orders .order .head{ font-size:16px; color:#27537A; }
+#upr_p_shop_orders .order .data{ margin-top:2px; margin-bottom:6px; font-size:12px; }
+#upr_p_shop_orders .order .data span{ font-weight:bold; }
+#upr_p_shop_orders .order .data .date{ margin-left:10px; }
+#upr_p_shop_orders .order .items{ padding:5px; border:solid 1px silver; }
+#upr_p_shop_orders .order .items td{ padding:2px; }
+
+/* ========================================================================== */
+/* ========================================================================== */
+
+#inshop_vendors_list .vendor{
+    font-size:18px;
+    padding-left:15px;
+}

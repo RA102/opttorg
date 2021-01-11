@@ -1,0 +1,32 @@
+#
+#  В этом файле перечислены все позиции, предусмотренные для
+#  вывода модулей в шаблоне DEFAULT.
+#
+#  Чтобы добавить новую позицию для вывода модулей,
+#  добавьте ее название (латинскими буквами и цифрами) новой строкой в список.
+#  Затем в нужном месте шаблона вставьте код: <?php $inPage->printModules('название_позиции'); ?>
+#
+#
+sidebar
+cart
+girdmenu
+maintop
+mainbottom
+top
+topmenu
+header
+accordeon
+b-cart
+mobile-menu
+b-santech
+sertif
+footer
+banner
+banmod
+filter
+reviews
+banner1
+banner2
+banner3
+marquee
+coin

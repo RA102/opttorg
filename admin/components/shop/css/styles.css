@@ -1,0 +1,134 @@
+.pagebar{
+    margin-top:10px;
+    margin-bottom: 15px;
+    font-size:12px;
+    clear:both;
+}
+.pagebar_title{
+    margin:5px;
+    padding:4px;
+}
+.pagebar_page{
+    margin:3px;
+    padding:6px;
+}
+.pagebar_current{
+    margin:3px;
+    padding:6px;
+    border:solid 1px silver;
+    background-color: white;
+}
+.cat_link div{
+    height:17px;
+    line-height:17px;
+    padding: 1px 1px 1px 18px;
+    background: url(/admin/images/icons/hmenu/cats.png) no-repeat;
+    overflow:hidden;
+}
+.cat_link div span{
+    float:right;
+}
+.cat_add_link{
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom: dotted 1px silver;
+}
+.cat_add_link div{
+    padding: 2px 2px 2px 18px;
+    background: url(/admin/images/icons/hmenu/add.png) no-repeat;
+}
+input#price{
+    width:100px;
+    border:none;
+    border-bottom:dashed 1px silver;
+    margin-bottom:1px;
+}
+.imghint{
+    position:absolute;
+    padding:10px;
+    background:#FFF;
+    border:solid 2px gray;
+    display:none;
+}
+.itemlink{
+    cursor:help;
+}
+#pricepanel{
+    display:none;
+}
+#slide_cell{
+    width:14px;
+    background:url(/admin/components/shop/images/slide.gif) no-repeat center center #EEE;
+    cursor:pointer;
+}
+.unslided{
+    background:url(/admin/components/shop/images/unslide.gif) no-repeat center center #EEE !important;
+}
+#cats_cell{
+    padding:12px;
+    background:url(/admin/components/shop/images/tree_bg.jpg) repeat-y right top #EEE;
+    width:240px;
+}
+.var{
+    padding-top:10px;
+}
+.var span{
+    color:gray;
+}
+.chars_link div a{ 
+    color: #09C;
+}
+.chars_link div{
+    padding: 2px 2px 2px 18px;
+    background: url(/admin/components/shop/images/char.gif) no-repeat;
+}
+
+.customer_info{
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.customer_info span{
+    padding:2px;
+    padding-left:21px;
+    margin-top:4px;
+    display:block;
+}
+
+.customer_info .user{ background: url(/components/shop/images/contacts/user.gif) no-repeat; }
+.customer_info .phone{ background: url(/components/shop/images/contacts/phone.gif) no-repeat; }
+.customer_info .address{ background: url(/components/shop/images/contacts/address.gif) no-repeat; }
+
+.order_info { padding:10px; border:solid 1px silver; width:740px; margin-bottom:4px; }
+.order_info table td.first{ font-weight:bold; width:200px;}
+.order_info table td{ padding:3px;  font-size:14px;  }
+
+.order_items { padding:0px; border:solid 1px silver; width:760px; margin-bottom:4px; }
+.order_items table tbody td { padding:10px;  font-size:14px;  }
+.order_items table thead td { padding:10px;  font-size:12px; background:#ECECEC; font-weight:bold; }
+
+.order_info .time{
+    margin-left:10px;
+    background:#ECECEC;
+    padding:2px;
+}
+
+.order_add_pos{
+    height:16px;
+    line-height:16px;
+    padding-left:20px;
+    background:url(/admin/images/icons/hmenu/add.png) no-repeat;
+}
+
+table#discounts { margin-top:15px; }
+table#discounts td { text-align: center; }
+
+table#discounts input { text-align: center; }
+.add_discount {
+    padding:2px;
+    padding-left:20px;
+    background:url(/admin/images/actions/add.gif) no-repeat left center;
+}
+
+table#discounts tr.var { display:table-row; }
+table#discounts tr.var td { display:table-cell; }
