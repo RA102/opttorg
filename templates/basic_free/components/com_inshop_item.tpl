@@ -115,7 +115,7 @@
 
 				{else}
 					<div class="alert alert-warning">
-						К сожалению, данный товар временно недоступен для заказа онлайн. Пожалуйста, посетите один из наших магазинов!
+						К сожалению, данный товар временно недоступен для заказа онлайн!
 					</div>
 				{/if}	
 					<div class="average text-right">{section name=foos start=1 loop=6 step=1}<span class="glyphicon glyphicon-star"{if $item.rating < $smarty.section.foos.index} style="color:lightgray"{/if}></span>{/section}<br /><a href="#cmms" class="cmmlink">({$item.rating_votes|spellcount:'отзыв':'отзыва':'отзывов'})</a></div>			

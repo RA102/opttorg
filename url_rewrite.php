@@ -148,6 +148,11 @@
                                 'action'  => 'redirect-301'
                              );						 
 // енд
+
+        $rules[] = [
+            'source' => '/^onclick'
+        ];
+
         return $rules;
 
     }
