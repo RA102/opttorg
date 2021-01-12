@@ -4634,11 +4634,9 @@ class cms_model_shop
             foreach ($items as $key => $item) {
 
                 $queryGetItems = "SELECT *
-                                      FROM cms_shop_items i 
-                                      JOIN cms_shop_items_cats ic ON i.id = ic.item_id  
-                                      WHERE ic.category_id = '{$categoryId}' 
-                                      AND ic.item_id = '{$item}'
-                                      ";
+                                  FROM cms_shop_items i 
+                                  WHERE i.id = '{$item}'
+                                 ";
                 $result2 = $this->inDB->query($queryGetItems);
                 if ($this->inDB->num_rows($result2)) {
                     $arrayItems[] = $this->inDB->fetchObject($result2);
