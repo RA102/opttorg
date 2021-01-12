@@ -4672,12 +4672,13 @@ class cms_model_shop
 
 
         /* $sql = "SELECT
-        i.*,
-        IFNULL(v.title, '') as vendor,
-        IFNULL(v.id, 0) as vendor_id,
-        c.id, c.is_xml
-        FROM cms_shop_items i LEFT JOIN cms_shop_vendors v ON i.vendor_id = v.id LEFT JOIN cms_shop_cats c ON i.category_id = c.id
-        WHERE i.published=1 AND i.qty>0 AND i.price>1 AND c.is_xml=1"; */
+            i.*,
+            IFNULL(v.title, '') as vendor,
+            IFNULL(v.id, 0) as vendor_id,
+            c.id, c.is_xml
+            FROM cms_shop_items i LEFT JOIN cms_shop_vendors v ON i.vendor_id = v.id LEFT JOIN cms_shop_cats c ON i.category_id = c.id
+            WHERE i.published=1 AND i.qty>0 AND i.price>1 AND c.is_xml=1";
+        */
 
         $sql = "SELECT 
 			i.*, 

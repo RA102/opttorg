@@ -249,7 +249,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                             </div>
                                     <?php } else { ?>
 <!--                                            <div id="auth" class="d-flex align-item-center">-->
-                                                <span id="btn-login" class="btn login mr-3" style="background-color: #ffffff;" data-toggle="modal" data-target="#exampleModal">Вход</span>
+                                                <span id="btn-login" class="btn login mr-3" style="background-color: #ffffff;" data-toggle="modal" data-target="#exampleModal">Войти</span>
                                                 <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
                                                 <!--					<span class="hlink" data-href="--><?php //echo base64_encode('/login'); ?><!--">Вход</span>-->
                                                 <!--					<span class="hlink" data-href="--><?php //echo base64_encode('/registration'); ?><!--"> / Регистрация</span>-->
@@ -403,121 +403,102 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                 <li data-target="#carousel-1" data-slide-to="6"></li>
                             </ol>
                             <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active" style="height: 367px;">
+                                <div class="carousel-item active" >
                                     <a href="<?php echo $banner1['link']; ?>" title="<?php echo $banner1['title']; ?>">
-                                        <img src="/images/banners/<?php echo $banner1['fileurl']; ?>" class="img-resp h-100 hidden-xs" alt="<?php echo $banner1['title']; ?>"/>
+                                        <img src="/images/banners/<?php echo $banner1['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner1['title']; ?>"/>
                                     </a>
                                     <a href="<?php echo $banner1['link']; ?>" title="<?php echo $banner1['title']; ?>">
-                                        <img src="/images/banners/<?php echo $banner1['fileurl2']; ?>" class="img-resp h-100 hidden-lg hidden-md hidden-sm" alt="<?php echo $banner1['title']; ?>"/>
+                                        <img src="/images/banners/<?php echo $banner1['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner1['title']; ?>"/>
                                     </a>
                                 </div>
                                 <?php if ($banner2) { ?>
-                                    <div class="carousel-item" style="height: 367px;">
+                                    <div class="carousel-item" >
                                         <a href="<?php echo $banner2['link']; ?>" title="<?php echo $banner2['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner2['fileurl']; ?>" class="img-fluid h-100 hidden-xs" alt="<?php echo $banner2['title']; ?>" />
+                                            <img src="/images/banners/<?php echo $banner2['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner2['title']; ?>" />
                                         </a>
                                         <a href="<?php echo $banner2['link']; ?>" title="<?php echo $banner2['title']; ?>">
-                                            <img  src="/images/banners/<?php echo $banner2['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm" alt="<?php echo $banner2['title'];  ?>"/>
+                                            <img  src="/images/banners/<?php echo $banner2['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner2['title'];  ?>"/>
                                         </a>
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner3) { ?>
-                                    <div class="carousel-item" style="height: 367px;">
+                                    <div class="carousel-item" >
                                         <a href="<?php echo $banner3['link']; ?>" title="<?php echo $banner3['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner3['fileurl']; ?>" class="img-fluid h-100 hidden-xs" alt="<?php echo $banner3['title']; ?>" />
+                                            <img src="/images/banners/<?php echo $banner3['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner3['title']; ?>" />
                                         </a>
                                         <a href="<?php echo $banner3['link']; ?>" title="<?php echo $banner3['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner3['fileurl2']; ?>" class="img-resp hidden-lg hidden-md hidden-sm" alt="<?php echo $banner3['title']; ?>"/>
+                                            <img src="/images/banners/<?php echo $banner3['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner3['title']; ?>"/>
                                         </a>
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner4) { ?>
-                                    <div class="carousel-item" style="height: 367px;">
-                                        <a  href="<?php echo $banner4['link']; ?>"
-                                           title="<?php echo $banner4['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner4['fileurl']; ?>"
-                                                    class="img-fluid h-100 hidden-xs" alt="<?php echo $banner4['title']; ?>" /></a>
-                                        <a href="<?php echo $banner4['link']; ?>"
-                                           title="<?php echo $banner4['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner4['fileurl2']; ?>"
-                                                    class="img-fluid hidden-lg hidden-md hidden-sm"
-                                                    alt="<?php echo $banner4['title']; ?>"/></a>
+                                    <div class="carousel-item">
+                                        <a href="<?php echo $banner4['link']; ?>" title="<?php echo $banner4['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner4['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner4['title']; ?>"/>
+                                        </a>
+                                        <a href="<?php echo $banner4['link']; ?>" title="<?php echo $banner4['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner4['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner4['title']; ?>"/>
+                                        </a>
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner5) { ?>
-                                    <div class="carousel-item" style="height: 367px;">
-                                        <a href="<?php echo $banner5['link']; ?>"
-                                           title="<?php echo $banner5['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner5['fileurl']; ?>"
-                                                    class="img-fluid h-100 hidden-xs" alt="<?php echo $banner5['title']; ?>" /></a>
-                                        <a href="<?php echo $banner5['link']; ?>"
-                                           title="<?php echo $banner5['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner5['fileurl2']; ?>"
-                                                    class="img-fluid hidden-lg hidden-md hidden-sm"
-                                                    alt="<?php echo $banner5['title']; ?>"/></a>
+                                    <div class="carousel-item" >
+                                        <a href="<?php echo $banner5['link']; ?>" title="<?php echo $banner5['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner5['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner5['title']; ?>" />
+                                        </a>
+                                        <a href="<?php echo $banner5['link']; ?>" title="<?php echo $banner5['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner5['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner5['title']; ?>"/>
+                                        </a>
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner6) { ?>
-                                    <div class="carousel-item" style="height: 367px;">
+                                    <div class="carousel-item" >
                                         <a href="<?php echo $banner6['link']; ?>" title="<?php echo $banner6['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner6['fileurl']; ?>" class="img-fluid h-100 hidden-xs" alt="<?php echo $banner6['title']; ?>" />
+                                            <img src="/images/banners/<?php echo $banner6['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner6['title']; ?>" />
                                         </a>
-                                        <a href="<?php echo $banner6['link']; ?>"
-                                           title="<?php echo $banner6['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner6['fileurl2']; ?>"
-                                                    class="img-fluid hidden-lg hidden-md hidden-sm"
-                                                    alt="<?php echo $banner6['title']; ?>"/></a>
+                                        <a href="<?php echo $banner6['link']; ?>" title="<?php echo $banner6['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner6['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner6['title']; ?>"/>
+                                        </a>
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner7) { ?>
-                                    <div class="carousel-item" style="height: 367px;">
-                                        <a href="<?php echo $banner7['link']; ?>"
-                                           title="<?php echo $banner7['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner7['fileurl']; ?>"
-                                                    class="img-fluid h-100 hidden-xs" alt="<?php echo $banner7['title']; ?>" /></a>
-                                        <a href="<?php echo $banner7['link']; ?>"
-                                           title="<?php echo $banner7['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner7['fileurl2']; ?>"
-                                                    class="img-fluid hidden-lg hidden-md hidden-sm"
-                                                    alt="<?php echo $banner7['title']; ?>"/></a>
+                                    <div class="carousel-item" >
+                                        <a href="<?php echo $banner7['link']; ?>" title="<?php echo $banner7['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner7['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner7['title']; ?>" />
+                                        </a>
+                                        <a href="<?php echo $banner7['link']; ?>" title="<?php echo $banner7['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner7['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner7['title']; ?>"/>
+                                        </a>
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner8) { ?>
-                                    <div class="carousel-item" style="height: 367px;">
-                                        <a href="<?php echo $banner8['link']; ?>"
-                                           title="<?php echo $banner8['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner8['fileurl']; ?>"
-                                                    class="img-fluid h-100 hidden-xs" alt="<?php echo $banner8['title']; ?>" /></a>
-                                        <a href="<?php echo $banner8['link']; ?>"
-                                           title="<?php echo $banner8['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner8['fileurl2']; ?>"
-                                                    class="img-fluid hidden-lg hidden-md hidden-sm"
-                                                    alt="<?php echo $banner8['title']; ?>"/></a>
+                                    <div class="carousel-item" >
+                                        <a href="<?php echo $banner8['link']; ?>" title="<?php echo $banner8['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner8['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner8['title']; ?>" />
+                                        </a>
+                                        <a href="<?php echo $banner8['link']; ?>" title="<?php echo $banner8['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner8['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner8['title']; ?>"/>
+                                        </a>
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner9) { ?>
-                                    <div class="carousel-item" style="height: 367px;">
-                                        <a href="<?php echo $banner9['link']; ?>"
-                                           title="<?php echo $banner9['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner9['fileurl']; ?>"
-                                                    class="img-fluid h-100 hidden-xs" alt="<?php echo $banner9['title']; ?>" /></a>
-                                        <a href="<?php echo $banner9['link']; ?>"
-                                           title="<?php echo $banner9['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner9['fileurl2']; ?>"
-                                                    class="img-fluid hidden-lg hidden-md hidden-sm"
-                                                    alt="<?php echo $banner9['title']; ?>"/></a>
+                                    <div class="carousel-item">
+                                        <a href="<?php echo $banner9['link']; ?>" title="<?php echo $banner9['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner9['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner9['title']; ?>"/>
+                                        </a>
+                                        <a href="<?php echo $banner9['link']; ?>" title="<?php echo $banner9['title']; ?>">
+                                            <img src ="/images/banners/<?php echo $banner9['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner9['title']; ?>"/>
+                                        </a>
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner10) { ?>
-                                    <div class="carousel-item" style="height: 367px;">
-                                        <a href="<?php echo $banner10['link']; ?>"
-                                           title="<?php echo $banner10['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner10['fileurl']; ?>" class="img-fluid h-100 hidden-xs" alt="<?php echo $banner10['title']; ?>" /></a>
-                                        <a href="<?php echo $banner10['link']; ?>"
-                                           title="<?php echo $banner10['title']; ?>"><img
-                                                    src="/images/banners/<?php echo $banner10['fileurl2']; ?>"
-                                                    class="img-fluid hidden-lg hidden-md hidden-sm"
-                                                    alt="<?php echo $banner10['title']; ?>"/></a>
+                                    <div class="carousel-item">
+                                        <a href="<?php echo $banner10['link']; ?>" title="<?php echo $banner10['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner10['fileurl']; ?>" class="img-fluid hidden-xs img-carousel" alt="<?php echo $banner10['title']; ?>" />
+                                        </a>
+                                        <a href="<?php echo $banner10['link']; ?>" title="<?php echo $banner10['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner10['fileurl2']; ?>" class="img-fluid hidden-lg hidden-md hidden-sm img-carousel" alt="<?php echo $banner10['title']; ?>"/>
+                                        </a>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -605,7 +586,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </footer>
     </div>
-    <div id="back-top" class="hidden-md hidden-sm hidden-xs"><a href="#top"><img
+    <div id="back-top" class="hidden-md hidden-sm hidden-xs"><a href="#top">
+            <img
                     src="/templates/<?php echo TEMPLATE; ?>/img/totop.png"/></a></div>
 
     <script src="/templates/<?php echo TEMPLATE; ?>/js/bootstrap-4.js"></script>

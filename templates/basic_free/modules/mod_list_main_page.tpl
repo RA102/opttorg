@@ -93,7 +93,7 @@
             <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3">
                 <div class="thumb">
                     <a href="/shop/{$item->seolink}.html" title="{$item->title}" class="">
-                        <img  src="/images/photos/small/shop{$item->id}.jpg" class="img-fluid rounded border" alt="{$item->title}"/>
+                        <img  src="/images/photos/small/shop{$item->id}.jpg" class="img-fluid list-item-img" alt="{$item->title}"/>
                     </a>
                     <div class="capt">
                         <a href="/shop/{$item->seolink}.html" title="{$item->title}" data-truncate="2" style="word-break: break-all;">{$item->title}</a>
@@ -101,7 +101,7 @@
                     <div class="pricer">
                         {if $item->old_price}
                             <s>{$item->old_price|number_format:0:' ':' '}</s>{/if}
-                        <div{if $item->old_price} class="color_red"{/if}>{if $iprice>0}{$iprice|number_format:0:' ':' '} тг.{else}<span>{$item->price} тг.</span>{/if}</div>
+                        <div{if $item->old_price} class="color_red"{/if}>{if $iprice>0}{$iprice|number_format:0:' ':' '} тг.{else}<span>{$item->price|number_format:0:' ':' '} тг.</span>{/if}</div>
                     </div>
                     <form action="/shop/addtocart" method="POST">
                         <input type="hidden" name="add_to_cart_item_id" value="{$item->id}"/>
