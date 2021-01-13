@@ -586,9 +586,11 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </footer>
     </div>
-    <div id="back-top" class="hidden-md hidden-sm hidden-xs"><a href="#top">
-            <img
-                    src="/templates/<?php echo TEMPLATE; ?>/img/totop.png"/></a></div>
+    <div id="back-top" class="hidden-md hidden-sm hidden-xs">
+        <a href="#top">
+            <img src="/templates/<?php echo TEMPLATE; ?>/img/totop.png"/>
+        </a>
+    </div>
 
     <script src="/templates/<?php echo TEMPLATE; ?>/js/bootstrap-4.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/truncatelines.js"></script>

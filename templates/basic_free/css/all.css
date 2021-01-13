@@ -1909,6 +1909,25 @@ label#label25 > div:nth-child(3) {
     border-radius: 10px;
 }
 
+
+#indicators > li {
+    margin-right: 6px;
+}
+
+.row.no-gutters .item {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.row.no-gutters .item:first-child {
+    padding-left: 0;
+}
+
+.row.no-gutters .item:last-child {
+    padding-right: 0;
+}
+
+
 /* End selectors*/
 @media all and (min-width:1201px) {
     .mrg-top {
