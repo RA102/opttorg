@@ -6,7 +6,7 @@ if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
 //                      instantcms-development@ds-soft.ru                     //
 /******************************************************************************/
 
-class cms_model_sitemap{
+class cms_model_sitemap {
     public $config = array();
     
     public function __construct(){
@@ -240,5 +240,3 @@ abstract class comMaps{
         return $cats;
     }
 }
-
-?>
