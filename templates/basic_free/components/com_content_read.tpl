@@ -1,5 +1,4 @@
-<div class="row">
-    <article>
+<article class="row">
     {if $article.showtitle}
         <h1 class="con_heading text-center">{$article.title}</h1>
     {/if}
@@ -21,5 +20,4 @@
     </div>
     {$article.plugins_output_after}
     </div>
-    </article>
-</div>
+</article>

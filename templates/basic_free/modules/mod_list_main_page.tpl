@@ -7,7 +7,7 @@
             </a>
         </div>
         <div class="item-menu text-center">
-            <a href="/">
+            <a href="/shop/akcii">
                 <img src="/templates/basic_free/images/menu-mobile/stock.png" alt="" width="80">
                 <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Акции</span>
             </a>
@@ -25,58 +25,59 @@
             </a>
         </div>
         <div class="item-menu text-center">
-            <a href="">
+            <a href="/mebel-dlja-vannoi">
                 <img src="/templates/basic_free/images/menu-mobile/pedestal.png" alt="" width="80">
-                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Мебель</span>
+                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Мебель<br>для ванной</span>
             </a>
         </div>
 
         <div class="item-menu text-center">
-            <a href="">
+            <a href="/shop/smesiteli">
                 <img src="/templates/basic_free/images/menu-mobile/mixer.png" alt="" width="80">
                 <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Смесители</span>
             </a>
         </div>
         <div class="item-menu text-center">
-            <a href="">
-                <img src="/templates/basic_free/images/menu-mobile/toilet.png" alt="" width="80">
-                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Унитазы<br />и биде</span>
-            </a>
-        </div>
-        <div class="item-menu text-center">
-            <a href="">
-                <img src="/templates/basic_free/images/menu-mobile/sink.png" alt="" width="80">
-                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Раковины <br>для ванной</span>
-            </a>
-        </div>
-        <div class="item-menu text-center">
-            <a href="">
-                <img src="/templates/basic_free/images/menu-mobile/sink-kitchen.png" alt="" width="80">
-                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Мойки <br>для куни</span>
-            </a>
-        </div>
-        <div class="item-menu text-center">
-            <a href="">
-                <img src="/templates/basic_free/images/menu-mobile/heated-towel-rail.png" alt="" width="80">
-                <p class="text-center d-block" style="font-size: 24px; line-height: 22px;">Полотенце<br> сушители</p>
-            </a>
-        </div>
-        <div class="item-menu text-center">
-            <a href="">
+            <a href="/shop/aksessuary">
                 <img src="/templates/basic_free/images/menu-mobile/accessories.png" alt="" width="80">
                 <p class="text-center d-block" style="font-size: 24px; line-height: 22px;">Аксессуары</p>
             </a>
         </div>
         <div class="item-menu text-center">
-            <a href="">
+            <a href="/shop/unitazy-i-bide">
+                <img src="/templates/basic_free/images/menu-mobile/toilet.png" alt="" width="80">
+                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Унитазы<br />и биде</span>
+            </a>
+        </div>
+        <div class="item-menu text-center">
+            <a href="/shop/umyvalniki-dlja-vannoi">
+                <img src="/templates/basic_free/images/menu-mobile/sink.png" alt="" width="80">
+                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Умывальники <br>для ванной</span>
+            </a>
+        </div>
+        <div class="item-menu text-center">
+            <a href="/shop/moiki-dlja-kuhni">
+                <img src="/templates/basic_free/images/menu-mobile/sink-kitchen.png" alt="" width="80">
+                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Мойки <br>для куни</span>
+            </a>
+        </div>
+        <div class="item-menu text-center">
+            <a href="/shop/polotencesushiteli">
+                <img src="/templates/basic_free/images/menu-mobile/heated-towel-rail.png" alt="" width="80">
+                <p class="text-center d-block" style="font-size: 24px; line-height: 22px;">Полотенце<br> сушители</p>
+            </a>
+        </div>
+
+        <div class="item-menu text-center">
+            <a href="/shop/vodonagrevateli">
                 <img src="/templates/basic_free/images/menu-mobile/boiler.png" alt="" width="80">
                 <p class="text-center d-block" style="font-size: 24px; line-height: 22px;">Нагреватели</p>
             </a>
         </div>
         <div class="item-menu text-center">
-            <a href="">
+            <a href="/shop/komplektuyuschie">
                 <img src="/templates/basic_free/images/menu-mobile/yet.png" alt="" width="80">
-                <p class="text-center d-block" style="font-size: 24px; line-height: 22px;">Еще</p>
+                <p class="text-center d-block" style="font-size: 24px; line-height: 22px;">Комплектующие</p>
             </a>
         </div>
 

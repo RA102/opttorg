@@ -54,4 +54,3 @@ class blogs_map extends comMaps{
     public function user_map_end(){ return FALSE; }
     public function user_genMapsList(){ return FALSE; }
 }
-?>

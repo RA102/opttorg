@@ -25,7 +25,7 @@
             </a>
         </div>
         <div class="item-menu text-center">
-            <a href="/">
+            <a href="/akcii">
                 <img src="/templates/basic_free/images/menu-mobile/stoсk_button.png" alt="" width="80">
                 <p class="text-center" style="font-size: 24px;">Акции</p>
             </a>

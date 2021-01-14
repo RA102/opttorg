@@ -62,7 +62,7 @@
 									{/if}
 									<input type="hidden" name="var_art_no" value="" />
                                         <input type="hidden" name="add_to_cart_item_id" value="{$item.id}" />
-                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table_tab hidden-xs hidden-sm">
+                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table_tab">
 											<tr>
                                                 <td>
                                                     <div id="add_to_cart_{$item.id}">

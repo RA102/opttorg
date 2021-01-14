@@ -4,7 +4,7 @@
 
 <table cellpadding="0" cellspacing="0" border="0" width="100%" height="100%" style="margin-top:2px">
     <tr>
-        <td valign="top" width="240" style="<?php if ($hide_cats){ ?>display:none;<?php } ?>" id="cats_cell">
+        <td valign="top" style="<?php if ($hide_cats){ ?>display:none;<?php } ?>" id="cats_cell">
 
             <div class="cat_add_link">
                 <div>

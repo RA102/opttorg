@@ -559,11 +559,6 @@ div.filter {
 .unslided{
     background:url(/admin/images/tree/unslide.gif) no-repeat center center #EEE !important;
 }
-#cats_cell{
-    padding:12px;
-    background:url(/admin/images/tree/tree_bg.jpg) repeat-y right top #EEE;
-    width:240px;
-}
 
 /* ========================================================================== */
 /* ======================= НАСТРОЙКИ МОДУЛЕЙ ================================ */

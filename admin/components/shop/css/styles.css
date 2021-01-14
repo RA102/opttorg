@@ -67,7 +67,7 @@ input#price{
 #cats_cell{
     padding:12px;
     background:url(/admin/components/shop/images/tree_bg.jpg) repeat-y right top #EEE;
-    width:240px;
+    width:400px;
 }
 .var{
     padding-top:10px;
