@@ -354,13 +354,15 @@ function shop(){
         if ($item['metadesc']) {
             $inPage->setDescription($item['metadesc']);
         } else {
-            $inPage->setDescription($item['title'] . ' ✔ Широкий ассортимент ✔ Лучшая цена ✔ Гарантия качества ⛟ Доставка → Алматы, Нур-Султан (Астана), Караганда, Шымкент, Костанай, по всему Казахстану.');
+            $inPage->setDescription($item['title'] . ' ✔ Широкий ассортимент ✔ Лучшая цена ✔ Гарантия качества ⛟ Доставка → Караганда, Нур-Султан (Астана), Алматы, Шымкент, Костанай, по всему Казахстану.');
         }
 
         //ищем связанные товары
-        //if ($cfg['show_related']){
-        //    $related_items = $model->getRelatedItems($item['id']);
-        // }
+        if ($cfg['show_related']){
+            $relatedItems = $model->getRelatedItems($item['id']);
+        } else {
+            $ralatedItems = '';
+        }
 
         $sims = $model->selectSimilars($item['shortdesc']);
         $rels = $model->selectRelatives($item['category_id'], $item['id']);
@@ -369,7 +371,7 @@ function shop(){
 
         $inPage->addHead('
 			<meta property="og:title" content="' . $item['title'] . ' – купить в интернет-магазине SanMarket.kz" />
-			<meta property="og:description" content="' . $item['title'] . ' ✔ Широкий ассортимент ✔ Лучшая цена ✔ Гарантия качества ⛟ Доставка → Алматы, Нур-Султан (Астана), Караганда, Шымкент, Костанай, по всему Казахстану." />
+			<meta property="og:description" content="' . $item['title'] . ' ✔ Широкий ассортимент ✔ Лучшая цена ✔ Гарантия качества ⛟ Доставка → Караганда, Нур-Султан (Астана), Алматы, Шымкент, Костанай, по всему Казахстану." />
 			<meta property="og:image" content="https://sanmarket.kz/images/photos/small/shop' . $item['id'] . '.jpg" />
 			<meta property="og:url" content="https://sanmarket.kz/shop/' . $item['seolink'] . '.html" />
 		
@@ -399,7 +401,7 @@ function shop(){
         $smarty->assign('sims', $sims);
         $smarty->assign('rels', $rels);
         $smarty->assign('nav', $nav);
-        $smarty->assign('related_items', $related_items);
+        $smarty->assign('related_items', $relatedItems);
         $smarty->assign('is_user', $inUser->id);
         $smarty->display($item['tpl']);
 

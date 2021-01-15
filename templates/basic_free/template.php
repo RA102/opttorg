@@ -210,27 +210,29 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <header class="site-header">
         <div class="main-body">
             <div class="container-fluid">
-                <div class="row flex-column">
-                    <div class="d-md-none d-sm-none d-none d-lg-flex d-xl-flex justify-content-between">
-                        <div class="col-md-3 col-lg-3 col-xl-3">
+                <div class="row">
+                    <div class="d-none d-sm-none d-md-none d-lg-flex d-xl-flex w-100" style="padding-bottom: 22px;">
+                        <div class="col-lg-3 col-xl-3">
                             <div class="row">
                                 <a href="/" rel="home" title="Интернет-магазин сантехники SanMarket">
-                                    <img width="275" height="50" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" class="" alt="SanMarket – интернет-магазин сантехники в Казахстане"/>
+                                    <img width="275" height="50" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" class="" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
                                 </a>
                             </div>
                         </div>
                         <div class="search-lg col">
-                            <div class="row">
-                                <div class="form-inline position-relative">
-                                    <input name="referal" class=" who search-all input-search" type="text" placeholder="Начать поиск...">
+                            <div class="row justify-content-center align-items-center">
+                                <div class="input-group position-relative">
+                                    <input name="referal" class="who search-all input-search form-control" type="text" placeholder="Начать поиск...">
+                                    <div class="input-group-append">
+                                        <button id="icon-search" class="btn btn-secondary" type="button" style="background-color: #0c5da5; height: 100%; border: 2px solid #0c5da5; width: 135px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;" >
+                                            <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" />
+                                        </button>
+                                    </div>
                                     <ul class="search_result list-search"></ul>
-                                    <button id="icon-search" class="btn-search position-absolute top-btn-search d-flex align-item-center" style="background-color: #0c5da5; height: 100%; border: 1px solid #0c5da5;" type="submit">
-                                        <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" />
-                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
+                        <div class="col-lg-3 col-xl-3">
                             <div class="row justify-content-center align-item-center">
                                 <?php $userlogs = $inUser->login;
                                     $usgro = $inUser->group_id;
@@ -259,18 +261,18 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     </div>
                 </div>
                 <div class="d-none">
-                    <div class="">
-                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
-                            <span><span class="glyphicon glyphicon-list"></span> Каталог</span>
-                        </button>
-                    </div>
-                    <div class="">
+<!--                    <div class="">-->
+<!--                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">-->
+<!--                            <span><span class="glyphicon glyphicon-list"></span> Каталог</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <div class="">-->
                         <!--Ваш город<br />
                     <a href="#" data-toggle="modal" data-target="#city_modal"><?php echo $gorod; ?> <span class="caret"></span></a>-->
-                    </div>
+<!--                    </div>-->
                 </div>
                 <nav class="navbar border-top row">
-                    <div class="col-6 col-md-6 d-lg-none">
+                    <div class="col-4 col-md-4 d-lg-none">
                         <a class="navbar-brand d-lg-none d-flex" href="/">
                             <img class="logo img-fluid" style="" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" />
                         </a>
@@ -292,9 +294,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                         </div>
                     </div>
     <!--                    </div>-->
-                    <div class="d-flex justify-content-between d-none d-lg-block d-xl-block" style="width: 100%;">
+                    <div class="justify-content-between d-none d-lg-flex d-xl-flex" style="width: 100%;">
                         <div class="" style="width: 275px;">
-                            <div class="collapse navbar-collapse js-navbar-collapse border-top border-0">
+                            <div class="navbar-collapse js-navbar-collapse border-top border-0">
                                 <div class="row">
                                     <?php $this->printModules('top'); ?>
                                 </div>

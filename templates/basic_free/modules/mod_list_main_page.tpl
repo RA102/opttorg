@@ -1,5 +1,5 @@
 <div class="position-relative mb-5">
-    <div class="visible-md visible-sm visible-xs hidden-lg mobile-menu">
+    <div class="d-md-block d-sm-block d-block d-lg-none d-xl-none mobile-menu">
         <div class="item-menu text-center">
             <a href="/shop">
                 <img src="/templates/basic_free/images/menu-mobile/catalog.png" alt="" width="80">

@@ -29,7 +29,8 @@
 				</div>
 			{/if}
 			-->
-			<a href="/shop/{$item.seolink}.html" title="{$item.title}" class="imgthumb"><img src="/images/photos/small/{$item.filename}" class="img-resp" alt="{$item.title}" />			
+			<a href="/shop/{$item.seolink}.html" title="{$item.title}" class="imgthumb">
+				<img src="/images/photos/small/{$item.filename}" class="img-fluid" alt="{$item.title}" />
 			{if $item.old_price>0}
 			{assign var="disco" value=((100-($iprice*100/$item.old_price))|ceil)}<div class="ribbon-lt"><span>Скидка 1 {$disco}%</span></div>{/if}
 			{if $item.novinka==1}<div class="ribbon-rt"><span>Новинка</span></div>{/if}			
