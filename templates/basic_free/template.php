@@ -99,7 +99,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     header('Vary: User-Agent'); ?>
     <meta charset="utf-8">
     <meta name="yandex-verification" content="312a4cd886e70dca"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta name="google-site-verification" content="DYDKBWosEuCVKRJ67c6OqTsTAZoxC2pionvAzroxARs"/>
     <?php $this->printHead(); ?>
 
@@ -210,53 +210,72 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <header class="site-header">
         <div class="main-body">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="d-none d-sm-none d-md-none d-lg-flex d-xl-flex w-100" style="padding-bottom: 22px;">
-                        <div class="col-lg-3 col-xl-3">
-                            <div class="row">
-                                <a href="/" rel="home" title="Интернет-магазин сантехники SanMarket">
-                                    <img width="275" height="50" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" class="" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="search-lg col">
-                            <div class="row justify-content-center align-items-center">
-                                <div class="input-group position-relative">
-                                    <input name="referal" class="who search-all input-search form-control" type="text" placeholder="Начать поиск...">
-                                    <div class="input-group-append">
-                                        <button id="icon-search" class="btn btn-secondary" type="button" style="background-color: #0c5da5; height: 100%; border: 2px solid #0c5da5; width: 135px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;" >
-                                            <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" />
-                                        </button>
+                <div class="row" style="padding-bottom: 22px;">
+                    <!--    logo    -->
+                    <div class="col-4 col-md-4 col-lg-3 col-xl-3">
+                        <a href="/" rel="home" title="Интернет-магазин сантехники SanMarket">
+                            <img height="50" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" class="" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
+                        </a>
+                    </div>
+                    <div class="d-none d-sm-none d-md-none d-lg-block d-xl-block col-lg-9 col-xl-9" >
+                        <div class="row">
+                            <div class="col-lg-8 col-xl-8">
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="input-group">
+                                        <input name="referal" class="who search-all input-search form-control position-relative" type="text" placeholder="Начать поиск...">
+                                        <div class="input-group-append">
+                                            <button id="icon-search" class="btn btn-secondary" type="button" >
+                                                <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
+                                            </button>
+                                        </div>
+                                        <ul class="search_result list-search"></ul>
                                     </div>
-                                    <ul class="search_result list-search"></ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-xl-4">
+                                <div class="row justify-content-end align-items-center">
+                                    <?php $userlogs = $inUser->login;
+                                            $usgro = $inUser->group_id;
+                                    ?>
+                                    <?php if ($userlogs) { ?>
+                                        <div id="logout-wrapper">
+                                            <img src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="" style="margin-right: 15px;" width="48" height="48">
+                                            <div>
+                                                <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
+                                                <br/>
+                                                <div class="jlreg_auth_lgogout" style="display: inline-block;">
+                                                    <img src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
+                                                    <a id="logout-exit" href="/logout">Выход</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } else { ?>
+                                        <span id="btn-login" class="btn login mr-3" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
+                                        <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
+                                        <!--					<span class="hlink" data-href="--><?php //echo base64_encode('/login'); ?><!--">Вход</span>-->
+                                        <!--					<span class="hlink" data-href="--><?php //echo base64_encode('/registration'); ?><!--"> / Регистрация</span>-->
+                                        <!--                                            </div>-->
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-xl-3">
-                            <div class="row justify-content-center align-item-center">
-                                <?php $userlogs = $inUser->login;
-                                    $usgro = $inUser->group_id;
-                                    ?>
-                                    <?php if ($userlogs) { ?>
-                                            <div id="logout-wrapper">
-                                                <img src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="" style="margin-right: 15px;" width="48" height="48">
-                                                <div>
-                                                    <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
-                                                    <br />
-                                                    <div class="jlreg_auth_lgogout" style="display: inline-block;">
-                                                        <img src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
-                                                        <a id="logout-exit" href="/logout">Выход</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    <?php } else { ?>
-                                                <span id="btn-login" class="btn login mr-3" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
-                                                <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
-                                                <!--					<span class="hlink" data-href="--><?php //echo base64_encode('/login'); ?><!--">Вход</span>-->
-                                                <!--					<span class="hlink" data-href="--><?php //echo base64_encode('/registration'); ?><!--"> / Регистрация</span>-->
-<!--                                            </div>-->
-                                    <?php } ?>
-                            </div>
+                    </div>
+
+                    <!--    иконки мобильная версия (акции, телефон, корзина)     -->
+                    <div class="col-8 col-md-8 d-flex d-lg-none justify-content-flex-end">
+                        <div class="header-icon">
+                            <a href="https://wa.me/77775409927">
+                                <img class="img-icon img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat">
+                            </a>
+                        </div>
+                        <div class="header-icon">
+                            <!--					<a href="tel:+77212503272">+7 7212 47 78 24</a><br />-->
+                            <a href=tel:+77775409927">
+                                <img class="img-icon " src="/templates/basic_free/images/top/PHONE.png" alt="phone">
+                            </a>
+                        </div>
+                        <div class="">
+                            <span class="hlink" data-href="<?php echo base64_encode('/shop/cart.html'); ?>"><?php $this->printModules('b-cart'); ?></span>
                         </div>
                     </div>
                 </div>
@@ -271,53 +290,28 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     <a href="#" data-toggle="modal" data-target="#city_modal"><?php echo $gorod; ?> <span class="caret"></span></a>-->
 <!--                    </div>-->
                 </div>
-                <nav class="navbar border-top row">
-                    <div class="col-4 col-md-4 d-lg-none">
-                        <a class="navbar-brand d-lg-none d-flex" href="/">
-                            <img class="logo img-fluid" style="" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" />
-                        </a>
+
+                <nav class="row d-sm-none d-md-none d-lg-flex border-top justify-content-between">
+                    <div class="position-relative">
+                        <?php $this->printModules('top'); ?>
                     </div>
-                    <div class="col-6 col-md-6 d-flex d-lg-none justify-content-flex-end">
-                        <div class="header-icon">
-                            <a href="https://wa.me/77775409927">
-                                <img class="img-icon img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat" >
-                            </a>
+
+                    <div class="d-inline-flex">
+                        <div class="icon-top-bar">
+                            <img src="/templates/basic_free/images/stock.png" alt="Акции" width="30">
+                            <a href="#">Акции</a>
                         </div>
-                        <div class="header-icon">
+                        <div class="icon-top-bar" style="">
                             <!--					<a href="tel:+77212503272">+7 7212 47 78 24</a><br />-->
-                            <a href=tel:+77775409927">
-                                <img class="img-icon " src="/templates/basic_free/images/top/PHONE.png" alt="phone" >
-                            </a>
+                            <img src="/templates/basic_free/images/top/PHONE.png" alt="phone" width="30">
+                            <a href="https://wa.me/77775409927">+7 777 540 99 27</a>
                         </div>
-                        <div class="">
+                        <div class="icon-top-bar">
                             <span class="hlink" data-href="<?php echo base64_encode('/shop/cart.html'); ?>"><?php $this->printModules('b-cart'); ?></span>
                         </div>
                     </div>
-    <!--                    </div>-->
-                    <div class="justify-content-between d-none d-lg-flex d-xl-flex" style="width: 100%;">
-                        <div class="" style="width: 275px;">
-                            <div class="navbar-collapse js-navbar-collapse border-top border-0">
-                                <div class="row">
-                                    <?php $this->printModules('top'); ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-flex-end align-item-center div-top-bar" style="flex: 1;">
-                            <div class="icon-top-bar">
-                                <img src="/templates/basic_free/images/stock.png" alt="Акции" width="30">
-                                <a href="#">Акции</a>
-                            </div>
-                            <div class="icon-top-bar" style="">
-                                <!--					<a href="tel:+77212503272">+7 7212 47 78 24</a><br />-->
-                                <img src="/templates/basic_free/images/top/PHONE.png" alt="phone" width="30">
-                                <a href="https://wa.me/77775409927">+7 777 540 99 27</a>
-                            </div>
-                            <div class="icon-top-bar">
-                                <span class="hlink" data-href="<?php echo base64_encode('/shop/cart.html'); ?>"><?php $this->printModules('b-cart'); ?></span>
-                            </div>
-                        </div>
-                    </div>
                 </nav>
+
             </div>
         </div>
     </header>
@@ -917,18 +911,14 @@ else { $("#bg_popup").hide();
 <div class="overlay entered"></div>
 
 
-<script type="text/javascript">
-
-</script>
-
 <div id="darkening"></div>
-<script>
-    setTimeout(function () {
-        document.getElementById('dynamic').innerHTML = '<div class="ks-widget" data-template="button" data-merchant-sku="83284" data-merchant-code="Sanmarket" data-city="750000000" ></div>'
-        // you should run this method to recheck buttons in DOM:
-        ksWidgetInitializer.reinit()
-    }, 1000)
-</script>
+<!--<script>-->
+<!--    setTimeout(function () {-->
+<!--        document.getElementById('dynamic').innerHTML = '<div class="ks-widget" data-template="button" data-merchant-sku="83284" data-merchant-code="Sanmarket" data-city="750000000" ></div>'-->
+<!--        // you should run this method to recheck buttons in DOM:-->
+<!--        ksWidgetInitializer.reinit()-->
+<!--    }, 1000)-->
+<!--</script>-->
 </body>
 </html>
 

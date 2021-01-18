@@ -14673,7 +14673,6 @@ label#label25 > div:nth-child(3) {
 
 
 input.who {
-    width: 440px;
     height: 48px;
     border: 2px solid #0C5DA5;
     border-right: none;
@@ -14715,6 +14714,16 @@ ul.search_result li.search_result_item:hover {
     margin: 0 0 15px;
     color: #98B2C3
 }
+
+#icon-search {
+    background-color: #0c5da5;
+    height: 100%;
+    border: 2px solid #0c5da5;
+    width: 75px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
 
 /* End selectors*/
 @media all and (min-width:1201px) {
@@ -14827,6 +14836,10 @@ ul.search_result li.search_result_item:hover {
 
     .carousel-item {
         height: 367px;
+    }
+
+    .menu-left {
+        padding-left: 10px;
     }
 
 }
