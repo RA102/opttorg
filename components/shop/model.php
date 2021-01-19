@@ -4446,8 +4446,8 @@ class cms_model_shop
     {
         $inCore = cmsCore::getInstance();
         $inDB = cmsDatabase::getInstance();
-        $massiv = array();
-        $arr = array();
+        $massiv = [];
+        $arr = [];
         $arr = explode(",", $shortdesc);
         foreach ($arr as $val) {
             if ($val != '') {

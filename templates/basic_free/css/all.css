@@ -14724,8 +14724,51 @@ ul.search_result li.search_result_item:hover {
     border-bottom-right-radius: 10px;
 }
 
+/* menu  */
 
-/* End selectors*/
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
+
+/* end menu*/
+
+/* indication slider */
+.carousel-indicators li {
+    height: 11px;
+    width: 11px;
+    border-radius: 50%;
+}
+
+#indicators > li {
+    margin-right: 3px;
+}
+
+/* end indication slider*/
+
+
+.list-item-card {
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-bottom: 3px;
+}
+
+/* --  End selectors -- */
 @media all and (min-width:1201px) {
     .mrg-top {
         margin-top: 0;

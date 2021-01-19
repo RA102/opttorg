@@ -33,9 +33,8 @@
 {else}
 <a class="mob-filter hidden-lg" href="#" data-toggle="modal" data-target="#fil_modal"><span class="glyphicon glyphicon-filter"></span> Фильтр товаров</a>
 <div class="rub-wrp">
-	<div class="row no-gutters">
-		<div class="col-lg-3">
-			
+	<div class="no-gutters">
+		<div class="col-3 col-sm-3 col-md-3 col-lg-3">
 			
 			{if $subcats}
 			<div class="subcats-style">
@@ -111,7 +110,7 @@
 			</div>
 			{if $leftbanner!=''}{$leftbanner}{/if}
 		</div>
-		<div class="col-lg-9">		
+		<div class="col-9 col-sm-9 col-md-9 col-lg-9">
 		
 		{if $items}
 			{include file='com_inshop_items.tpl'}

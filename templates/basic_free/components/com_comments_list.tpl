@@ -7,8 +7,7 @@
             <div class="cmm-tree">
                 <div class="row">
                     <div class="col-sm-9">
-                        <div class="cmm-hd">{if $comment.is_profile}<img width="28" height="28"
-                                                                         src="{$comment.user_image}" />{else}
+                        <div class="cmm-hd">{if $comment.is_profile}<img width="28" height="28" src="{$comment.user_image}" />{else}
                                 <img width="28" height="28" src="/images/users/avatars/small/nopic.jpg"/>
                             {/if}  {if !$comment.is_profile}{$comment.author}{else}{$comment.author.nickname}{/if}
                             , {$comment.fpubdate}</div>
