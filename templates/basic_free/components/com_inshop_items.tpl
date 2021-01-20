@@ -9,7 +9,7 @@
 		{if $itembanner!=''}{$itembanner}{/if}
 	{/if}
 {if $smarty.session.user.group_id==10}{$iprice=$item.opt}{else}{$iprice=$item.price}{/if}
-	<div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 list-item-card">
+	<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 list-item-card">
 	{literal}
 	<script>
 		ids.push("{/literal}{$item.id}{literal}");

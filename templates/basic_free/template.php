@@ -212,12 +212,12 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             <div class="container-fluid">
                 <div class="row" style="padding-bottom: 22px;">
                     <!--    logo    -->
-                    <div class="col-4 col-md-4 col-lg-3 col-xl-3">
+                    <div class="col-4 col-md-3 col-lg-3 col-xl-3">
                         <a href="/" rel="home" title="Интернет-магазин сантехники SanMarket">
-                            <img height="50" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" class="" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
+                            <img class="img-responsive" height="50" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg"  alt="SanMarket интернет-магазин сантехники в Казахстане"/>
                         </a>
                     </div>
-                    <div class="d-none d-sm-none d-md-none d-lg-block d-xl-block col-lg-9 col-xl-9" >
+                    <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-lg-9 col-xl-9" >
                         <div class="row">
                             <div class="col-lg-8 col-xl-8">
                                 <div class="row justify-content-center align-items-center">
@@ -233,7 +233,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                 </div>
                             </div>
                             <div class="col-lg-4 col-xl-4">
-                                <div class="row justify-content-end align-items-center">
+                                <div class="row justify-content-end align-items-center flex-nowrap">
                                     <?php $userlogs = $inUser->login;
                                             $usgro = $inUser->group_id;
                                     ?>
@@ -262,7 +262,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     </div>
 
                     <!--    иконки мобильная версия (акции, телефон, корзина)     -->
-                    <div class="col-8 col-md-8 d-flex d-lg-none justify-content-flex-end">
+                    <div class="col-8 col-md-8 d-flex d-lg-flex d-xl-none justify-content-flex-end">
                         <div class="header-icon">
                             <a href="https://wa.me/77775409927">
                                 <img class="img-icon img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat">
@@ -291,15 +291,15 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 <!--                    </div>-->
                 </div>
 
-                <nav class="row d-sm-none d-md-none d-lg-flex border-top justify-content-between">
+                <nav class="row d-none d-sm-none d-md-none d-lg-none d-xl-flex border-top justify-content-between">
                     <div class="position-relative">
                         <?php $this->printModules('top'); ?>
                     </div>
 
-                    <div class="d-inline-flex">
+                    <div class="d-inline-flex align-items-center">
                         <div class="icon-top-bar">
                             <img src="/templates/basic_free/images/stock.png" alt="Акции" width="30">
-                            <a href="#">Акции</a>
+                            <a href="/shop/akcii">Акции</a>
                         </div>
                         <div class="icon-top-bar" style="">
                             <!--					<a href="tel:+77212503272">+7 7212 47 78 24</a><br />-->
@@ -317,7 +317,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </header>
 
     <div class="main-body">
-        <div class="container-fluid d-block d-lg-none d-xl-none mt-5 mb-5">
+        <div class="container-fluid d-block d-lg-block d-xl-none mt-5 mb-5">
             <div class="search-mobile">
                 <input class="search-mobile-input search-all" type="text" placeholder="Начать поиск...">
                 <ul class="search_result list-search"></ul>
@@ -379,7 +379,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             ?>
             <?php if ($banner1) { ?>
                 <div class="container-fluid">
-                    <section class="main-banner">
+                    <div class="row">
+                        <section class="main-banner">
                         <div id="carousel-1" class="carousel slide carousel-fabe" data-ride="carousel" data-interval="0">
                             <ol id="indicators" class="carousel-indicators">
                                 <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
@@ -506,6 +507,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                             <?php } ?>
                         </div>
                     </section>
+                    </div>
                 </div>
             <?php } ?>
                 <div class="container mt-2">

@@ -93,7 +93,7 @@ input[type="submit"]:hover{
 </body>
 
 <script>
-    $('#admLgnForm').submit(function(event) {
+    $('#admLgnForm').submit( function(event) {
         event.preventDefault();
         $.ajax({
             url: '/login',
@@ -109,5 +109,4 @@ input[type="submit"]:hover{
             }
         })
     })
-
 </script>

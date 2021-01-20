@@ -10,6 +10,16 @@ $(document).ready(function () {
         });
     }
 
+    $('.mega-dropdown').hover(
+        function (e) {
+            $(this).find('.sub-menu').removeAttr('style');
+            // $(this).find('.sub-menu').css({'display': 'flex'});
+        },
+        function (e) {
+            $(this).find('.sub-menu').css({'display': 'none'});
+        }
+    );
+
     let ajaxSuccess = 0;
 
     $('.search-all').bind("input", function (e) {

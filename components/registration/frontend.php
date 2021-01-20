@@ -583,6 +583,7 @@ function registration()
                 $data = $response;
             }
 
+
             cmsCore::jsonOutput(['error' => $error, 'data' => $data]);
 
         }

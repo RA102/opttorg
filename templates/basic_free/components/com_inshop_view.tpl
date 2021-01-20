@@ -22,7 +22,7 @@
 {if $smarty.server.REQUEST_URI == "/shop"}
 <div class="row no-gutters mb20">
     {foreach key=tid item=cat from=$subcats name=shopcats}
-	<div class="col-md-3 col-sm-6 col-xs-12">
+	<div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
 		<div class="thumb-cat">
 			<a href="/shop/{$cat.seolink}" title="{$cat.title}"><img src="/images/photos/small/{$cat.config.icon}" class="img-resp" alt="{$cat.title}" /></a>
 			<a class="cat-th-title" href="/shop/{$cat.seolink}" data-truncate="1">{$cat.title}</a>
@@ -33,9 +33,8 @@
 {else}
 <a class="mob-filter hidden-lg" href="#" data-toggle="modal" data-target="#fil_modal"><span class="glyphicon glyphicon-filter"></span> Фильтр товаров</a>
 <div class="rub-wrp">
-	<div class="no-gutters">
-		<div class="col-3 col-sm-3 col-md-3 col-lg-3">
-			
+	<div class="no-gutters row">
+		<div class="col-12 col-sm-12 col-md-3 col-lg-3 pr-2">
 			{if $subcats}
 			<div class="subcats-style">
 			<ul class="rub-list">
@@ -110,7 +109,7 @@
 			</div>
 			{if $leftbanner!=''}{$leftbanner}{/if}
 		</div>
-		<div class="col-9 col-sm-9 col-md-9 col-lg-9">
+		<div class="col-12 col-sm-12 col-md-9 col-lg-9">
 		
 		{if $items}
 			{include file='com_inshop_items.tpl'}

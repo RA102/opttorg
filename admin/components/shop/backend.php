@@ -3,10 +3,6 @@ if(!defined('VALID_CMS_ADMIN')) {
     die('ACCESS DENIED');
 }
 
-
-
-
-
 	function getField($table, $where, $field){
 		$inDB = cmsDatabase::getInstance();
 		return $inDB->get_field($table, $where, $field);
