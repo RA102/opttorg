@@ -1,22 +1,24 @@
 <?php
 
-
 if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
 
-class cms_model_banners{
+class cms_model_banners
+{
 
-	public function __construct(){
+	public function __construct()
+    {
 		$this->config = cmsCore::getInstance()->loadComponentConfig('banners');
     }
 
 /* ==================================================================================================== */
 /* ==================================================================================================== */
 
-	public static function getBanner($id){
+	public static function getBanner($id)
+    {
 
 		$banner = cmsDatabase::getInstance()->get_fields('cms_banners', "id = '$id'", '*');
 
-        if ($banner){
+        if ($banner) {
             return cmsCore::callEvent('GET_BANNER', $banner);
         } else {
             return false;
@@ -27,13 +29,15 @@ class cms_model_banners{
 /* ==================================================================================================== */
 /* ==================================================================================================== */
 
-	public static function getImageBanner($banner){
+	public static function getImageBanner($banner)
+    {
 
 		return '<a href="/gobanner'.$banner['id'].'" title="'.$banner['title'].'" target="_blank"><img src="/images/banners/'.$banner['fileurl'].'" border="0" alt="'.$banner['title'].'"/></a>';
 
     }
 
-	public static function getSwfBanner($banner){
+	public static function getSwfBanner($banner)
+    {
 
 		return '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="468" height="60">'."\n".
 						'<param name="movie" value="/images/banners/'.$banner['fileurl'].'?banner_id='.$banner['id'].'" />'."\n".

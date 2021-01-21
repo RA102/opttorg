@@ -4322,7 +4322,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 					<?php $vend = $model->getVendors(); ?>
 					<form action="/components/shop/csv.php" method="POST">
 					<p style="font-size:14px;color:#09C">3) Сформировать выгрузку эксель</p>
-					<select style="width:150px;" name="vens47jiklo">						<option value="0">Любой производитель</option>
+					<select style="width:150px;" name="vens47jiklo">
+                        <option value="0">Любой производитель</option>
 						<?php 
 						foreach($vend as $ven) { 
 							echo '<option value="'.$ven['id'].'">'.$ven['title'].'</option>';

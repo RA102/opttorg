@@ -22,7 +22,7 @@ $(document).ready(function () {
 
     let ajaxSuccess = 0;
 
-    $('.search-all').bind("input", function (e) {
+    $('.input-search').bind("input", function (e) {
         let search = this.value;
         if (this.value.length >= 3) {
             $.ajax({
@@ -35,6 +35,8 @@ $(document).ready(function () {
 
                 success: function (data) {
                     let arr = JSON.parse(data);
+                    let div = $('<div></div>');
+
                     $(".search_result").empty();
 
                     if (arr['categories'].length == 0 && arr['vendors'].length == 0 && arr['ven_code'].length == 0 && arr['prod'].length == 0) {
@@ -42,6 +44,7 @@ $(document).ready(function () {
                     }
 
                     if (arr['categories'].length) {
+                        $('<div></div>').prependTo('#categories');
                         $(".search_result").append('<h5 class="text-bold">Категории</h5>');
                         $(".category").remove();
                         arr['categories'].forEach(function (item, i) {
@@ -63,7 +66,7 @@ $(document).ready(function () {
                     if (arr['ven_code'].length) {
                         $(".search_result").append('<h5 class="text-bold">Артикул</h5>');
                         arr['ven_code'].forEach(function (item, i) {
-                            $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="art_no search_result_item"><span style="color: #000000;">Арт:</span> ${item?.ven_code} <br> <span style="color: #000000;">Код товара:</span>${item?.art_no} <br><span style="color: #000000;">Название: </span> ${item?.title}</li></a>`);
+                            $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="art_no search_result_item"><span style="color: #000000;">Арт:</span> ${item?.art_no} <br> <span style="color: #000000;">Код товара:</span>${item?.ven_code} <br><span style="color: #000000;">Название: </span> ${item?.title}</li></a>`);
                         });
                     }
 
@@ -124,6 +127,14 @@ $(document).ready(function () {
             window.location.href = $(".search_result").first().children('a').attr('href');
         }
     });
+
+    $("#icon-search").keypress(function (e) {
+
+        if ($(".search_result")) {
+
+        }
+        window.location.href = $(".search_result").first().children('a').attr('href')
+    })
 
 
     $('#btn-cookies').on('click', function (e) {

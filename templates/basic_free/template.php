@@ -221,8 +221,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                         <div class="row">
                             <div class="col-lg-8 col-xl-8">
                                 <div class="row justify-content-center align-items-center">
-                                    <div class="input-group">
-                                        <input name="referal" class="who search-all input-search form-control position-relative" type="text" placeholder="Начать поиск...">
+                                    <div class="input-group justify-content-center align-items-center">
+                                        <input name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
                                         <div class="input-group-append">
                                             <button id="icon-search" class="btn btn-secondary" type="button" >
                                                 <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
@@ -676,25 +676,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="cityModalLabel">Быстрый поиск товаров</h4>
-                    </div>
-                    <div class="modal-body">
-                        <input type="text" name="referal" placeholder="Поиск" class="who form-control"
-                               autocomplete="off"/>
-                        <ul class="search_result"></ul>
-                    </div>
-                    <div class="modal-footer">
-                        Не нашли? Попробуйте <a href="/search">полнотекстовый поиск</a>!
-                    </div>
-                </div>
-            </div>
-        </div>
 
 <!-- start Modal authorization-->
 
@@ -702,17 +683,15 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" >
-                        <h5 class="modal-title" id="modalLoginLabel">Modal title</h5>
-
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" style="font-size: 36px;">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div id="modal-body" class="modal-body">
                         <div class="body-page">
-                            <div class="row">
+                            <div class="row flex-column justify-content-start align-items-center">
                                 <h1 class="con_heading text-center">Вход на сайт</h1>
-                                <div class="col-md-6 col-md-offset-3">
+                                <div class="">
                                     <p id="error-auth" class="red-text"></p>
                                     <div class="clearfix">
 
@@ -721,7 +700,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                             <div class="form-group has-feedback">
                                                 <div class="col-md-12 px-0 mb-3">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon" style="width: 35px;" title="Логин или E-mail">
+                                                        <span class="input-group-addon" title="Логин или E-mail">
                                                             <i class="glyphicon glyphicon-user"></i>
                                                         </span>
                                                         <input type="text" name="login" id="login_field" tabindex="1" class="form-control" placeholder="Логин или E-mail" required/>
@@ -734,7 +713,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                             <div class="form-group has-feedback">
                                                 <div class="col-md-12 px-0 mb-3">
                                                     <div class="input-group">
-                                                        <span class="input-group-addon" style="width: 35px;" title="Пароль">
+                                                        <span class="input-group-addon" title="Пароль">
                                                             <i class="glyphicon glyphicon-th"></i>
                                                         </span>
                                                         <input type="password" name="pass" id="pass_field" tabindex="2" class="form-control" placeholder="Пароль" required/>
@@ -757,19 +736,20 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                     <div class="clearfix text-center small">
                                         <a href="/passremind.html" class="">Забыли пароль</a>
                                     </div>
-                                    <!--<div class="clearfix">{callEvent event='LOGINZA_BUTTON'}</div>-->
+
                                 </div>
 
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+
 <!-- end Modal authorization -->
 
 <!-- Modal just a modal window  -->
+
         <div id="modalAuth" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -784,36 +764,12 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                 </div>
             </div>
         </div>
+
 <!-- Modal end   -->
-        <!--
-<script type="text/javascript">
-$(document).ready(function(){
-$("#setCookie").click(function () {
-$.cookie("popup", "", { expires:0, path: '/' });
-$("#bg_popup").hide();
-});
 
-if ( $.cookie("popup") == null )
-{
-setTimeout(function(){
-$("#bg_popup").show();
-}, 4000)
-}
-else { $("#bg_popup").hide();
-}
-});
-    </script>
 
-<?php if ($banner3) { ?>
-<div id="bg_popup">
-  <div id="popup">
-  <a  id="setCookie" class="close" href="#" title="Закрыть" onclick="document.getElementById('bg_popup').style.display='none'; return false;">X</a>
-	<a href="<?php echo $banner3['link']; ?>" title="<?php echo $banner3['title']; ?>"><img src="/images/banners/<?php echo $banner3['fileurl']; ?>" class="img-resp" alt="<?php echo $banner3['title']; ?>" /></a>
-</div>
-</div>
-<?php } ?>
--->
         <?php $this->printModules('coin'); ?>
+
         <!-- Begin Verbox {literal} -->
         <script type='text/javascript'>
             (function (d, w, m) {

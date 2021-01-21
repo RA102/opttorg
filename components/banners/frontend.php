@@ -3,7 +3,8 @@
 
 if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
 
-function banners(){
+function banners()
+{
 
     $inCore = cmsCore::getInstance();
 
