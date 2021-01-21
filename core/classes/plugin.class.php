@@ -19,7 +19,7 @@ class cmsPlugin {
 
     public $info;
     public $events;
-    public $config = [];
+    public $config = array();
 
 // ================================================================== //
 
