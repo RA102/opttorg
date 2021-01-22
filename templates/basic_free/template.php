@@ -154,7 +154,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fish.js"> </script>
-    <script src="/templates/<?php echo TEMPLATE; ?>/js/custom.js" ></script>
+    <script src="/templates/<?php echo TEMPLATE; ?>/js/custom.js"></script>
 
     <meta name="mailru-domain" content="JfeuTFsOLTPijEWd"/>
     <!-- Facebook Pixel Code -->
@@ -865,6 +865,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </p>
     <button id="btn-cookies" class="btn btn-success">Хорошо</button>
 </div>
+
 
 <div class="overlay entered"></div>
 

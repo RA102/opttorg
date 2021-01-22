@@ -49,8 +49,9 @@
              'show_cat_chars'=>0,
              'show_items_nav'=>0,
              'link_ttl'=>48,
-             'items_orderby'=>'ordering',
-             'items_orderto'=>'asc',
+//             'items_orderby'=>'ordering',
+             'items_orderby'=>'qty',
+             'items_orderto'=>'desc',
              'after_cart'=>'stay',
              'ord_req'=>array('name', 'email', 'org', 'inn', 'phone', 'email', 'address'),
              'track_qty'=>0,
@@ -89,4 +90,4 @@
 
 // ========================================================================== //
 
-?>
+

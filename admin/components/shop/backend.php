@@ -3932,7 +3932,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                     <td><strong>Сортировка товаров по-умолчанию: </strong></td>
                     <td>
                         <select id="items_orderby" name="items_orderby" style="width:130px">
-                            <option value="ordering" <?php if ($cfg['items_orderby']=='ordering') { echo 'selected="selected"'; } ?>>по порядку</option>
+                            <option value="qty" <?php if ($cfg['items_orderby']=='qty') { echo 'selected="selected"'; } ?>>по порядку</option>
                             <option value="id" <?php if ($cfg['items_orderby']=='id') { echo 'selected="selected"'; } ?>>по дате</option>
                             <option value="title" <?php if ($cfg['items_orderby']=='title') { echo 'selected="selected"'; } ?>>по названию</option>
                             <option value="price" <?php if ($cfg['items_orderby']=='price') { echo 'selected="selected"'; } ?>>по цене</option>

@@ -83,7 +83,6 @@
 
     </div>
 </div>
-
 {foreach from=$listItems key=category item=items}
     <section class="row no-gutters">
         <div class="col-12">
@@ -91,7 +90,7 @@
         </div>
 
         {foreach from=$items item=item}
-            <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 item">
+            <div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-3 item">
                 <div class="thumb">
                     <a href="/shop/{$item->seolink}.html" title="{$item->title}" class="">
                         <img  src="/images/photos/small/shop{$item->id}.jpg" class="img-fluid list-item-img" alt="{$item->title}"/>
@@ -108,14 +107,71 @@
                             {/if}
                         </div>
                     </div>
-                    <form action="/shop/addtocart" method="POST">
-                        <input type="hidden" name="add_to_cart_item_id" value="{$item->id}"/>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-main add-basket{if $item->is_in_cart>0} btn-disabled {elseif $item->price==0}  btn-gray{/if}">{if $item->is_in_cart>0}В корзине{else}{if $item->qty!=0}В корзину{else}В корзину{/if}{/if}</button>
-                        </div>
-                    </form>
+{*                    <form action="/shop/addtocart" method="POST">*}
+{*                        <input type="hidden" name="add_to_cart_item_id" value="{$item->id}"/>*}
+{*                        <div class="text-center">*}
+{*                            <button type="submit" class="btn btn-main add-basket{if $item->is_in_cart>0} btn-disabled {elseif $item->price==0}  btn-gray{/if}">{if $item->is_in_cart>0}В корзине{else}{if $item->qty!=0}В корзину{else}В корзину{/if}{/if}</button>*}
+{*                        </div>*}
+{*                    </form>*}
+                    <div class="flex flex-column justify-content-center align-items-center">
+                        {if $item->qty > 1 || $item->qty_from_vendor > 1}
+                            <form action="/shop/addtocart" method="POST">
+                                <input type="hidden" name="add_to_cart_item_id" value="{$item->id}"/>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-main add-basket{if $item->is_in_cart>0} btn-disabled{elseif $item->price==0}  btn-gray{/if}">{if $item->is_in_cart>0}В корзине{else}{if $item->price==0}Цену уточняйте{else}В корзину{/if}{/if}</button>
+                                </div>
+                                <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">В один клик!</a>
+                            </form>
+                        {else}
+                            <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
+                        {/if}
+                    </div>
                 </div>
             </div>
         {/foreach}
     </section>
 {/foreach}
+
+{* Modal One'cLick *}
+<div class="modal" id="oneclicker" tabindex="-1" role="dialog" aria-labelledby="oneclickerLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <form action="" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="oneclickerLabel">{$item->title}</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="/images/photos/small/shop{$item->id}.jpg" class="img-resp" style="border:#dedede 1px solid;margin-bottom:15px;" alt="{$item->title|escape:'html'} - {$item->art_no} – интернет-магазин SanMarket" itemprop="image"/>
+                    <table width="100%" border="0">
+                        <tr>
+                            <td valign="middle" width="80">
+                                <input style="width:80px !important;" class="form-control" id="qtyy1" name="qtyy1" type="number" min="1" value="1" oninput="change1()"/>
+                            </td>
+                            <td valign="middle" class="text-right">
+                                <strong><span id="results1">{$iprice|number_format:0:" ":" "}</span> {$cfg->currency}
+                                </strong></td>
+                        </tr>
+                    </table>
+                    <br/> <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
+                    <input type="hidden" class="form-control" name="ttl" value="{$item->title}"/>
+                    <input type="hidden" class="form-control" name="arts" value="{$item->art_no}"/>
+                    <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
+                    <div>
+                        {*				{city_input value=$item.city name="city" width="300px"}*}
+                        <input type="text" name="city" width="300px" placeholder="Город" style="color: #1A1A1A;" required>
+                    </div>
+                    <span class="red-text" style="font-size: 12px;">Укажите город для просчета стоимости доставки</span>
+                    <br/> <input type="text" class="form-control" name="email" placeholder="email"/><br/>
+                    <input type="text" id="customer_phone" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-whapp btn-block">Заказать</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{* End modal One click *}
