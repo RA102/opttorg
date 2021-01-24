@@ -1,10 +1,12 @@
 <?php
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
-/******************************************************************************/
-//                              Карта Сайта v2.1                              //
-//          Разработка Компонентов, Плагинов и Модулей для Instant CMS:       //
-//                      instantcms-development@ds-soft.ru                     //
-/******************************************************************************/
+
+use components\sitemap\sm_components\comMaps;
+
+
+if(!defined('VALID_CMS')) {
+    die('ACCESS DENIED');
+}
+
 
 class content_map extends comMaps{
     public $title = "Каталог Статей";

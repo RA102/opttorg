@@ -1,12 +1,9 @@
 <?php
 if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
-/******************************************************************************/
-//                              Карта Сайта v2.1                              //
-//          Разработка Компонентов, Плагинов и Модулей для Instant CMS:       //
-//                      instantcms-development@ds-soft.ru                     //
-/******************************************************************************/
 
-class shop_map extends comMaps{
+
+class shop_map extends comMaps
+{
     public $title = "Интернет магазин";
     public $link = "shop";
     

@@ -30,3 +30,4 @@ banner2
 banner3
 marquee
 coin
+header-top-left
