@@ -150,7 +150,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
             <link rel="stylesheet" href="/templates/<?php echo TEMPLATE; ?>/css/ie.css" type="text/css" media="all" />
         <![endif]-->
-    <link rel="icon" type="image/svg" href="/templates/<?php echo TEMPLATE; ?>/images/favicon.svg"/>
+    <link rel="icon" type="image/svg" href="/images/favicon.svg"/>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fish.js"> </script>
@@ -210,7 +210,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <header class="site-header">
         <div class="main-body">
             <div class="container-fluid">
-                <div class="row" style="padding-bottom: 22px;">
+
+
+                <div class="row align-items-end" style="padding-bottom: 26px;">
                     <!--    logo    -->
                     <div class="col-4 col-md-3 col-lg-3 col-xl-3">
                         <a href="/" rel="home" title="Интернет-магазин сантехники SanMarket">
@@ -218,10 +220,10 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                         </a>
                     </div>
                     <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-lg-9 col-xl-9" >
-                        <div class="row">
+                        <div class="row align-items-end">
                             <div class="col-lg-8 col-xl-8">
-                                <div class="row justify-content-center align-items-center">
-                                    <div class="input-group justify-content-center align-items-center">
+                                <div class="row justify-content-center">
+                                    <div class="input-group justify-content-center">
                                         <input name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
                                         <div class="input-group-append">
                                             <button id="icon-search" class="btn btn-secondary" type="button" >
@@ -233,29 +235,33 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                 </div>
                             </div>
                             <div class="col-lg-4 col-xl-4">
-                                <div class="row justify-content-end align-items-center flex-nowrap">
-                                    <?php $userlogs = $inUser->login;
-                                            $usgro = $inUser->group_id;
-                                    ?>
-                                    <?php if ($userlogs) { ?>
-                                        <div id="logout-wrapper">
-                                            <img src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="" style="margin-right: 15px;" width="48" height="48">
-                                            <div>
-                                                <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
-                                                <br/>
-                                                <div class="jlreg_auth_lgogout" style="display: inline-block;">
-                                                    <img src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
-                                                    <a id="logout-exit" href="/logout">Выход</a>
+                                <div class="row flex-column ">
+                                    <div class="d-flex">
+                                        <img class="mr-2" src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="userImg" width="26" height="26">
+
+                                        <?php $userlogs = $inUser->login;
+                                        $usgro = $inUser->group_id;
+                                        ?>
+                                        <?php if ($userlogs) { ?>
+                                            <div id="logout-wrapper">
+                                                <!--                            <img src="/templates/--><?php //echo TEMPLATE; ?><!--/images/user_img.png" alt="" style="margin-right: 15px;" width="26" height="26">-->
+                                                <div>
+                                                    <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
+                                                    <br/>
+                                                    <div class="jlreg_auth_lgogout" style="display: inline-block;">
+                                                        <img src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
+                                                        <a id="logout-exit" href="/logout">Выход</a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php } else { ?>
-                                        <span id="btn-login" class="btn login mr-3" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
-                                        <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
-                                        <!--					<span class="hlink" data-href="--><?php //echo base64_encode('/login'); ?><!--">Вход</span>-->
-                                        <!--					<span class="hlink" data-href="--><?php //echo base64_encode('/registration'); ?><!--"> / Регистрация</span>-->
-                                        <!--                                            </div>-->
-                                    <?php } ?>
+                                        <?php } else { ?>
+                                            <span id="btn-login" class="login" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
+                                            <span class="mx-1">/</span>
+                                            <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
+                                        <?php } ?>
+                                    </div>
+
+                                    <a class="btn-order-call" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
                                 </div>
                             </div>
                         </div>
@@ -748,7 +754,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 <!-- end Modal authorization -->
 
-<!-- Modal just a modal window  -->
+<!-- Modal Registration  -->
 
         <div id="modalAuth" class="modal fade">
             <div class="modal-dialog">
@@ -765,7 +771,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </div>
 
-<!-- Modal end   -->
+<!-- end Modal Registration   -->
 
 
         <?php $this->printModules('coin'); ?>
@@ -871,13 +877,33 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 
 <div id="darkening"></div>
-<!--<script>-->
-<!--    setTimeout(function () {-->
-<!--        document.getElementById('dynamic').innerHTML = '<div class="ks-widget" data-template="button" data-merchant-sku="83284" data-merchant-code="Sanmarket" data-city="750000000" ></div>'-->
-<!--        // you should run this method to recheck buttons in DOM:-->
-<!--        ksWidgetInitializer.reinit()-->
-<!--    }, 1000)-->
-<!--</script>-->
+
+<div id="order-call" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Заказать звонок</h5>
+                <button type="button" class="close d-inline-block" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="post" name="oreder_call">
+                <div class="modal-body">
+                    <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
+                    <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
+                    <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
+                    <input type="text" id="customer_phone" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-whapp btn-block">Отправить</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>
 

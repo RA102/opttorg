@@ -13469,6 +13469,7 @@ body {
     color: #0C5DA5;
     font-size: 16px;
     font-weight: 400;
+    cursor: pointer;
 }
 
 #btn-login:active {
@@ -13481,14 +13482,10 @@ body {
 }
 
 .registration {
-    display: inline-block;
     text-decoration: none;
-    border-radius: 10px;
-    padding: 12px 36px ;
     font-size: 18px;
     color: #0C5DA5;
     /*background-color: #FF9600;*/
-    border: solid 1px #0C5DA5;
     cursor: pointer;
 }
 
@@ -14333,11 +14330,42 @@ label#label25 > div:nth-child(3) {
     padding: 0;
 }
 
+
 .site-header {
     padding-top: 30px;
     background: #fff;
 }
 
+.btn-order-call {
+    display: block;
+    width: 241px;
+    height: 48px;
+    font: 600 18px "Source Sans Pro";
+    line-height: 48px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #46CD3A;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+
+.btn-order-call:hover, .btn-order-call:focus {
+    text-decoration: none;
+    color: #FFFFFF;
+
+}
+
+
+.modal-title {
+    display: inline-block;
+    color: #0C5DA5;
+    font-size: 18px;
+
+}
+
+.modal-header .close {
+    padding: 0;
+}
 
 .wrapper {
     max-width: 1140px;
