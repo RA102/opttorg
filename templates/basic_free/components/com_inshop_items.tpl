@@ -32,7 +32,7 @@
                     <img src="/images/photos/small/{$item.filename}" class="img-fluid" alt="{$item.title}"/>
                     {if $item.old_price>0}
                         {assign var="disco" value=((100-($iprice*100/$item.old_price))|ceil)}
-                        <div class="ribbon-lt"><span>Скидка 1 {$disco}%</span></div>{/if}
+                        <div class="ribbon-lt"><span>Скидка{$disco}%</span></div>{/if}
                     {if $item.novinka==1}
                         <div class="ribbon-rt"><span>Новинка</span></div>
                     {/if}
@@ -77,3 +77,44 @@
     {$pagebar}
 {/if}
 
+{* Modal *}
+<div class="modal" id="oneclicker" tabindex="-1" role="dialog" aria-labelledby="oneclickerLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <form action="" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="oneclickerLabel">{$item.title}</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="/images/photos/small/{$item.filename}" class="img-resp" style="border:#dedede 1px solid;margin-bottom:15px;" alt="{$item.title|escape:'html'} - {$item.art_no} – интернет-магазин SanMarket" itemprop="image"/>
+                    <table width="100%" border="0">
+                        <tr>
+                            <td valign="middle" width="80">
+                                <input style="width:80px !important;" class="form-control" id="qtyy1" name="qtyy1" type="number" min="1" value="1" oninput="change1()"/>
+                            </td>
+                            <td valign="middle" class="text-right">
+                                <strong><span id="results1">{$iprice|number_format:0:" ":" "}</span> {$cfg.currency}
+                                </strong></td>
+                        </tr>
+                    </table>
+                    <br/> <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
+                    <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
+                    <input type="hidden" class="form-control" name="arts" value="{$item.art_no}"/>
+                    <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
+                    <div>
+                        {*				{city_input value=$item.city name="city" width="300px"}*}
+                        <input type="text" name="city" width="300px" placeholder="Город" style="color: #1A1A1A;" required>
+                    </div>
+                    <span class="red-text" style="font-size: 12px;">Укажите город для просчета стоимости доставки</span>
+                    <br/> <input type="text" class="form-control" name="email" placeholder="email"/><br/>
+                    <input type="text" id="customer_phone" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-whapp btn-block">Заказать</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -221,7 +221,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     </div>
                     <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-lg-9 col-xl-9" >
                         <div class="row align-items-end">
-                            <div class="col-lg-8 col-xl-8">
+                            <div class=""> <!--  col-lg-8 col-xl-8-->
                                 <div class="row justify-content-center">
                                     <div class="input-group justify-content-center">
                                         <input name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
@@ -234,9 +234,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-xl-4">
-                                <div class="row flex-column ">
-                                    <div class="d-flex">
+                            <div class=""> <!-- col-lg-4 col-xl-4  -->
+                                <div class="row justify-content-flex-end">
+                                    <div class="d-flex" style="margin-bottom: 10px;">
                                         <img class="mr-2" src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="userImg" width="26" height="26">
 
                                         <?php $userlogs = $inUser->login;
@@ -244,24 +244,21 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         ?>
                                         <?php if ($userlogs) { ?>
                                             <div id="logout-wrapper">
-                                                <!--                            <img src="/templates/--><?php //echo TEMPLATE; ?><!--/images/user_img.png" alt="" style="margin-right: 15px;" width="26" height="26">-->
-                                                <div>
-                                                    <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
-                                                    <br/>
-                                                    <div class="jlreg_auth_lgogout" style="display: inline-block;">
-                                                        <img src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
-                                                        <a id="logout-exit" href="/logout">Выход</a>
-                                                    </div>
+                                                <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
+                                                <div class="jlreg_auth_lgogout" style="display: inline-block;">
+                                                    <img class="mx-2" src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
+                                                    <a id="logout-exit" href="/logout">Выход</a>
                                                 </div>
                                             </div>
                                         <?php } else { ?>
                                             <span id="btn-login" class="login" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
-                                            <span class="mx-1">/</span>
+                                            <span class="mx-2">/</span>
                                             <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
                                         <?php } ?>
                                     </div>
-
-                                    <a class="btn-order-call" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
+                                    <div class="d-flex">
+                                        <a class="btn-order-call" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
