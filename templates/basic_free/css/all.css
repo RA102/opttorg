@@ -14391,8 +14391,25 @@ label#label25 > div:nth-child(3) {
 
 }
 
-.logo {
-    width: 100%;
+/*.logo {*/
+/*    width: 100%;*/
+/*}*/
+
+.header-left-div {
+    display: flex;
+    align-items: flex-end;
+    flex: 1 2;
+}
+
+.header-right-div {
+    justify-content: flex-end;
+    flex: 3 1;
+}
+
+.header-search-wrap {
+    flex-basis: 541px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .img-icon {

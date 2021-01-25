@@ -16,7 +16,7 @@ $this->prependHeadJS('core/js/common.js');
 $this->prependHeadJS('includes/jquery/jquery.js');
 // Подключаем стили шаблона
 $this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-4.css');
-//$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap.css');
+
 $this->addHeadCSS('templates/' . TEMPLATE . '/css/all.css?v=' . rand(10, 1000));
 
 //$this->addHeadCSS('templates/'.TEMPLATE.'/css/font-awesome.min.css');
@@ -211,55 +211,48 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         <div class="main-body">
             <div class="container-fluid">
 
-
-                <div class="row align-items-end" style="padding-bottom: 26px;">
+                <div class="row" style="padding-bottom: 26px;">
                     <!--    logo    -->
-                    <div class="col-4 col-md-3 col-lg-3 col-xl-3">
+                    <div class="header-left-div">
                         <a href="/" rel="home" title="Интернет-магазин сантехники SanMarket">
-                            <img class="img-responsive" height="50" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg"  alt="SanMarket интернет-магазин сантехники в Казахстане"/>
+                            <img class="img-fluid" width="275" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg"  alt="SanMarket интернет-магазин сантехники в Казахстане"/>
                         </a>
                     </div>
-                    <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-lg-9 col-xl-9" >
-                        <div class="row align-items-end">
-                            <div class=""> <!--  col-lg-8 col-xl-8-->
-                                <div class="row justify-content-center">
-                                    <div class="input-group justify-content-center">
-                                        <input name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
-                                        <div class="input-group-append">
-                                            <button id="icon-search" class="btn btn-secondary" type="button" >
-                                                <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
-                                            </button>
-                                        </div>
-                                        <ul class="search_result list-search"></ul>
-                                    </div>
+                    <div class="d-none d-sm-none d-md-none d-lg-inline-flex header-right-div" >
+                        <div class="d-flex align-items-end header-search-wrap"> <!--  col-lg-8 col-xl-8-->
+                            <div class="input-group">
+                                <input name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
+                                <div class="input-group-append">
+                                    <button id="icon-search" class="btn btn-secondary" type="button" >
+                                        <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
+                                    </button>
                                 </div>
+                                <ul class="search_result list-search"></ul>
                             </div>
-                            <div class=""> <!-- col-lg-4 col-xl-4  -->
-                                <div class="row justify-content-flex-end">
-                                    <div class="d-flex" style="margin-bottom: 10px;">
-                                        <img class="mr-2" src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="userImg" width="26" height="26">
+                        </div>
+                        <div class="d-flex flex-column"> <!-- col-lg-4 col-xl-4  -->
+                            <div class="" style="margin-bottom: 10px;">
+                                <img class="mr-2" src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="userImg" width="26" height="26">
 
-                                        <?php $userlogs = $inUser->login;
-                                        $usgro = $inUser->group_id;
-                                        ?>
-                                        <?php if ($userlogs) { ?>
-                                            <div id="logout-wrapper">
-                                                <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
-                                                <div class="jlreg_auth_lgogout" style="display: inline-block;">
-                                                    <img class="mx-2" src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
-                                                    <a id="logout-exit" href="/logout">Выход</a>
-                                                </div>
-                                            </div>
-                                        <?php } else { ?>
-                                            <span id="btn-login" class="login" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
-                                            <span class="mx-2">/</span>
-                                            <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
-                                        <?php } ?>
+                                <?php $userlogs = $inUser->login;
+                                $usgro = $inUser->group_id;
+                                ?>
+                                <?php if ($userlogs) { ?>
+                                    <div id="logout-wrapper">
+                                        <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
+                                        <div class="jlreg_auth_lgogout" style="display: inline-block;">
+                                            <img class="mx-2" src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
+                                            <a id="logout-exit" href="/logout">Выход</a>
+                                        </div>
                                     </div>
-                                    <div class="d-flex">
-                                        <a class="btn-order-call" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
-                                    </div>
-                                </div>
+                                <?php } else { ?>
+                                    <span id="btn-login" class="login" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
+                                    <span class="mx-2">/</span>
+                                    <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
+                                <?php } ?>
+                            </div>
+                            <div class="">
+                                <a class="btn-order-call" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
                             </div>
                         </div>
                     </div>
