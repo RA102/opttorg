@@ -207,38 +207,36 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         </div>
     </div>
 
-    <header class="site-header">
+    <header class="navbar-nav navbar-expand">
         <div class="main-body">
-            <div class="container-fluid">
-
-
-                <div class="row align-items-end" style="padding-bottom: 26px;">
+            <div class="container-fluid ">
+                <div class="row px-0 header-row">
                     <!--    logo    -->
-                    <div class="col-4 col-md-3 col-lg-3 col-xl-3">
-                        <a href="/" rel="home" title="Интернет-магазин сантехники SanMarket">
-                            <img class="img-responsive" height="50" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg"  alt="SanMarket интернет-магазин сантехники в Казахстане"/>
+                    <div class="col-6 col-lg-6 col-xl-3 mt-auto">
+                        <a class="navbar-brand" href="/" rel="home" title="Интернет-магазин сантехники sanmarket">
+                            <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
                         </a>
                     </div>
-                    <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-lg-9 col-xl-9" >
-                        <div class="row align-items-end">
-                            <div class=""> <!--  col-lg-8 col-xl-8-->
-                                <div class="row justify-content-center">
-                                    <div class="input-group justify-content-center">
-                                        <input name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
-                                        <div class="input-group-append">
-                                            <button id="icon-search" class="btn btn-secondary" type="button" >
-                                                <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
-                                            </button>
-                                        </div>
-                                        <ul class="search_result list-search"></ul>
+                    <!-- end logo -->
+
+                    <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-xl-9 px-0" >
+                        <div class="row">
+                            <div class=" col-xl-8 mt-auto">
+                                <div class="input-group">
+                                    <input id="main-search" name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
+                                    <div class="input-group-append">
+                                        <button id="icon-search" class="btn btn-secondary" type="button" >
+                                            <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
+                                        </button>
                                     </div>
+                                    <ul class="search_result list-search"></ul>
                                 </div>
                             </div>
-                            <div class=""> <!-- col-lg-4 col-xl-4  -->
-                                <div class="row justify-content-flex-end">
-                                    <div class="d-flex" style="margin-bottom: 10px;">
-                                        <img class="mr-2" src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="userImg" width="26" height="26">
 
+                            <div class="col-lg-4 col-xl-4 mt-auto" >
+                                <div class="d-block">
+                                    <div class="d-block mb-2 wrapper-login">
+                                        <img class="d-inline-block mr-2" src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="userImg" width="26" height="26">
                                         <?php $userlogs = $inUser->login;
                                         $usgro = $inUser->group_id;
                                         ?>
@@ -251,21 +249,21 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                                 </div>
                                             </div>
                                         <?php } else { ?>
-                                            <span id="btn-login" class="login" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
-                                            <span class="mx-2">/</span>
-                                            <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
+                                            <div class="d-inline-block">
+                                                <span id="btn-login" class="login" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
+                                                <span class="mx-2">/</span>
+                                                <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
+                                            </div>
                                         <?php } ?>
                                     </div>
-                                    <div class="d-flex">
-                                        <a class="btn-order-call" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
-                                    </div>
+                                    <a class="btn-order-call ml-auto" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!--    иконки мобильная версия (акции, телефон, корзина)     -->
-                    <div class="col-8 col-md-8 d-flex d-lg-flex d-xl-none justify-content-flex-end">
+                    <div class="col-6 col-md-6 col-lg-6 d-flex d-lg-flex d-xl-none justify-content-flex-end mobile-block">
                         <div class="header-icon">
                             <a href="https://wa.me/77775409927">
                                 <img class="img-icon img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat">
@@ -277,7 +275,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                 <img class="img-icon " src="/templates/basic_free/images/top/PHONE.png" alt="phone">
                             </a>
                         </div>
-                        <div class="">
+                        <div class="header-icon">
                             <span class="hlink" data-href="<?php echo base64_encode('/shop/cart.html'); ?>"><?php $this->printModules('b-cart'); ?></span>
                         </div>
                     </div>
@@ -324,7 +322,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             <div class="search-mobile">
                 <input class="search-mobile-input search-all" type="text" placeholder="Начать поиск...">
                 <ul class="search_result list-search"></ul>
-                <button id="icon-search" class="btn-search-mobile " type="submit"></button>
+                <button id="icon-search" class="btn-search-mobile " type="submit">
+                    <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
+                </button>
             </div>
         </div>
         <?php if ($this->pathway['1']['link'] == '/den-rozhdenie.html') { ?>
@@ -382,7 +382,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             ?>
             <?php if ($banner1) { ?>
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <section class="main-banner">
                         <div id="carousel-1" class="carousel slide carousel-fabe" data-ride="carousel" data-interval="0">
                             <ol id="indicators" class="carousel-indicators">
@@ -399,18 +399,18 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                     <a href="<?php echo $banner1['link']; ?>" title="<?php echo $banner1['title']; ?>">
                                         <img src="/images/banners/<?php echo $banner1['fileurl']; ?>" class="img-fluid d-none d-sm-block d-md-block d-lg-block d-xl-block img-carousel" alt="<?php echo $banner1['title']; ?>"/>
                                     </a>
-                                    <a href="<?php echo $banner1['link']; ?>" title="<?php echo $banner1['title']; ?>">
-                                        <img src="/images/banners/<?php echo $banner1['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="<?php echo $banner1['title']; ?>"/>
-                                    </a>
+<!--                                    <a href="--><?php //echo $banner1['link']; ?><!--" title="--><?php //echo $banner1['title']; ?><!--">-->
+<!--                                        <img src="/images/banners/--><?php //echo $banner1['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner1['title']; ?><!--"/>-->
+<!--                                    </a>-->
                                 </div>
                                 <?php if ($banner2) { ?>
                                     <div class="carousel-item" >
                                         <a href="<?php echo $banner2['link']; ?>" title="<?php echo $banner2['title']; ?>">
                                             <img src="/images/banners/<?php echo $banner2['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner2['title']; ?>" />
                                         </a>
-                                        <a href="<?php echo $banner2['link']; ?>" title="<?php echo $banner2['title']; ?>">
-                                            <img  src="/images/banners/<?php echo $banner2['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="<?php echo $banner2['title'];  ?>"/>
-                                        </a>
+<!--                                        <a href="--><?php //echo $banner2['link']; ?><!--" title="--><?php //echo $banner2['title']; ?><!--">-->
+<!--                                            <img  src="/images/banners/--><?php //echo $banner2['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner2['title'];  ?><!--"/>-->
+<!--                                        </a>-->
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner3) { ?>
@@ -418,9 +418,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <a href="<?php echo $banner3['link']; ?>" title="<?php echo $banner3['title']; ?>">
                                             <img src="/images/banners/<?php echo $banner3['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner3['title']; ?>" />
                                         </a>
-                                        <a href="<?php echo $banner3['link']; ?>" title="<?php echo $banner3['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner3['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="<?php echo $banner3['title']; ?>"/>
-                                        </a>
+<!--                                        <a href="--><?php //echo $banner3['link']; ?><!--" title="--><?php //echo $banner3['title']; ?><!--">-->
+<!--                                            <img src="/images/banners/--><?php //echo $banner3['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner3['title']; ?><!--"/>-->
+<!--                                        </a>-->
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner4) { ?>
@@ -428,9 +428,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <a href="<?php echo $banner4['link']; ?>" title="<?php echo $banner4['title']; ?>">
                                             <img src="/images/banners/<?php echo $banner4['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner4['title']; ?>"/>
                                         </a>
-                                        <a href="<?php echo $banner4['link']; ?>" title="<?php echo $banner4['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner4['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="<?php echo $banner4['title']; ?>"/>
-                                        </a>
+<!--                                        <a href="--><?php //echo $banner4['link']; ?><!--" title="--><?php //echo $banner4['title']; ?><!--">-->
+<!--                                            <img src="/images/banners/--><?php //echo $banner4['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner4['title']; ?><!--"/>-->
+<!--                                        </a>-->
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner5) { ?>
@@ -438,9 +438,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <a href="<?php echo $banner5['link']; ?>" title="<?php echo $banner5['title']; ?>">
                                             <img src="/images/banners/<?php echo $banner5['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner5['title']; ?>" />
                                         </a>
-                                        <a href="<?php echo $banner5['link']; ?>" title="<?php echo $banner5['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner5['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="<?php echo $banner5['title']; ?>"/>
-                                        </a>
+<!--                                        <a href="--><?php //echo $banner5['link']; ?><!--" title="--><?php //echo $banner5['title']; ?><!--">-->
+<!--                                            <img src="/images/banners/--><?php //echo $banner5['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner5['title']; ?><!--"/>-->
+<!--                                        </a>-->
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner6) { ?>
@@ -448,9 +448,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <a href="<?php echo $banner6['link']; ?>" title="<?php echo $banner6['title']; ?>">
                                             <img src="/images/banners/<?php echo $banner6['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner6['title']; ?>" />
                                         </a>
-                                        <a href="<?php echo $banner6['link']; ?>" title="<?php echo $banner6['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner6['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="<?php echo $banner6['title']; ?>"/>
-                                        </a>
+<!--                                        <a href="--><?php //echo $banner6['link']; ?><!--" title="--><?php //echo $banner6['title']; ?><!--">-->
+<!--                                            <img src="/images/banners/--><?php //echo $banner6['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner6['title']; ?><!--"/>-->
+<!--                                        </a>-->
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner7) { ?>
@@ -458,9 +458,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <a href="<?php echo $banner7['link']; ?>" title="<?php echo $banner7['title']; ?>">
                                             <img src="/images/banners/<?php echo $banner7['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner7['title']; ?>" />
                                         </a>
-                                        <a href="<?php echo $banner7['link']; ?>" title="<?php echo $banner7['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner7['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="<?php echo $banner7['title']; ?>"/>
-                                        </a>
+<!--                                        <a href="--><?php //echo $banner7['link']; ?><!--" title="--><?php //echo $banner7['title']; ?><!--">-->
+<!--                                            <img src="/images/banners/--><?php //echo $banner7['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner7['title']; ?><!--"/>-->
+<!--                                        </a>-->
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner8) { ?>
@@ -468,9 +468,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <a href="<?php echo $banner8['link']; ?>" title="<?php echo $banner8['title']; ?>">
                                             <img src="/images/banners/<?php echo $banner8['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner8['title']; ?>" />
                                         </a>
-                                        <a href="<?php echo $banner8['link']; ?>" title="<?php echo $banner8['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner8['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="<?php echo $banner8['title']; ?>"/>
-                                        </a>
+<!--                                        <a href="--><?php //echo $banner8['link']; ?><!--" title="--><?php //echo $banner8['title']; ?><!--">-->
+<!--                                            <img src="/images/banners/--><?php //echo $banner8['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner8['title']; ?><!--"/>-->
+<!--                                        </a>-->
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner9) { ?>
@@ -478,9 +478,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <a href="<?php echo $banner9['link']; ?>" title="<?php echo $banner9['title']; ?>">
                                             <img src="/images/banners/<?php echo $banner9['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner9['title']; ?>"/>
                                         </a>
-                                        <a href="<?php echo $banner9['link']; ?>" title="<?php echo $banner9['title']; ?>">
-                                            <img src ="/images/banners/<?php echo $banner9['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block  img-carousel" alt="<?php echo $banner9['title']; ?>"/>
-                                        </a>
+<!--                                        <a href="--><?php //echo $banner9['link']; ?><!--" title="--><?php //echo $banner9['title']; ?><!--">-->
+<!--                                            <img src ="/images/banners/--><?php //echo $banner9['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block  img-carousel" alt="--><?php //echo $banner9['title']; ?><!--"/>-->
+<!--                                        </a>-->
                                     </div>
                                 <?php } ?>
                                 <?php if ($banner10) { ?>
@@ -488,9 +488,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <a href="<?php echo $banner10['link']; ?>" title="<?php echo $banner10['title']; ?>">
                                             <img src="/images/banners/<?php echo $banner10['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner10['title']; ?>" />
                                         </a>
-                                        <a href="<?php echo $banner10['link']; ?>" title="<?php echo $banner10['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner10['fileurl2']; ?>" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="<?php echo $banner10['title']; ?>"/>
-                                        </a>
+<!--                                        <a href="--><?php //echo $banner10['link']; ?><!--" title="--><?php //echo $banner10['title']; ?><!--">-->
+<!--                                            <img src="/images/banners/--><?php //echo $banner10['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner10['title']; ?><!--"/>-->
+<!--                                        </a>-->
                                     </div>
                                 <?php } ?>
                             </div>
@@ -879,7 +879,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Заказать звонок</h5>
+                <h5 class="modal-title text-center">Заказать звонок</h5>
                 <button type="button" class="close d-inline-block" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -890,6 +890,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
                     <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
                     <input type="text" id="customer_phone" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
+                    <input type="time" class="form-control" name="time" placeholder="Время">
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-whapp btn-block">Отправить</button>

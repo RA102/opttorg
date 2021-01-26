@@ -22,71 +22,21 @@ $(document).ready(function () {
 
     let ajaxSuccess = 0;
 
+    //  поиск по сайту xl
     $('.input-search').bind("input", function (e) {
-        let search = this.value;
         if (this.value.length >= 3) {
-            $.ajax({
-                type: 'post',
-                url: "/432gsdt55gs34hhj.php", //Путь к обработчику
-                // url: "/new-search.php", //Путь к обработчику
-                data: {
-                    'referal': search,
-                },
-
-                success: function (data) {
-                    let arr = JSON.parse(data);
-                    let div = $('<div></div>');
-
-                    $(".search_result").empty();
-
-                    if (arr['categories'].length == 0 && arr['vendors'].length == 0 && arr['ven_code'].length == 0 && arr['prod'].length == 0) {
-                        $(".search_result").append('<li class="search_result_item"><p class="">Ничего не найдено</p></li>')
-                    }
-
-                    if (arr['categories'].length) {
-                        $('<div></div>').prependTo('#categories');
-                        $(".search_result").append('<h5 class="text-bold">Категории</h5>');
-                        $(".category").remove();
-                        arr['categories'].forEach(function (item, i) {
-                            $(".search_result").append(`<a href="/shop/${item.seolink}"><li class="category search_result_item">${item?.title}</li></a>`);
-                        });
-                    }
-                    // else {
-                    //     $(".search_result").append('<h5 class="text-bold">Категории</h5>');
-                    //     $(".search_result").append(`<li class="category search_result_item">Ничего не найдено</li>`);
-                    // }
-
-                    if (arr['vendors'].length) {
-                        $(".search_result").append('<h5 class="text-bold">Производители</h5>');
-                        arr['vendors'].forEach(function (item, i) {
-                            $(".search_result").append(`<a href="/shop/vendors/${item.id}"><li class="vendor search_result_item">${item?.title}</li></a>`);
-                        });
-                    }
-
-                    if (arr['ven_code'].length) {
-                        $(".search_result").append('<h5 class="text-bold">Артикул</h5>');
-                        arr['ven_code'].forEach(function (item, i) {
-                            $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="art_no search_result_item"><span style="color: #000000;">Арт:</span> ${item?.art_no} <br> <span style="color: #000000;">Код товара:</span>${item?.ven_code} <br><span style="color: #000000;">Название: </span> ${item?.title}</li></a>`);
-                        });
-                    }
-
-                    if (arr['prod'].length) {
-                        $(".search_result").append('<h5 class="text-bold">Товары</h5>');
-                        $(".prod").remove();
-                        arr['prod'].forEach(function (item, i) {
-                            $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="prod search_result_item">${item?.title}</li></a>`);
-                        });
-                    }
-
-                    ajaxSuccess = 1;
-
-                    $(".search_result").fadeIn();
-
-                }
-            });
+            search(this.value);
         }
-
     });
+
+    // поиск по сайту мобильный
+    $('.search-mobile-input').bind("input", function (e) {
+        if (this.value.length >= 3) {
+            search(this.value);
+        }
+    });
+
+
 
     $(".mega-dropdown").hover(function () {
         $('body').append('<div class="overlay-1qk5q intered"></div>');
@@ -165,3 +115,66 @@ $(document).ready(function () {
     // });
 
 })
+
+function search($value) {
+    $.ajax({
+        type: 'post',
+        url: "/432gsdt55gs34hhj.php", //Путь к обработчику
+        // url: "/new-search.php", //Путь к обработчику
+        data: {
+            'referal': $value,
+        },
+
+        success: function (data) {
+            let arr = JSON.parse(data);
+            let div = $('<div></div>');
+
+            $(".search_result").empty();
+
+            if (arr['categories'].length == 0 && arr['vendors'].length == 0 && arr['ven_code'].length == 0 && arr['prod'].length == 0) {
+                $(".search_result").append('<li class="search_result_item"><p class="">Ничего не найдено</p></li>')
+            }
+
+            if (arr['categories'].length) {
+                $('<div></div>').prependTo('#categories');
+                $(".search_result").append('<h5 class="text-bold">Категории</h5>');
+                $(".category").remove();
+                arr['categories'].forEach(function (item, i) {
+                    $(".search_result").append(`<a href="/shop/${item.seolink}"><li class="category search_result_item">${item?.title}</li></a>`);
+                });
+            }
+            // else {
+            //     $(".search_result").append('<h5 class="text-bold">Категории</h5>');
+            //     $(".search_result").append(`<li class="category search_result_item">Ничего не найдено</li>`);
+            // }
+
+            if (arr['vendors'].length) {
+                $(".search_result").append('<h5 class="text-bold">Производители</h5>');
+                arr['vendors'].forEach(function (item, i) {
+                    $(".search_result").append(`<a href="/shop/vendors/${item.id}"><li class="vendor search_result_item">${item?.title}</li></a>`);
+                });
+            }
+
+            if (arr['ven_code'].length) {
+                $(".search_result").append('<h5 class="text-bold">Артикул</h5>');
+                arr['ven_code'].forEach(function (item, i) {
+                    $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="art_no search_result_item"><span style="color: #000000;">Арт:</span> ${item?.art_no} <br> <span style="color: #000000;">Код товара:</span>${item?.ven_code} <br><span style="color: #000000;">Название: </span> ${item?.title}</li></a>`);
+                });
+            }
+
+            if (arr['prod'].length) {
+                $(".search_result").append('<h5 class="text-bold">Товары</h5>');
+                $(".prod").remove();
+                arr['prod'].forEach(function (item, i) {
+                    $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="prod search_result_item">${item?.title}</li></a>`);
+                });
+            }
+
+            ajaxSuccess = 1;
+
+            $(".search_result").fadeIn();
+
+        }
+    });
+
+}
