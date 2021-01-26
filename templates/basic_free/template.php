@@ -531,22 +531,22 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </main>
         <?php } ?>
         <footer class="site-footer">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-8 foo-right col-sm-push-4">
+                    <div class="col-sm-12 foo-right col-sm-push-4">
                         <div class="reviews">
                             <?php $this->printModules('reviews'); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12">
-                        <div class="col-sm-3 col-md-3 col-lg-3">
-                            <img src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_white.svg" class="img-responsive logo-footer"/>
-                        </div>
-                        <?php $this->printModules('footer'); ?>
-                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                        <img class="logo-footer" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_white.svg" />
+                    </div>
+                    <?php $this->printModules('footer'); ?>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div class="socials">
                             <div class="h4">Мы в соцсетях</div>
                             <a href="https://instagram.com/sanmarket.kz?igshid=1ku2ccq4wb7fi" rel="nofollow"
@@ -562,7 +562,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                 <img style="width: 30px;" src="/templates/<?php echo TEMPLATE; ?>/images/new_icon/vk.svg"/></a>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div class="socials">
                             <div class="h4">Поделитесь нашим сайтом с друзьями!</div>
                             <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
@@ -572,8 +572,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                  data-counter=""></div>
                         </div>
                     </div>
-                    <div class="col-sm-12">
-                        <p class="text-center">www.sanmarket.kz &copy; 2016-<?php echo date('Y'); ?></p>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center">
+                        <p class="">www.sanmarket.kz &copy; 2016-<?php echo date('Y'); ?></p>
                     </div>
                 </div>
             </div>
@@ -889,7 +889,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
                     <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
                     <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
-                    <input type="text" id="customer_phone" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
+                    <input type="text" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
                     <input type="time" class="form-control" name="time" placeholder="Время">
                 </div>
                 <div class="modal-footer">

@@ -12427,17 +12427,6 @@ li.media .media-body {position:relative;}
 /*    margin-top: 20px*/
 /*}*/
 
-/*.socials {*/
-/*    color: #98B2C3;*/
-/*    margin-top: 20px*/
-/*}*/
-
-/*.foo-right .h4, .socials .h4 {*/
-/*    color: #98B2C3;*/
-/*    margin: 0 0 20px;*/
-/*    font-size: 18px*/
-/*}*/
-
 /*.rss-input {*/
 /*    line-height: 36px;*/
 /*    height: 36px;*/
@@ -12775,24 +12764,7 @@ li.media .media-body {position:relative;}
 /*    }*/
 /*}*/
 
-/*#back-top {*/
-/*    position: fixed;*/
-/*    bottom: 10px;*/
-/*    left: 10px*/
-/*}*/
 
-/*#back-top a {*/
-/*    width: 55px;*/
-/*    display: block;*/
-/*    text-align: center;*/
-/*    font: 11px/100% Arial, Helvetica, sans-serif;*/
-/*    text-transform: uppercase;*/
-/*    text-decoration: none;*/
-/*    background-color: transparent;*/
-/*    -webkit-transition: 1s;*/
-/*    -moz-transition: 1s;*/
-/*    transition: 1s*/
-/*}*/
 
 /*.forever {*/
 /*    display: block !important*/
@@ -13870,10 +13842,12 @@ button.button-modal-registration:hover {
 .site-footer {
     background: #0c5da5;
     padding: 25px 0 0;
-    color: #fff
+    color: #fff;
 }
 
-
+.site-footer ul li a {
+    color: #FFFFFF;
+}
 
 .pricer {
     text-align: center;
@@ -14855,6 +14829,10 @@ ul.search_result li.search_result_item:hover {
     border: #dedede 1px solid
 }
 
+
+
+
+
 @media (min-width: 768px) {
     .additional-gird {
         margin-left: 0;
@@ -14889,7 +14867,44 @@ ul.search_result li.search_result_item:hover {
 }
 
 
+#back-top {
+    position: fixed;
+    bottom: 10px;
+    left: 10px
+}
+
+#back-top a {
+    width: 55px;
+    display: block;
+    text-align: center;
+    font: 11px/100% Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-transition: 1s;
+    -moz-transition: 1s;
+    transition: 1s
+}
+
+
+.socials {
+    color: #98B2C3;
+    margin-top: 20px
+}
+
+.foo-right .h4, .socials .h4 {
+    color: #98B2C3;
+    margin: 0 0 20px;
+    font-size: 18px
+}
+
+
+
+
+
+
 /* --  End all selectors -- */
+
 @media all and (min-width:1201px) {
     .mrg-top {
         margin-top: 0;
@@ -15058,16 +15073,6 @@ ul.search_result li.search_result_item:hover {
     #carousel-1 .carousel-inner .item {
         height: auto;
     }
-
-    .item-menu {
-        padding-right: 35px;
-        padding-left: 0;
-    }
-
-    .mobile-menu .item-menu:last-child {
-        padding-right: 0;
-    }
-
     .carousel-item {
         height: auto;
     }
