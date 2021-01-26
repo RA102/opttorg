@@ -14865,6 +14865,10 @@ ul.search_result li.search_result_item:hover {
         width: 25%;
         font-size: 12px
     }
+
+    .img-carousel {
+        height: auto;
+    }
 }
 
 
@@ -15064,10 +15068,6 @@ ul.search_result li.search_result_item:hover {
         padding-right: 0;
     }
 
-    .img-carousel {
-        height: 367px;
-    }
-
     .carousel-item {
         height: auto;
     }
@@ -15090,7 +15090,7 @@ ul.search_result li.search_result_item:hover {
     }
 
     .header-icon {
-        margin-right: 0;
+        margin-right: auto;
     }
 
     .img-carousel {
@@ -15099,6 +15099,10 @@ ul.search_result li.search_result_item:hover {
 
     .carousel-item {
         height: auto;
+    }
+
+    #icon-search {
+        width: 55px;
     }
 }
 
