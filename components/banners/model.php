@@ -146,4 +146,11 @@ class cms_model_banners
 
     }
 
+    public function disactivateBanner()
+    {
+        $inDB = cmsDatabase::getInstance();
+        $inDB->query("UPDATE cms_banners SET published = 0 WHERE showbefore != 0 AND DATEDIFF(NOW(), showbefore) >= 0");
+        return true;
+    }
+
 }

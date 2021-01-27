@@ -27,7 +27,7 @@
         <div class="item-menu text-center">
             <a href="/mebel-dlja-vannoi">
                 <img src="/templates/basic_free/images/menu-mobile/pedestal.png" alt="" width="60">
-                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Мебель<br>для ванной</span>
+                <span class="text-center d-block" style="font-size: 24px; line-height: 22px;">Мебель<br />для ванной</span>
             </a>
         </div>
 
@@ -77,7 +77,7 @@
         <div class="item-menu text-center">
             <a href="/shop/komplektuyuschie">
                 <img src="/templates/basic_free/images/menu-mobile/yet.png" alt="" width="60">
-                <p class="text-center d-block" style="font-size: 24px; line-height: 22px;">Комплектующие</p>
+                <p class="text-center d-block" style="font-size: 24px; line-height: 22px;">Компле<br />ктующие</p>
             </a>
         </div>
 

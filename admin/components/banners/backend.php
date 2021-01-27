@@ -1,16 +1,6 @@
 <?php
 if(!defined('VALID_CMS_ADMIN')) { die('ACCESS DENIED'); }
-/******************************************************************************/
-//                                                                            //
-//                           InstantCMS v1.10.6                               //
-//                        http://www.instantcms.ru/                           //
-//                                                                            //
-//                   written by InstantCMS Team, 2007-2015                    //
-//                produced by InstantSoft, (www.instantsoft.ru)               //
-//                                                                            //
-//                        LICENSED BY GNU/GPL v2                              //
-//                                                                            //
-/******************************************************************************/
+
 
 function bannerCTRbyID($item){
 	if ($item['hits']>0) {
@@ -86,6 +76,8 @@ if ($opt == 'submit' || $opt == 'update'){
     $maxuser = 0;
     $published = cmsCore::request('published', 'int', 0);
     $position  = cmsCore::request('position', 'str');
+    $showBefore = cmsCore::request('showbefore', 'str');
+
     if((@$_FILES['picture1']['size']) && (@$_FILES['picture2']['size'])) {
 
         $ext1 = mb_strtolower(pathinfo($_FILES['picture1']['name'], PATHINFO_EXTENSION));
@@ -104,8 +96,8 @@ if ($opt == 'submit' || $opt == 'update'){
 
             if($opt == 'submit'){
 
-                $sql = "INSERT INTO cms_banners (position, fileurl2, typeimg, fileurl, hits, clicks, maxhits, maxuser, user_id, pubdate, title, link, published)
-                        VALUES ('$position', '$filename2', '$typeimg', '$filename1', 0, 0, '$maxhits', '$maxuser', 1, NOW(), '$title', '$link', '$published')";
+                $sql = "INSERT INTO cms_banners (position, fileurl2, typeimg, fileurl, hits, clicks, maxhits, maxuser, user_id, pubdate, title, link, published, showbefore)
+                        VALUES ('$position', '$filename2', '$typeimg', '$filename1', 0, 0, '$maxhits', '$maxuser', 1, NOW(), '$title', '$link', '$published', '$showBefore')";
                 $inDB = cmsDatabase::getInstance();
                 $inDB->query($sql);
 
@@ -144,7 +136,8 @@ if ($opt == 'submit' || $opt == 'update'){
                     maxhits = '$maxhits',
                     maxuser = '$maxuser',
                     typeimg = '$typeimg',
-                    link = '$link'
+                    link = '$link',
+                    showbefore = '$showBefore'
                 WHERE id = '$item_id'";
 
         $inDB->query($sql);
@@ -182,6 +175,9 @@ if ($opt == 'list'){
     $fields[] = array('title'=>$_LANG['TITLE'], 'field'=>'title', 'width'=>'', 'filter'=>15, 'link'=>'?view=components&do=config&id='.$id.'&opt=edit&item_id=%id%');
     $fields[] = array('title'=>$_LANG['AD_POSITION'], 'field'=>'position', 'width'=>'100', 'filter'=>15);
     $fields[] = array('title'=>$_LANG['AD_IS_PUBLISHED'], 'field'=>'published', 'width'=>'100', 'do'=>'opt', 'do_suffix'=>'_banner');
+
+    $fields[] = array('title'=>$_LANG['AD_SHOW_BEFORE_DATE'], 'field'=>'showbefore', 'width'=>'100', 'do'=>'opt', 'do_suffix'=>'_banner');
+
     $fields[] = array('title'=>$_LANG['AD_BANNER_HITS'], 'field'=>array('maxhits','hits'), 'width'=>'90', 'prc'=>'bannerHitsbyID');
     $fields[] = array('title'=>$_LANG['AD_BANNER_CLICKS'], 'field'=>'clicks', 'width'=>'90');
     $fields[] = array('title'=>$_LANG['AD_BANNER_CTR'], 'field'=>array('clicks','hits'), 'width'=>'90', 'prc'=>'bannerCTRbyID');
@@ -284,6 +280,17 @@ if ($opt == 'add' || $opt == 'edit'){
                 <span class="hinttext"><?php echo $_LANG['AD_UNLIMITED_HITS']; ?></span></td>
             <td><input name="maxhits" type="text" id="maxhits" size="5" value="<?php echo @$mod['maxhits'];?>"/> <?php echo $_LANG['AD_HITS_LIMIT']; ?></td>
           </tr>
+
+            <tr>
+                <td>
+                    <strong><?php echo $_LANG['AD_SHOW_BEFORE_DATE']; ?></strong><br />
+                    <span class="hinttext">Показывать до указаной даты</span>
+                </td>
+                <td>
+                    <input name="showbefore" type="date" id="showbefore" value="<?php echo @$mod['showbefore'];?>"/>
+                </td>
+            </tr>
+
           <tr>
             <td><strong><?php echo $_LANG['AD_BANNER_PUBLISH']; ?></strong><br />
                 <span class="hinttext"><?php echo $_LANG['AD_BANNER_DISALLOW']; ?></span></td>

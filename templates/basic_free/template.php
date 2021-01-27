@@ -31,6 +31,8 @@ $this->addHeadCSS('includes/jquery/colorbox/colorbox.css');
 $this->addHeadJS('includes/jquery/colorbox/init_colorbox.js');
 $this->addHeadJS('components/registration/js/check.js');
 
+
+
 // LANG фразы для colorbox
 $this->addHeadJsLang(array('CBOX_IMAGE', 'CBOX_FROM', 'CBOX_PREVIOUS', 'CBOX_NEXT', 'CBOX_CLOSE', 'CBOX_XHR_ERROR', 'CBOX_IMG_ERROR', 'CBOX_SLIDESHOWSTOP', 'CBOX_SLIDESHOWSTART'));
 /*
@@ -104,6 +106,10 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <?php $this->printHead(); ?>
 
 
+<!--  новый слайдер   -->
+<!--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
+    <script type="text/javascript" src="/templates/basic_free/js/modernizr.custom.46884.js"></script>
+    <script type="text/javascript" src="/templates/basic_free/js/jquery.slicebox.js"></script>
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -151,6 +157,12 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             <link rel="stylesheet" href="/templates/<?php echo TEMPLATE; ?>/css/ie.css" type="text/css" media="all" />
         <![endif]-->
     <link rel="icon" type="image/svg" href="/images/favicon.svg"/>
+
+<!--  Новый слайдер  -->
+
+    <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/slicebox.css" />
+<!--    <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/custom.css" />-->
+
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fish.js"> </script>
@@ -200,7 +212,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 				<a class="d-lg-none" href="/shop/cart.html"><?php $this->printModules('b-cart'); ?></a>
 				<a class="d-lg-none" href="#" data-toggle="modal" data-target="#search_modal"><span class="glyphicon glyphicon-search"></span></a>
 				<a class="d-lg-none" href="#" data-toggle="modal" data-target="#city_modal"><span class="glyphicon glyphicon-map-marker"></span></a>
-				<a class="d-lg-none" href="tel:+77775409927"><span class="glyphicon glyphicon-phone"></span></a>
 				<a class="d-lg-none" href="tel:+77775409927"><span class="glyphicon glyphicon-phone"></span></a>
 			</span>
 
@@ -384,132 +395,152 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <section class="main-banner">
-                        <div id="carousel-1" class="carousel slide carousel-fabe" data-ride="carousel" data-interval="0">
-                            <ol id="indicators" class="carousel-indicators">
-                                <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-1" data-slide-to="1"></li>
-                                <li data-target="#carousel-1" data-slide-to="2"></li>
-                                <li data-target="#carousel-1" data-slide-to="3"></li>
-                                <li data-target="#carousel-1" data-slide-to="4"></li>
-                                <li data-target="#carousel-1" data-slide-to="5"></li>
-                                <li data-target="#carousel-1" data-slide-to="6"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active" >
-                                    <a href="<?php echo $banner1['link']; ?>" title="<?php echo $banner1['title']; ?>">
-                                        <img src="/images/banners/<?php echo $banner1['fileurl']; ?>" class="img-fluid d-none d-sm-block d-md-block d-lg-block d-xl-block img-carousel" alt="<?php echo $banner1['title']; ?>"/>
-                                    </a>
-<!--                                    <a href="--><?php //echo $banner1['link']; ?><!--" title="--><?php //echo $banner1['title']; ?><!--">-->
-<!--                                        <img src="/images/banners/--><?php //echo $banner1['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner1['title']; ?><!--"/>-->
-<!--                                    </a>-->
+                <!--  Слайдер html  -->
+                            <div class="wrapper">
+<!--                            <div id="carousel-1" class="carousel slide carousel-fabe" data-ride="carousel" data-interval="0">-->
+<!--                            <ol id="indicators" class="carousel-indicators">-->
+<!--                                <li data-target="#carousel-1" data-slide-to="0" class="active"></li>-->
+<!--                                <li data-target="#carousel-1" data-slide-to="1"></li>-->
+<!--                                <li data-target="#carousel-1" data-slide-to="2"></li>-->
+<!--                                <li data-target="#carousel-1" data-slide-to="3"></li>-->
+<!--                                <li data-target="#carousel-1" data-slide-to="4"></li>-->
+<!--                                <li data-target="#carousel-1" data-slide-to="5"></li>-->
+<!--                                <li data-target="#carousel-1" data-slide-to="6"></li>-->
+<!--                            </ol>-->
+                                <ul id="sb-slider" class="sb-slider">
+                                    <li>
+                                        <a href="<?php echo $banner1['link']; ?>" title="<?php echo $banner1['title']; ?>">
+                                            <img src="/images/banners/<?php echo $banner1['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner1['title']; ?>"/>
+                                        </a>
+                                        <!-- <a href="--><?php //echo $banner1['link']; ?><!--" title="--><?php //echo $banner1['title']; ?><!--">-->
+                                        <!-- <img src="/images/banners/--><?php //echo $banner1['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner1['title']; ?><!--"/>-->
+                                        <!-- </a>-->
+
+                                    </li>
+
+                                    <?php if ($banner2) { ?>
+
+                                        <li>
+                                            <a href="<?php echo $banner2['link']; ?>" title="<?php echo $banner2['title']; ?>">
+                                                <img src="/images/banners/<?php echo $banner2['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner2['title']; ?>" />
+                                            </a>
+                                            <!-- <a href="--><?php //echo $banner2['link']; ?><!--" title="--><?php //echo $banner2['title']; ?><!--">-->
+                                            <!-- <img  src="/images/banners/--><?php //echo $banner2['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner2['title'];  ?><!--"/>-->
+                                            <!-- </a>-->
+
+                                        </li>
+
+                                    <?php } ?>
+                                    <?php if ($banner3) { ?>
+
+                                        <li>
+                                            <a href="<?php echo $banner3['link']; ?>" title="<?php echo $banner3['title']; ?>">
+                                                <img src="/images/banners/<?php echo $banner3['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner3['title']; ?>" />
+                                            </a>
+                                            <!-- <a href="--><?php //echo $banner3['link']; ?><!--" title="--><?php //echo $banner3['title']; ?><!--">-->
+                                            <!-- <img src="/images/banners/--><?php //echo $banner3['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner3['title']; ?><!--"/>-->
+                                            <!-- </a>-->
+
+                                        </li>
+
+                                    <?php } ?>
+                                    <?php if ($banner4) { ?>
+
+                                        <li>
+                                            <a href="<?php echo $banner4['link']; ?>" title="<?php echo $banner4['title']; ?>">
+                                                <img src="/images/banners/<?php echo $banner4['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner4['title']; ?>"/>
+                                            </a>
+                                            <!-- <a href="--><?php //echo $banner4['link']; ?><!--" title="--><?php //echo $banner4['title']; ?><!--">-->
+                                            <!-- <img src="/images/banners/--><?php //echo $banner4['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner4['title']; ?><!--"/>-->
+                                            <!-- </a>-->
+
+                                        </li>
+
+                                    <?php } ?>
+                                    <?php if ($banner5) { ?>
+
+                                        <li>
+                                            <a href="<?php echo $banner5['link']; ?>" title="<?php echo $banner5['title']; ?>">
+                                                <img src="/images/banners/<?php echo $banner5['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner5['title']; ?>" />
+                                            </a>
+                                            <!-- <a href="--><?php //echo $banner5['link']; ?><!--" title="--><?php //echo $banner5['title']; ?><!--">-->
+                                            <!-- <img src="/images/banners/--><?php //echo $banner5['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner5['title']; ?><!--"/>-->
+                                            <!-- </a>-->
+
+                                        </li>
+
+                                    <?php } ?>
+                                    <?php if ($banner6) { ?>
+
+                                        <li>
+                                            <a href="<?php echo $banner6['link']; ?>" title="<?php echo $banner6['title']; ?>">
+                                                <img src="/images/banners/<?php echo $banner6['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner6['title']; ?>" />
+                                            </a>
+
+                                        </li>
+
+                                    <?php } ?>
+                                    <?php if ($banner7) { ?>
+
+                                        <li>
+                                            <a href="<?php echo $banner7['link']; ?>" title="<?php echo $banner7['title']; ?>">
+                                                <img src="/images/banners/<?php echo $banner7['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner7['title']; ?>" />
+                                            </a>
+
+                                        </li>
+
+
+                                    <?php } ?>
+                                    <?php if ($banner8) { ?>
+
+                                        <li>
+                                            <a href="<?php echo $banner8['link']; ?>" title="<?php echo $banner8['title']; ?>">
+                                                <img src="/images/banners/<?php echo $banner8['fileurl']; ?>" class=" img-carousel" alt="<?php echo $banner8['title']; ?>" />
+                                            </a>
+
+                                        </li>
+
+                                    <?php } ?>
+                                    <?php if ($banner9) { ?>
+
+                                        <li>
+                                            <a href="<?php echo $banner9['link']; ?>" title="<?php echo $banner9['title']; ?>">
+                                                <img src="/images/banners/<?php echo $banner9['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner9['title']; ?>"/>
+                                            </a>
+
+                                        </li>
+
+                                    <?php } ?>
+                                    <?php if ($banner10) { ?>
+
+                                        <li>
+                                            <a href="<?php echo $banner10['link']; ?>" title="<?php echo $banner10['title']; ?>">
+                                                <img src="/images/banners/<?php echo $banner10['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner10['title']; ?>" />
+                                            </a>
+
+                                        </li>
+
+                                    <?php } ?>
+                                </ul>
+                                <div id="shadow" class="shadow"></div>
+                                <?php if ($banner2 || $banner3 || $banner4 || $banner5 || $banner6 || $banner7 || $banner8 || $banner9 || $banner10) { ?>
+                                    <div id="nav-arrows" class="nav-arrows">
+                                        <a href="#">Next</a>
+                                        <a href="#">Previous</a>
+                                    </div>
+                                <?php } ?>
+                                <div id="nav-dots" class="nav-dots">
+                                    <span class="nav-dot-current"></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
                                 </div>
-                                <?php if ($banner2) { ?>
-                                    <div class="carousel-item" >
-                                        <a href="<?php echo $banner2['link']; ?>" title="<?php echo $banner2['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner2['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner2['title']; ?>" />
-                                        </a>
-<!--                                        <a href="--><?php //echo $banner2['link']; ?><!--" title="--><?php //echo $banner2['title']; ?><!--">-->
-<!--                                            <img  src="/images/banners/--><?php //echo $banner2['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner2['title'];  ?><!--"/>-->
-<!--                                        </a>-->
-                                    </div>
-                                <?php } ?>
-                                <?php if ($banner3) { ?>
-                                    <div class="carousel-item" >
-                                        <a href="<?php echo $banner3['link']; ?>" title="<?php echo $banner3['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner3['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner3['title']; ?>" />
-                                        </a>
-<!--                                        <a href="--><?php //echo $banner3['link']; ?><!--" title="--><?php //echo $banner3['title']; ?><!--">-->
-<!--                                            <img src="/images/banners/--><?php //echo $banner3['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner3['title']; ?><!--"/>-->
-<!--                                        </a>-->
-                                    </div>
-                                <?php } ?>
-                                <?php if ($banner4) { ?>
-                                    <div class="carousel-item">
-                                        <a href="<?php echo $banner4['link']; ?>" title="<?php echo $banner4['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner4['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner4['title']; ?>"/>
-                                        </a>
-<!--                                        <a href="--><?php //echo $banner4['link']; ?><!--" title="--><?php //echo $banner4['title']; ?><!--">-->
-<!--                                            <img src="/images/banners/--><?php //echo $banner4['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner4['title']; ?><!--"/>-->
-<!--                                        </a>-->
-                                    </div>
-                                <?php } ?>
-                                <?php if ($banner5) { ?>
-                                    <div class="carousel-item" >
-                                        <a href="<?php echo $banner5['link']; ?>" title="<?php echo $banner5['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner5['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner5['title']; ?>" />
-                                        </a>
-<!--                                        <a href="--><?php //echo $banner5['link']; ?><!--" title="--><?php //echo $banner5['title']; ?><!--">-->
-<!--                                            <img src="/images/banners/--><?php //echo $banner5['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner5['title']; ?><!--"/>-->
-<!--                                        </a>-->
-                                    </div>
-                                <?php } ?>
-                                <?php if ($banner6) { ?>
-                                    <div class="carousel-item" >
-                                        <a href="<?php echo $banner6['link']; ?>" title="<?php echo $banner6['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner6['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner6['title']; ?>" />
-                                        </a>
-<!--                                        <a href="--><?php //echo $banner6['link']; ?><!--" title="--><?php //echo $banner6['title']; ?><!--">-->
-<!--                                            <img src="/images/banners/--><?php //echo $banner6['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner6['title']; ?><!--"/>-->
-<!--                                        </a>-->
-                                    </div>
-                                <?php } ?>
-                                <?php if ($banner7) { ?>
-                                    <div class="carousel-item" >
-                                        <a href="<?php echo $banner7['link']; ?>" title="<?php echo $banner7['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner7['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner7['title']; ?>" />
-                                        </a>
-<!--                                        <a href="--><?php //echo $banner7['link']; ?><!--" title="--><?php //echo $banner7['title']; ?><!--">-->
-<!--                                            <img src="/images/banners/--><?php //echo $banner7['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner7['title']; ?><!--"/>-->
-<!--                                        </a>-->
-                                    </div>
-                                <?php } ?>
-                                <?php if ($banner8) { ?>
-                                    <div class="carousel-item" >
-                                        <a href="<?php echo $banner8['link']; ?>" title="<?php echo $banner8['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner8['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner8['title']; ?>" />
-                                        </a>
-<!--                                        <a href="--><?php //echo $banner8['link']; ?><!--" title="--><?php //echo $banner8['title']; ?><!--">-->
-<!--                                            <img src="/images/banners/--><?php //echo $banner8['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner8['title']; ?><!--"/>-->
-<!--                                        </a>-->
-                                    </div>
-                                <?php } ?>
-                                <?php if ($banner9) { ?>
-                                    <div class="carousel-item">
-                                        <a href="<?php echo $banner9['link']; ?>" title="<?php echo $banner9['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner9['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner9['title']; ?>"/>
-                                        </a>
-<!--                                        <a href="--><?php //echo $banner9['link']; ?><!--" title="--><?php //echo $banner9['title']; ?><!--">-->
-<!--                                            <img src ="/images/banners/--><?php //echo $banner9['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block  img-carousel" alt="--><?php //echo $banner9['title']; ?><!--"/>-->
-<!--                                        </a>-->
-                                    </div>
-                                <?php } ?>
-                                <?php if ($banner10) { ?>
-                                    <div class="carousel-item">
-                                        <a href="<?php echo $banner10['link']; ?>" title="<?php echo $banner10['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner10['fileurl']; ?>" class="img-fluid d-none d-sm-block img-carousel" alt="<?php echo $banner10['title']; ?>" />
-                                        </a>
-<!--                                        <a href="--><?php //echo $banner10['link']; ?><!--" title="--><?php //echo $banner10['title']; ?><!--">-->
-<!--                                            <img src="/images/banners/--><?php //echo $banner10['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner10['title']; ?><!--"/>-->
-<!--                                        </a>-->
-                                    </div>
-                                <?php } ?>
                             </div>
-                            <?php if ($banner2 || $banner3 || $banner4 || $banner5 || $banner6 || $banner7 || $banner8 || $banner9 || $banner10) { ?>
-                                <a class="left carousel-control-prev" href="#carousel-1" role="button" data-slide="prev">
-<!--                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>-->
-<!--                                    <span class="sr-only">Previous</span>-->
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Prev</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carousel-1" role="button" data-slide="next">
-<!--                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>-->
-<!--                                    <span class="sr-only">Next</span>-->
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            <?php } ?>
-                        </div>
-                    </section>
+
+                <!--  END слайдер                   -->
+
+                        </section>
                     </div>
                 </div>
             <?php } ?>
@@ -890,16 +921,96 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
                     <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
                     <input type="text" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
-                    <input type="time" class="form-control" name="time" placeholder="Время">
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-whapp btn-block">Отправить</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(function() {
+
+        var Page = (function() {
+
+            var $navArrows = $( '#nav-arrows' ).hide(),
+                $navDots = $( '#nav-dots' ).hide(),
+                $nav = $navDots.children( 'span' ),
+                $shadow = $( '#shadow' ).hide(),
+                slicebox = $( '#sb-slider' ).slicebox( {
+                    onReady : function() {
+
+                        $navArrows.show();
+                        $navDots.show();
+                        $shadow.show();
+
+                    },
+                    onBeforeChange : function( pos ) {
+
+                        $nav.removeClass( 'nav-dot-current' );
+                        $nav.eq( pos ).addClass( 'nav-dot-current' );
+
+                    }
+                } ),
+
+                init = function() {
+
+                    initEvents();
+
+                },
+                initEvents = function() {
+
+                    // add navigation events
+                    $navArrows.children( ':first' ).on( 'click', function() {
+
+                        slicebox.next();
+                        return false;
+
+                    } );
+
+                    $navArrows.children( ':last' ).on( 'click', function() {
+
+                        slicebox.previous();
+                        return false;
+
+                    } );
+
+                    $nav.each( function( i ) {
+
+                        $( this ).on( 'click', function( event ) {
+
+                            var $dot = $( this );
+
+                            if( !slicebox.isActive() ) {
+
+                                $nav.removeClass( 'nav-dot-current' );
+                                $dot.addClass( 'nav-dot-current' );
+
+                            }
+
+                            slicebox.jump( i + 1 );
+                            return false;
+
+                        } );
+
+                    } );
+
+                };
+
+            return { init : init };
+
+        })();
+
+        Page.init();
+
+    });
+</script>
+
 
 
 </body>

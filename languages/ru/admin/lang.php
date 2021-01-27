@@ -28,6 +28,7 @@ $_LANG['AD_DO_DISABLE']           = 'Отключить';
 $_LANG['AD_ALLOW_SELECTED']       = 'Публиковать выбранные';
 $_LANG['AD_DISALLOW_SELECTED']    = 'Скрыть выбранные';
 $_LANG['AD_IS_PUBLISHED']         = 'Показ';
+$_LANG['AD_SHOW_BEFORE_DATE']     = 'Живет до...';
 $_LANG['AD_POSITION']             = 'Позиция';
 $_LANG['AD_CONFIG']               = 'Настроить';
 $_LANG['AD_SETTINGS']             = 'Настройки';
