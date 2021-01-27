@@ -12529,11 +12529,7 @@ li.media .media-body {position:relative;}
 /*    font-size: 18px*/
 /*}*/
 
-/*.good-wrp {*/
-/*    background: #fff;*/
-/*    padding: 20px;*/
-/*    margin-bottom: 20px*/
-/*}*/
+
 
 /*.old-price {*/
 /*    font-size: 22px;*/
@@ -12549,13 +12545,6 @@ li.media .media-body {position:relative;}
 /*    margin-bottom: 25px*/
 /*}*/
 
-/*.qty-control {*/
-/*    height: 44px;*/
-/*    line-height: 44px;*/
-/*    width: 80px;*/
-/*    padding: 0 5px;*/
-/*    display: block*/
-/*}*/
 
 /*.chars-wrp h4 {*/
 /*    color: #98B2C3*/
@@ -14184,8 +14173,8 @@ label#label25 > div:nth-child(3) {
     vertical-align: top;
     white-space: normal;
     float: none;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 22px;
+    padding-right: 22px;
     /*margin-right: 70px;*/
 }
 
@@ -14771,13 +14760,6 @@ ul.search_result li.search_result_item:hover {
     margin-bottom: 4px
 }
 
-@media (min-width: 1200px) {
-    .thumb {
-        min-height: 525px;
-    }
-
-}
-
 .thumb-cat {
     background: #fff;
     padding: 3px;
@@ -14833,8 +14815,28 @@ ul.search_result li.search_result_item:hover {
 }
 
 
+.good-wrp {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px
+}
 
+.qty-control {
+    height: 44px;
+    line-height: 44px;
+    width: 80px;
+    padding: 0 5px;
+    display: block
+}
 
+.btn-cart-item {
+    background: #ff9600;
+    color: #ffffff;
+    width: 100%;
+    border-radius: 10px;
+    font-weight: 400;
+    outline: none;
+}
 
 @media (min-width: 768px) {
     .additional-gird {
@@ -14852,6 +14854,12 @@ ul.search_result li.search_result_item:hover {
     }
 }
 
+@media (min-width: 1200px) {
+    .thumb {
+        min-height: 525px;
+    }
+
+}
 
 /*  END CARD ITEM */
 
@@ -15026,6 +15034,30 @@ ul.search_result li.search_result_item:hover {
 .sb-slider img {
     height: 367px;
 }
+
+.sb-slider {
+    margin-bottom: 0;
+}
+
+.nav-arrows a {
+    transform: translate(0, -50%);
+}
+
+
+@media (min-width: 576px) {
+    .sb-slider img {
+        height: auto;
+    }
+
+}
+
+@media (min-width: 768px) {
+    .sb-slider img {
+        height: auto;
+    }
+}
+
+
 
 
 /*   end Ноый слайдер   */
@@ -15231,11 +15263,7 @@ ul.search_result li.search_result_item:hover {
         margin-right: auto;
     }
 
-    .img-carousel {
-        height: auto;
-    }
-
-    .carousel-item {
+    .sb-slider img {
         height: auto;
     }
 

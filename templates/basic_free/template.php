@@ -390,6 +390,19 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             }
             */
 
+            $arrayBannerItems = [];
+
+            array_push($arrayBannerItems, $banner1);
+            array_push($arrayBannerItems, $banner2);
+            array_push($arrayBannerItems, $banner3);
+            array_push($arrayBannerItems, $banner4);
+            array_push($arrayBannerItems, $banner5);
+            array_push($arrayBannerItems, $banner6);
+            array_push($arrayBannerItems, $banner7);
+            array_push($arrayBannerItems, $banner8);
+            array_push($arrayBannerItems, $banner9);
+            array_push($arrayBannerItems, $banner10);
+
             ?>
             <?php if ($banner1) { ?>
                 <div class="container-fluid">
@@ -950,12 +963,16 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                         $shadow.show();
 
                     },
+
                     onBeforeChange : function( pos ) {
 
                         $nav.removeClass( 'nav-dot-current' );
                         $nav.eq( pos ).addClass( 'nav-dot-current' );
 
-                    }
+                    },
+                    orientation : 'h',
+                    cuboidsCount : 1,
+                    autoplay: true
                 } ),
 
                 init = function() {

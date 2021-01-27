@@ -125,7 +125,7 @@
 																			{/if}
 																		</td>
 																		<td valign="middle">
-																			<button type="submit" class="btn-vkorz btn btn-main btn-block btn-lg{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
+																			<button type="submit" class="btn-vkorz btn btn-cart-item btn-block btn-lg{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
 																		</td>
 																	</tr>
 																</table>
