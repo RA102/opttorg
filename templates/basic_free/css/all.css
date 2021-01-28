@@ -14828,7 +14828,7 @@ ul.search_result li.search_result_item:hover {
 .new-price {
     font-size: 32px;
     font-weight: 700;
-    color: #98B2C3;
+    color: #0C5DA5;
     text-align: right;
     line-height: 32px;
     margin-bottom: 25px
@@ -14931,6 +14931,10 @@ ul.search_result li.search_result_item:hover {
     margin: 0 auto;
 }
 
+
+img-carousel {
+    height: 367px;
+}
 
 .shadow {
     width: 100%;
