@@ -882,7 +882,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 </div>
 
-<div class="navbar-fixed-bottom tapbar pt-2 pb-2 d-lg-none">
+<div class="fixed-bottom tapbar pt-2 pb-2 d-lg-none">
     <div class="d-flex justify-content-around">
         <div class="">
             <a href="/"><img src="/templates/basic_free/images/tapbar/home.png" alt="" class="" width="30"></a>
