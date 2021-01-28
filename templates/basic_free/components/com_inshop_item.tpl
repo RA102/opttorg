@@ -1,14 +1,13 @@
 <div itemscope itemtype="http://schema.org/Product">
     {add_js file='components/shop/js/cart.js'}
     {if $smarty.session.user.group_id==10}{$iprice=$item.opt}{else}{$iprice=$item.price}{/if}
-    <h1 class="con_heading" itemprop="name">
-        <a href="#" class="history-back hidden-lg hidden-md" onclick="history.back();">&laquo;</a> {$item.title}</h1>
+        <a href="#" class="history-back hidden-lg hidden-md" onclick="history.back();">&laquo;</a>
     <script src="/templates/basic_free/js/jquery.maskedinput.min.js"></script>
     {if $topbanner!=''}{$topbanner}{/if}
     <div class="good-wrp">
         <form action="/shop/addtocart" method="POST">
             <div class="row">
-                <div class="col-md-4 col-sm-12">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
                     <div class="thumb-cat">
                         <a id="itemimage" href="/images/photos/medium/{$item.filename}" class="lightbox-enabled" rel="lightbox-galery" title="{$item.title|escape:'html'} - {$item.art_no}">
                             <img src="/images/photos/small/{$item.filename}" class="img-fluid" alt="{$item.title|escape:'html'} - {$item.art_no} – интернет-магазин SanMarket" itemprop="image"/>{if $item.old_price>0}
@@ -47,18 +46,23 @@
                     <div class="ya-share2 yashasha" data-services="vkontakte,facebook,odnoklassniki,moimir,whatsapp,skype,telegram" data-counter=""></div>
                     -->
                 </div>
-                <div class="col-md-8 col-sm-12">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
                     <div class="chars-wrp">
                         <div class="row">
-
-                            <div class="col-md-5 col-5 order-7" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                            <div class="col-12 border-bottom px-0">
+                                <h1 class="item--title con_heading" itemprop="name">{$item.title}</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 order-0 col-sm-12 order-sm-0 col-md-12 order-md-0 col-lg-5 order-lg-7 col-xl-5 order-xl-7 px-0" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                 {if $iprice > 0}
                                     {if $cfg.is_shop && !$item.hide_price}
                                         {if !$cfg.track_qty || $qty || $qty_from_vendor}
                                             {if $item.old_price > 0}
                                                 <div class="old-price">
-                                                <s>{$item.old_price|number_format:0:" ":" "} {$cfg.currency}</s>
-                                                </div>{/if}
+                                                    <s>{$item.old_price|number_format:0:" ":" "} {$cfg.currency}</s>
+                                                </div>
+                                            {/if}
                                             <meta itemprop="price" content="{$iprice}"/>
                                             <meta itemprop="priceCurrency" content="KZT"/>
                                             <meta itemprop="priceValidUntil" content="2030-12-12"/>
@@ -68,15 +72,53 @@
                                             </div>
                                             <div>
                                                 {if $qty > 1 }
-                                                    <p class="count-item">Есть в наличии</p>
+                                                    <p class="count-item p-3 bg-success text-white">Есть в наличии</p>
                                                 {elseif $qty_from_vendor}
-                                                    <p class="count-item"> Под заказ</p>
+                                                    <p class="count-item p-3 bg-warning text-white">Под заказ</p>
                                                 {/if}
                                             </div>
-                                            {if $cfg.track_qty}
 
-                                            {/if}
+                                            <input type="hidden" name="var_art_no" value=""/>
+                                            <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
+                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table_tab">
+                                                <tr>
+                                                    <td>
+                                                        <div id="add_to_cart_{$item.id}">
+                                                            {if $cfg.qty_mode != 'one'}
+                                                                <div class="qty">
+                                                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                                        <tr>
+                                                                            <td valign="middle" width="100">
+                                                                                {if $cfg.qty_mode=='qty'}
+                                                                                    {if $item.qty}
+                                                                                        <select name="qty" class="vkorz">
+                                                                                            {section name=qty loop=$item.qty step=1}
+                                                                                                <option value="{$smarty.section.qty.index+1}" {if $smarty.section.qty.index+1 == $item.cart_qty}selected="selected"{/if}>{$smarty.section.qty.index+1}</option>
+                                                                                            {/section}
+                                                                                        </select>
+                                                                                    {/if}
+                                                                                {/if}
+                                                                                {if $cfg.qty_mode=='any'}
+                                                                                    <input id="qtyy" name="qty" type="number" min="1" class="qty-control" value="1" oninput="change()"/>
+                                                                                {/if}
+                                                                            </td>
+                                                                            <td valign="middle">
+                                                                                <button type="submit" class="btn-vkorz btn btn-main btn-block btn-lg{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            {else}
+                                                                <input type="submit" class="add btn-vkorz" name="addtocart" value="{$LANG.SHOP_ADD_TO_CART}"/>
+                                                            {/if}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <div class="row">
 
+                                            </div>
+                                            <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">Заказать в один клик!</a>
                                             {if $item.kaspikz}
                                                 <div class="small mt10 text-center btn-kaspi">
                                                 <a rel="nofollow" target="_blank" href="{$item.kaspikz}"><img src="/templates/basic_free/img/kaspykz.png" height="48"/></a>
@@ -97,47 +139,23 @@
                                                 <div class="smallest">Kaspi Red 0% только в Караганде</div>
                                             </div>
                                         {else}
-                                            <div class="old_price"><span class="nazakaz">На заказ</span></div>
+                                            <div class="old_price">
+{*                                                <span class="nazakaz">На заказ</span>*}
+                                                {if $item.old_price > 0}
+                                                    <div class="old-price">
+                                                        <s>{$item.old_price|number_format:0:" ":" "} {$cfg.currency}</s>
+                                                    </div>
+                                                {/if}
+                                                <meta itemprop="price" content="{$iprice}"/>
+                                                <meta itemprop="priceCurrency" content="KZT"/>
+                                                <meta itemprop="priceValidUntil" content="2030-12-12"/>
+                                                <meta itemprop="url" content="https://sanmarket.kz/shop/{$item.seolink}.html"/>
+                                                <div class="new-price">
+                                                    <span id="results">{$iprice|number_format:0:" ":" "}</span> {$cfg.currency}
+                                                </div>
+                                            </div>
                                             <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
                                         {/if}
-										<input type="hidden" name="var_art_no" value=""/>
-										<input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
-										<table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table_tab">
-											<tr>
-												<td>
-													<div id="add_to_cart_{$item.id}">
-														{if $cfg.qty_mode != 'one'}
-															<div class="qty">
-																<table cellpadding="0" cellspacing="0" border="0" width="100%">
-																	<tr>
-																		<td valign="middle" width="100">
-																			{if $cfg.qty_mode=='qty'}
-																				{if $item.qty}
-																					<select name="qty" class="vkorz">
-																						{section name=qty loop=$item.qty step=1}
-																							<option value="{$smarty.section.qty.index+1}" {if $smarty.section.qty.index+1 == $item.cart_qty}selected="selected"{/if}>{$smarty.section.qty.index+1}</option>
-																						{/section}
-																					</select>
-																				{/if}
-																			{/if}
-																			{if $cfg.qty_mode=='any'}
-																				<input id="qtyy" name="qty" type="number" min="1" class="qty-control" value="1" oninput="change()"/>
-																			{/if}
-																		</td>
-																		<td valign="middle">
-																			<button type="submit" class="btn-vkorz btn btn-cart-item btn-block btn-lg{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
-																		</td>
-																	</tr>
-																</table>
-															</div>
-														{else}
-															<input type="submit" class="add btn-vkorz" name="addtocart" value="{$LANG.SHOP_ADD_TO_CART}"/>
-														{/if}
-													</div>
-												</td>
-											</tr>
-										</table>
-										<a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">Заказать в один клик!</a>
 
                                     {/if}
 
@@ -153,28 +171,40 @@
 
                                 <link itemprop="availability" href="http://schema.org/InStock"/>
                             </div>
-                            <div class="col-md-7 order-5">
-                                <div class="char-div">Артикул: <span class="pull-right">{$item.art_no}</span></div>
+                            <div class="col-12 order-0 col-sm-12 order-sm-0 col-md-12 order-md-0 col-lg-7 order-lg-5 col-xl-7 order-xl-5 pl-0 text--color-blue">
+                                <div class="d-flex justify-content-between">
+                                    <span class="">Артикул:</span>
+                                    <span class="">{$item.art_no}</span>
+                                </div>
                                 {if $cfg.show_vendors && $item.vendor}
-                                    <div class="char-div">Производство:
-                                    <span class="pull-right" itemprop="brand">{$item.vendor}</span></div>{/if}
+                                    <div class="d-flex justify-content-between">
+                                        <span class="">Производство:</span>
+                                        <span class="" itemprop="brand">{$item.vendor}</span>
+                                    </div>
+                                {/if}
                                 {if $item.ves>0}
-                                    <div class="char-div">Вес: <span class="pull-right">{$item.ves} кг.</span>
-                                    </div>{/if}
+                                    <div class="d-flex justify-content-between">
+                                        <span class="">Вес:</span>
+                                        <span class="">{$item.ves} кг.</span>
+                                    </div>
+                                {/if}
                                 {if $item.vol>0}
-                                    <div class="char-div">Объём:
-                                    <span class="pull-right">{$item.vol} м<sup>3</sup></span></div>{/if}
+                                    <div class="d-flex justify-content-between">
+                                        <span class="">Объём:</span>
+                                        <span class="">{$item.vol} м<sup>3</sup></span>
+                                    </div>
+                                {/if}
                                 {if $item.chars}
                                     {assign var=last_grp value=""}
                                     {foreach key=num item=char from=$item.chars}
                                         {if $char.value}
                                             {if !$char.is_custom}
-                                                <div class="char-div">
-                                                    {$char.title}:
-                                                    <span class="pull-right">{"|"|str_replace:', ':$char.value} {if $char.units}{$char.units}{/if}</span>
+                                                <div class="d-flex justify-content-between">
+                                                    <span>{$char.title}:</span>
+                                                    <span class="">{"|"|str_replace:', ':$char.value} {if $char.units}{$char.units}{/if}</span>
                                                 </div>
                                             {else}
-                                                <div class="char-div">
+                                                <div class="d-flex justify-content-between">
                                                     <select name="chars[{$char.id}]">
                                                         {foreach key=c item=val from=$char.items}
                                                             <option value="{$val}">{$char.title}: {$val}</option>
@@ -186,7 +216,6 @@
                                     {/foreach}
                                 {/if}
                                 {if $item.description}
-                                    <br/>
                                     <article class="item-description" itemprop="description">{$item.description}</article>
                                 {/if}
 
@@ -194,17 +223,21 @@
 
                             <div class="mobile-tocart d-lg-none d-md-none d-sm-none">
                                 <div class="mob-title">
-                                    <img src="/images/photos/small/{$item.filename}"/> Товар: {$item.title}{if $iprice > 0} - {$iprice|number_format:0:" ":" "} {$cfg.currency}{/if}
+                                    <img class="img-fluid" src="/images/photos/small/{$item.filename}"/> Товар: {$item.title}{if $iprice > 0} - {$iprice|number_format:0:" ":" "} {$cfg.currency}{/if}
                                 </div>
                                 <table width="100%" border="0">
-                                    <tr>{if $iprice > 0}
+                                    <tbody>
+                                    <tr>
                                         <td width="50%">
-                                            <button type="submit" class="btn btn-main btn-block{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
-                                        </td>{/if}
+                                            {if $iprice > 0}
+                                                <button type="submit" class="btn btn-main btn-block{if $item.is_in_cart>0} btn-disabled{/if}" >{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
+                                            {/if}
+                                        </td>
                                         <td>
                                             <a class="btn btn-whapp btn-block" href="https://wa.me/77775409927?text=Я%20заинтересован%20в%20покупке%20товара%20№{$item.art_no}%20https://sanmarket.kz/shop/{$item.seolink}.html">Заказ через Whatsapp</a>
                                         </td>
                                     </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -303,8 +336,7 @@
                                 </strong></td>
                         </tr>
                     </table>
-                    <br/>
-                    <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
+                    <br/> <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
                     <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
                     <input type="hidden" class="form-control" name="arts" value="{$item.art_no}"/>
                     <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>

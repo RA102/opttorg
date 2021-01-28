@@ -354,7 +354,7 @@ function shop(){
         if ($item['metadesc']) {
             $inPage->setDescription($item['metadesc']);
         } else {
-            $inPage->setDescription($item['title'] . ' ✔ Широкий ассортимент ✔ Лучшая цена ✔ Гарантия качества ⛟ Доставка → Караганда, Нур-Султан (Астана), Алматы, Шымкент, Костанай, по всему Казахстану.');
+            $inPage->setDescription($item['title'] . 'Широкий ассортимент, Лучшая цена, Гарантия качества, Доставка Караганда, Нур-Султан (Астана), Алматы, Шымкент, Костанай, по всему Казахстану.');
         }
 
         //ищем связанные товары
@@ -370,8 +370,8 @@ function shop(){
         $inPage->addHead('<link rel="canonical" href="https://sanmarket.kz/shop/' . $item['seolink'] . '.html" />');
 
         $inPage->addHead('
-			<meta property="og:title" content="' . $item['title'] . ' – купить в интернет-магазине SanMarket.kz" />
-			<meta property="og:description" content="' . $item['title'] . ' ✔ Широкий ассортимент ✔ Лучшая цена ✔ Гарантия качества ⛟ Доставка → Караганда, Нур-Султан (Астана), Алматы, Шымкент, Костанай, по всему Казахстану." />
+			<meta property="og:title" content="' . $item['title'] . ' – купить в интернет-магазине sanmarket.kz" />
+			<meta property="og:description" content="' . $item['title'] . ' Широкий ассортимент Лучшая цена Гарантия качества Доставка Караганда, Нур-Султан (Астана), Алматы, Шымкент, Костанай, по всему Казахстану." />
 			<meta property="og:image" content="https://sanmarket.kz/images/photos/small/shop' . $item['id'] . '.jpg" />
 			<meta property="og:url" content="https://sanmarket.kz/shop/' . $item['seolink'] . '.html" />
 		

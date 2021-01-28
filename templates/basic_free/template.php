@@ -101,13 +101,13 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     header('Vary: User-Agent'); ?>
     <meta charset="utf-8">
     <meta name="yandex-verification" content="312a4cd886e70dca"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0", shrink-to-fit=no>
     <meta name="google-site-verification" content="DYDKBWosEuCVKRJ67c6OqTsTAZoxC2pionvAzroxARs"/>
     <?php $this->printHead(); ?>
 
 
-<!--  новый слайдер   -->
-<!--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
+    <!--  новый слайдер   -->
+    <!--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
     <script type="text/javascript" src="/templates/basic_free/js/modernizr.custom.46884.js"></script>
     <script type="text/javascript" src="/templates/basic_free/js/jquery.slicebox.js"></script>
     <!-- Google Tag Manager -->
@@ -158,10 +158,10 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         <![endif]-->
     <link rel="icon" type="image/svg" href="/images/favicon.svg"/>
 
-<!--  Новый слайдер  -->
+    <!--  Новый слайдер  -->
 
     <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/slicebox.css" />
-<!--    <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/custom.css" />-->
+    <!--    <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/custom.css" />-->
 
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
@@ -173,12 +173,12 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '218958602915744');
         fbq('track', 'PageView');
     </script>
@@ -292,15 +292,15 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     </div>
                 </div>
                 <div class="d-none">
-<!--                    <div class="">-->
-<!--                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">-->
-<!--                            <span><span class="glyphicon glyphicon-list"></span> Каталог</span>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                    <div class="">-->
-                        <!--Ваш город<br />
+                    <!--                    <div class="">-->
+                    <!--                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">-->
+                    <!--                            <span><span class="glyphicon glyphicon-list"></span> Каталог</span>-->
+                    <!--                        </button>-->
+                    <!--                    </div>-->
+                    <!--                    <div class="">-->
+                    <!--Ваш город<br />
                     <a href="#" data-toggle="modal" data-target="#city_modal"><?php echo $gorod; ?> <span class="caret"></span></a>-->
-<!--                    </div>-->
+                    <!--                    </div>-->
                 </div>
 
                 <nav class="row d-none d-sm-none d-md-none d-lg-none d-xl-flex border-top justify-content-between">
@@ -362,7 +362,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                         <?php } ?>
                         <?php if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) { ?>
                             <div class="alert alert-warning text-center" id="sess_messages">Ваш заказ принят! Мы Вам
-                                перезвоним!
+                                                                                            перезвоним!
                             </div>
                         <?php } ?>
 
@@ -408,18 +408,18 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <section class="main-banner">
-                <!--  Слайдер html  -->
+                            <!--  Слайдер html  -->
                             <div class="wrapper">
-<!--                            <div id="carousel-1" class="carousel slide carousel-fabe" data-ride="carousel" data-interval="0">-->
-<!--                            <ol id="indicators" class="carousel-indicators">-->
-<!--                                <li data-target="#carousel-1" data-slide-to="0" class="active"></li>-->
-<!--                                <li data-target="#carousel-1" data-slide-to="1"></li>-->
-<!--                                <li data-target="#carousel-1" data-slide-to="2"></li>-->
-<!--                                <li data-target="#carousel-1" data-slide-to="3"></li>-->
-<!--                                <li data-target="#carousel-1" data-slide-to="4"></li>-->
-<!--                                <li data-target="#carousel-1" data-slide-to="5"></li>-->
-<!--                                <li data-target="#carousel-1" data-slide-to="6"></li>-->
-<!--                            </ol>-->
+                                <!--                            <div id="carousel-1" class="carousel slide carousel-fabe" data-ride="carousel" data-interval="0">-->
+                                <!--                            <ol id="indicators" class="carousel-indicators">-->
+                                <!--                                <li data-target="#carousel-1" data-slide-to="0" class="active"></li>-->
+                                <!--                                <li data-target="#carousel-1" data-slide-to="1"></li>-->
+                                <!--                                <li data-target="#carousel-1" data-slide-to="2"></li>-->
+                                <!--                                <li data-target="#carousel-1" data-slide-to="3"></li>-->
+                                <!--                                <li data-target="#carousel-1" data-slide-to="4"></li>-->
+                                <!--                                <li data-target="#carousel-1" data-slide-to="5"></li>-->
+                                <!--                                <li data-target="#carousel-1" data-slide-to="6"></li>-->
+                                <!--                            </ol>-->
                                 <ul id="sb-slider" class="sb-slider">
                                     <li>
                                         <a href="<?php echo $banner1['link']; ?>" title="<?php echo $banner1['title']; ?>">
@@ -551,15 +551,15 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                 </div>
                             </div>
 
-                <!--  END слайдер                   -->
+                            <!--  END слайдер                   -->
 
                         </section>
                     </div>
                 </div>
             <?php } ?>
-                <div class="container mt-2">
-                    <?php $this->printModules('mobile-menu') ?>
-                </div>
+            <div class="container mt-2">
+                <?php $this->printModules('mobile-menu') ?>
+            </div>
             <main class="main">
                 <div class="container-fluid">
                     <div class="row">
@@ -634,7 +634,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.cookie.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.nicescroll.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.barrating.min.js"></script>
-<!--    <script src="/templates/--><?php //echo TEMPLATE; ?><!--/js/vue.js"></script>-->
+    <!--    <script src="/templates/--><?php //echo TEMPLATE; ?><!--/js/vue.js"></script>-->
 
     <script>
         $(document).ready(function () {
@@ -724,7 +724,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </div>
 
-<!-- start Modal authorization-->
+        <!-- start Modal authorization-->
 
         <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true" style="margin-top: 20%;">
             <div class="modal-dialog" role="document">
@@ -771,7 +771,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-12 px-0">
-<!--                                                    <input id="submit-btn-login" type="submit" name="login_btn" class="btn btn-main btn-block" value="Войти" tabindex="4"/>-->
+                                                    <!--                                                    <input id="submit-btn-login" type="submit" name="login_btn" class="btn btn-main btn-block" value="Войти" tabindex="4"/>-->
                                                     <button id="submit-btn-login" type="button" class="btn btn-main d-block" style="width: 100%;">Войти</button>
                                                     <label for="remember" style="color: black;">
                                                         <input type="checkbox" name="remember" value="1" checked="checked" id="remember" tabindex="3"/> Запомнить меня
@@ -793,9 +793,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </div>
 
-<!-- end Modal authorization -->
+        <!-- end Modal authorization -->
 
-<!-- Modal Registration  -->
+        <!-- Modal Registration  -->
 
         <div id="modalAuth" class="modal fade">
             <div class="modal-dialog">
@@ -812,7 +812,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </div>
 
-<!-- end Modal Registration   -->
+        <!-- end Modal Registration   -->
 
 
         <?php $this->printModules('coin'); ?>
@@ -882,7 +882,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 </div>
 
-<div class="fixed-bottom tapbar pt-2 pb-2 d-lg-none">
+<div class="d-none tapbar pt-2 pb-2 d-lg-none"> <!--fixed-bottom-->
     <div class="d-flex justify-content-around">
         <div class="">
             <a href="/"><img src="/templates/basic_free/images/tapbar/home.png" alt="" class="" width="30"></a>
@@ -1031,5 +1031,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 
 </body>
+
 </html>
 
