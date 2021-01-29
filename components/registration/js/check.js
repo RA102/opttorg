@@ -17,7 +17,7 @@ $(document).ready(function () {
 			let formData = form.serialize();
 
 			$.ajax({
-				url: '/login',
+				url: '/registration/login',
 				type: 'POST',
 				data: formData,
 				success: function (data) {

@@ -237,8 +237,8 @@ ul.shop_cat_list li.shop_cat_item .subcats{
 .cart_table .total_summ_title{ font-size:14px; font-weight:bold; }
 .cart_table .total_summ_price{ font-size:16px; font-weight:bold; }
 
-.cart_form { margin-top:20px; float;left; }
-.cart_save_form { margin-top:20px; float;right; }
+.cart_form { margin-top:20px; float:left; }
+.cart_save_form { margin-top:20px; float:right; }
 
 /* ========================================================================== */
 /* ========================================================================== */
