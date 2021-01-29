@@ -328,10 +328,7 @@ cursor:pointer;z-index: 99999;
     border-radius: 10px;
 }
 
-li.media .media-object {
-    width: 56px;
-    height: 56px;
-}
+
 
 @media all and (max-width:767px) {
     li.media .media-object {
@@ -15154,7 +15151,14 @@ ul.search_result li.search_result_item:hover {
 
 /* Cart */
 
+#cart_form ul {
+    padding-left: 0;
+}
 
+li.media .media-object {
+    width: 108px;
+    height: 108px;
+}
 
 
 /*  End Cart  */
