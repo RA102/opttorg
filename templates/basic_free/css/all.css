@@ -15191,6 +15191,20 @@ li.media .media-object {
 
 /*  End glyphicon  */
 
+.con_heading {
+    font-size: 36px;
+    font-weight: 700;
+    margin-left: 20px;
+}
+
+.cart-items--title {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+
+
+
 /* --  End all selectors -- */
 
 @media all and (min-width:1201px) {
