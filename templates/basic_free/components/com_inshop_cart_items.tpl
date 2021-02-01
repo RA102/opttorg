@@ -50,7 +50,8 @@
                 {$totl=$totl+$tots}
             {/foreach}
         </ul>
-
+    </div>
+<div class="col-4 col-md-4 col-lg-4 clo-xl-4">
         <table>
             <tr class="igogo">
 
@@ -77,6 +78,7 @@
                 {/if}
             </tr>
         </table>
+
     </div>
     <script type="text/javascript">
         {literal}

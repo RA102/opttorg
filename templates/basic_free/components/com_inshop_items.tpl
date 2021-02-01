@@ -29,7 +29,7 @@
 			{/if}
 			-->
                 <a href="/shop/{$item.seolink}.html" title="{$item.title}" class="imgthumb">
-                    <img src="/images/photos/small/{$item.filename}" class="img-fluid" alt="{$item.title}"/>
+                    <img class="img-fluid" src="/images/photos/small/{$item.filename}" data-art-no="{$item.art_no}" alt="{$item.title}"/>
                     {if $item.old_price>0}
                         {assign var="disco" value=((100-($iprice*100/$item.old_price))|ceil)}
                         <div class="ribbon-lt"><span>Скидка{$disco}%</span></div>{/if}
@@ -61,7 +61,7 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-main add-basket{if $item.is_in_cart>0} btn-disabled{elseif $item.price==0}  btn-gray{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.price==0}Цену уточняйте{else}В корзину{/if}{/if}</button>
                     </div>
-                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">В один клик!</a>
+                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" >В один клик!</a>
                 </form>
                 {else}
                     <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
@@ -77,7 +77,7 @@
     {$pagebar}
 {/if}
 
-{* Modal *}
+{* modal order one click *}
 <div class="modal" id="oneclicker" tabindex="-1" role="dialog" aria-labelledby="oneclickerLabel">
     <div class="modal-dialog modal-sm" role="document">
         <form action="" method="POST">
@@ -85,23 +85,25 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="oneclickerLabel">{$item.title}</h4>
+                    <h4 class="modal-title" id="oneclickerLabel"></h4>
                 </div>
                 <div class="modal-body">
-                    <img src="/images/photos/small/{$item.filename}" class="img-resp" style="border:#dedede 1px solid;margin-bottom:15px;" alt="{$item.title|escape:'html'} - {$item.art_no} – интернет-магазин SanMarket" itemprop="image"/>
+                    <img id="oneClickImg" src="" class="img-fluid" style="border:#dedede 1px solid;margin-bottom:15px;" itemprop="image"/> {*alt="{$item.title|escape:'html'} - {$item.art_no} – интернет-магазин SanMarket" *}
                     <table width="100%" border="0">
                         <tr>
                             <td valign="middle" width="80">
                                 <input style="width:80px !important;" class="form-control" id="qtyy1" name="qtyy1" type="number" min="1" value="1" oninput="change1()"/>
                             </td>
                             <td valign="middle" class="text-right">
-                                <strong><span id="results1">{$iprice|number_format:0:" ":" "}</span> {$cfg.currency}
+                                <strong><span id="results1"></span>
                                 </strong></td>
                         </tr>
                     </table>
-                    <br/> <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
-                    <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
-                    <input type="hidden" class="form-control" name="arts" value="{$item.art_no}"/>
+                    <br/>
+                    <input type="hidden" name="price1" value=""/>
+                    <input type="hidden" name="seolink" value=""/>
+                    <input type="hidden" name="ttl" value=""/>
+                    <input type="hidden" name="arts" value=""/>
                     <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
                     <div>
                         {*				{city_input value=$item.city name="city" width="300px"}*}

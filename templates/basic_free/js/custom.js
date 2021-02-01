@@ -100,19 +100,27 @@ $(document).ready(function () {
         $('.cookies-notification').removeClass('d-none');
     }
 
-    // $('#login').on('click', function() {
-    //     $.ajax({
-    //         url: '/login',
-    //         success: function(data) {
-    //             $('#modal-body').html(data.html);
-    //             $('#modal-login').modal('show');
-    //         }
-    //     })
-    // });
+    // button order one click
+    $('.thumb').on('click', function (event) {
 
-    // $('.carousel').carousel({
-    //     interval: 0
-    // });
+        let arrayChildrenElements = $(this)[0].children;
+        let linkItem = $(arrayChildrenElements[0]).attr('href');
+        let titleItem = $(arrayChildrenElements[0]).attr('title')
+        let imgItem = $(arrayChildrenElements[0]).children('img').attr('src');
+        let artNoItem = $(arrayChildrenElements[0]).children('img').data('artNo');
+        let priceItem = $(arrayChildrenElements[2]).context.innerText;
+        $('#oneclickerLabel').text(titleItem);
+        $('#oneClickImg').attr('src', imgItem);
+        $('#oneClickImg').attr('alt', titleItem);
+        $('#results1').text(priceItem);
+        $('input[name=price1]').attr('value', priceItem);
+        $('input[name=seolink]').attr('value', linkItem);
+        $('input[name=ttl]').attr('value', titleItem);
+        $('input[name=arts]').attr('value', artNoItem);
+
+
+    });
+
 
 })
 
@@ -176,5 +184,4 @@ function search($value) {
 
         }
     });
-
 }

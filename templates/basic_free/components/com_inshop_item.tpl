@@ -378,6 +378,7 @@
                         </tr>
                     </table>
                     <br/> <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
+                    <input type="hidden" name="seolink" value="{$item.seolink}"/>
                     <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
                     <input type="hidden" class="form-control" name="arts" value="{$item.art_no}"/>
                     <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>

@@ -33,6 +33,8 @@ $this->addHeadJS('components/registration/js/check.js');
 
 
 
+
+
 // LANG фразы для colorbox
 $this->addHeadJsLang(array('CBOX_IMAGE', 'CBOX_FROM', 'CBOX_PREVIOUS', 'CBOX_NEXT', 'CBOX_CLOSE', 'CBOX_XHR_ERROR', 'CBOX_IMG_ERROR', 'CBOX_SLIDESHOWSTOP', 'CBOX_SLIDESHOWSTART'));
 /*
@@ -67,7 +69,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     $art = $_POST['arts'];
     $mail = $_POST['email'];
     $city = $_POST['city'];
-    $link = $_SERVER['HTTP_ORIGIN'].$_SERVER['REQUEST_URI'];
+    $link = $_SERVER['HTTP_ORIGIN']."{$_POST['seolink']}";
     $tot = $qty * $prc;
     $subject = 'Запрос с сайта';
     $message = '

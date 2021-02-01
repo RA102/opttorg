@@ -1,3 +1,4 @@
+{* Мобильное меню (убрать) *}
 <div class="position-relative mb-5">
     <div class="d-block d-sm-block d-md-block d-lg-block d-xl-none mobile-menu">
         <div class="item-menu text-center">
@@ -83,6 +84,7 @@
 
     </div>
 </div>
+{* end mobile menu *}
 {foreach from=$listItems key=category item=items}
     <section class="row no-gutters">
         <div class="col-12">
@@ -93,7 +95,7 @@
             <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3 item">
                 <div class="thumb">
                     <a href="/shop/{$item->seolink}.html" title="{$item->title}" class="">
-                        <img  src="/images/photos/small/shop{$item->id}.jpg" class="img-fluid list-item-img" alt="{$item->title}"/>
+                        <img class="img-fluid list-item-img"  src="/images/photos/small/shop{$item->id}.jpg"  alt="{$item->title}"/>
                     </a>
                     <div class="capt">
                         <a href="/shop/{$item->seolink}.html" title="{$item->title}" data-truncate="2" style="word-break: break-all;">{$item->title}</a>
@@ -143,7 +145,7 @@
                     <h4 class="modal-title" id="oneclickerLabel">{$item->title}</h4>
                 </div>
                 <div class="modal-body">
-                    <img src="/images/photos/small/shop{$item->id}.jpg" class="img-resp" style="border:#dedede 1px solid;margin-bottom:15px;" alt="{$item->title|escape:'html'} - {$item->art_no} – интернет-магазин SanMarket" itemprop="image"/>
+                    <img id="oneClickImg" class="img-fluid" src="/images/photos/small/shop{$item->id}.jpg" style="border:#dedede 1px solid;margin-bottom:15px;" alt="{$item->title|escape:'html'} - {$item->art_no} – интернет-магазин SanMarket" itemprop="image"/>
                     <table width="100%" border="0">
                         <tr>
                             <td valign="middle" width="80">
@@ -155,8 +157,9 @@
                         </tr>
                     </table>
                     <br/> <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
-                    <input type="hidden" class="form-control" name="ttl" value="{$item->title}"/>
-                    <input type="hidden" class="form-control" name="arts" value="{$item->art_no}"/>
+                    <input type="hidden" name="seolink" value="{$item->seolink}">
+                    <input type="hidden" name="ttl" value="{$item->title}"/>
+                    <input type="hidden" name="arts" value="{$item->art_no}"/>
                     <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
                     <div>
                         {*				{city_input value=$item.city name="city" width="300px"}*}
