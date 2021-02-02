@@ -3,8 +3,10 @@
         <p><span style="font-size:16px;"><strong itemprop="name">Интернет-магазин SanMarket.kz</strong></span></p>
 
         <ul>
-            <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span>Адрес: г. <span
-                            itemprop="addressLocality">Караганда, Казахстан</span>, <span itemprop="streetAddress">ул. Складская 2 к1</span></span>
+            <li itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                <span>Адрес: г. <span itemprop="addressLocality">Караганда, Казахстан</span>
+                      ,
+                <span itemprop="streetAddress">ул. Складская 2 к1</span></span>
             </li>
             <li><span>Режим работы: ПН-ВС с 09.00 до 19.00</span></li>
             <li><span>Без обеденного перерыва</span></li>
@@ -21,7 +23,7 @@
     <div class="col-md-6">
         <p><span style="font-size:16px;"><strong>Наши точки продаж в Караганде</strong></span></p>
 
-        <p>ул. Ермекова, 26 - 8 705 759 10 74, 8 (7212) 47 78 24</p>
+        <p>ул. Складская 2 к.1, Контактные номера: +7 777 540 99 27</p>
 
         <div class="well-map">
             <iframe frameborder="0" height="240"

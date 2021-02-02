@@ -423,7 +423,9 @@ public static function isSplash(){
  */
 private function loadModulesForMenuItem() {
 
-    if(isset($this->modules)){ return true; }
+    if (isset($this->modules)) {
+        return true;
+    }
 
     $modules = array();
 

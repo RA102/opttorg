@@ -4439,8 +4439,8 @@ class cms_model_shop
     }
 
 
-    /* =================ДЛЯ CОПУТВУЮЩИХ========================================================= */
-    /* ========================================================================== */
+    /* =================ДЛЯ CОПУТВУЮЩИХ=========================================== */
+    /* ================ from id items =========================================== */
 
     public function selectSimilars($shortdesc)
     {
@@ -4451,10 +4451,10 @@ class cms_model_shop
         $arr = explode(",", $shortdesc);
         foreach ($arr as $val) {
             if ($val != '') {
-                $art_no = $val;
+                $id = $val;
                 $sql = "SELECT *  
 			FROM cms_shop_items 
-			WHERE art_no='{$art_no}'";
+			WHERE id='{$id}'";
                 $result = $inDB->query($sql);
                 if ($inDB->num_rows($result)) {
                     while ($item = $inDB->fetch_assoc($result)) {

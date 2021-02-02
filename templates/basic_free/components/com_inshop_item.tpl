@@ -94,7 +94,7 @@
 
                                             <input type="hidden" name="var_art_no" value=""/>
                                             <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
-{*      FIX ME remove *}
+{*      remove *}
 {*                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table_tab">*}
 {*                                                <tr>*}
 {*                                                    <td>*}
@@ -164,7 +164,7 @@
                                                 </div>
 
                                             </div>
-                                            <a class="btn-oneclick ml-auto" href="#" data-toggle="modal" data-target="#oneclicker">Заказать в один клик!</a>
+                                            <a class="btn-oneclick ml-auto" href="#" data-toggle="modal" data-target="#oneclicker" >Заказать в один клик!</a>
                                             {if $item.kaspikz}
                                                 <div class="small mt10 text-center btn-kaspi">
                                                 <a rel="nofollow" target="_blank" href="{$item.kaspikz}"><img src="/templates/basic_free/img/kaspykz.png" height="48"/></a>
@@ -379,16 +379,17 @@
                     </table>
                     <br/> <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
                     <input type="hidden" name="seolink" value="{$item.seolink}"/>
-                    <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
-                    <input type="hidden" class="form-control" name="arts" value="{$item.art_no}"/>
-                    <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
+                    <input type="hidden" name="ttl" value="{$item.title}"/>
+                    <input type="hidden" name="arts" value="{$item.art_no}"/>
+                    <input type="hidden" name="seolink" value="/shop/{$item.seolink}.html"/>
+                    <input class="form-control" type="text" name="yname" placeholder="Ваше имя" required/><br/>
                     <div>
                         {*				{city_input value=$item.city name="city" width="300px"}*}
-                        <input type="text" name="city" width="300px" placeholder="Город" style="color: #1A1A1A;" required>
+                        <input class="form-control" type="text" name="city" width="300px" placeholder="Город" style="color: #1A1A1A;" required>
                     </div>
                     <span class="red-text" style="font-size: 12px;">Укажите город для просчета стоимости доставки</span>
-                    <br/> <input type="text" class="form-control" name="email" placeholder="email"/><br/>
-                    <input type="text" id="customer_phone" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
+                    <br/> <input class="form-control" type="text"  name="email" placeholder="email"/><br/>
+                    <input id="customer_phone" class="form-control" type="text"  name="ytel" placeholder="Ваш телефон" required/>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-whapp btn-block">Заказать</button>

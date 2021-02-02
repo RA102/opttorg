@@ -270,6 +270,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <?php } ?>
                                     </div>
                                     <a class="btn-order-call ml-auto" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
+                                    <div class="rngst_phone_button"></div>
                                 </div>
                             </div>
                         </div>
@@ -1030,9 +1031,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     });
 </script>
 
-
-
 </body>
-
 </html>
 

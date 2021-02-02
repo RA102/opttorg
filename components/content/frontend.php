@@ -181,7 +181,9 @@ if ($do=='read'){
 
 	// Получаем статью
 	$article = $model->getArticle($seolink);
-    if (!$article) { cmsCore::error404(); }
+    if (!$article) {
+        cmsCore::error404();
+    }
 
     $article = translations::process(cmsConfig::getConfig('lang'), 'content_content', $article);
 

@@ -101,14 +101,17 @@ $(document).ready(function () {
     }
 
     // button order one click
-    $('.thumb').on('click', function (event) {
 
-        let arrayChildrenElements = $(this)[0].children;
-        let linkItem = $(arrayChildrenElements[0]).attr('href');
-        let titleItem = $(arrayChildrenElements[0]).attr('title')
-        let imgItem = $(arrayChildrenElements[0]).children('img').attr('src');
-        let artNoItem = $(arrayChildrenElements[0]).children('img').data('artNo');
-        let priceItem = $(arrayChildrenElements[2]).context.innerText;
+
+
+    $('.btn-oneclick').on('click', function(event) {
+        let $this = $(this);
+        let linkItem = $this[0].dataset.seolink;
+        let titleItem = $this[0].dataset.title;
+        let imgItem = $this[0].dataset.img;
+        let artNoItem = $this[0].dataset.artNo;
+        let priceItem = $this[0].dataset.price;
+
         $('#oneclickerLabel').text(titleItem);
         $('#oneClickImg').attr('src', imgItem);
         $('#oneClickImg').attr('alt', titleItem);
@@ -118,10 +121,7 @@ $(document).ready(function () {
         $('input[name=ttl]').attr('value', titleItem);
         $('input[name=arts]').attr('value', artNoItem);
 
-
-    });
-
-
+    })
 })
 
 function search($value) {
@@ -185,3 +185,5 @@ function search($value) {
         }
     });
 }
+
+

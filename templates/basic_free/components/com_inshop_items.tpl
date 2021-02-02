@@ -61,10 +61,10 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-main add-basket{if $item.is_in_cart>0} btn-disabled{elseif $item.price==0}  btn-gray{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.price==0}Цену уточняйте{else}В корзину{/if}{/if}</button>
                     </div>
-                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" >В один клик!</a>
+                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}" data-price="{$iprice|number_format:0:' ':' '}">В один клик!</a>
                 </form>
                 {else}
-                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
+                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}">Узнать о сроках поступления</a>
                 {/if}
             </div>
         </div>
@@ -96,6 +96,7 @@
                             </td>
                             <td valign="middle" class="text-right">
                                 <strong><span id="results1"></span>
+                                    <span class="text--color-blue"> тг.</span>
                                 </strong></td>
                         </tr>
                     </table>

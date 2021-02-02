@@ -14289,6 +14289,8 @@ header {
     padding-bottom: 30px;
 }
 
+
+
 @media (min-width: 1200px) {
 
     .header-row {
@@ -14304,7 +14306,36 @@ header {
 
 .navbar-brand img {
     max-height: 52px;
-    width: 100%;
+    width: 180px;
+}
+
+
+@media (min-width: 576px) {
+    .navbar-brand img {
+        max-height: 52px;
+        width: 220px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-brand img {
+        max-height: 52px;
+        width: 245px;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar-brand img {
+        max-height: 52px;
+        width: 245px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .navbar-brand img {
+        max-height: 52px;
+        width: 245px;
+    }
 }
 
 
