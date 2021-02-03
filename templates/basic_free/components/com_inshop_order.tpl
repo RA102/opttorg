@@ -5,7 +5,7 @@
     {if $items}
         <form action="/shop/payment.html" method="post">
             <div class="row">
-                <div class="col-md-4">
+                <div class="d-none">
                     <h3 class="con_heading"><span>Товары в заказе</span></h3>
                     <div class="small">
                         {include file='com_inshop_cart_items.tpl'}
@@ -13,7 +13,7 @@
                 </div>
 
 
-                <div class="col-md-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     {if $delivery_types}
                         <h3 class="con_heading"><span>{$LANG.SHOP_DELIVERY_TYPE} *</span></h3>
                         <script type="text/javascript">
@@ -81,7 +81,7 @@
 
                     <div class="small"></div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <h3 class="con_heading"><span>{$LANG.SHOP_CUSTOMER_INFO}</span></h3>
 
                     <!-- {if !$user_id}

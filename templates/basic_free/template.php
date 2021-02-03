@@ -185,7 +185,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=218958602915744&ev=PageView&noscript=1"/></noscript>
-    <!-- End Facebook Pixel Code -->
+    <!-- / Facebook Pixel Code -->
 
 </head>
 <body>
@@ -224,13 +224,13 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         <div class="main-body">
             <div class="container-fluid ">
                 <div class="row px-0 header-row">
-                    <!--    logo    -->
+                    <!--  logo    -->
                     <div class="col-6 col-lg-6 col-xl-3 mt-auto">
                         <a class="navbar-brand" href="/" rel="home" title="Интернет-магазин сантехники sanmarket">
                             <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
                         </a>
                     </div>
-                    <!-- end logo -->
+                    <!-- /logo -->
 
                     <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-xl-9 px-0" >
                         <div class="row">
@@ -615,7 +615,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                             <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
                             <script src="//yastatic.net/share2/share.js"></script>
                             <div class="ya-share2 yashasha"
-                                 data-services="vkontakte,facebook,odnoklassniki,moimir,whatsapp,skype,telegram"
+                                 data-services="instagram,facebook,odnoklassniki,whatsapp,telegram"
                                  data-counter=""></div>
                         </div>
                     </div>
@@ -677,12 +677,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         })
     </script>
     <script type="text/javascript">
-
         $(document).ready(function () {
-
             $(function () {
                 $("#back-top").hide();
-
                 $(window).scroll(function () {
                     if ($(this).scrollTop() > 300) {
                         $("#back-top").fadeIn();
@@ -690,7 +687,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                         $("#back-top").fadeOut();
                     }
                 });
-
                 $("#back-top a").click(function () {
                     $("body,html").animate({
                         scrollTop: 0
@@ -746,7 +742,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                     <div class="clearfix">
 
                                         <form id="login-form" method="post" role="form" class="form-horizontal">
-                                            <input type="hidden" name="csrf_token" value="{csrf_token}"/>
+                                            <input type="hidden" name="csrf_token" value=""/>
                                             <div class="form-group has-feedback">
                                                 <div class="col-md-12 px-0 mb-3">
                                                     <div class="input-group">
@@ -796,7 +792,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </div>
 
-        <!-- end Modal authorization -->
+        <!-- /Modal authorization -->
 
         <!-- Modal Registration  -->
 
@@ -815,7 +811,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </div>
 
-        <!-- end Modal Registration   -->
+        <!-- /Modal Registration   -->
 
 
         <?php $this->printModules('coin'); ?>
@@ -864,21 +860,17 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <noscript><div><img src="https://mc.yandex.ru/watch/51363598" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
 
-
-
-
     <script type="application/ld+json">
         {
             "@context": "http://schema.org",
             "@type": "Organization",
-            "name": "Интернет-магазин SanMarket.kz",
+            "name": "Интернет-магазин sanmarket.kz",
             "url": "https://sanmarket.kz/",
-            "logo": "https://sanmarket.kz/templates/basic_free/img/logo.png",
+            "logo": "https://sanmarket.kz/templates/basic_free/images/LOGO_fuLL_blue.svg",
             "sameAs": [
-                "https://www.instagram.com/santehopttorg/",
-                "https://vk.com/santehopttorgkz",
-                "https://ok.ru/santehopttorg",
-                "https://www.facebook.com/santehopttorg/"
+                "https://www.instagram.com/sanmarket.kz/",
+                "https://ok.ru/group/56887491428360",
+                "https://www.facebook.com/sanmarket.kz/"
             ]
         }
     </script>

@@ -3,14 +3,9 @@
     {if $items}
         <form action="/shop/order.html" method="post" id="cart_form">
                 {include file='com_inshop_cart_items.tpl'}
-            <div class="clearfix" style="height:10px;"></div>
-            <div class="cart_form">
-                <input type="button" name="back" class="btn btn-not-main" value="&larr; Вернуться в магазин"
-                       onclick="window.location.href='{$last_url}';"/>
-                <input type="button" name="go_order" class="btn btn-main" value="Продолжить оформление &rarr;"
-                       onclick="$('#cart_form').submit()"/>
-            </div>
 
+{*            <div class="clearfix" style="height:10px;"></div>*}
+            <input type="button" name="back" class="btn btn-not-main" value="&larr; Вернуться в магазин" onclick="window.location.href='{$last_url}';"/>
         </form>
     {else}
         <p>{$LANG.SHOP_CART_EMPTY}</p>

@@ -136,4 +136,3 @@ if($do == 'delete'){
 
 cmsCore::halt();
 
-?>

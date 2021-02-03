@@ -61,7 +61,6 @@ function routes_shop()
 
     $routes[] = array('_uri' => '/^shop\/(.+)\/all$/i', 'do' => 'view', 1 => 'seolink', 'all' => 1);
 
-
     $routes[] = array('_uri' => '/^shop\/(.+)$/i', 'do' => 'view', 1 => 'seolink');
 
     return $routes;

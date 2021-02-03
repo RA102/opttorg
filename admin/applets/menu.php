@@ -526,7 +526,7 @@ function applet_menu(){
             $mod['menu']   = cmsCore::yamlToArray($mod['menu']);
             $mod['titles'] = cmsCore::yamlToArray($mod['titles']);
 
-            cpAddPathway($_LANG['AD_MENU_POINT_EDIT'].$ostatok.' "'.$mod['title'].'"', $_LANG['AD_LINK']);
+            cpAddPathway($_LANG['AD_MENU_POINT_EDIT'].$ostatok.' "'.$mod['title'].'"', $_LANG['AD_LINK'], '');
 
         }
 	?>

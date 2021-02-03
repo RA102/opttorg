@@ -88,6 +88,8 @@
                                 <option value="art_no" <?php if($orderby=='art_no'){ ?>selected="selected"<?php } ?>>по артикулу</option>
                                 <option value="price" <?php if($orderby=='price'){ ?>selected="selected"<?php } ?>>по цене</option>
                                 <option value="id" <?php if($orderby=='id'){ ?>selected="selected"<?php } ?>>по id</option>
+                                <option value="qty" <?php if($orderby=='qty'){ ?>selected="selected"<?php } ?>>по количеству</option>
+
                             </select>
                         </td>
                         <td width="150">
@@ -197,6 +199,7 @@
                             <th class="lt_header" width="16"><img src="/admin/components/shop/images/photogray.gif" border="0"/></th>
                             <th class="lt_header" width="">Название</th>
                             <th class="lt_header" width="80">Ст. цена</th>
+                            <th class="lt_header" width="80">Кол-во по складу</th>
                             <th class="lt_header" width="80">Цена</th>
                             <th class="lt_header" width="65">Показ</th>
                             <?php if ($category_id && sizeof($items)>1){ ?>
@@ -247,6 +250,10 @@
                                                 <?php } ?>
                                             </div>
                                         <?php } ?>
+                                    </td>
+
+                                    <td>
+                                        <?php echo $item['qty']; ?>
                                     </td>
 
                                     <td>
