@@ -103,7 +103,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     header('Vary: User-Agent'); ?>
     <meta charset="utf-8">
     <meta name="yandex-verification" content="312a4cd886e70dca"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0", shrink-to-fit=no>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="DYDKBWosEuCVKRJ67c6OqTsTAZoxC2pionvAzroxARs"/>
     <?php $this->printHead(); ?>
 

@@ -14910,13 +14910,14 @@ input[type="number"].input-item-quantity::-webkit-inner-spin-button {
     outline: none;
 }
 
-.input-item-quantity[type="number"].mod::-webkit-outer-spin-button,
-.input-item-quantity[type="number"].mod::-webkit-inner-spin-button {
+input[type="number"].input-item-quantity::-webkit-outer-spin-button,
+input[type="number"].input-item-quantity::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    width: 10px;
+    width: 30px;
     height: 100%;
     border-left: 1px solid #BBB;
-    border-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
     opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
     position: absolute;
     top: 0;
@@ -15243,7 +15244,44 @@ li.media .media-object {
     text-decoration: underline;
 }
 
-/*  / cart  */
+.input-item--cart---quantity {
+    width: 87px;
+    height: 26px;
+    border: 1px solid #C4C4C4;
+    font-size: 14px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.input-item--cart---quantity:hover, .input-item--cart---quantity:focus {
+    border-radius: 10px;
+    border: 2px solid #E1E1E1;
+    outline: none;
+}
+
+input[type="number"].input-item--cart---quantity::-webkit-outer-spin-button,
+input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 100%;
+    border-left: 1px solid #BBB;
+    opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.cart-delivery--descriptions {
+    font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 12px;
+}
+
+
+/*  /cart  */
 
 
 /*  glyphicon  */

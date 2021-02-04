@@ -3077,6 +3077,7 @@ class cms_model_shop
 
         $base_sql = "SELECT   items.title as title,
                                 items.price as price,
+                                items.old_price as old_price,
 								items.opt as opt, 
                                 items.art_no as art_no,
                                 items.seolink as seolink,
@@ -3100,6 +3101,7 @@ class cms_model_shop
                                 items.title as title,
                                 vars.price as price,
                                 items.price as parent_price,
+                                items.old_price as old_price,
                                 vars.art_no as art_no,
                                 items.seolink as seolink,
                                 vars.qty as qty,
