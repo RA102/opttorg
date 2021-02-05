@@ -8,59 +8,73 @@ function addToCart(id){
 
 function recountSumm(){
 
-    let items_count = $('.cart_table .trr').length;
+    let itemsCount = $('.cart_table .media').length;
     let count = 0;
     let price = 0;
-    let total = 0;
-    let old_total = 0;
+    let discount = 0;
+    let amountWithDiscount = 0;
+    let amountWithoutDiscount = 0;
 
-    let old_summ = Number($('.total_summ_price .value').html());
-    let summ = 0;
+    for(let i=0; i<itemsCount; i++) {
+        let specificCountProduct = 0;
+        let oldPrice = 0;
 
-    for(let i=0; i<items_count; i++) {
-        let tmpCountItem = 0;
-
-        // if ($('.cart_table .media').eq(i).find('input').length) {
-        //     count = Number($('.cart_table .media').eq(i).find('input').val());
-        // } else {
-        //     count = Number($('.cart_table .media').eq(i).find('select').val());
-        // }
-
-        tmpCountItem = $('.cart_table .input-item--cart---quantity').eq(i).find('input').val();
-
-
-        if (count<1 || !Number(count)) {
-            count = 1;
-            $('.cart_table .input-item--cart---quantity').eq(i).find('input').val(count);
-            $('.cart_table .input-item--cart---quantity').eq(i).find('select').val(count);
-        }
-
-
-        old_total   = Number($('.cart_table .trr').eq(i).find('.totalprice .value').html());
-        price       = Number($('.cart_table .trr').eq(i).find('.price .new-price').html());
-
-        if (price){
-            total = price * count;
-        
-            if (old_total != total) {
-                $('.cart_table .trr').eq(i).find('.totalprice .value').html(total);
-                $('.cart_table .trr').eq(i).find('.totalprice .value').fadeOut().fadeIn();
-            }
+        if ($('.cart_table .media').eq(i).find('input').length) {
+            specificCountProduct = Number($('.cart_table .media').eq(i).find('input').val());
         } else {
-            price = total;
+            specificCountProduct = Number($('.cart_table .media').eq(i).find('select').val());
         }
 
-        summ += total;
+        //specificCountProduct = Number($('.cart_table .media').eq(i).find('input').val());
 
-        count += tmpCountItem;
+
+        if (specificCountProduct < 1 || !Number(specificCountProduct)) {
+            specificCountProduct = 1;
+            $('.cart_table .media').eq(i).find('input').val(specificCountProduct);
+            $('.cart_table .media').eq(i).find('select').val(specificCountProduct);
+        }
+
+        price = Number($('.cart_table .trr').eq(i).find('.price .new-price').html());
+
+
+        oldPrice = Number($('.cart_table .trr').eq(i).find('.cart-old--price').html()) ? Number($('.cart_table .trr').eq(i).find('.cart-old--price').html()) : 0;
+
+
+
+
+        if (oldPrice) {
+            amountWithoutDiscount += oldPrice * specificCountProduct;
+            amountWithDiscount += price * specificCountProduct;
+        } else {
+            amountWithoutDiscount += price * specificCountProduct;
+            amountWithDiscount += price * specificCountProduct;
+        }
+
+
+
+
+        //$('.cart_table .trr').eq(i).find('.totalprice .value').html(total);
+        //$('.cart_table .trr').eq(i).find('.totalprice .value').fadeOut().fadeIn();
+
+
+
+        count += specificCountProduct;
+
     }
 
-    $('.cart-right--div .countItems').text(tmpCountItem);
+    discount += amountWithoutDiscount - amountWithDiscount;
 
+    $('.amountWithoutDiscount').html(amountWithoutDiscount);
+    $('.amountWithoutDiscount').fadeOut().fadeIn();
 
+    $('.discount').html(discount);
+    $('.discount').fadeOut().fadeIn();
 
-    if (summ != old_summ){
-        calculateDiscount(summ);
-    }
+    $('.total_summ_price .value').html(amountWithDiscount);
+    $('.total_summ_price .value').fadeOut().fadeIn();
+
+    $('#countItems').text(count);
+    $('#countItems').fadeOut().fadeIn();
+
 
 }

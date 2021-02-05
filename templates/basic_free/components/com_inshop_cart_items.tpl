@@ -7,7 +7,7 @@
     {$sumDiscount=""}
     <div class="row">
         <div class="p-4 mr-3 bg-white cart-left--div" style="width: 760px;">{* col-md-7 col-lg-7 col-xl-7 *}
-            <ul class="media-list cart_table ">
+            <ul class="media-list cart_table">
                 {foreach key=num item=item from=$items}
                     {if $smarty.session.user.group_id==10}<!-- оптовик -->{$iprice=$item.opt}{else}<!-- все остальные -->{$iprice=$item.price}{/if}
                     <li class="media">
@@ -36,13 +36,11 @@
 {*                         *}
                             <div class="trr">
                                 {if ($item.qty || $cfg.qty_mode=='any') && $cfg.qty_mode != 'one'}
-                                    {if $item.old_price}
-                                        <div class="">
-                                            <s class="text-muted">{$item.old_price} {$cfg.currency}</s>
-                                        </div>
-                                    {/if}
 
                                     <div>
+                                        <div class="">
+                                            <s class="text-muted">{if $item.old_price} <span class="cart-old--price">{$item.old_price}</span> {$cfg.currency}  {/if}</s>
+                                        </div>
                                         <span class="price">
                                             <span class="new-price">{$iprice}</span>
                                             {$cfg.currency}
@@ -86,7 +84,6 @@
                     {else}
                         {$sumWithoutDiscount=$sumWithoutDiscount+$item.price}
                     {/if}
-
                 {/foreach}
             </ul>
         </div>
@@ -112,7 +109,7 @@
                             </h5>
                         </td>
                         <td align="right">
-                            <h5 class="text--color-blue">{$sumWithoutDiscount} {$cfg.currency}</h5>
+                            <h5 class="text--color-blue "><span class="amountWithoutDiscount">{$sumWithoutDiscount}</span> {$cfg.currency}</h5>
                         </td>
                     </tr>
                     <tr class="border-bottom">
@@ -120,7 +117,7 @@
                             <h5 class="text--color-blue">Скидка</h5>
                         </td>
                         <td align="right">
-                            <h5 class="text--color-blue">-{$sumDiscount} {$cfg.currency}</h5>
+                            <h5 class="text--color-blue">-<span class="discount">{$sumDiscount}</span> {$cfg.currency}</h5>
                         </td>
                     </tr>
                     <tr class="igogo">
@@ -146,7 +143,7 @@
                         <td align="left"></td>
                         <td align="right">
                             <h4 class="text--color-blue">
-                                <span class="total_summ_price">
+                                <span class="total_summ_price text-nowrap">
                                     Итого:
                                     <span class="value"> {$totalsumm}</span> {$cfg.currency}
                                 </span>
@@ -157,7 +154,6 @@
                     </tr>
                 </table>
             </div>
-
         </div>
     </div>
 

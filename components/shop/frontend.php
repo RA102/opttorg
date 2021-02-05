@@ -813,7 +813,9 @@ function shop(){
         $smarty->assign('user_id', $inUser->id);
         $smarty->assign('customer_data', $customer_data);
 		$smarty->assign('readonly', true);
-		if (isset($order)) { $smarty->assign('order', $order); }
+        if (isset($order)) {
+            $smarty->assign('order', $order);
+        }
 		$smarty->assign('items', $items);
 		$smarty->assign('delivery_types', $delivery_types);
 		$smarty->assign('discount_size', $discount_size);

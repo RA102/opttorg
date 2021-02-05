@@ -15206,6 +15206,7 @@ input[type="number"].input-item-quantity::-webkit-inner-spin-button {
 
 .cart-right--div {
     width: 360px;
+    height: 330px;
     padding: 25px;
     border-radius: 10px;
 }

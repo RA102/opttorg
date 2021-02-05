@@ -150,14 +150,14 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         <script src="/admin/js/modconfig.js" type="text/javascript"></script>
         <link href="/templates/<?php echo TEMPLATE; ?>/css/modconfig.css" rel="stylesheet" type="text/css"/>
     <?php } ?>
-    <!--[if lt IE 9]>
+    <!--[if lt IE 9] -->
             <script src="/templates/<?php echo TEMPLATE; ?>/js/html5shiv.js"></script>
             <script src="/templates/<?php echo TEMPLATE; ?>/js/respond.min.js"></script>
             <script src="/templates/<?php echo TEMPLATE; ?>/js/css3-mediaqueries.js"></script>
-            <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.cookie.js"></script>
+<!--            <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.cookie.js"></script>-->
 
             <link rel="stylesheet" href="/templates/<?php echo TEMPLATE; ?>/css/ie.css" type="text/css" media="all" />
-        <![endif]-->
+        <!-- [endif]-->
     <link rel="icon" type="image/svg" href="/images/favicon.svg"/>
 
     <!--  Новый слайдер  -->
@@ -967,7 +967,11 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     },
                     orientation : 'h',
                     cuboidsCount : 1,
-                    autoplay: true
+                    autoplay: true,
+                    size: {
+                        width: 890,
+                        height: 367
+                    }
                 } ),
 
                 init = function() {
