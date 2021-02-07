@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <div class="jumbotron text-center">
-        <img class="img-fluid" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg"/>
+        <img class="img-fluid" style="max-width: 300px;" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg"/>
         <h2><?php echo $_LANG['404']; ?></h2>
         <p><?php echo $_LANG['404_INFO']; ?> | <a href="/">На главную </a></p>
     </div>

@@ -30,7 +30,7 @@ if(!isset($title)){
 			.table {display:table;position:relative;width:100%;height:100vh;}
 			.cell {display:table-cell;position:relative;width:100%;height:100vh;vertical-align:middle;text-align:center;}
 		</style>
-		<link rel="icon" type="image/png" href="/templates/basic_free/images/_favicon.png" />
+		<link rel="icon" type="image/png" href="/images/favicon.svg" />
 	</head>
 	<body>
 		<div class="table">
