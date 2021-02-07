@@ -159,6 +159,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             <link rel="stylesheet" href="/templates/<?php echo TEMPLATE; ?>/css/ie.css" type="text/css" media="all" />
         <!-- [endif]-->
     <link rel="icon" type="image/svg" href="/images/favicon.svg"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"/>
 
     <!--  Новый слайдер  -->
 

@@ -15246,6 +15246,7 @@ li.media .media-object {
 }
 
 .input-item--cart---quantity {
+    position: relative;
     width: 87px;
     height: 26px;
     border: 1px solid #C4C4C4;
@@ -15265,6 +15266,8 @@ input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
     -webkit-appearance: none;
     width: 20px;
     height: 100%;
+    background: #C4C4C4;
+    color: #FFFFFF;
     border-left: 1px solid #BBB;
     opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
     position: absolute;
@@ -15330,7 +15333,7 @@ input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
 
 
 
-/* --  End all selectors -- */
+/* --  /all selectors -- */
 
 @media all and (min-width:1201px) {
     .mrg-top {

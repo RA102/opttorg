@@ -117,7 +117,7 @@
                             <h5 class="text--color-blue">Скидка</h5>
                         </td>
                         <td align="right">
-                            <h5 class="text--color-blue">-<span class="discount">{$sumDiscount}</span> {$cfg.currency}</h5>
+                            <h5 class="text--color-blue">-<span class="discount">{if $sumDiscount}{$sumDiscount}{else} 0 {/if}</span> {$cfg.currency}</h5>
                         </td>
                     </tr>
                     <tr class="igogo">
