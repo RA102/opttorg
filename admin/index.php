@@ -1,5 +1,5 @@
 <?php
-Error_Reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+Error_Reporting(E_ALL | E_NOTICE | E_WARNING);
 
 
 header('Content-Type: text/html; charset=utf-8');
@@ -37,8 +37,14 @@ if(!cmsCore::checkAccessByIp($inConf->allow_ip)) {
     cmsCore::error404();
 }
 
-define('TEMPLATE_DIR', PATH.'/templates/'.$inConf->template.'/');
-define('DEFAULT_TEMPLATE_DIR', PATH.'/templates/_default_/');
+if (!defined('TEMPLATE_DIR')) {
+    define('TEMPLATE_DIR', PATH.'/templates/'.$inConf::getConfig('template').'/');
+}
+
+if (!defined('DEFAULT_TEMPLATE_DIR')) {
+    define('DEFAULT_TEMPLATE_DIR', PATH.'/templates/_default_/');
+}
+
 
 cmsCore::loadLanguage('admin/lang');
 
