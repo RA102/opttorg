@@ -8,7 +8,7 @@
             {if $itembanner!=''}{$itembanner}{/if}
         {/if}
         {if $smarty.session.user.group_id==10}{$iprice=$item.opt}{else}{$iprice=$item.price}{/if}
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 list-item-card">
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 list-item-card">
             {literal}
             <script>
                 ids.push("{/literal}{$item.id}{literal}");
@@ -61,7 +61,7 @@
                     <div class="text-center">
                         <button type="submit" class="btn btn-main add-basket{if $item.is_in_cart>0} btn-disabled{elseif $item.price==0}  btn-gray{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.price==0}Цену уточняйте{else}В корзину{/if}{/if}</button>
                     </div>
-                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}" data-price="{$iprice|number_format:0:' ':' '}">В один клик!</a>
+                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}" data-price="{$iprice|number_format:0:' ':' '}">Заказ в один клик!</a>
                 </form>
                 {else}
                     <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}">Узнать о сроках поступления</a>

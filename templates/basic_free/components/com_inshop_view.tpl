@@ -24,7 +24,7 @@
     {foreach key=tid item=cat from=$subcats name=shopcats}
 	<div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
 		<div class="thumb-cat">
-			<a href="/shop/{$cat.seolink}" title="{$cat.title}"><img src="/images/photos/small/{$cat.config.icon}" class="img-resp" alt="{$cat.title}" /></a>
+			<a href="/shop/{$cat.seolink}" title="{$cat.title}"><img src="/images/photos/small/{$cat.config.icon}" class="img-fluid" alt="{$cat.title}" /></a>
 			<a class="cat-th-title" href="/shop/{$cat.seolink}" data-truncate="1">{$cat.title}</a>
 		</div>
 	</div>	

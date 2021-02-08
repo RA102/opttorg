@@ -1,6 +1,6 @@
 <?php
 
-
+namespace Components\Sitemap\Sm_components;
 
 class comMaps {
     public $config; // Настройки генерации карт для текущего компонента

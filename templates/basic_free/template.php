@@ -109,9 +109,14 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 
     <!--  новый слайдер   -->
-    <!--    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>-->
     <script type="text/javascript" src="/templates/basic_free/js/modernizr.custom.46884.js"></script>
     <script type="text/javascript" src="/templates/basic_free/js/jquery.slicebox.js"></script>
+
+    <!--    Axios   -->
+<!--    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>-->
+    <!-- /Axios   -->
+
+    <!--  /новый слайдер  -->
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -127,12 +132,15 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NZN89PK');
     </script>
-    <!-- End Google Tag Manager -->
+    <!-- /Google Tag Manager -->
+
+    <!-- Ringostat  -->
     <script type="text/javascript">
         (function (d, s, u, e, p) {
             p = d.getElementsByTagName(s)[0], e = d.createElement(s), e.async = 1, e.src = u, p.parentNode.insertBefore(e, p);
         })(document, 'script', 'https://script.ringostat.com/v4/87/879dd20e1f58ab1e9980f5c3d3f690af942c4f62.js');
     </script>
+    <!-- /Ringostat   -->
     <meta property="og:locale" content="ru_KZ"/>
 
     <?php if (!$this->page_body) { ?>
@@ -196,7 +204,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZN89PK" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <!-- /Google Tag Manager (noscript) -->
     <a name="top"></a>
     <?php
     $inConf = cmsConfig::getInstance();
@@ -271,7 +279,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <?php } ?>
                                     </div>
                                     <a class="btn-order-call ml-auto" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
-                                    <div class="rngst_phone_button"></div>
                                 </div>
                             </div>
                         </div>
@@ -712,7 +719,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         }
 
         jQuery(window).resize(resizeColorBox);
-        window.addEventListener("orientationchange", resizeColorBox, false);
+        // window.addEventListener("orientationchange", resizeColorBox, false);
     </script>
 
     <noindex>
@@ -926,14 +933,14 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
             <form action="" method="post" name="oreder_call">
                 <div class="modal-body">
-                    <input type="hidden" class="form-control" name="price1" value="{$iprice}"/>
-                    <input type="hidden" class="form-control" name="ttl" value="{$item.title}"/>
+                    <input type="hidden" class="form-control" name="price1" value=""/>
+                    <input type="hidden" class="form-control" name="ttl" value=""/>
                     <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
                     <input type="text" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-whapp btn-block">Отправить</button>
+                    <button id="call-button"  type="submit" class="btn btn-whapp btn-block">Отправить</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                 </div>
             </form>
@@ -1026,6 +1033,39 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         Page.init();
 
     });
+
+    $('#call-button').on('click', function(e) {
+        e.preventDefault();
+        let
+        $.ajax({
+            type: "POST",
+            url: 'https://api.ringostat.net/callback/outward_call' + ,
+
+        })
+
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Auth-key': 'unique_auth_key_string'
+            }
+        };
+        const callback = response => {
+            let result = Buffer.alloc(0);
+            response.on('data', chunk => {
+                result = Buffer.concat([ result, chunk ]);
+            });
+            response.on('end', () => {
+                //handler response
+            });
+        };
+        const request = https.request(config, callback);
+        const body = `extension=380441112233&destination=380671112233`;
+        request.write(body);
+        request.end();
+    });
+
+
+    
 </script>
 
 </body>

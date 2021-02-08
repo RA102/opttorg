@@ -1,5 +1,10 @@
 <?php
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
+
+use Components\Sitemap\Sm_components;
+
+if (!defined('VALID_CMS')) {
+    die('ACCESS DENIED');
+}
 
 
 class shop_map extends comMaps

@@ -3,7 +3,7 @@
 {if $smarty.session.user.group_id==10}{$iprice=$item.opt}{else}{$iprice=$item.price}{/if}
 	<div class="col-md-3 col-sm-4 col-xs-6">
 		<div class="thumb">
-			<a href="/shop/{$item.seolink}.html" title="{$item.title}"><img src="/images/photos/small/{$item.filename}" class="img-resp" alt="{$item.title}" /></a>
+			<a href="/shop/{$item.seolink}.html" title="{$item.title}"><img src="/images/photos/small/{$item.filename}" class="img-fluid" alt="{$item.title}" /></a>
 			<div class="capt">
 				<a href="/shop/{$item.seolink}.html" title="{$item.title}" data-truncate="2">{$item.title}</a>
 			</div>

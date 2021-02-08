@@ -10,4 +10,3 @@ if (is_dir($dir)) {
        closedir($dh);
    }
 } else { echo 'nodir'; }
-?>

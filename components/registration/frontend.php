@@ -545,7 +545,7 @@ function registration()
                 $inPage->addPathway($_LANG['SITE_LOGIN']);
                 $inPage->addHead('<meta name="robots" content="noindex, nofollow" />');
 
-                $inPage->setRequestIsAjax();
+//                $inPage->setRequestIsAjax();
 
 
                 cmsPage::initTemplate('components', 'com_registration_login')
@@ -553,7 +553,10 @@ function registration()
                     ->assign('is_sess_back', cmsUser::sessionGet('auth_back_url'))
                     ->display('com_registration_login.tpl');
 
-                cmsCore::jsonOutput(['error' => false, 'html' => ob_get_clean()]);
+
+
+
+//                cmsCore::jsonOutput(['error' => false, 'data' => ob_get_clean()]);
 
                 if (!mb_strstr(cmsCore::getBackURL(), 'login')) {
                     cmsUser::sessionPut('auth_back_url', cmsCore::getBackURL());
