@@ -705,20 +705,20 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         });
     </script>
     <script>
-        jQuery.colorbox.settings.maxWidth = '95%';
-        jQuery.colorbox.settings.maxHeight = '95%';
-        var resizeTimer;
-
-        function resizeColorBox() {
-            if (resizeTimer) clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                if (jQuery('#cboxOverlay').is(':visible')) {
-                    jQuery.colorbox.load(true);
-                }
-            }, 300);
-        }
-
-        jQuery(window).resize(resizeColorBox);
+        // jQuery.colorbox.settings.maxWidth = '95%';
+        // jQuery.colorbox.settings.maxHeight = '95%';
+        // var resizeTimer;
+        //
+        // function resizeColorBox() {
+        //     if (resizeTimer) clearTimeout(resizeTimer);
+        //     resizeTimer = setTimeout(function () {
+        //         if (jQuery('#cboxOverlay').is(':visible')) {
+        //             jQuery.colorbox.load(true);
+        //         }
+        //     }, 300);
+        // }
+        //
+        // jQuery(window).resize(resizeColorBox);
         // window.addEventListener("orientationchange", resizeColorBox, false);
     </script>
 
@@ -931,16 +931,12 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" method="post" name="oreder_call">
+            <form id="callback-form">
                 <div class="modal-body">
-                    <input type="hidden" class="form-control" name="price1" value=""/>
-                    <input type="hidden" class="form-control" name="ttl" value=""/>
-                    <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
-                    <input type="text" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
-
+                    <input type="text" class="form-control" name="phonecallback" placeholder="Ваш телефон" required/>
                 </div>
                 <div class="modal-footer">
-                    <button id="call-button"  type="submit" class="btn btn-whapp btn-block">Отправить</button>
+                    <button id="btn-callback" type="submit" class="btn btn-whapp btn-block">Позвонить мне</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                 </div>
             </form>
@@ -949,9 +945,13 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 </div>
 
 
-<script type="text/javascript">
-    $(function() {
+<script>
 
+    $('#btn-callback').on('click', function (event) {
+       event.preventDefault(); 
+    });
+
+    $(function() {
         var Page = (function() {
 
             var $navArrows = $( '#nav-arrows' ).hide(),
@@ -1032,36 +1032,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
         Page.init();
 
-    });
-
-    $('#call-button').on('click', function(e) {
-        e.preventDefault();
-        let
-        $.ajax({
-            type: "POST",
-            url: 'https://api.ringostat.net/callback/outward_call' + ,
-
-        })
-
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Auth-key': 'unique_auth_key_string'
-            }
-        };
-        const callback = response => {
-            let result = Buffer.alloc(0);
-            response.on('data', chunk => {
-                result = Buffer.concat([ result, chunk ]);
-            });
-            response.on('end', () => {
-                //handler response
-            });
-        };
-        const request = https.request(config, callback);
-        const body = `extension=380441112233&destination=380671112233`;
-        request.write(body);
-        request.end();
     });
 
 
