@@ -180,7 +180,7 @@
                                                 </div>
                                             {else}
 
-                                                <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
+                                                <a class="btn-oneclick item-card--button" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
 
                                             {/if}
 

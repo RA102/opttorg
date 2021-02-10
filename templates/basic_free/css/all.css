@@ -14913,6 +14913,10 @@ input[type="number"].input-item-quantity::-webkit-inner-spin-button {
     border: 1px solid #0c5da5;
 }
 
+.chars-wrp .btn-oneclick .item-card--button {
+    width: 290px;
+}
+
 @media (min-width: 768px) {
     .additional-gird {
         margin-left: 0;
@@ -14931,6 +14935,10 @@ input[type="number"].input-item-quantity::-webkit-inner-spin-button {
     .chars-wrp .btn-oneclick {
         width: 290px;
     }
+
+    .chars-wrp .btn-oneclick .item-card--button {
+        font-size: 16px;
+    }
 }
 
 @media (min-width: 992px) {
@@ -14941,6 +14949,10 @@ input[type="number"].input-item-quantity::-webkit-inner-spin-button {
 
     .chars-wrp .btn-oneclick {
         width: auto;
+    }
+
+    .chars-wrp .btn-oneclick .item-card--button {
+        font-size: 16px;
     }
 
 
@@ -14957,9 +14969,13 @@ input[type="number"].input-item-quantity::-webkit-inner-spin-button {
         margin-left: auto;
     }
 
+    .chars-wrp .btn-oneclick .item-card--button {
+        width: 290px;
+    }
+
 }
 
-/*  END CARD ITEM */
+/*  /CARD ITEM */
 
 .btn-whapp {
     background: #159F0E;
