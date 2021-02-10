@@ -111,12 +111,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <!--  новый слайдер   -->
     <script type="text/javascript" src="/templates/basic_free/js/modernizr.custom.46884.js"></script>
     <script type="text/javascript" src="/templates/basic_free/js/jquery.slicebox.js"></script>
-
-    <!--    Axios   -->
-<!--    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>-->
-    <!-- /Axios   -->
-
     <!--  /новый слайдер  -->
+
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -135,12 +131,15 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <!-- /Google Tag Manager -->
 
     <!-- Ringostat  -->
-    <script type="text/javascript">
-        (function (d, s, u, e, p) {
-            p = d.getElementsByTagName(s)[0], e = d.createElement(s), e.async = 1, e.src = u, p.parentNode.insertBefore(e, p);
-        })(document, 'script', 'https://script.ringostat.com/v4/87/879dd20e1f58ab1e9980f5c3d3f690af942c4f62.js');
-    </script>
+
+<!--    <script type="text/javascript">-->
+<!--        (function (d, s, u, e, p) {-->
+<!--            p = d.getElementsByTagName(s)[0], e = d.createElement(s), e.async = 1, e.src = u, p.parentNode.insertBefore(e, p);-->
+<!--        })(document, 'script', 'https://script.ringostat.com/v4/87/879dd20e1f58ab1e9980f5c3d3f690af942c4f62.js');-->
+<!--    </script>-->
+
     <!-- /Ringostat   -->
+
     <meta property="og:locale" content="ru_KZ"/>
 
     <?php if (!$this->page_body) { ?>
@@ -293,7 +292,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                         </div>
                         <div class="header-icon">
                             <!--					<a href="tel:+77212503272">+7 7212 47 78 24</a><br />-->
-                            <a href=tel:+77775409927">
+                            <a href="tel:+77775409927">
                                 <img class="img-icon " src="/templates/basic_free/images/top/PHONE.png" alt="phone">
                             </a>
                         </div>
@@ -924,16 +923,16 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 <div id="order-call" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content bg-dark">
             <div class="modal-header">
-                <h5 class="modal-title text-center">Заказать звонок</h5>
+                <h5 class="text-white text-center">Введите номер телефона и мы перезвоним вам через 30 секунд!</h5>
                 <button type="button" class="close d-inline-block" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form id="callback-form">
                 <div class="modal-body">
-                    <input type="text" class="form-control" name="phonecallback" placeholder="Ваш телефон" required/>
+                    <input type="text" class="form-control" name="phonecallback" placeholder="Ваш номер" required/>
                 </div>
                 <div class="modal-footer">
                     <button id="btn-callback" type="submit" class="btn btn-whapp btn-block">Позвонить мне</button>
@@ -946,14 +945,20 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 
 <script>
-
-    $('#btn-callback').on('click', function (event) {
-       event.preventDefault(); 
-    });
+    
+    $('#callback-form').on('submit', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/',
+            type: 'post',
+            success: function (data) {
+                console.log(data);
+            }
+        })
+    })
 
     $(function() {
         var Page = (function() {
-
             var $navArrows = $( '#nav-arrows' ).hide(),
                 $navDots = $( '#nav-dots' ).hide(),
                 $nav = $navDots.children( 'span' ),
@@ -1034,8 +1039,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
     });
 
-
-    
 </script>
 
 </body>

@@ -57,7 +57,7 @@
                             <div class="col-12 order-0 col-sm-12 order-sm-0 col-md-12 order-md-0 col-lg-5 order-lg-7 col-xl-5 order-xl-7 pl-0" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                 {if $iprice > 0}
                                     {if $cfg.is_shop && !$item.hide_price}
-                                        {if !$cfg.track_qty || $qty || $qty_from_vendor}
+                                        {if !$cfg.track_qty || $qty>1 || $qty_from_vendor>1}
                                             {if $item.old_price > 0}
                                                 <div class="old-price">
                                                     <s>{$item.old_price|number_format:0:" ":" "} {$cfg.currency}</s>
@@ -84,16 +84,15 @@
                                                 <strong>При заказе по телефону</strong><br/> назовите менеджеру данный код
                                             </p>
 
-                                            <div>
-                                                {if $qty > 1 }
-                                                    <p class="count-item p-3 bg-success text-white">Есть в наличии</p>
-                                                {elseif $qty_from_vendor}
-                                                    <p class="count-item p-3 bg-warning text-white">Под заказ</p>
-                                                {/if}
-                                            </div>
 
-                                            <input type="hidden" name="var_art_no" value=""/>
-                                            <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
+                                            {if $qty>1 || $qty_from_vendor>0 }
+                                                <p class="count-item p-3 bg-success text-white">Есть в наличии</p>
+                                                <input type="hidden" name="var_art_no" value=""/>
+                                                <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
+
+
+
+
 {*      remove *}
 {*                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table_tab">*}
 {*                                                <tr>*}
@@ -131,71 +130,60 @@
 {*                                                </tr>*}
 {*                                            </table>*}
 {*      End     *}
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div id="add_to_cart_{$item.id}">
-                                                        {if $cfg.qty_mode != 'one'}
-                                                            <div class="qty text-right text-sm-right text-md-right">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div id="add_to_cart_{$item.id}">
+                                                            {if $cfg.qty_mode != 'one'}
+                                                                <div class="qty text-right text-sm-right text-md-right">
 
-                                                                {if $cfg.qty_mode=='qty'}
-                                                                    {if $item.qty}
-                                                                        <select name="qty" class="vkorz">
-                                                                            {section name=qty loop=$item.qty step=1}
-                                                                                <option value="{$smarty.section.qty.index+1}" {if $smarty.section.qty.index+1 == $item.cart_qty}selected="selected"{/if}>{$smarty.section.qty.index+1}</option>
-                                                                            {/section}
-                                                                        </select>
+                                                                    {if $cfg.qty_mode=='qty'}
+                                                                        {if $item.qty}
+                                                                            <select name="qty" class="vkorz">
+                                                                                {section name=qty loop=$item.qty step=1}
+                                                                                    <option value="{$smarty.section.qty.index+1}" {if $smarty.section.qty.index+1 == $item.cart_qty}selected="selected"{/if}>{$smarty.section.qty.index+1}</option>
+                                                                                {/section}
+                                                                            </select>
+                                                                        {/if}
                                                                     {/if}
-                                                                {/if}
-                                                                {if $cfg.qty_mode=='any'}
+                                                                    {if $cfg.qty_mode=='any'}
+                                                                        <div class="d-inline-block">
+                                                                            <input id="qtyy" class="input-item-quantity" name="qty" type="number" min="1" class="qty-control" value="1" oninput="change()"/>
+                                                                        </div>
+                                                                    {/if}
                                                                     <div class="d-inline-block">
-                                                                        <input id="qtyy" class="input-item-quantity" name="qty" type="number" min="1" class="qty-control" value="1" oninput="change()"/>
+                                                                        <button type="submit" class="btn-vkorz btn btn-main btn-block btn-lg{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
                                                                     </div>
-                                                                {/if}
-                                                                <div class="d-inline-block">
-                                                                    <button type="submit" class="btn-vkorz btn btn-main btn-block btn-lg{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
+
                                                                 </div>
+                                                            {else}
+                                                                <input type="submit" class="add btn-vkorz" name="addtocart" value="{$LANG.SHOP_ADD_TO_CART}"/>
+                                                            {/if}
+                                                        </div>
 
-                                                            </div>
-                                                        {else}
-                                                            <input type="submit" class="add btn-vkorz" name="addtocart" value="{$LANG.SHOP_ADD_TO_CART}"/>
-                                                        {/if}
                                                     </div>
 
                                                 </div>
+                                                <a class="btn-oneclick ml-auto" href="#" data-toggle="modal" data-target="#oneclicker" >Заказать в один клик!</a>
+                                                {if $item.kaspikz}
+                                                    <div class="small mt10 text-center btn-kaspi">
+                                                    <a rel="nofollow" target="_blank" href="{$item.kaspikz}"><img src="/templates/basic_free/img/kaspykz.png" height="48"/></a>
+                                                    </div>{/if}
+                                                <div id="dynamic"></div>
+                                                <!--<div class="h4 text-right">Оплачивайте без риска</div>
+                                                <p class="text-right text-small"><strong>Наличными при получении</strong><br /> предоплата не требуется, оплачиваете заказ во время доставки</p>
+                                                <p class="text-right text-small"><strong>Онлайн-оплата картой</strong><br /> Epay KKB защищает ваши платежи картами Visa и MasterCard</p>-->
 
-                                            </div>
-                                            <a class="btn-oneclick ml-auto" href="#" data-toggle="modal" data-target="#oneclicker" >Заказать в один клик!</a>
-                                            {if $item.kaspikz}
-                                                <div class="small mt10 text-center btn-kaspi">
-                                                <a rel="nofollow" target="_blank" href="{$item.kaspikz}"><img src="/templates/basic_free/img/kaspykz.png" height="48"/></a>
-                                                </div>{/if}
-                                            <div id="dynamic"></div>
-                                            <!--<div class="h4 text-right">Оплачивайте без риска</div>
-                                            <p class="text-right text-small"><strong>Наличными при получении</strong><br /> предоплата не требуется, оплачиваете заказ во время доставки</p>
-                                            <p class="text-right text-small"><strong>Онлайн-оплата картой</strong><br /> Epay KKB защищает ваши платежи картами Visa и MasterCard</p>-->
-
-                                            <div class="text-right">
-                                                <img src="/templates/{template}/img/kaspired.jpg" class="kaspired"/>
-                                                <img src="/templates/{template}/img/visa.jpg" class="visa"/>
-                                                <div class="smallest">Kaspi Red 0% только в Караганде</div>
-                                            </div>
-                                        {else}
-                                            <div class="old_price">
-{*                                                <span class="nazakaz">На заказ</span>*}
-                                                {if $item.old_price > 0}
-                                                    <div class="old-price">
-                                                        <s>{$item.old_price|number_format:0:" ":" "} {$cfg.currency}</s>
-                                                    </div>
-                                                {/if}
-                                                <meta itemprop="price" content="{$iprice}"/>
-                                                <meta itemprop="priceCurrency" content="KZT"/>
-                                                <meta itemprop="priceValidUntil" content="2030-12-12"/>
-                                                <meta itemprop="url" content="https://sanmarket.kz/shop/{$item.seolink}.html"/>
-                                                <div class="new-price">
-                                                    <span id="results">{$iprice|number_format:0:" ":" "}</span> {$cfg.currency}
+                                                <div class="text-right">
+                                                    <img src="/templates/{template}/img/kaspired.jpg" class="kaspired"/>
+                                                    <img src="/templates/{template}/img/visa.jpg" class="visa"/>
+                                                    <div class="smallest">Kaspi Red 0% только в Караганде</div>
                                                 </div>
-                                            </div>
-                                            <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
+                                            {else}
+
+                                                <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
+
+                                            {/if}
+
                                         {/if}
 
                                     {/if}
