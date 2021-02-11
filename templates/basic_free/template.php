@@ -371,8 +371,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                             </div>
                         <?php } ?>
                         <?php if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) { ?>
-                            <div class="alert alert-warning text-center" id="sess_messages">Ваш заказ принят! Мы Вам
-                                                                                            перезвоним!
+                            <div class="alert alert-warning text-center" id="sess_messages">
+                                Ваш заказ принят! Мы Вам перезвоним!
                             </div>
                         <?php } ?>
 
@@ -955,6 +955,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                 console.log(data);
             }
         })
+
     })
 
     $(function() {

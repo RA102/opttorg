@@ -14671,6 +14671,15 @@ ul.search_result li.search_result_item:hover {
 }
 
 
+.text-yellow {
+    color: #2E8ECE;
+}
+
+.text-green {
+    color: #00CC00;
+}
+
+
 /*  START CARD ITEM */
 
 .thumb {
@@ -14815,9 +14824,6 @@ ul.search_result li.search_result_item:hover {
     color: #98B2C3;
     font-size: 18px
 }
-
-
-
 
 .old-price {
     font-size: 22px;

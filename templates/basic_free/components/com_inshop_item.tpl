@@ -55,9 +55,10 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-12 order-0 col-sm-12 order-sm-0 col-md-12 order-md-0 col-lg-5 order-lg-7 col-xl-5 order-xl-7 pl-0" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
                                 {if $iprice > 0}
                                     {if $cfg.is_shop && !$item.hide_price}
-                                        {if !$cfg.track_qty || $qty>1 || $qty_from_vendor>1}
+                                        {if $cfg.track_qty}
                                             {if $item.old_price > 0}
                                                 <div class="old-price">
                                                     <s>{$item.old_price|number_format:0:" ":" "} {$cfg.currency}</s>
@@ -85,15 +86,21 @@
                                             </p>
 
 
-                                            {if $qty>1 || $qty_from_vendor>0 }
-                                                <p class="count-item p-3 bg-success text-white">Есть в наличии</p>
+                                            {if {$item.qty|intval}>1 || {$item.qty_from_vendor|intval}>1 }
+                                                {if {$item.qty|intval} > 1}
+                                                    <p class="text-right">
+                                                        <u class="count-item text-green">Есть в наличии</u>
+                                                    </p>
+                                                {elseif {$item.qty_from_vendor|intval}>1}
+                                                    <p class="text-right">
+                                                        <u class="count-item text-yellow">Под заказ</u>
+                                                    </p>
+                                                {/if}
                                                 <input type="hidden" name="var_art_no" value=""/>
                                                 <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
 
 
 
-
-{*      remove *}
 {*                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table_tab">*}
 {*                                                <tr>*}
 {*                                                    <td>*}
@@ -159,15 +166,14 @@
                                                                 <input type="submit" class="add btn-vkorz" name="addtocart" value="{$LANG.SHOP_ADD_TO_CART}"/>
                                                             {/if}
                                                         </div>
-
                                                     </div>
-
                                                 </div>
                                                 <a class="btn-oneclick ml-auto" href="#" data-toggle="modal" data-target="#oneclicker" >Заказать в один клик!</a>
                                                 {if $item.kaspikz}
                                                     <div class="small mt10 text-center btn-kaspi">
                                                     <a rel="nofollow" target="_blank" href="{$item.kaspikz}"><img src="/templates/basic_free/img/kaspykz.png" height="48"/></a>
-                                                    </div>{/if}
+                                                    </div>
+                                                {/if}
                                                 <div id="dynamic"></div>
                                                 <!--<div class="h4 text-right">Оплачивайте без риска</div>
                                                 <p class="text-right text-small"><strong>Наличными при получении</strong><br /> предоплата не требуется, оплачиваете заказ во время доставки</p>
@@ -178,6 +184,11 @@
                                                     <img src="/templates/{template}/img/visa.jpg" class="visa"/>
                                                     <div class="smallest">Kaspi Red 0% только в Караганде</div>
                                                 </div>
+
+                                            {elseif {$item.qty|intval} == 0 || {$item.qty_from_vendor|intval} == 0}
+
+                                                <a class="btn-oneclick item-card--button" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
+
                                             {else}
 
                                                 <a class="btn-oneclick item-card--button" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
