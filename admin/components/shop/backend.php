@@ -2367,12 +2367,13 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                         <img src="components/shop/images/arrow.gif" border="0"
                                     </a>
                                 </td>
-                                <td valign="top" width="80">
+                                <td valign="top" width="50">
                                     <div><strong>Старая цена</strong></div>
                                     <div>
                                         <input name="old_price" type="text" id="old_price" style="width:80px" value="<?php echo htmlspecialchars($mod['old_price']);?>"/>
                                     </div>
                                 </td>
+
                                 <td valign="top" width="80">
                                     <div><strong>На складе</strong></div>
                                     <div>
@@ -2392,7 +2393,74 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 									<div><label><input name="ordering" type="checkbox" id="ordering" value="1"/> Поднять</label></div>
 								</td>
                             </tr>
+
+                            <tr>
+                                <td>
+                                    <div>
+                                        <strong>Название</strong>
+                                    </div>
+                                    <div>
+                                        <input name="partItem" type="text" id="vol" style="width:300px" value="<?php echo htmlspecialchars($itemParams['partItem']); ?>"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div><strong>Ширина</strong></div>
+                                    <div>
+                                        <input name="widthItem" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($itemParams['widthItem']); ?>"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div><strong>Высота</strong></div>
+                                    <div>
+                                        <input name="heightItem" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($itemParams['heightItem']); ?>"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div><strong>Глубина</strong></div>
+                                    <div>
+                                        <input name="depthItem" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($itemParams['depthItem']); ?>"/>
+                                    </div>
+                                </td>
+                                <td valign="top" width="80">
+                                    <div><strong>Вес, кг</strong></div>
+                                    <div>
+                                        <input name="weightItem" type="text" id="ves" style="width:80px" value="<?php echo htmlspecialchars($ItemParams['weightItem']); ?>"/>
+                                    </div>
+                                </td>
+                            </tr>
+
                         </table>
+
+                        <table class="params-item">
+                            <tr>
+                                <th width="200" class="text-center">Название</th>
+                                <th width="50">Ширина(см)</th>
+                                <th width="50">Высота(см)</th>
+                                <th width="50">Глубина(см)</th>
+                            </tr>
+                            <tr class="lastRow">
+                                <td>
+                                    <input name="widthItem" type="text" id="widthItem" value="<?php echo htmlspecialchars($itemParams['widthItem']); ?>"/>
+                                </td>
+                                <td>
+                                    <input name="heightItem" type="text" id="heightItem" value="<?php echo htmlspecialchars($itemParams['heightItem']); ?>"/>
+                                </td>
+                                <td>
+                                    <input name="depthItem" type="text" id="depthItem" value="<?php echo htmlspecialchars($itemParams['depthItem']); ?>"/>
+                                </td>
+                                <td>
+                                    <input name="weightItem" type="text" id="weightItem" value="<?php echo htmlspecialchars($ItemParams['weightItem']); ?>"/>
+                                </td>
+                            </tr>
+                            <tr name="addPartItem">
+                                <td class="">
+                                    <img id="buttonAddPart" class="img-fluid" src="/admin/images/icons/hmenu/add.png" alt="">
+                                </td>
+                            </tr>
+                        </table>
+
 						<hr />
 
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -2693,6 +2761,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
                 </tr>
             </table>
+
             <?php if ($opt=='add_item') {  ?>
                  <table width="100%" cellpadding="0" cellspacing="0" border="0" class="checklist">
                         <tr>

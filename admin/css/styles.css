@@ -737,3 +737,29 @@ div.filter {
 .param-string {
 	width: 400px;
 }
+
+table.params-item {
+	width: 100%;
+	border-spacing: 3px;
+}
+
+table.params-item td, table.params-item th {
+	padding: 5px;
+	text-align: center;
+}
+
+table.params-item td, table.params-item th{
+	border: solid 1px #ccc;
+}
+
+
+table.params-item td input {
+	width: 100%;
+	border: none;
+	outline: none;
+	text-align: center;
+}
+
+table.params-item tr[name="addPartItem"] td {
+	border: none;
+}

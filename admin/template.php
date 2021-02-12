@@ -7,24 +7,26 @@
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<?php cpHead(); ?>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="icon" type="image/svg" href="/admin/images/favicon.svg"/>
-<link href="css/styles.css?v=<?php echo rand(10, 1000) ?>"  rel="stylesheet" type="text/css" />
-<link href="/templates/<?php echo TEMPLATE; ?>/css/bootstrap.css" rel="stylesheet" type="text/css" />
-<link href="js/hmenu/hmenu.css" rel="stylesheet" type="text/css" />
-<link href="/includes/jquery/tablesorter/style.css" rel="stylesheet" type="text/css" />
-<link href="/includes/jqueryui/css/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/admin.js"></script>
-<script type="text/javascript" src="/includes/jquery/jquery.columnfilters.js"></script>
-<script type="text/javascript" src="/includes/jquery/tablesorter/jquery.tablesorter.min.js"></script>
-<script type="text/javascript" src="/includes/jquery/jquery.preload.js"></script>
-<script type="text/javascript" src="/includes/jqueryui/jquery-ui.min.js"></script>
-<script type="text/javascript" src="/includes/jqueryui/init-ui.js"></script>
-<script type="text/javascript" src="/includes/jqueryui/i18n/jquery.ui.datepicker-<?php echo cmsConfig::getConfig('lang'); ?>.min.js"></script>
-<script type="text/javascript" src="/includes/jquery/jquery.form.js"></script>
-<script type="text/javascript" src="js/hltable.js"></script>
-<script type="text/javascript" src="js/jquery.jclock.js"></script>
+    <?php cpHead(); ?>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/svg" href="/admin/images/favicon.svg"/>
+    <link href="css/styles.css?v=<?php echo rand(10, 1000) ?>" rel="stylesheet" type="text/css"/>
+    <link href="/templates/<?php echo TEMPLATE; ?>/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="/templates/<?php echo TEMPLATE; ?>/css/bootstrap-4.css" rel="stylesheet" type="text/css"/>
+    <link href="js/hmenu/hmenu.css" rel="stylesheet" type="text/css"/>
+    <link href="/includes/jquery/tablesorter/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/includes/jqueryui/css/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/admin.js"></script>
+    <script src="js/custom.js"></script>
+    <script type="text/javascript" src="/includes/jquery/jquery.columnfilters.js"></script>
+    <script type="text/javascript" src="/includes/jquery/tablesorter/jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="/includes/jquery/jquery.preload.js"></script>
+    <script type="text/javascript" src="/includes/jqueryui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/includes/jqueryui/init-ui.js"></script>
+    <script type="text/javascript" src="/includes/jqueryui/i18n/jquery.ui.datepicker-<?php echo cmsConfig::getConfig('lang'); ?>.min.js"></script>
+    <script type="text/javascript" src="/includes/jquery/jquery.form.js"></script>
+    <script type="text/javascript" src="js/hltable.js"></script>
+    <script type="text/javascript" src="js/jquery.jclock.js"></script>
 </head>
 
 <body>

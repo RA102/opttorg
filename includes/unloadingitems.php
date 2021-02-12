@@ -1,14 +1,13 @@
 <?php
 
+include 'core/cms.php';
 error_reporting(E_ALL);
 error_log('error_log', '/log/error_unloadingitems.log');
 
 
-include 'core/cms.php';
-
 define('PATH', $_SERVER['DOCUMENT_ROOT']);
 
-$dir = '../cache/';
+$dir = PATH .'/cache/';
 $filename = 'import.xml';
 
 cmsCore::loadModel('shop');

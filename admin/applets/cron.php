@@ -277,4 +277,3 @@ function applet_cron(){
    }
 }
 
-?>
