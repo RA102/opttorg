@@ -17,6 +17,7 @@ $this->prependHeadJS('includes/jquery/jquery.js');
 // Подключаем стили шаблона
 $this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-4.css');
 //$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap.css');
+
 $this->addHeadCSS('templates/' . TEMPLATE . '/css/all.css?v=' . rand(10, 1000));
 
 //$this->addHeadCSS('templates/'.TEMPLATE.'/css/font-awesome.min.css');
@@ -173,6 +174,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/slicebox.css" />
     <!--    <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/custom.css" />-->
 
+<!--  Vuetify  -->
+
+<!--  /Vuetify -->
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fish.js"> </script>
@@ -277,7 +281,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                             </div>
                                         <?php } ?>
                                     </div>
-                                    <a class="btn-order-call ml-auto" href="#" data-toggle="modal" data-target="#order-call">Заказать звонок</a>
+                                    <a class="btn-order-call ml-auto" href="#" data-toggle="modal" data-target="#order-call" >Заказать звонок</a> <!--  -->
                                 </div>
                             </div>
                         </div>
@@ -921,38 +925,40 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 <div id="darkening"></div>
 
-<div id="order-call" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content bg-dark">
+<div id="order-call" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
             <div class="modal-header">
-                <h5 class="text-white text-center">Введите номер телефона и мы перезвоним вам через 30 секунд!</h5>
-                <button type="button" class="close d-inline-block" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="callback-form">
+            <span class=" text-center">Введите номер телефона и мы перезвоним вам через 30 секунд!</span>
+            <form id="callback-form" class="form-inline">
                 <div class="modal-body">
-                    <input type="text" class="form-control" name="phonecallback" placeholder="Ваш номер" required/>
-                </div>
-                <div class="modal-footer">
-                    <button id="btn-callback" type="submit" class="btn btn-whapp btn-block">Позвонить мне</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <div class="form-group justify-content-between">
+                        <input type="text" class="form-control" name="phonecallback" placeholder="Ваш номер" required/>
+                        <button id="btn-callback" class="btn btn-default" type="submit" >Позвонить мне</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
+<div id="app"></div>
 <script>
     
-    $('#callback-form').on('submit', function(event) {
+    $('#btn-callback').on('click', function(event) {
         event.preventDefault();
+        let userNumber = $('input[name=phonecallback]').val();
+
+        userNumber.split());
         $.ajax({
             url: '/',
             type: 'post',
             success: function (data) {
                 console.log(data);
+
             }
         })
 
@@ -1041,6 +1047,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     });
 
 </script>
+
+
 
 </body>
 </html>
