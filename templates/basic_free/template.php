@@ -707,23 +707,22 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             });
         });
     </script>
-    <script>
-        // jQuery.colorbox.settings.maxWidth = '95%';
-        // jQuery.colorbox.settings.maxHeight = '95%';
-        // var resizeTimer;
-        //
-        // function resizeColorBox() {
-        //     if (resizeTimer) clearTimeout(resizeTimer);
-        //     resizeTimer = setTimeout(function () {
-        //         if (jQuery('#cboxOverlay').is(':visible')) {
-        //             jQuery.colorbox.load(true);
-        //         }
-        //     }, 300);
-        // }
-        //
-        // jQuery(window).resize(resizeColorBox);
-        // window.addEventListener("orientationchange", resizeColorBox, false);
-    </script>
+<!--    <script>-->
+<!--         jQuery.colorbox.settings.maxWidth = '95%';-->
+<!--         jQuery.colorbox.settings.maxHeight = '95%';-->
+<!--         var resizeTimer;-->
+<!--         function resizeColorBox() {-->
+<!--             if (resizeTimer) clearTimeout(resizeTimer);-->
+<!--             resizeTimer = setTimeout(function () {-->
+<!--                 if (jQuery('#cboxOverlay').is(':visible')) {-->
+<!--                     jQuery.colorbox.load(true);-->
+<!--                 }-->
+<!--             }, 300);-->
+<!--         }-->
+<!---->
+<!--         jQuery(window).resize(resizeColorBox);-->
+<!--         window.addEventListener("orientationchange", resizeColorBox, false);-->
+<!--    </script>-->
 
     <noindex>
         <div class="modal fade" id="fil_modal" tabindex="-1" role="dialog" aria-labelledby="filModalLabel">
@@ -933,7 +932,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <span class=" text-center">Введите номер телефона и мы перезвоним вам через 30 секунд!</span>
+            <span class="text-center text-white">Введите номер телефона и мы перезвоним вам через 30 секунд!</span>
             <form id="callback-form" class="form-inline">
                 <div class="modal-body">
                     <div class="form-group justify-content-between">
@@ -942,27 +941,42 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     </div>
                 </div>
             </form>
+            <div class="text-center">
+                <small class="text-white">введите номер в международном формате через 7</small>
+            </div>
         </div>
     </div>
 </div>
+
+
 <div id="app"></div>
 <script>
+
+
     
     $('#btn-callback').on('click', function(event) {
-        event.preventDefault();
+
         let userNumber = $('input[name=phonecallback]').val();
 
-        userNumber.split());
+        userNumber = userNumber.split('');
+
+        userNumber.length < 11 ? alert('Не правильно введен номер') : '';
+
+        userNumber[0] = userNumber[0] == 8 ? 7 : 7 ;
+
+        $('input[name=phonecallback]').val(userNumber.join(''));
+
         $.ajax({
             url: '/',
             type: 'post',
             success: function (data) {
-                console.log(data);
-
+                $('#order-call .close').trigger('click');
+                alert('Ваша заявка прнята');
+                $('input[name=phonecallback]').val('');
             }
-        })
+        });
 
-    })
+    });
 
     $(function() {
         var Page = (function() {

@@ -14205,7 +14205,7 @@ label#label25 > div:nth-child(3) {
 
 #order-call .modal-content {
     padding: 0 30px 30px;
-
+    background-color: rgba(71, 160, 74, 1);
 }
 
 #order-call .close {
@@ -14227,13 +14227,7 @@ label#label25 > div:nth-child(3) {
 
 #callback-form input {
     border: none;
-    border-radius: 26px;
-    background: rgba(220,220,220,0.25);
-    padding: 10px 16px;
-}
-
-#callback-form input:focus {
-    background-color: rgba(220,220,220,0.4)
+    background-color: #FFFFFF;
 }
 
 .btn-order-call {
@@ -14254,6 +14248,7 @@ label#label25 > div:nth-child(3) {
     color: #FFFFFF;
 
 }
+
 
 
 .modal-title {
