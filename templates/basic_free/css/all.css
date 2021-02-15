@@ -14188,10 +14188,10 @@ label#label25 > div:nth-child(3) {
 /*    padding: 0;*/
 /*}*/
 
-.modal-header {
-    border-bottom: none;
-    padding: 1rem;
-}
+/*.modal-header {*/
+/*    border-bottom: none;*/
+/*    padding: 1rem;*/
+/*}*/
 
 #modal-login {
     top: 0;
@@ -14203,17 +14203,26 @@ label#label25 > div:nth-child(3) {
     background: #fff;
 }
 
-#order-call .modal-content {
-    padding: 0 30px 30px;
-    background-color: rgba(71, 160, 74, 1);
+#order-call .modal-dialog {
+    max-width: 600px;
+}
+
+#order-call .modal-header {
+    padding-top: 30px;
 }
 
 #order-call .close {
-    color: #49505a;
     font-size: 2rem;
-    font-weight: 100;
-    padding-right: 0;
-    text-shadow: none;
+}
+
+
+#order-call .modal-content {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+#order-call .modal-content  span {
+    color: #000000;
 }
 
 #order-call .close:hover, #order-call .close:active {
@@ -14221,14 +14230,47 @@ label#label25 > div:nth-child(3) {
     outline: none;
 }
 
-#order-call .modal-content  span {
-    color: #000000;
+
+
+#order-call .modal-body {
+    padding-top: 30px;
+    padding-bottom: 50px;
 }
+
 
 #callback-form input {
     border: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #bdbdbd;
     background-color: #FFFFFF;
 }
+
+#callback-form input:focus, #callback-form input:hover {
+    outline: none;
+    border: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    box-shadow: none;
+    border-bottom: 1px solid #cc0a00;
+}
+
+#callback-form input::placeholder {
+    transition: .5s;
+    color: #ff5605;
+}
+
+#callback-form input:focus::placeholder {
+    font-size: 10px; /* Размер шрифта */
+    transform: translateY(-16px); /* Сдвигаем вверх */
+}
+
+#callback-form .btn-callback {
+    background: #ff5605;
+}
+
 
 .btn-order-call {
     display: block;
