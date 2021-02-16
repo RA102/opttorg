@@ -13,3 +13,5 @@ config.inc.php
 *.sql
 /432gsdt55gs34hhj.php
 
+
+/vendor/

@@ -1003,6 +1003,14 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 		
         $item['auto_thumb']     = $inCore->request('auto_thumb', 'int', 0);
 
+
+        $titlePart[] = $inCore->request('titlePart', 'array');
+        $widthItem[] = $inCore->request('widthItem', 'array');
+        $heightItem[] = $inCore->request('heightItem', 'array');
+        $depthItem[] = $inCore->request('depthItem', 'array');
+        $weightItem[] = $inCore->request('weightItem', 'array');
+
+
 //        $checkingExistenceItem = $model->getItemFromVenCode($item['ven_code']);
 //
 //        if ($item['title'] == '' || $item['ven_code'] == '' || $checkingExistenceItem == null) {
@@ -1015,13 +1023,18 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 			if ($item['ordering'] == 1) {
 				$model->vperedItem($id, $item['category_id']);
 			} 
-			// tokarev		
+			// tokarev
+
+//        $model->addParamsItem($item['id'], $itemParams);
 
         if ($inCore->request('add_again', 'int', 0)){
             $inCore->redirect('?view=components&do=config&opt=add_item&id='.$_REQUEST['id'].'&added='.$item['id']);
         } else {
             $inCore->redirect('?view=components&do=config&opt=list_items&id='.$_REQUEST['id'].'&orderby=id&orderto=desc&cat_id='.$item['category_id']);
         }
+
+
+
 
 	}
 
@@ -1118,7 +1131,15 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $item['img_delete']     = $inCore->request('img_delete', 'array');
 
 			$model->updateItem($id, $item);
-			
+
+            $titlePart = $inCore->request('titlePart', 'array');
+            $widthItem = $inCore->request('widthItem', 'array');
+            $heightItem = $inCore->request('heightItem', 'array');
+            $depthItem = $inCore->request('depthItem', 'array');
+            $weightItem = $inCore->request('weightItem', 'array');
+
+//            $model->updateParamsItem($id, )
+
 			if ($item['ordering'] == 1) {
 				$model->vperedItem($id, $item['category_id']);
 			} 
@@ -2272,6 +2293,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
             $mod = $model->getItem($id, false);
 
+            $paramsItem = $modal->getParamsItem()
+
             echo '<h3>Товар: <span style="color:#808080">' .$mod['title'].'</span> '.$ostatok.'</h3>';
             cpAddPathway('Категории и товары', '?view=components&do=config&id='.$_REQUEST['id'].'&opt=list_items');
             cpAddPathway($mod['title'], '?view=components&do=config&id='.$_REQUEST['id'].'&opt=edit_item&item_id='.$id);
@@ -2436,22 +2459,26 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <table class="params-item">
                             <tr>
                                 <th width="200" class="text-center">Название</th>
-                                <th width="50">Ширина(см)</th>
-                                <th width="50">Высота(см)</th>
-                                <th width="50">Глубина(см)</th>
+                                <th width="50">Ширина(см.)</th>
+                                <th width="50">Высота(см.)</th>
+                                <th width="50">Глубина(см.)</th>
+                                <th width="50">Вес(кг.)</th>
                             </tr>
                             <tr class="lastRow">
                                 <td>
-                                    <input name="widthItem" type="text" id="widthItem" value="<?php echo htmlspecialchars($itemParams['widthItem']); ?>"/>
+                                    <input name="titlePart[]" type="text"  value="<?php echo htmlspecialchars($itemParams['titlePart']); ?>"/>
                                 </td>
                                 <td>
-                                    <input name="heightItem" type="text" id="heightItem" value="<?php echo htmlspecialchars($itemParams['heightItem']); ?>"/>
+                                    <input name="widthItem[]" type="text"  value="<?php echo htmlspecialchars($itemParams['widthItem']); ?>"/>
                                 </td>
                                 <td>
-                                    <input name="depthItem" type="text" id="depthItem" value="<?php echo htmlspecialchars($itemParams['depthItem']); ?>"/>
+                                    <input name="heightItem[]" type="text" value="<?php echo htmlspecialchars($itemParams['heightItem']); ?>"/>
                                 </td>
                                 <td>
-                                    <input name="weightItem" type="text" id="weightItem" value="<?php echo htmlspecialchars($ItemParams['weightItem']); ?>"/>
+                                    <input name="depthItem[]" type="text" value="<?php echo htmlspecialchars($itemParams['depthItem']); ?>"/>
+                                </td>
+                                <td>
+                                    <input name="weightItem[]" type="text" value="<?php echo htmlspecialchars($ItemParams['weightItem']); ?>"/>
                                 </td>
                             </tr>
                             <tr name="addPartItem">

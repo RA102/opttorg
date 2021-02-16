@@ -962,51 +962,13 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
     $('#btn-callback').on('click', function(event) {
         event.preventDefault();
-
-        let userNumberPhone = $('input[name=phonecallback]').val();
-
-        userNumberPhone = $.trim(userNumberPhone);
-
-        userNumberPhone = userNumberPhone.split('');
-
-        userNumberPhone[0] = userNumberPhone[0] == 8 ? 7 : 7 ;
-
-        $('input[name=phonecallback]').val(userNumberPhone.join(''));
-
-        if(userNumberPhone.length < 11) {
-
-            alert('Проверте правильность номера');
-
-        } else {
-            console.log('ajax');
-            $.ajax({
-                url: '/',
-                type: 'post',
-                success: function (data) {
-                    console.log('success');
-                    $('#order-call .close').trigger('click');
-                    $('input[name=phonecallback]').val('');
-                }
-            });
-
-            // var settings = {
-            //     "url": "https://api.ringostat.net/callback/outward_call",
-            //     "method": "POST",
-            //     "timeout": 0,
-            //     "headers": {
-            //         "Auth-key": "IQ36pMo5DIHuaIPJNZEzC2wqlDMlH6f5",
-            //         "Content-Type": "application/x-www-form-urlencoded"
-            //     },
-            //     "data": {
-            //         "extension": "77008368490",
-            //         "destination": "77003098992"
-            //     }
-            // };
-            //
-            // $.ajax(settings).done(function (response) {
-            //     console.log(response);
-            // });
-        }
+        $.ajax({
+            url: '/',
+            type: 'post',
+            success: function (data) {
+                $('#order-call .close').trigger('click');
+            }
+        });
 
     });
 

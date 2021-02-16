@@ -1858,6 +1858,9 @@ class cms_model_shop
         return true;
 
     }
+    
+    
+
 
 
     /* ========================================================================== */
@@ -4859,6 +4862,32 @@ class cms_model_shop
 		</div></div>';
         }
         return $banner;
+    }
+
+    public function getParamsItem($idItem)
+    {
+
+    }
+
+
+    public function addParamsItem($idItem, $params)
+    {
+        if ( is_array($params) ) {
+            foreach ($params as $key => $param) {
+
+            }
+        }
+
+    }
+
+
+    public function updateParamsItem($id, $paramsItem)
+    {
+        foreach ($paramsItem as $key => $item) {
+
+
+        }
+
     }
 
 

@@ -4,9 +4,10 @@ $(document).ready(function(event) {
 
         let cloneRow = addRow.clone();
 
+        let arr = cloneRow.find('input');
         cloneRow.find('input').val('');
 
-        $(this).before(addRow.clone());
+        $(this).before(cloneRow);
 
     })
 })
