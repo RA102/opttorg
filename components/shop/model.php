@@ -4866,17 +4866,37 @@ class cms_model_shop
 
     public function getParamsItem($idItem)
     {
+        $itemParts = [];
+        if ($idItem) {
+            $sql = "SElECT * FROM cms_item_params WHERE item_id = $idItem";
+            $result = $this->inDB->query($sql);
+        }
+
+        if ($this->inDB->num_rows($result)) {
+            $itemParts = $this->inDB->fetch_all($result);
+            return $itemParts;
+        }
+
+        return $itemParts;
 
     }
 
 
     public function addParamsItem($idItem, $params)
     {
-        if ( is_array($params) ) {
+
+        if ($params) {
             foreach ($params as $key => $param) {
 
+                $sql = "INSERT INTO cms_item_params( item_id, title_part, width, height, depth, weight)
+                        VALUES ('$idItem', '{$param['title']}', '{$param['width']}', '{$param['height']}', '{$param['depth']}', '{$param['weight']}')";
+                $this->inDB->query($sql);
+
             }
+            return 0;
         }
+        
+        return 1;
 
     }
 
@@ -4887,10 +4907,69 @@ class cms_model_shop
 
 
         }
+        
+        return false;
 
     }
 
+    public function generateRowPartsItem($partsItem) : string
+    {
+        $result = '';
+        if (boolval($partsItem)) {
+            foreach ($partsItem as $index => $item) {
 
+                $result .= "<tr class=\"\">
+                                    <td>
+                                        <input name=\"partId\" type=\"hidden\" value=\"{$item->id} \">
+                                        <input name=\"titlePart[]\" type=\"text\" value=\"{$item->title_part}\"/>
+                                    </td>
+                                    <td>
+                                        <input name=\"widthItem[]\" type=\"text\" value=\"{$item->width}\"/>
+                                    </td>
+                                    <td>
+                                        <input name=\"heightItem[]\" type=\"text\" value=\"{$item->height}\"/>
+                                    </td>
+                                    <td>
+                                        <input name=\"depthItem[]\" type=\"text\" value=\"{$item->depth}\"/>
+                                    </td>
+                                    <td>
+                                        <input name=\"weightItem[]\" type=\"text\" value=\"{$item->weight}\"/>
+                                    </td>
+                                    <td>
+                                        <img id=\"buttonRemovePart\" class=\"img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\">
+                                    </td>
+                                </tr>";
+
+            }
+        } else {
+
+            $result = "<tr class=\"\">
+                                    <td>
+                                        <input name=\"partId\" type=\"hidden\" value=\"\">
+                                        <input name=\"titlePart[]\" type=\"text\" value=\"\"/>
+                                    </td>
+                                    <td>
+                                        <input name=\"widthItem[]\" type=\"text\" value=\"\"/>
+                                    </td>
+                                    <td>
+                                        <input name=\"heightItem[]\" type=\"text\" value=\"\"/>
+                                    </td>
+                                    <td>
+                                        <input name=\"depthItem[]\" type=\"text\" value=\"\"/>
+                                    </td>
+                                    <td>
+                                        <input name=\"weightItem[]\" type=\"text\" value=\"\"/>
+                                    </td>
+                                    <td>
+                                        <img id=\"buttonRemovePart\" class=\"img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\">
+                                    </td>
+                                </tr>";
+
+        }
+
+        return $result;
+
+    }
 
 
 }
