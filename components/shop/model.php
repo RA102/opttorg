@@ -4900,8 +4900,11 @@ class cms_model_shop
 
     }
     
-    public function removeParamItem()
+    public function removeParamItem($paramId)
     {
+        $sql = "DELETE FROM cms_item_params WHERE id = '$paramId'";
+        $this->inDB->query($sql);
+
         return 0;
     }
 
@@ -4948,19 +4951,19 @@ class cms_model_shop
                                         <input name=\"titlePart[]\" type=\"text\" value=\"{$item->title_part}\"/>
                                     </td>
                                     <td>
-                                        <input name=\"widthItem[]\" type=\"text\" value=\"{$item->width}\"/>
+                                        <input name=\"widthItem[]\" type=\"number\" value=\"{$item->width}\"/>
                                     </td>
                                     <td>
-                                        <input name=\"heightItem[]\" type=\"text\" value=\"{$item->height}\"/>
+                                        <input name=\"heightItem[]\" type=\"number\" value=\"{$item->height}\"/>
                                     </td>
                                     <td>
-                                        <input name=\"depthItem[]\" type=\"text\" value=\"{$item->depth}\"/>
+                                        <input name=\"depthItem[]\" type=\"number\" value=\"{$item->depth}\"/>
                                     </td>
                                     <td>
-                                        <input name=\"weightItem[]\" type=\"text\" value=\"{$item->weight}\"/>
+                                        <input name=\"weightItem[]\" type=\"number\" value=\"{$item->weight}\"/>
                                     </td>
                                     <td>
-                                        <img id=\"buttonRemovePart\" class=\"img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\">
+                                        <img class=\"buttonRemovePart img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\" data-id='{$item->id}'>
                                     </td>
                                 </tr>";
 

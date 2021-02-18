@@ -10,9 +10,9 @@
     <?php cpHead(); ?>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/svg" href="/admin/images/favicon.svg"/>
-    <link href="css/styles.css?v=<?php echo rand(10, 1000) ?>" rel="stylesheet" type="text/css"/>
     <link href="/templates/<?php echo TEMPLATE; ?>/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <link href="/templates/<?php echo TEMPLATE; ?>/css/bootstrap-4.css" rel="stylesheet" type="text/css"/>
+    <link href="css/styles.css?v=<?php echo rand(10, 1000) ?>" rel="stylesheet" type="text/css"/>
     <link href="js/hmenu/hmenu.css" rel="stylesheet" type="text/css"/>
     <link href="/includes/jquery/tablesorter/style.css" rel="stylesheet" type="text/css"/>
     <link href="/includes/jqueryui/css/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css"/>

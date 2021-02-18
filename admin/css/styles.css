@@ -2,12 +2,11 @@ html {
 	height:100%;
 }
 body {
-	font-family: Arial, sans-serif;
-	font-size: 12px;
-	color: #000000;
-	margin: 0px;
-	height:100%;
-	background:#FFF;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #333;
+	background-color: #fff;
 }
 
 #header{ color:#B2D1E8; }
@@ -762,4 +761,8 @@ table.params-item td input {
 
 table.params-item tr[name="addPartItem"] td {
 	border: none;
+}
+
+.strikethrough-text {
+	text-decoration: line-through;
 }

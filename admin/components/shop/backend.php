@@ -2519,42 +2519,42 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td>
-                                        <div>
-                                            <strong>Название</strong>
-                                        </div>
-                                        <div>
-                                            <input name="partItem" type="text" id="vol" style="width:300px" value="<?php echo htmlspecialchars($itemParams['partItem']); ?>"/>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div><strong>Ширина</strong></div>
-                                        <div>
-                                            <input name="widthItem" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($itemParams['widthItem']); ?>"/>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div><strong>Высота</strong></div>
-                                        <div>
-                                            <input name="heightItem" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($itemParams['heightItem']); ?>"/>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div><strong>Глубина</strong></div>
-                                        <div>
-                                            <input name="depthItem" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($itemParams['depthItem']); ?>"/>
-                                        </div>
-                                    </td>
-                                    <td valign="top" width="80">
-                                        <div><strong>Вес, кг</strong></div>
-                                        <div>
-                                            <input name="weightItem" type="text" id="ves" style="width:80px" value="<?php echo htmlspecialchars($ItemParams['weightItem']); ?>"/>
-                                        </div>
-                                    </td>
-                                </tr>
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <div>-->
+<!--                                            <strong>Название</strong>-->
+<!--                                        </div>-->
+<!--                                        <div>-->
+<!--                                            <input name="partItem" type="text" id="vol" style="width:300px" value="--><?php //echo htmlspecialchars($itemParams['partItem']); ?><!--"/>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <div><strong>Ширина</strong></div>-->
+<!--                                        <div>-->
+<!--                                            <input name="widthItem" type="text" id="vol" style="width:80px" value="--><?php //echo htmlspecialchars($itemParams['widthItem']); ?><!--"/>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <div><strong>Высота</strong></div>-->
+<!--                                        <div>-->
+<!--                                            <input name="heightItem" type="text" id="vol" style="width:80px" value="--><?php //echo htmlspecialchars($itemParams['heightItem']); ?><!--"/>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <div><strong>Глубина</strong></div>-->
+<!--                                        <div>-->
+<!--                                            <input name="depthItem" type="text" id="vol" style="width:80px" value="--><?php //echo htmlspecialchars($itemParams['depthItem']); ?><!--"/>-->
+<!--                                        </div>-->
+<!--                  list_items                  </td>-->
+<!--                                    <td valign="top" width="80">-->
+<!--                                        <div><strong>Вес, кг</strong></div>-->
+<!--                                        <div>-->
+<!--                                            <input name="weightItem" type="text" id="ves" style="width:80px" value="--><?php //echo htmlspecialchars($ItemParams['weightItem']); ?><!--"/>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
 
                             </table>
 <!--    RA      -->
@@ -2573,7 +2573,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
                                 <tr name="addPartItem">
                                     <td class="">
-                                        <img id="buttonAddPart" class="img-fluid" src="/admin/images/icons/hmenu/add.png" alt="">
+                                        <img id="buttonAddPart" class="img-fluid" src="/admin/images/icons/hmenu/add.png" alt="" >
                                     </td>
                                 </tr>
 
@@ -5086,7 +5086,17 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         </form>
 
     <?php }
+
+    if ($opt == 'remove_param') {
+
+        $paramId = $inCore->request('param_id', 'int');
+
+        $model->removeParamItem($paramId);
+
+    }
 }
+
+
 
 
 

@@ -1,5 +1,4 @@
 <?php
-//Error_Reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 Error_Reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 
