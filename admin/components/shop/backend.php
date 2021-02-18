@@ -1157,6 +1157,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $id = $inCore->request('item_id', 'int');
 
             $item = array();
+            $paramsItem = [];
 
             //get variables
             $item['category_id'] = $inCore->request('cat_id', 'int', 0);
@@ -1211,13 +1212,26 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
             $model->updateItem($id, $item);
 
+            $partId = $inCore->request('partId', 'array');
+
             $titlePart = $inCore->request('titlePart', 'array');
             $widthItem = $inCore->request('widthItem', 'array');
             $heightItem = $inCore->request('heightItem', 'array');
             $depthItem = $inCore->request('depthItem', 'array');
             $weightItem = $inCore->request('weightItem', 'array');
 
-            $model->updateParamsItem($id, $params);
+            for($i=0; $i < count($titlePart); $i++) {
+                $paramsItem[$i] = [
+                    'id' => $partId[$i],
+                    'title' => $titlePart[$i],
+                    'width' => $widthItem[$i],
+                    'height' => $heightItem[$i],
+                    'depth' => $depthItem[$i],
+                    'weight' => $weightItem[$i]
+                ];
+            }
+
+            $model->updateParamsItem($id, $paramsItem);
 
             if ($item['ordering'] == 1) {
                 $model->vperedItem($id, $item['category_id']);

@@ -4899,16 +4899,40 @@ class cms_model_shop
         return 1;
 
     }
-
-
-    public function updateParamsItem($id, $paramsItem)
+    
+    public function removeParamItem()
     {
-        foreach ($paramsItem as $key => $item) {
+        return 0;
+    }
 
+
+    public function updateParamsItem($idItem, $params) : int
+    {
+        foreach ($params as $key => $param) {
+
+            if ($param['id'] != 0) {
+
+                $sql = "UPDATE cms_item_params 
+                    SET title_part = '{$param['title']}', 
+                        width = '{$param['width']}', 
+                        height = '{$param['height']}', 
+                        depth = '{$param['depth']}',
+                        weight = '{$param['weight']}'
+                    WHERE id = '{$param['id']}'
+                    ";
+                $this->inDB->query($sql);
+
+            } else {
+
+                $sql = "INSERT INTO cms_item_params( item_id, title_part, width, height, depth, weight)
+                        VALUES ('$idItem', '{$param['title']}', '{$param['width']}', '{$param['height']}', '{$param['depth']}', '{$param['weight']}')";
+                $this->inDB->query($sql);
+
+            }
 
         }
         
-        return false;
+        return 1;
 
     }
 
@@ -4920,7 +4944,7 @@ class cms_model_shop
 
                 $result .= "<tr class=\"\">
                                     <td>
-                                        <input name=\"partId\" type=\"hidden\" value=\"{$item->id} \">
+                                        <input name=\"partId[]\" type=\"hidden\" value=\"{$item->id} \">
                                         <input name=\"titlePart[]\" type=\"text\" value=\"{$item->title_part}\"/>
                                     </td>
                                     <td>
@@ -4945,7 +4969,7 @@ class cms_model_shop
 
             $result = "<tr class=\"\">
                                     <td>
-                                        <input name=\"partId\" type=\"hidden\" value=\"\">
+                                        <input name=\"partId[]\" type=\"hidden\" value=\"\">
                                         <input name=\"titlePart[]\" type=\"text\" value=\"\"/>
                                     </td>
                                     <td>
