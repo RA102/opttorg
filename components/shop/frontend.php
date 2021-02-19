@@ -771,8 +771,11 @@ function shop(){
         $inPage->addPathway($_LANG['SHOP_START_ORDER']);
 		$inPage->addHead('<meta name="robots" content="noindex, nofollow" />');
 
+
         //получаем все товары из корзины для текущей сессии
         $items = $model->getCartItems($cfg);
+
+        $paramsItems = $modal->getParamItems();
 
         $totalsumm = 0;
 

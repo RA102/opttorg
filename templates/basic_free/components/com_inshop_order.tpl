@@ -2,6 +2,7 @@
 <script src="/templates/basic_free/js/jquery.maskedinput.min.js"></script>
 <script scr="/templates/basic_free/js/delivery.js"></script>
 <div style="background:#fff;padding:15px;margin-bottom:20px;">
+    {$items|@var_dump}
     {if $items}
         <form action="/shop/payment.html" method="post">
             <div class="row">
@@ -34,8 +35,7 @@
                                         <td class="btop">
                             <span class="d_price pull-right">
                                 {if $dtype.price}{$dtype.price} {$cfg.currency}{else}{$LANG.SHOP_FREE}{/if}
-                            </span>
-                                            <span class="d_type"><label for="d_type{$num}">{$dtype.title}</label></span>
+                            </span> <span class="d_type"><label for="d_type{$num}">{$dtype.title}</label></span>
                                             <div>{$dtype.description}</div>
                                         </td>
                                     </tr>
@@ -46,11 +46,10 @@
                                     </td>
                                     <td class="btop">
                                         <span class="d_price pull-right">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                            <button id="delivery-modal-active-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#delivery-modal">
                                                 Стоимость доставки
                                             </button>
-                                        </span>
-                                        <span class="d_type"><label for="d_type100">Exline</label></span>
+                                        </span> <span class="d_type"><label for="d_type100">Exline</label></span>
 
                                     </td>
                                 </tr>
@@ -61,8 +60,7 @@
                                     <td class="btop">
                             <span class="d_price pull-right">
                                 <a href="/dostavka.html" target="_blank">примерная стоимость</a>
-                            </span>
-                                        <span class="d_type"><label for="d_type100">Доставка по Казахстану</label></span>
+                            </span> <span class="d_type"><label for="d_type100">Доставка по Казахстану</label></span>
 
                                         <div>Доставка по Казахстану осуществляется сторонней компанией, поэтому, для выяснения точной стоимости, вам необходимо оформить заказ, а затем дождаться ответа нашего оператора.</div>
                                     </td>
@@ -73,7 +71,7 @@
 
                     <script type="text/javascript">
                         {literal}
-                        $(document).ready(function () {
+                        $(document).ready(function() {
                             $(".d_table input:radio").eq(0).trigger("click");
                         });
                         {/literal}
@@ -129,8 +127,7 @@
             </div>
             <hr/>
             <div class="pull-left result-clearfix" style="font-size:24px;line-height:32px;">
-                <strong>К оплате:</strong>
-                <span id="result">
+                <strong>К оплате:</strong> <span id="result">
                 <span id="resultsumm">                    
                     {if !$order}
                         {if $delivery_types}
@@ -161,7 +158,7 @@
 </div>
 {literal}
     <script>
-        $(function () {
+        $(function() {
             //2. Получить элемент, к которому необходимо добавить маску
             $("#customer_phone").mask("8 (999) 999 99 99");
         });
@@ -172,21 +169,42 @@
 {/literal}
 
 
-
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delivery-modal" tabindex="-1" role="dialog" aria-labelledby="deliveryLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="deliveryLabel">Доставка</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="post" >
-                    <input type="text" value="" />
+                <form action="" method="post">
+                    <div class="form-group row">
+                        <label class="text-dark" for="country">Страна</label>
+                        <select id="country" class="form-control" name="country" disabled>
+                            <option value="KZ" selected>Казахстан</option>
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label class="text-dark" for="city">Город</label>
+                        <input id="city" class="form-control position-relative" type="text" >
+                        <span class="input-group-append">
+                            <select id="list-city" class="d-none position-absolute">
 
+                            </select>
+                        </span>
+
+                    </div>
+{*                    <div class="form-group ">*}
+{*                        <label class="text-dark" for="city">Город</label>*}
+{*                        <select class="selectpicker">*}
+{*                            <option value="c">C</option>*}
+{*                            <option value="c#">C#</option>*}
+{*                            ...*}
+{*                        </select>*}
+{*                    </div>*}
                 </form>
             </div>
             <div class="modal-footer">

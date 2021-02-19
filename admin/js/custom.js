@@ -35,7 +35,7 @@ $(document).ready(function(event) {
         if (eraseParam) {
             $.ajax({
                 url: 'http://sanmarket.loc/admin/index.php?view=components&do=config&id=28&opt=remove_param' + '&param_id=' + paramId,
-                method: 'post',
+                type: 'POST',
                 success: function (data, textStatus, jqXHR) {
                     if (textStatus == 'success') {
                         $(tr).remove();

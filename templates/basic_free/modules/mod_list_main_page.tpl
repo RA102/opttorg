@@ -92,7 +92,7 @@
         </div>
 
         {foreach from=$items item=item}
-            <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-3 item">
+            <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-3 item mb-3">
                 <div class="thumb">
                     <a href="/shop/{$item->seolink}.html" title="{$item->title}" class="">
                         <img class="img-fluid list-item-img"  src="/images/photos/small/shop{$item->id}.jpg"  alt="{$item->title}"/>

@@ -1,79 +1,92 @@
 <?php
-if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
+if (!defined('VALID_CMS')) {
+    die('ACCESS DENIED');
+}
 
 
-class cms_model_sitemap {
+class cms_model_sitemap
+{
     public $config = array();
-    
-    public function __construct(){
+
+    public function __construct()
+    {
         $this->config = self::getconfig();
     }
-    
-    public static function getConfig(){
+
+    public static function getConfig()
+    {
         $inCore = cmsCore::getinstance();
         $cfg = $inCore->loadComponentConfig("sitemap");
         return $cfg;
     }
 
     //Возвращает список поддерживаемых и установленных компонентов
-    public function getSMComponents() {
+    public function getSMComponents()
+    {
         $inCore = cmsCore::getInstance();
         $sm_components = $this->getSMComponentsDirs();
         $components = $this->getComponents();
-        if (!$sm_components) { return false; }
-        foreach($sm_components as $sm_component){
+        if (!$sm_components) {
+            return false;
+        }
+        foreach ($sm_components as $sm_component) {
             $installed = FALSE;
-            if ($components[$sm_component]['link']){
+            if ($components[$sm_component]['link']) {
                 $installed = TRUE;
             }
-            if ($installed){
+            if ($installed) {
                 $components_list[] = $components[$sm_component];
             }
         }
-        if (!$components_list){
+        if (!$components_list) {
             return FALSE;
         }
         return $components_list;
     }
 
     //Возвращает список поддерживаемых компонентов
-    public function getSMComponentsDirs(){
+    public function getSMComponentsDirs()
+    {
         $dir = PATH . '/components/sitemap/sm_components';
         $pdir = opendir($dir);
         $sm_components = array();
-        while ($nextfile = readdir($pdir)){
-            if (($nextfile != '.') && ($nextfile != '..') && !is_dir($dir.'/'.$nextfile) && ($nextfile!='.svn') && (substr($nextfile, 0, 3)=='sm_')){
-                $file_name = str_replace(array("sm_",".php"),array("",""),$nextfile);
+        while ($nextfile = readdir($pdir)) {
+            if (($nextfile != '.') && ($nextfile != '..') && !is_dir($dir . '/' . $nextfile) && ($nextfile != '.svn') && (substr($nextfile, 0, 3) == 'sm_')) {
+                $file_name = str_replace(array("sm_", ".php"), array("", ""), $nextfile);
                 $sm_components[$file_name] = $file_name;
             }
         }
-        if (!sizeof($sm_components)){ return false; }
+        if (!sizeof($sm_components)) {
+            return false;
+        }
         return $sm_components;
     }
 
     //Возвращает список установленных компонентов
-    public function getComponents() {
+    public function getComponents()
+    {
         $inDB = cmsDatabase::getinstance();
         $sql = "SELECT title, link, published FROM cms_components WHERE 1 = 1";
         $result = $inDB->query($sql);
-        if (!$inDB->num_rows($result)){
+        if (!$inDB->num_rows($result)) {
             return FALSE;
         }
         $components = array();
-        while($component =  $inDB->fetch_assoc($result)){
+        while ($component = $inDB->fetch_assoc($result)) {
             $components[$component['link']] = $component;
         }
         return $components;
     }
 
     //Функция генерации карты вызываемая по CRON 
-    public function generateMap(){
+    public function generateMap()
+    {
         clearstatcache();
         $inCore = cmsCore::getInstance();
         $components = $this->getSMComponents();
         $site_map = $google_site_map = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
-        foreach ($components as $component){
-            if (($this->config[$component['link']]['published'] == 1) and $component['published'] == 1){
+        foreach ($components as $component) {
+            if (($this->config[$component['link']]['published'] == 1) and $component['published'] == 1) {
                 // Подключаем класс генератора карт для компонента
                 cmsCore::includeFile("components/sitemap/sm_components/sm_" . $component['link'] . ".php");
                 // Инициализируем класс

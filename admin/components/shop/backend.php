@@ -1177,7 +1177,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $item['meta_desc'] = $inCore->request('meta_desc', 'str');
             $item['meta_keys'] = $inCore->request('meta_keys', 'str');
             $item['tags'] = $inCore->request('tags', 'str');
-// и тууууутттт
+
             $item['ves'] = number_format(str_replace(',', '.', $inCore->request('ves', 'str', '0.00')), 2, '.', '');
             $item['vol'] = number_format(str_replace(',', '.', $inCore->request('vol', 'str', '0.00')), 2, '.', '');
             $item['ven_code'] = $inCore->request('ven_code', 'str');
@@ -1236,7 +1236,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             if ($item['ordering'] == 1) {
                 $model->vperedItem($id, $item['category_id']);
             }
-            // tokarev
+
         }
         if (!isset($_SESSION['editlist']) || @sizeof($_SESSION['editlist']) == 0) {
             $inCore->redirect('?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=list_items&cat_id=' . $item['category_id']);

@@ -14,6 +14,7 @@ $mod_count['accordeon'] = $this->countModules('accordeon');
 // подключаем jQuery и js ядра в самое начало
 $this->prependHeadJS('core/js/common.js');
 $this->prependHeadJS('includes/jquery/jquery.js');
+$this->prependHeadJS('templates/' . TEMPLATE . 'js/bootstrap-4.js');
 // Подключаем стили шаблона
 $this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-4.css');
 //$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap.css');
@@ -31,6 +32,7 @@ $this->addHeadJS('includes/jquery/colorbox/jquery.colorbox.js');
 $this->addHeadCSS('includes/jquery/colorbox/colorbox.css');
 $this->addHeadJS('includes/jquery/colorbox/init_colorbox.js');
 $this->addHeadJS('components/registration/js/check.js');
+$this->addHeadJS('components/shop/js/delivery.js');
 
 
 
@@ -131,15 +133,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </script>
     <!-- /Google Tag Manager -->
 
-    <!-- Ringostat  -->
-
-<!--    <script type="text/javascript">-->
-<!--        (function (d, s, u, e, p) {-->
-<!--            p = d.getElementsByTagName(s)[0], e = d.createElement(s), e.async = 1, e.src = u, p.parentNode.insertBefore(e, p);-->
-<!--        })(document, 'script', 'https://script.ringostat.com/v4/87/879dd20e1f58ab1e9980f5c3d3f690af942c4f62.js');-->
-<!--    </script>-->
-
-    <!-- /Ringostat   -->
 
     <meta property="og:locale" content="ru_KZ"/>
 
@@ -163,6 +156,13 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             <script src="/templates/<?php echo TEMPLATE; ?>/js/respond.min.js"></script>
             <script src="/templates/<?php echo TEMPLATE; ?>/js/css3-mediaqueries.js"></script>
 <!--            <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.cookie.js"></script>-->
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+
+
 
             <link rel="stylesheet" href="/templates/<?php echo TEMPLATE; ?>/css/ie.css" type="text/css" media="all" />
         <!-- [endif]-->
@@ -644,6 +644,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </div>
 
     <script src="/templates/<?php echo TEMPLATE; ?>/js/bootstrap-4.js"></script>
+    <script src="/templates/<?php echo TEMPLATE; ?>/js/bootstrap-select/js/bootstrap-select.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/truncatelines.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.cookie.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.nicescroll.js"></script>
@@ -708,8 +709,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         });
     </script>
 <!--    <script>-->
-<!--         jQuery.colorbox.settings.maxWidth = '95%';-->
-<!--         jQuery.colorbox.settings.maxHeight = '95%';-->
+<!--         jQuery.colorbox.settings.maxWidth = '95%'; -->
+<!--         jQuery.colorbox.settings.maxHeight = '95%'; -->
 <!--         var resizeTimer;-->
 <!--         function resizeColorBox() {-->
 <!--             if (resizeTimer) clearTimeout(resizeTimer);-->
@@ -722,7 +723,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 <!---->
 <!--         jQuery(window).resize(resizeColorBox);-->
 <!--         window.addEventListener("orientationchange", resizeColorBox, false);-->
-<!--    </script>-->
+<!--    </script> -->
 
     <noindex>
         <div class="modal fade" id="fil_modal" tabindex="-1" role="dialog" aria-labelledby="filModalLabel">

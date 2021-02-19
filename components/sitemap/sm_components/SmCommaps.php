@@ -1,8 +1,9 @@
 <?php
 
-namespace Components\Sitemap\Sm_components;
+namespace components\sitemap\sm_components;
 
-class comMaps {
+class SmCommaps
+{
     public $config; // Настройки генерации карт для текущего компонента
     public $host; // Ссылна сайта, не используется HOST так как при генерации CRON не работает
     public $maps_list; // Список ссылок на файлы карт

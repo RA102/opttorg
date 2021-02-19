@@ -103,7 +103,6 @@ input[type="submit"]:hover{
                 if (data.error != '') {
                     $('#error-auth').text(data.error);
                 } else {
-                    console.log(data);
                     window.location.href = data.data;
                 }
             }

@@ -14753,13 +14753,12 @@ ul.search_result li.search_result_item:hover {
 /*  START CARD ITEM */
 
 .thumb {
-
     border-radius: 10px;
     text-align: center;
     background: #fff;
     padding: 15px;
     position: relative;
-    margin-bottom: 4px
+    height: 100%;
 }
 
 .thumb-cat {
