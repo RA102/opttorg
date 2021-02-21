@@ -3176,10 +3176,17 @@ class cms_model_shop
     /* ==================================================================================================== */
     /* ==================================================================================================== */
 
-    public function getParamsItems()
+    public function getParamsItems(array $itemsId)
     {
-        $session_id = session_id();
-
+        $itemsParams = [];
+        foreach ($itemsId as $index => $item) {
+            $sql = "SELECT * FROM cms_item_params WHERE item_id = '{$item}'";
+            $result = $this->inDB->query($sql);
+            if ($this->inDB->num_rows($result)) {
+                $itemsParams[$itemsId] = $this->inDB->fetch_assoc($result);
+            }
+        }
+        return $itemsParams;
     }
 
     /* ==================================================================================================== */

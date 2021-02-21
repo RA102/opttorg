@@ -775,7 +775,12 @@ function shop(){
         //получаем все товары из корзины для текущей сессии
         $items = $model->getCartItems($cfg);
 
-        $paramsItems = $modal->getParamItems();
+        $itemsId = [];
+        foreach ($items as $index => $item) {
+            array_push($itemsId, $item['item_id']);
+        }
+
+        $paramsItems = $model->getParamsItems($itemsId);
 
         $totalsumm = 0;
 
