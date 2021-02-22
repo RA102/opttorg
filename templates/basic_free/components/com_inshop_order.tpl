@@ -2,7 +2,6 @@
 <script src="/templates/basic_free/js/jquery.maskedinput.min.js"></script>
 <script scr="/templates/basic_free/js/delivery.js"></script>
 <div style="background:#fff;padding:15px;margin-bottom:20px;">
-    {$items|@var_dump}
     {if $items}
         <form action="/shop/payment.html" method="post">
             <div class="row">
@@ -49,8 +48,9 @@
                                             <button id="delivery-modal-active-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#delivery-modal">
                                                 Стоимость доставки
                                             </button>
-                                        </span> <span class="d_type"><label for="d_type100">Exline</label></span>
-
+                                            <span class="d_type"><label for="d_type100">Exline</label></span>
+                                        </span>
+                                        <ul id="costDelivery"></ul>
                                     </td>
                                 </tr>
                                 <tr>
@@ -79,6 +79,7 @@
 
                     <div class="small"></div>
                 </div>
+
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <h3 class="con_heading"><span>{$LANG.SHOP_CUSTOMER_INFO}</span></h3>
 
@@ -126,6 +127,10 @@
                 </div>
             </div>
             <hr/>
+            <div style="font-size:24px;line-height:32px;" >
+                <strong>Стоимость доставки: </strong>
+                <span id="sumDelivery"></span>
+            </div>
             <div class="pull-left result-clearfix" style="font-size:24px;line-height:32px;">
                 <strong>К оплате:</strong> <span id="result">
                 <span id="resultsumm">                    
@@ -181,35 +186,52 @@
             </div>
             <div class="modal-body">
                 <form action="" method="post">
-                    <div class="form-group row">
+                    <div class="form-group">
                         <label class="text-dark" for="country">Страна</label>
                         <select id="country" class="form-control" name="country" disabled>
                             <option value="KZ" selected>Казахстан</option>
                         </select>
                     </div>
+                    <select id="origin_id" class="" name="origin_id" hidden>
+                        <option value="27" selected>Караганда</option>
+                    </select>
+
                     <div class="form-group ">
                         <label class="text-dark" for="city">Город</label>
-                        <input id="city" class="form-control position-relative" type="text" >
+                        <input id="destination_id" class="form-control position-relative" type="text" autocomplete="off" required>
                         <span class="input-group-append">
                             <select id="list-city" class="d-none position-absolute">
 
                             </select>
                         </span>
-
                     </div>
-{*                    <div class="form-group ">*}
-{*                        <label class="text-dark" for="city">Город</label>*}
-{*                        <select class="selectpicker">*}
-{*                            <option value="c">C</option>*}
-{*                            <option value="c#">C#</option>*}
-{*                            ...*}
-{*                        </select>*}
-{*                    </div>*}
+
+                    <div class="form-group">
+                        <label class="text-dark" for="country">Страна</label>
+                        <select id="deliveryMethod" class="form-control" name="deliveryMethod">
+                            <option value="express">Экспресс</option>
+                            <option value="standard" selected>Стандарт</option>
+                        </select>
+                    </div>
+
+                    <div id="params" class="d-none">
+                    {foreach from=$itemsParams key=index item=itemParam}
+                        {$itemParam|@var_dump}
+                        <input type="number" name="itemParam[]"
+                               data-id="{$index}"
+                               data-width="{$itemParam.width}"
+                               data-height="{$itemParam.height}"
+                               data-depth="{$itemParam.depth}"
+                               data-weight="{$itemParam.weight}"
+                               hidden
+                        >
+                    {/foreach}
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button id="btn-calculate-delivery" type="button" class="btn btn-primary">Посчитать</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>

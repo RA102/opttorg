@@ -825,6 +825,7 @@ function shop(){
             $smarty->assign('order', $order);
         }
 		$smarty->assign('items', $items);
+        $smarty->assign('itemsParams', $paramsItems);
 		$smarty->assign('delivery_types', $delivery_types);
 		$smarty->assign('discount_size', $discount_size);
 		$smarty->assign('totalsumm', round($totalsumm, 0));

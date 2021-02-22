@@ -102,8 +102,6 @@ $(document).ready(function () {
 
     // button order one click
 
-
-
     $('.btn-oneclick').on('click', function(event) {
         let $this = $(this);
         let linkItem = $this[0].dataset.seolink;

@@ -3183,7 +3183,7 @@ class cms_model_shop
             $sql = "SELECT * FROM cms_item_params WHERE item_id = '{$item}'";
             $result = $this->inDB->query($sql);
             if ($this->inDB->num_rows($result)) {
-                $itemsParams[$itemsId] = $this->inDB->fetch_assoc($result);
+                $itemsParams[$item] = $this->inDB->fetch_assoc($result);
             }
         }
         return $itemsParams;

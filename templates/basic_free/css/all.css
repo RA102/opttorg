@@ -303,8 +303,7 @@ position: relative;}
 
 .btn-oneclick {
 	display:block;
-	padding:7px 12px;
-	/*background:#98B2C3;*/
+	padding:7px 5px;
     background: #0c5da5;
 	color:#fff;
 	text-decoration:none;
@@ -334,6 +333,11 @@ position: relative;}
 	h3.con_heading {
 		margin-top:20px;
 	}
+
+    .btn-oneclick {
+
+    }
+
 }
 
 li.media .media-body {
