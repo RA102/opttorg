@@ -88,7 +88,7 @@ function import_product($xml_product)
     } else {
         $item['price'] = (int)$xml_product->Стоимость;
         $item['qty'] = (int)$xml_product->КоличествоОстаток;
-        $item['update'] = date('Y-m-d');
+        $item['update_at'] = date('Y-m-d');
 
         cmsDatabase::getInstance()
             ->update('cms_shop_items', $item, $product_id);

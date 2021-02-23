@@ -17,7 +17,7 @@ $start_time = microtime(true);
 $max_exec_time = @ini_get("max_execution_time");
 
 if (empty($max_exec_time)) {
-    $max_exec_time = 30;
+    $max_exec_time = 300;
 }
 
 session_start();
@@ -365,7 +365,7 @@ if ($type == 'catalog') {
                 if ($current_product_num >= $last_product_num) {
                     $xml = new SimpleXMLElement($z->readOuterXML());
 
-                    import_product($xml);
+//                    import_product($xml);
 
                     $exec_time = microtime(true) - $start_time;
                     if ($exec_time + 1 >= $max_exec_time) {
@@ -381,7 +381,7 @@ if ($type == 'catalog') {
                 $current_product_num++;
             }
             $z->close();
-            print "success";
+            print "success\r\n";
             unset($_SESSION['last_1c_imported_product_num']);
         } elseif ($filename === 'offers.xml') {
             $z = new XMLReader;
@@ -638,8 +638,7 @@ function import_product($xml_product)
         ->get_field('cms_shop_items', 'external_id="' . (string) $product_1c_id . '"', 'id');
 
     if (empty($product_id) && !empty($variant['art_no'])) {
-        $res = cmsDatabase::getInstance()
-            ->get_fields('cms_shop_items_bind', 'art_no="' . $variant['art_no'] . '"', 'id,item_id');
+        $res = cmsDatabase::getInstance()->get_fields('cms_shop_items_bind', 'art_no="' . $variant['art_no'] . '"', 'id,item_id');
         $product_id = $res['item_id'];
         $variant_id = $res['id'];
     }
@@ -660,19 +659,7 @@ function import_product($xml_product)
             $vals[] = $xml_prop->Значение;
         }
     }
-	
-// надо забрать текущий id категории у записи в бд
-	
 
-	  
-//if (empty($nash_cat_id)) {$nash_cat_id=10991} // выгрузка новых позиций в отдельную рубрику 
-/*
-if ($product_id) {
-	$item['category_id'] = 10991;
-} else {
-	$item['category_id'] = $category_id;
-}
-*/
     $item['vendor_id'] = 0;
     $item['art_no'] = (string) $xml_product->Артикул;
     $item['title'] = $vals[2];
@@ -709,51 +696,7 @@ if ($product_id) {
         ->update('cms_shop_items', array('external_id' => $product_1c_id), $product_id);
 
     $cfg = $model->getConfig();
-/*
-    $photo_dir = $_SERVER['DOCUMENT_ROOT'] . '/images/photos/small';
-    $pattern = $photo_dir . '/shop' . $product_id . '*.jpg';
 
-    if (glob($pattern)) {
-        foreach (@glob($pattern) as $filename) {
-            $imageurl = basename($filename);
-            @chmod($_SERVER['DOCUMENT_ROOT'] . "/images/photos/$imageurl", 0777);
-            @chmod($_SERVER['DOCUMENT_ROOT'] . "/images/photos/small/$imageurl", 0777);
-            @chmod($_SERVER['DOCUMENT_ROOT'] . "/images/photos/medium/$imageurl", 0777);
-
-            @unlink($_SERVER['DOCUMENT_ROOT'] . '/images/photos/' . $imageurl);
-            @unlink($_SERVER['DOCUMENT_ROOT'] . '/images/photos/small/' . $imageurl);
-            @unlink($_SERVER['DOCUMENT_ROOT'] . '/images/photos/medium/' . $imageurl);
-        }
-    }
-
-    cmsCore::getInstance()
-        ->includeGraphics();
-
-    if (isset($xml_product->Картинка)) {
-        $i = 0;
-        foreach ($xml_product->Картинка as $img) {
-            $image = basename((string) $img);
-
-            if (file_exists($dir . $image)) {
-                $file = 'shop' . $product_id . '.jpg';
-                if ($i > 0) {
-                    $file = 'shop' . $product_id . '-' . $i . '.jpg';
-                }
-
-                @img_resize($dir . $image, $_SERVER['DOCUMENT_ROOT'] . "/images/photos/small/$file", $cfg['thumb_w'], $cfg['thumb_h'], $cfg['thumb_sqr']);
-                @chmod($_SERVER['DOCUMENT_ROOT'] . "/images/photos/small/$file", 0755);
-                @img_resize($dir . $image, $_SERVER['DOCUMENT_ROOT'] . "/images/photos/medium/$file", $cfg['img_w'], $cfg['img_h'], $cfg['img_sqr'], $cfg['watermark']);
-                @chmod($_SERVER['DOCUMENT_ROOT'] . "/images/photos/medium/$file", 0755);
-                @unlink($dir . $image);
-
-                $i++;
-            }
-        }
-    }
-*/
-    //}
-
-    // importChars($product_id, $xml_product);
 
     if ($xml_product->Статус == 'Удален') {
         $model->deleteItem($product_id);

@@ -602,7 +602,9 @@ function shop(){
 
         // Получаем все товары из корзины для текущей сессии
         $items = $model->getCartItems($cfg);
-        if (!$items){ cmsCore::error404(); }
+        if (!$items) {
+            cmsCore::error404();
+        }
 
         // Получаем тип доставки
         $d_type = $inCore->request('d_type', 'int', 0);
@@ -723,8 +725,6 @@ function shop(){
             }
 
         }
-		
-		
 		
 
         //передаем все в шаблон
