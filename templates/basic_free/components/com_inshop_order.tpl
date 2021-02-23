@@ -198,12 +198,15 @@
 
                     <div class="form-group ">
                         <label class="text-dark" for="city">Город</label>
-                        <input id="destination_id" class="form-control position-relative" type="text" autocomplete="off" required>
-                        <span class="input-group-append">
-                            <select id="list-city" class="d-none position-absolute">
+                        <input id="destination_id" class="form-control position-relative" type="text" autocomplete="off" list="listCity" required>
+                        <datalist id="listCity">
+                        </datalist>
 
-                            </select>
-                        </span>
+{*                        <span class="input-group-append">*}
+{*                            <select id="list-city" class="d-none position-absolute">*}
+
+{*                            </select>*}
+{*                        </span>*}
                     </div>
 
                     <div class="form-group">

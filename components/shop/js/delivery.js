@@ -4,14 +4,20 @@ $(document).ready(function() {
             url: 'https://api.exline.systems/public/v1/regions/destination?title=' + $('#destination_id').val(),
             type: 'GET',
             success: function(data) {
-                $('#list-city').empty();
+                $('#listCity').empty();
                 // let country = 'Казахстан';
                 // $("#myList li").filter(function() {
                 //     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 // });
                 data.regions.forEach(function(item) {
-                    $('#list-city').append('<option value="' + item.id + '"' + '>' + item.title + '(' + item.cached_path +')'+ '</option>');
-                    $('#list-city').removeClass('d-none');
+                    // $('#list-city').append('<option value="' + item.id + '"' + '>' + item.title + '(' + item.cached_path +')'+ '</option>');
+                    // $('#list-city').removeClass('d-none');
+                    // $('#listCity').append('<option value="' + item.title + '(' + item.cached_path + ')"' + 'data-id="' + item.id + '">');
+                    $('#listCity').append($('<option>').attr({
+                        'value': item.title + '(' + item.cached_path + ')',
+                        'data-id': item.id
+                    }))
+
                 });
 
             }
