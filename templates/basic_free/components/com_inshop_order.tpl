@@ -32,9 +32,17 @@
                                             <input type="radio" id="d_type{$num}" name="d_type" value="{$dtype.id}" onclick="calcSumm({$dtype.price});" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==$dtype.id}checked="checked"{/if}{/if} />
                                         </td>
                                         <td class="btop">
-                            <span class="d_price pull-right">
-                                {if $dtype.price}{$dtype.price} {$cfg.currency}{else}{$LANG.SHOP_FREE}{/if}
-                            </span> <span class="d_type"><label for="d_type{$num}">{$dtype.title}</label></span>
+                                            <span class="d_price pull-right">
+                                                {if $dtype.price}
+                                                    {$dtype.price}
+                                                    {$cfg.currency}
+                                                {else}
+                                                    {$LANG.SHOP_FREE}
+                                                {/if}
+                                            </span>
+                                            <span class="d_type">
+                                                <label for="d_type{$num}">{$dtype.title}</label>
+                                            </span>
                                             <div>{$dtype.description}</div>
                                         </td>
                                     </tr>
