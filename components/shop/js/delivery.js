@@ -4,19 +4,17 @@ $(document).ready(function() {
             url: 'https://api.exline.systems/public/v1/regions/destination?title=' + $('#destination_id').val(),
             type: 'GET',
             success: function(data) {
+                $('#listCity').removeClass('d-none');
                 $('#listCity').empty();
                 // let country = 'Казахстан';
                 // $("#myList li").filter(function() {
                 //     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 // });
                 data.regions.forEach(function(item) {
-                    // $('#list-city').append('<option value="' + item.id + '"' + '>' + item.title + '(' + item.cached_path +')'+ '</option>');
-                    // $('#list-city').removeClass('d-none');
-                    // $('#listCity').append('<option value="' + item.title + '(' + item.cached_path + ')"' + 'data-id="' + item.id + '">');
-                    $('#listCity').append($('<option>').attr({
-                        'value': item.title + '(' + item.cached_path + ')',
+                    $('#listCity').append($('<li>').addClass('select-city').append($('<div>', {
+                        'text': item.title,
                         'data-id': item.id
-                    }))
+                    }).addClass('select-city-div').append($('<span>').text(item.cached_path).addClass('text-muted ml-1 '))));
 
                 });
 
@@ -24,17 +22,31 @@ $(document).ready(function() {
         })
     });
 
-    $('#list-city').on('click', function(event) {
-        let inputValue = $('#list-city option:selected').text();
-        let dataId = $('#list-city option:selected').val();
-        $('#destination_id').val(inputValue);
-        $('#destination_id').attr('data-id', dataId);
-        $('#list-city').addClass('d-none');
-    });
+    $('#listCity').on('click', function(event) {
+        event.stopPropagation();
+        let target = $(event.target);
+        if (target.is('span')) {
+            let div = $(target).parent('div');
+            let id = $(div).data('id');
+            let text = $(div).justtext();
+
+            $('#destination_id').attr('data-city-id', id).val(text);
+            $('#listCity').addClass('d-none');
+
+        } else if (target.is('div')) {
+            let id = $(event.target).data('id');
+            let text = $(event.target).justtext();
+
+            $('#destination_id').attr('data-city-id', id).val(text);
+            $('#listCity').addClass('d-none');
+
+        }
+
+    })
 
     $('#btn-calculate-delivery').on('click', function(event) {
         let origin_id = $('.origin_id').val();
-        let destination_id = $('#destination_id').data('id');
+        let destination_id = $('#destination_id').attr('data-city-id');
         let methodDelivery = $('#methodDelivery').val();
         let sumDelivery = 0;
         let sum = 0;
@@ -74,8 +86,15 @@ $(document).ready(function() {
 
         })
         $('.close').trigger('click');
-
-
     })
-
 })
+
+$.fn.justtext = function() {
+    return $(this)
+    .clone()
+    .children()
+    .remove()
+    .end()
+    .text();
+
+};

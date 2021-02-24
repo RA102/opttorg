@@ -1,20 +1,19 @@
 <?php
+define(PATH, $_SERVER['DOCUMENT_ROOT']);
 
-include 'core/cms.php';
-error_reporting(E_ALL);
-error_log('error_log', '/log/error_unloadingitems.log');
-
-
-define('PATH', $_SERVER['DOCUMENT_ROOT']);
+include_once PATH . '/core/cms.php';
+//error_reporting(E_ALL);
+//error_log('error_log', '/log/error_unloadingitems.log');
 
 $dir = PATH .'/cache/';
 $filename = 'import.xml';
+
 
 cmsCore::loadModel('shop');
 $model = new cms_model_shop();
 
 
-//if (file_exists("$dir.$filename")) {
+if (file_exists("$dir.$filename")) {
 
     $z = new XMLReader;
     $z->open($dir . $filename);
@@ -32,9 +31,9 @@ $model = new cms_model_shop();
 
     $z->close();
 
-//} else {
-//
-//}
+} else {
+    echo "Нет файла export.xml";
+}
 
 
 function import_product($xml_product)
@@ -48,7 +47,6 @@ function import_product($xml_product)
     } else {
         return;
     }
-
 
 
     if (empty($product_id)) {
@@ -86,12 +84,21 @@ function import_product($xml_product)
         $result = cmsDatabase::getInstance()->query($sql);
 
     } else {
-        $item['price'] = (int)$xml_product->Стоимость;
-        $item['qty'] = (int)$xml_product->КоличествоОстаток;
-        $item['update_at'] = date('Y-m-d');
 
-        cmsDatabase::getInstance()
-            ->update('cms_shop_items', $item, $product_id);
+        $sql = "SELECT id FROM cms_shop_items WHERE id = {$product_id} AND old_price = 0";
+
+        $result = cmsDatabase::getInstance()->query($sql);
+
+        if (cmsDatabase::getInstance()->num_rows($result)) {
+            $item['price'] = (int)$xml_product->Стоимость;
+            $item['qty'] = (int)$xml_product->КоличествоОстаток;
+            $item['update_at'] = date('Y-m-d');
+            cmsDatabase::getInstance()
+                ->update('cms_shop_items', $item, $product_id);
+        }
+
+        return;
+
     }
 
 }

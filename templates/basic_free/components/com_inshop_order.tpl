@@ -205,20 +205,15 @@
                     </select>
 
                     <div class="form-group ">
-                        <label class="text-dark" for="city">Город</label>
-                        <input id="destination_id" class="form-control position-relative" type="text" autocomplete="off" list="listCity" required>
-                        <datalist id="listCity">
-                        </datalist>
-
-{*                        <span class="input-group-append">*}
-{*                            <select id="list-city" class="d-none position-absolute">*}
-
-{*                            </select>*}
-{*                        </span>*}
+                        <label class="text-dark" for="city">Пункт Б</label>
+                        <div class="position-relative">
+                            <input id="destination_id" class="form-control" type="search" autocomplete="off" required>
+                            <ul id="listCity" class="text-muted position-absolute bg-white d-none" role="listbox"></ul>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="text-dark" for="country">Страна</label>
+                        <label class="text-dark" for="country">Услуга</label>
                         <select id="deliveryMethod" class="form-control" name="deliveryMethod">
                             <option value="express">Экспресс</option>
                             <option value="standard" selected>Стандарт</option>

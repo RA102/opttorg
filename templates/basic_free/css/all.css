@@ -15349,6 +15349,40 @@ input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
     line-height: 12px;
 }
 
+#listCity {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    color: #000000;
+    border: 1px solid #a0a0a0;
+    border-top: none;
+    min-width: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+
+
+#listCity li:hover, #listCity li:focus {
+    background-color: #3875d7;
+    color: #FFFFFF;
+}
+
+.select-city {
+    list-style: none;
+    display: list-item;
+    background-image: none;
+    padding-left: 10px;
+}
+
+.select-city-div {
+    font-size: 18px;
+}
+
+.select-city-div span {
+    font-size: 16px;
+}
 
 /*  /cart  */
 
@@ -15394,7 +15428,7 @@ input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
 }
 
 
-/*  End modal One Click */
+/*  /modal One Click */
 
 
 
@@ -15622,4 +15656,5 @@ input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
     }
 
 }
+
 
