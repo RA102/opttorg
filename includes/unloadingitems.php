@@ -76,7 +76,7 @@ function import_product($xml_product)
 				        '{$item['title']}',
 				        '{$item['price']}',
 				        '{$item['published']}',
-				         NOW(),
+				        '{$item['filedate']}',
 				        '{$item['qty']}',
 				        '{$item['tpl']}', 
 				        '{$item['external_id']}'
@@ -92,7 +92,7 @@ function import_product($xml_product)
         if (cmsDatabase::getInstance()->num_rows($result)) {
             $item['price'] = (int)$xml_product->Стоимость;
             $item['qty'] = (int)$xml_product->КоличествоОстаток;
-            $item['update_at'] = date('Y-m-d');
+            $item['update_at'] = date('Y-m-d H:m:s');
             cmsDatabase::getInstance()
                 ->update('cms_shop_items', $item, $product_id);
         }

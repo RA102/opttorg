@@ -49,7 +49,7 @@
                                 {/foreach}
                                 <tr>
                                     <td width="30" class="btop">
-                                        <input type="radio" id="d_type100" name="d_type" value="100" onclick="calcSumm(0);" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==100}checked="checked"{/if}{/if}/>
+                                        <input type="radio" id="d_type101" name="d_type" value="100" onclick="calcSumm(0);" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==100}checked="checked"{/if}{/if}/>
                                     </td>
                                     <td class="btop">
                                         <span class="d_price pull-right">
@@ -66,9 +66,12 @@
                                         <input type="radio" id="d_type100" name="d_type" value="100" onclick="calcSumm(0);" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==100}checked="checked"{/if}{/if}/>
                                     </td>
                                     <td class="btop">
-                            <span class="d_price pull-right">
-                                <a href="/dostavka.html" target="_blank">примерная стоимость</a>
-                            </span> <span class="d_type"><label for="d_type100">Доставка по Казахстану</label></span>
+                                        <span class="d_price pull-right">
+                                            <a href="/dostavka.html" target="_blank">примерная стоимость</a>
+                                        </span>
+                                        <span class="d_type">
+                                            <label for="d_type100">Доставка по Казахстану</label>
+                                        </span>
 
                                         <div>Доставка по Казахстану осуществляется сторонней компанией, поэтому, для выяснения точной стоимости, вам необходимо оформить заказ, а затем дождаться ответа нашего оператора.</div>
                                     </td>
@@ -221,16 +224,16 @@
                     </div>
 
                     <div id="params" class="d-none">
-                    {foreach from=$itemsParams key=index item=itemParam}
-                        {$itemParam|@var_dump}
-                        <input type="number" name="itemParam[]"
-                               data-id="{$index}"
-                               data-width="{$itemParam.width}"
-                               data-height="{$itemParam.height}"
-                               data-depth="{$itemParam.depth}"
-                               data-weight="{$itemParam.weight}"
-                               hidden
-                        >
+                    {foreach name=outer from=$itemsParams item=itemParam}
+                        {foreach name=inner from=$itemParam item=item}
+                            <input type="number" name="itemParam[]"
+                                   data-width="{$item.width}"
+                                   data-height="{$item.height}"
+                                   data-depth="{$item.depth}"
+                                   data-weight="{$item.weight}"
+                                   hidden
+                            >
+                        {/foreach}
                     {/foreach}
                     </div>
                 </form>

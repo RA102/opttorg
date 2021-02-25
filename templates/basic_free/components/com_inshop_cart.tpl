@@ -1,7 +1,7 @@
 <h1 class="con_heading"><span>{$LANG.SHOP_CART}</span></h1>
 <div style="margin-bottom:20px;">
     {if $items}
-        <form action="/shop/order.html" method="post" id="cart_form">
+        <form id="cart_form" action="/shop/order.html" method="post" >
                 {include file='com_inshop_cart_items.tpl'}
 
 {*            <div class="clearfix" style="height:10px;"></div>*}

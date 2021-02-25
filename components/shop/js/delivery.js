@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function(event) {
     $('#destination_id').on('input', function() {
         $.ajax({
             url: 'https://api.exline.systems/public/v1/regions/destination?title=' + $('#destination_id').val(),
@@ -14,7 +14,7 @@ $(document).ready(function() {
                     $('#listCity').append($('<li>').addClass('select-city').append($('<div>', {
                         'text': item.title,
                         'data-id': item.id
-                    }).addClass('select-city-div').append($('<span>').text(item.cached_path).addClass('text-muted ml-1 '))));
+                    }).addClass('select-city-div').append($('<span>').text(item.cached_path).addClass('text-muted ml-1'))));
 
                 });
 
@@ -24,7 +24,9 @@ $(document).ready(function() {
 
     $('#listCity').on('click', function(event) {
         event.stopPropagation();
+
         let target = $(event.target);
+
         if (target.is('span')) {
             let div = $(target).parent('div');
             let id = $(div).data('id');
@@ -47,7 +49,7 @@ $(document).ready(function() {
     $('#btn-calculate-delivery').on('click', function(event) {
         let origin_id = $('.origin_id').val();
         let destination_id = $('#destination_id').attr('data-city-id');
-        let methodDelivery = $('#methodDelivery').val();
+        let deliveryMethod = $('#deliveryMethod').val();
         let sumDelivery = 0;
         let sum = 0;
 
@@ -68,7 +70,7 @@ $(document).ready(function() {
                     '&height=' + height +
                     '&depth=' + depth +
                     '&weight=' + weight +
-                    '&service=' + methodDelivery,
+                    '&service=' + deliveryMethod,
                 type: 'GET',
                 success: function(data, textStatus, jqXHR) {
                     console.log(data);
@@ -79,13 +81,25 @@ $(document).ready(function() {
 
                     sumDelivery += sum;
                     $('#sumDelivery').text(sumDelivery);
-                    console.log(sum, sumDelivery);
                 },
             })
-            console.log(sumDelivery);
 
         })
         $('.close').trigger('click');
+    })
+
+    $('#destination_id').on('keydown',function(event) {
+        switch (event.keyCode) {
+            case 40:
+                navigate('up');
+                break;
+            case 38:
+                navigate('down');
+                break;
+            case 13:
+                getAttributDiv(event);
+                break;
+        }
     })
 })
 
@@ -96,5 +110,53 @@ $.fn.justtext = function() {
     .remove()
     .end()
     .text();
-
 };
+
+/**
+ * @param {string} direction The string
+ */
+
+function navigate(direction) {
+    let currentSelection = 0;
+    if ($('#listCity').size() == 0) {
+        currentSelection = -1;
+    }
+    if(direction == 'up' && currentSelection != -1) {
+        if (currentSelection != 0) {
+            currentSelection--;
+        }
+    } else if (direction == 'down') {
+        if (currentSelection != $('#listCity').size() - 1 ) {
+            currentSelection++;
+        }
+    }
+    setSelected(currentSelection);
+}
+
+function setSelected(menuItem) {
+    $('#listCity li').removeClass(":hover");
+    $("#listCity li").eq(menuItem).addClass(':hover').addClass('itemhover');
+
+}
+
+function getAttributDiv(event) {
+    let target = $(event.target);
+
+    if (target.is('span')) {
+        let div = $(target).parent('div');
+        let id = $(div).data('id');
+        let text = $(div).justtext();
+
+        $('#destination_id').attr('data-city-id', id).val(text);
+        $('#listCity').addClass('d-none');
+
+    } else if (target.is('div')) {
+        let id = $(event.target).data('id');
+        let text = $(event.target).justtext();
+
+        $('#destination_id').attr('data-city-id', id).val(text);
+        $('#listCity').addClass('d-none');
+
+    }
+
+}
