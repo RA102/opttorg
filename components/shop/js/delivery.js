@@ -53,7 +53,8 @@ $(document).ready(function(event) {
         let sumDelivery = 0;
         let sum = 0;
 
-        let itemsParams = $('div#params').children('input');//$("input[name~='itemParam']"))
+        let itemsParams = $('div#params').children('input');
+
 
         itemsParams.each(function(index, item) {
             let width = $(item).data('width');
@@ -72,6 +73,7 @@ $(document).ready(function(event) {
                     '&weight=' + weight +
                     '&service=' + deliveryMethod,
                 type: 'GET',
+                async: false,
                 success: function(data, textStatus, jqXHR) {
                     console.log(data);
                     sum = +(data.calculation.price) + +(data.calculation.declared_value_fee) + +(data.calculation.fuel_surplus);
@@ -81,11 +83,12 @@ $(document).ready(function(event) {
 
                     sumDelivery += sum;
                     $('#sumDelivery').text(sumDelivery);
+
                 },
             })
-
         })
         $('.close').trigger('click');
+        $('#mainFormDelivery').append($('<input/>').attr({'type': 'text', 'name': 'price_delivery', 'value': sumDelivery, 'hidden': true}));
     })
 
     $('#destination_id').on('keydown',function(event) {

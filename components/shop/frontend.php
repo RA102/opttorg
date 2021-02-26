@@ -2,7 +2,7 @@
 
 if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
 
-function shop(){
+function shop() {
 
     global $_LANG;
     global $_CFG;
@@ -609,6 +609,10 @@ function shop(){
         // Получаем тип доставки
         $d_type = $inCore->request('d_type', 'int', 0);
 
+        // Получить стоимость доставки
+        $priceDelivery = $inCore->request('price_delivery', 'str');
+
+
         // Получаем код скидки
         $giftcode = $inCore->request('giftcode', 'int', 0);
 		
@@ -631,12 +635,14 @@ function shop(){
         $order['giftcode']          = $giftcode;
         $order['status']            = 1;
         $order['user_id']           = $inUser->id;
-        $order['summ']              = $model->calculateOrderSumm($items, $d_type, $giftcode);
+//        $order['summ']              = $model->calculateOrderSumm($items, $d_type, $giftcode);
+        $order['summ'] = $model->calculateOrderSumm($items, $priceDelivery, $giftcode);
 
         if ($d_type){
             $delivery_types         = $model->getDeliveryTypes($order['summ']);
             $order['d_type']        = $d_type;
-            $order['d_price']       = $delivery_types[$d_type]['price'];
+//            $order['d_price']       = $delivery_types[$d_type]['price'];
+            $order['d_price'] = $priceDelivery;
         } else {
             $order['d_type']        = $d_type;
             $order['d_price']       = 0;

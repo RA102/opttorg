@@ -3,7 +3,7 @@
 <script scr="/templates/basic_free/js/delivery.js"></script>
 <div style="background:#fff;padding:15px;margin-bottom:20px;">
     {if $items}
-        <form action="/shop/payment.html" method="post">
+        <form id="mainFormDelivery" action="/shop/payment.html" method="post">
             <div class="row">
                 <div class="d-none">
                     <h3 class="con_heading"><span>Товары в заказе</span></h3>
@@ -33,12 +33,12 @@
                                         </td>
                                         <td class="btop">
                                             <span class="d_price pull-right">
-                                                {if $dtype.price}
-                                                    {$dtype.price}
-                                                    {$cfg.currency}
-                                                {else}
-                                                    {$LANG.SHOP_FREE}
-                                                {/if}
+{*                                                {if $dtype.price}*}
+{*                                                    {$dtype.price}*}
+{*                                                    {$cfg.currency}*}
+{*                                                {else}*}
+{*                                                    {$LANG.SHOP_FREE}*}
+{*                                                {/if}*}
                                             </span>
                                             <span class="d_type">
                                                 <label for="d_type{$num}">{$dtype.title}</label>
@@ -138,6 +138,7 @@
                 </div>
             </div>
             <hr/>
+
             <div style="font-size:24px;line-height:32px;" >
                 <strong>Стоимость доставки: </strong>
                 <span id="sumDelivery"></span>
@@ -173,7 +174,7 @@
     {/if}
 </div>
 {literal}
-    <script>
+    <script type="text/javascript">
         $(function() {
             //2. Получить элемент, к которому необходимо добавить маску
             $("#customer_phone").mask("8 (999) 999 99 99");

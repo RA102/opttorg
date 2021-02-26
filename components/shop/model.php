@@ -3440,7 +3440,9 @@ class cms_model_shop
         $delivery_types = $this->getDeliveryTypes($totalsumm);
 
         // прибавляем к сумме заказа стоимость выбранного типа доставки
-        $d_price = $delivery_types[$d_type]['price'];
+//        $d_price = $delivery_types[$d_type]['price'];
+        $d_price = $d_type;
+
         $totalsumm += $d_price;
 
         return $totalsumm;
