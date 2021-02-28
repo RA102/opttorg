@@ -4,10 +4,12 @@ if (!defined(PATH)) {
     define(PATH, $_SERVER['DOCUMENT_ROOT']);
 }
 
-include_once PATH . '/core/cms.php';
 
+require_once(PATH . '/core/cms.php');
+//error_reporting(E_ALL);
+//error_log('error_log', '/log/error_unloadingitems.log');
 
-$dir = PATH .'/cache/';
+$dir = '/cache/';
 $filename = 'import.xml';
 
 
@@ -16,10 +18,10 @@ $model = new cms_model_shop();
 
 
 
-//if (file_exists("$dir.$filename")) {
+if (file_exists( '..' . $dir . $filename)) {
 
     $z = new XMLReader;
-    $z->open($dir . $filename);
+    $z->open(PATH . $dir . $filename);
 
     while ($z->read() && $z->name !== 'Товары') ;
 
@@ -34,9 +36,9 @@ $model = new cms_model_shop();
 
     $z->close();
 
-//} else {
-//    echo "Нет файла export.xml";
-//}
+} else {
+    echo "Нет файла export.xml";
+}
 
 
 function import_product($xml_product)
@@ -79,7 +81,7 @@ function import_product($xml_product)
 				        '{$item['title']}',
 				        '{$item['price']}',
 				        '{$item['published']}',
-				        '{$item['filedate']}',
+				         NOW(),
 				        '{$item['qty']}',
 				        '{$item['tpl']}', 
 				        '{$item['external_id']}'
@@ -98,6 +100,13 @@ function import_product($xml_product)
             $item['update_at'] = date('Y-m-d H:i:s');
             cmsDatabase::getInstance()
                 ->update('cms_shop_items', $item, $product_id);
+        } else {
+
+            $item['qty'] = (int)$xml_product->КоличествоОстаток;
+            $item['update_at'] = date('Y-m-d H:i:s');
+            cmsDatabase::getInstance()
+                ->update('cms_shop_items', $item, $product_id);
+
         }
 
         return;

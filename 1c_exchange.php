@@ -1,15 +1,18 @@
 <?php
 
-error_reporting(E_ALL);
 ini_set('display_errors', 0);
-Error_Reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-
+//error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+error_reporting(E_ALL);
 header('Content-Type: text/html; charset=utf-8');
 
-define('PATH', $_SERVER['DOCUMENT_ROOT']);
+if (!defined(PATH)){
+    define('PATH', $_SERVER['DOCUMENT_ROOT']);
+}
 define("VALID_CMS", 1);
 
-$dir = PATH . '/cache/';
+require_once PATH . '/core/cms.php';
+
+$dir = '/cache/';
 $_SESSION['brand_option_name'] = 'Производитель';
 $_SESSION['brand_option_id'] = '';
 
@@ -22,7 +25,7 @@ if (empty($max_exec_time)) {
 
 session_start();
 
-include 'core/cms.php';
+
 cmsCore::getInstance();
 cmsCore::loadClass('user');
 
