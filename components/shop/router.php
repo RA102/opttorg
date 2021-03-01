@@ -45,6 +45,8 @@ function routes_shop()
 
     $routes[] = array('_uri' => '/^shop\/payment\/balance\/([0-9]+)$/i', 'do' => 'balance', 1 => 'order_id');
 
+    $routes[] = ['_uri' => '/^shop\/payment\-success', 'do' => 'payment-success'];
+
     $routes[] = array('_uri' => '/^shop\/deletefromcart$/i', 'do' => 'delete_from_cart');
 
     $routes[] = array('_uri' => '/^shop\/deletefromcart\/([0-9]+)$/i', 'do' => 'delete_from_cart', 1 => 'delete_from_cart_item_id');
