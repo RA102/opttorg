@@ -37,7 +37,7 @@ function shop()
     //получаем входные параметры
     $id = $inCore->request('id', 'int', 0);
     $seolink = $inCore->request('seolink', 'str', '');
-    $do = $inCore->request('do', 'str', 'view');
+    $do = $inCore->request(  'do', 'str', 'view');
 
     $page = $inCore->request('page', 'int', 1);
     $perpage = $cfg['perpage'];
@@ -897,9 +897,11 @@ function shop()
         $items = $model->getCartItems($cfg);
 
         $totalsumm = 0;
+        $countItems = 0;
 
         foreach ($items as $item) {
             $totalsumm += ($item['price'] * $item['cart_qty']);
+            $countItems += $item['cart_qty'];
         }
 
         $usrid = $inUser->id;
@@ -916,6 +918,7 @@ function shop()
         $smarty->assign('readonly', false);
         $smarty->assign('cfg', $cfg);
         $smarty->assign('items', $items);
+        $smarty->assign('countItems', $countItems);
         $smarty->assign('discount_size', $discount_size);
         $smarty->assign('totalsumm', round($totalsumm, 0));
         $smarty->assign('last_url', $_SESSION['inshop_last_url']);

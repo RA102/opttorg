@@ -2,7 +2,7 @@
 
     {add_js file='components/shop/js/cart.js'}
     {$totl="0"}
-{*    {assign var="sumWithoutDiscount" value=""}*}
+    {*    {assign var="sumWithoutDiscount" value=""}*}
     {$sumWithoutDiscount="0"}
     {$sumDiscount=""}
     <div class="row">
@@ -14,8 +14,7 @@
                         <div class="media-left">
                             <a href="/shop/{$item.seolink}.html" title="{$item.art_no} / {$item.title}">
                                 <img class="media-object" src="/images/photos/small/{$item.filename}"
-                                     alt="{$item.art_no} / {$item.title}"/>
-                            </a>
+                                     alt="{$item.art_no} / {$item.title}"/> </a>
                         </div>
                         <div class="media-body">
                             <div class="d-inline-block">
@@ -33,13 +32,14 @@
                             <div class="my-2">
                                 <span class="text--color-blue">Код товара:&ensp;{$item.art_no}</span>
                             </div>
-{*                         *}
+                            {*                         *}
                             <div class="trr">
                                 {if ($item.qty || $cfg.qty_mode=='any') && $cfg.qty_mode != 'one'}
-
                                     <div>
                                         <div class="">
-                                            <s class="text-muted">{if $item.old_price} <span class="cart-old--price">{$item.old_price}</span> {$cfg.currency}  {/if}</s>
+                                            <s class="text-muted">{if $item.old_price}
+                                                    <span class="cart-old--price">{$item.old_price}</span>
+                                                    {$cfg.currency}  {/if}</s>
                                         </div>
                                         <span class="price">
                                             <span class="new-price">{$iprice}</span>
@@ -58,11 +58,10 @@
 
                                 {if $smarty.session.user.group_id==10}<!-- оптовик -->
                                     {$tots=$iprice*$item.cart_qty}
-
                                     <span class="totalprice">
                                     <span class="value">{$tots}</span>
                                     {$cfg.currency}</span>
-                                {else}<!-- все остальные -->
+                                    {else}<!-- все остальные -->
                                     <span class="totalprice">
                                     <span class="d-none value">{$item.totalprice}</span>
                                 </span>
@@ -70,8 +69,7 @@
                                 <div>
                                     {if !$readonly}
                                         <a href="/shop/deletefromcart/{$item.cart_id}" title="Отказаться от товара" class="">
-                                            <span class="cart-remove--item">Удалить из корзины</span>
-                                        </a>
+                                            <span class="cart-remove--item">Удалить из корзины</span> </a>
                                     {/if}
                                 </div>
                             </div>
@@ -79,10 +77,10 @@
                     </li>
                     {$totl=$totl+$tots}
                     {if $item.old_price != 0}
-                        {$sumWithoutDiscount=$sumWithoutDiscount+$item.old_price}
+                        {$sumWithoutDiscount=$sumWithoutDiscount+$item.old_price * $item.cart_qty}
                         {$sumDiscount = $sumDiscount + ($item.old_price - $item.price)}
                     {else}
-                        {$sumWithoutDiscount=$sumWithoutDiscount+$item.price}
+                        {$sumWithoutDiscount=$sumWithoutDiscount+$item.price * $item.cart_qty}
                     {/if}
                 {/foreach}
             </ul>
@@ -102,8 +100,7 @@
                     <tr>
                         <td align="left">
                             <h5 class="text--color-blue text-nowrap">
-                                Товары (
-                                <span id="countItems">{$items|count}</span>
+                                Товары ( <span id="countItems">{$countItems}</span>
                                 {$LANG.SHOP_PIECES})
                             </h5>
                         </td>
@@ -116,7 +113,8 @@
                             <h5 class="text--color-blue">Скидка</h5>
                         </td>
                         <td align="right">
-                            <h5 class="text--color-blue">-<span class="discount">{if $sumDiscount}{$sumDiscount}{else} 0 {/if}</span> {$cfg.currency}</h5>
+                            <h5 class="text--color-blue">-<span class="discount">{if $sumDiscount}{$sumDiscount}{else} 0 {/if}</span> {$cfg.currency}
+                            </h5>
                         </td>
                     </tr>
                     <tr class="igogo">
@@ -133,55 +131,53 @@
                             </h4>
                             <input type="hidden" name="giftcode" value="{$discount_size}"/>
                         </td>
-{*                        {if $smarty.session.user.group_id==10}*}
-{*                            <td align="right">*}
-{*                                <h4><span class="total_summ_price">&nbsp;= <span class="value">{$totl}</span> {$cfg.currency}</span>*}
-{*                                    <input type="hidden" id="totalsumm" value="{$totl}"/></h4>*}
-{*                            </td>*}
-{*                        {else}*}
+                        {*                        {if $smarty.session.user.group_id==10}*}
+                        {*                            <td align="right">*}
+                        {*                                <h4><span class="total_summ_price">&nbsp;= <span class="value">{$totl}</span> {$cfg.currency}</span>*}
+                        {*                                    <input type="hidden" id="totalsumm" value="{$totl}"/></h4>*}
+                        {*                            </td>*}
+                        {*                        {else}*}
                         <td align="left"></td>
                         <td align="right">
                             <h4 class="text--color-blue">
                                 <span class="total_summ_price text-nowrap">
                                     Итого:
                                     <span class="value"> {$totalsumm}</span> {$cfg.currency}
-                                </span>
-                                <input type="hidden" id="totalsumm" value="{$totalsumm}"/>
+                                </span> <input type="hidden" id="totalsumm" value="{$totalsumm}"/>
                             </h4>
                         </td>
-{*                        {/if}*}
+                        {*                        {/if}*}
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-
 {/if}
 {literal}
 <script type="text/javascript">
 
     $('a.itemlink').hover(
-        function () {
+        function() {
             $(this).parent('td').find('div.imghint').fadeIn("fast");
         },
-        function () {
+        function() {
             $(this).parent('td').find('div.imghint').fadeOut("fast");
         }
     );
     {/literal}
 
     {literal}
-        function calculateDiscount(totalsumm) {
-            let dis = new Array();
-    {/literal}
+    function calculateDiscount(totalsumm) {
+        let dis = new Array();
+        {/literal}
 
         {if $cfg.discount}
         {foreach key=summ item=discount from=$cfg.discount}
-            dis[{$summ|intval}] = {$discount};
+        dis[{$summ|intval}] = {$discount};
         {/foreach}
         {/if}
 
-    {literal}
+        {literal}
 
         let discount_size = 0;
 

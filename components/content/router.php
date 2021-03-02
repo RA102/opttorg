@@ -65,11 +65,6 @@
                             1           => 'seolink'
                          );
 
-        $routes[] = [
-            '_uri' => '/^payment-success',
-            'do' => 'payment-success'
-        ];
-
         $routes[] = array(
                             '_uri'      => '/^content\/(.+)\/page\-([0-9]+)$/i',
                             'do'        => 'view',
