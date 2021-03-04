@@ -25,6 +25,10 @@ $(document).ready(function(event) {
 
     });
 
+    document.addEventListener('keydown', function(event) {
+        console.log($('.params-item > tr:last'));
+    });
+
     $('.buttonRemovePart').on('click', function (event) {
 
         let eraseParam = confirm('Удалить');
@@ -32,17 +36,21 @@ $(document).ready(function(event) {
         let parentTd = $(this).parent();
         let tr = $(parentTd).parent();
 
-        if (eraseParam) {
-            $.ajax({
-                url: 'http://sanmarket.loc/admin/index.php?view=components&do=config&id=28&opt=remove_param' + '&param_id=' + paramId,
-                type: 'POST',
-                success: function (data, textStatus, jqXHR) {
-                    if (textStatus == 'success') {
-                        $(tr).remove();
-                    }
-                },
+        console.log(paramId);
 
-            })
+        if (eraseParam) {
+            if (paramId !== '') {
+                $.ajax({
+                    url: 'http://sanmarket.loc/admin/index.php?view=components&do=config&id=28&opt=remove_param' + '&param_id=' + paramId,
+                    type: 'POST',
+                    success: function(data, textStatus, jqXHR) {
+                        if (textStatus == 'success') {
+                            $(tr).remove();
+                        }
+                    },
+
+                })
+            }
         }
 
     })

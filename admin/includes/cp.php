@@ -287,6 +287,9 @@ function cpMenu()
 
                     </ul>
                 </li>
+                <li>
+                    <a href="index.php?view=kaspiorders&do=view">Каспи заказы</a>
+                </li>
 
             <?php } ?>
             <li>

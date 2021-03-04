@@ -5006,7 +5006,7 @@ class cms_model_shop
                                         <input name=\"weightItem[]\" type=\"text\" value=\"\"/>
                                     </td>
                                     <td>
-                                        <img id=\"buttonRemovePart\" class=\"img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\">
+                                        <img class=\"buttonRemovePart img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\">
                                     </td>
                                 </tr>";
 
