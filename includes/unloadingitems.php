@@ -1,27 +1,24 @@
 <?php
 
-if (!defined(PATH)) {
-    define(PATH, $_SERVER['DOCUMENT_ROOT']);
+if (!defined('PATH')) {
+    define('PATH', $_SERVER['DOCUMENT_ROOT']);
 }
+define('VALID_CMS', 1);
 
+include_once $_SERVER['DOCUMENT_ROOT'] . '/core/cms.php';
 
-require_once(PATH . '/core/cms.php');
-//error_reporting(E_ALL);
-//error_log('error_log', '/log/error_unloadingitems.log');
 
 $dir = '/cache/';
 $filename = 'import.xml';
-
 
 cmsCore::loadModel('shop');
 $model = new cms_model_shop();
 
 
-
-if (file_exists( '..' . $dir . $filename)) {
+if (file_exists( $_SERVER['DOCUMENT_ROOT'] . $dir . $filename)) {
 
     $z = new XMLReader;
-    $z->open(PATH . $dir . $filename);
+    $z->open($_SERVER['DOCUMENT_ROOT'] . $dir . $filename);
 
     while ($z->read() && $z->name !== 'Товары') ;
 

@@ -25,9 +25,11 @@ $(document).ready(function(event) {
 
     });
 
-    document.addEventListener('keydown', function(event) {
-        console.log($('.params-item > tr:last'));
-    });
+    // TODO создание строки в таблице по кнопку +
+
+    // document.addEventListener('keydown', function(event) {
+    //     console.log($('.params-item > tr:last'));
+    // });
 
     $('.buttonRemovePart').on('click', function (event) {
 

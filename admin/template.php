@@ -28,8 +28,7 @@
     <script type="text/javascript" src="js/hltable.js"></script>
     <script type="text/javascript" src="js/jquery.jclock.js"></script>
 </head>
-
-<body>
+<body style="height: 100%">
     <table cellpadding="0" cellspacing="0" border="0" width="100%" height="100%">
         <tr>
             <td valign="top">

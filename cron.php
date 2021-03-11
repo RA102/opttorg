@@ -9,7 +9,7 @@
 // Если планируете запускать задачи CRON через curl или иные http запросы, закомментируйте строку ниже
 if(PHP_SAPI != 'cli') die('Access denied');
 
-Error_Reporting(E_ALL | E_NOTICE | E_WARNING);
+error_reporting(E_ALL);
 
 define('PATH', dirname(__FILE__));
 define("VALID_CMS", 1);

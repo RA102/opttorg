@@ -1073,10 +1073,6 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         $weightItem = $inCore->request('weightItem', 'array');
 
 
-
-
-
-
 //        $checkingExistenceItem = $model->getItemFromVenCode($item['ven_code']);
 //
 //        if ($item['title'] == '' || $item['ven_code'] == '' || $checkingExistenceItem == null) {
@@ -1088,22 +1084,13 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
 
         for ($i = 0; $i < count($titlePart); $i++) {
-            $paramsItem[$i] = [
-                'title' => $titlePart[$i],
-                'width' => $widthItem[$i],
-                'height' => $heightItem[$i],
-                'depth' => $depthItem[$i],
-                'weight' => $weightItem[$i]
-            ];
+            $paramsItem[$i] = ['title' => $titlePart[$i], 'width' => $widthItem[$i], 'height' => $heightItem[$i], 'depth' => $depthItem[$i], 'weight' => $weightItem[$i]];
         }
-
 
 
         if ($item['ordering'] == 1) {
             $model->vperedItem($id, $item['category_id']);
         }
-
-
 
 
         $model->addParamsItem($item['id'], $paramsItem);
@@ -1220,18 +1207,23 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $depthItem = $inCore->request('depthItem', 'array');
             $weightItem = $inCore->request('weightItem', 'array');
 
-            for($i=0; $i < count($titlePart); $i++) {
-                $paramsItem[$i] = [
-                    'id' => $partId[$i],
-                    'title' => $titlePart[$i],
-                    'width' => $widthItem[$i],
-                    'height' => $heightItem[$i],
-                    'depth' => $depthItem[$i],
-                    'weight' => $weightItem[$i]
-                ];
+
+
+            for ($i = 0; $i < count($titlePart); $i++) {
+                if ($titlePart[$i]) {
+                    $paramsItem[$i] = [
+                        'id' => $partId[$i],
+                        'title' => $titlePart[$i],
+                        'width' => $widthItem[$i],
+                        'height' => $heightItem[$i],
+                        'depth' => $depthItem[$i],
+                        'weight' => $weightItem[$i],
+                    ];
+                }
             }
 
             $model->updateParamsItem($id, $paramsItem);
+
 
             if ($item['ordering'] == 1) {
                 $model->vperedItem($id, $item['category_id']);
@@ -2202,6 +2194,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             }
         }
 
+
+
         $chars = $model->getCatChars($cat_id);
 
         if ($chars) {
@@ -2354,6 +2348,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
     if ($opt == 'add_item' || $opt == 'edit_item') {
 
+        $itemParts = [];
+
         $inCore->includeFile('includes/jwtabs.php');
 
         $GLOBALS['cp_page_head'][] = jwHeader();
@@ -2384,6 +2380,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             }
 
             $mod = $model->getItem($id, false);
+
+
 
             $itemParts = $model->getParamsItem($id);
 
@@ -2519,45 +2517,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     </td>
                                 </tr>
 
-<!--                                <tr>-->
-<!--                                    <td>-->
-<!--                                        <div>-->
-<!--                                            <strong>Название</strong>-->
-<!--                                        </div>-->
-<!--                                        <div>-->
-<!--                                            <input name="partItem" type="text" id="vol" style="width:300px" value="--><?php //echo htmlspecialchars($itemParams['partItem']); ?><!--"/>-->
-<!--                                        </div>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-<!--                                <tr>-->
-<!--                                    <td>-->
-<!--                                        <div><strong>Ширина</strong></div>-->
-<!--                                        <div>-->
-<!--                                            <input name="widthItem" type="text" id="vol" style="width:80px" value="--><?php //echo htmlspecialchars($itemParams['widthItem']); ?><!--"/>-->
-<!--                                        </div>-->
-<!--                                    </td>-->
-<!--                                    <td>-->
-<!--                                        <div><strong>Высота</strong></div>-->
-<!--                                        <div>-->
-<!--                                            <input name="heightItem" type="text" id="vol" style="width:80px" value="--><?php //echo htmlspecialchars($itemParams['heightItem']); ?><!--"/>-->
-<!--                                        </div>-->
-<!--                                    </td>-->
-<!--                                    <td>-->
-<!--                                        <div><strong>Глубина</strong></div>-->
-<!--                                        <div>-->
-<!--                                            <input name="depthItem" type="text" id="vol" style="width:80px" value="--><?php //echo htmlspecialchars($itemParams['depthItem']); ?><!--"/>-->
-<!--                                        </div>-->
-<!--                  list_items                  </td>-->
-<!--                                    <td valign="top" width="80">-->
-<!--                                        <div><strong>Вес, кг</strong></div>-->
-<!--                                        <div>-->
-<!--                                            <input name="weightItem" type="text" id="ves" style="width:80px" value="--><?php //echo htmlspecialchars($ItemParams['weightItem']); ?><!--"/>-->
-<!--                                        </div>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-
                             </table>
-<!--    RA      -->
+                            <!--    RA      -->
                             <table class="params-item">
                                 <tr>
 
@@ -2569,16 +2530,16 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     <th width="50">Действия</th>
                                 </tr>
 
-                            <?php echo $model->generateRowPartsItem($itemParts); ?>
+                                <?php echo $model->generateRowPartsItem($itemParts); ?>
 
                                 <tr name="addPartItem">
                                     <td class="">
-                                        <img id="buttonAddPart" class="img-fluid" src="/admin/images/icons/hmenu/add.png" alt="" >
+                                        <img id="buttonAddPart" class="img-fluid" src="/admin/images/icons/hmenu/add.png" alt="">
                                     </td>
                                 </tr>
 
                             </table>
-<!--   /RA      -->
+                            <!--   /RA      -->
                             <hr/>
 
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -3332,7 +3293,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
         <script type="text/javascript">
 
-            $(document).ready(function () {
+            $(document).ready(function() {
                 var datePickerOptions = {showStatus: true, showOn: "focus"};
                 $('#date_until').datepicker({
                     showOn: "both",
@@ -3846,11 +3807,11 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         }
         ?>
         <form id="addform" name="addform" method="post" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
-            <table width="600" border="0" cellspacing="5" class="proptable">
+            <table width="100%" border="0" cellspacing="5" class="proptable">
                 <tr>
                     <td width="200"><strong>Название: </strong></td>
                     <td width="" valign="top">
-                        <input name="title" type="text" id="title" style="width:98%" value="<?php echo htmlspecialchars($mod['title']); ?>"/>
+                        <input name="title" type="text" id="title" style="width:50%" value="<?php echo htmlspecialchars($mod['title']); ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -3866,7 +3827,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 <tr>
                     <td width="200" valign="top"><strong>Описание: </strong></td>
                     <td width="" valign="top">
-                        <textarea name="description" style="width:95%;height:200px"><?php echo htmlspecialchars($mod['description']); ?></textarea>
+                        <textarea name="description" style="width:50%;height:200px"><?php echo htmlspecialchars($mod['description']); ?></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -3897,6 +3858,11 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             </tr>
                         </table>
 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <abbr title="Введите id категорий с которыми работет эта ТК">Указать категории</abbr>
                     </td>
                 </tr>
             </table>

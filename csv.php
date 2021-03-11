@@ -8,11 +8,12 @@ header("Content-Disposition: attachment; filename=file.csv");
 
 header("Pragma: no-cache"); 
 
-header("Expires: 0");	
-	define("DB_HOST","localhost");
-	define("DB_NAME","sopt1"); //Имя базы
-	define("DB_USER","sopt1"); //Пользователь
-	define("DB_PASSWORD","sopt112151"); //Пароль
+header("Expires: 0");
+
+    define("DB_HOST", "localhost");
+    define("DB_NAME", "sopt1"); //Имя базы
+    define("DB_USER", "sopt1"); //Пользователь
+    define("DB_PASSWORD", "sopt112151"); //Пароль
 
 	$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	$mysqli -> query("SET NAMES 'utf8'") or die ("Ошибка соединения с базой!");

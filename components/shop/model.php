@@ -4957,7 +4957,7 @@ class cms_model_shop
 
     }
 
-    public function generateRowPartsItem($partsItem) : string
+    public function generateRowPartsItem(array $partsItem) : string
     {
         $result = '';
         if (boolval($partsItem)) {
@@ -4965,7 +4965,7 @@ class cms_model_shop
 
                 $result .= "<tr class=\"\">
                                     <td>
-                                        <input name=\"partId[]\" type=\"hidden\" value=\"{$item->id} \">
+                                        <input name=\"partId[]\" type=\"hidden\" value=\"{$item->id}\">
                                         <input name=\"titlePart[]\" type=\"text\" value=\"{$item->title_part}\"/>
                                     </td>
                                     <td>
@@ -4981,7 +4981,7 @@ class cms_model_shop
                                         <input name=\"weightItem[]\" type=\"number\" value=\"{$item->weight}\"/>
                                     </td>
                                     <td>
-                                        <img class=\"buttonRemovePart img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\" data-id='{$item->id}'>
+                                        <img class=\"buttonRemovePart img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\" data-id=\"$item->id\" >
                                     </td>
                                 </tr>";
 
@@ -4994,16 +4994,16 @@ class cms_model_shop
                                         <input name=\"titlePart[]\" type=\"text\" value=\"\"/>
                                     </td>
                                     <td>
-                                        <input name=\"widthItem[]\" type=\"text\" value=\"\"/>
+                                        <input name=\"widthItem[]\" type=\"number\" value=\"\"/>
                                     </td>
                                     <td>
-                                        <input name=\"heightItem[]\" type=\"text\" value=\"\"/>
+                                        <input name=\"heightItem[]\" type=\"number\" value=\"\"/>
                                     </td>
                                     <td>
-                                        <input name=\"depthItem[]\" type=\"text\" value=\"\"/>
+                                        <input name=\"depthItem[]\" type=\"number\" value=\"\"/>
                                     </td>
                                     <td>
-                                        <input name=\"weightItem[]\" type=\"text\" value=\"\"/>
+                                        <input name=\"weightItem[]\" type=\"number\" value=\"\"/>
                                     </td>
                                     <td>
                                         <img class=\"buttonRemovePart img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\">

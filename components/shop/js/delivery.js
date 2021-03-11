@@ -52,6 +52,7 @@ $(document).ready(function(event) {
         let deliveryMethod = $('#deliveryMethod').val();
         let sumDelivery = 0;
         let sum = 0;
+        let deliveryCostUpTo5 = 1580;
 
         let itemsParams = $('div#params').children('input');
 
@@ -62,30 +63,35 @@ $(document).ready(function(event) {
             let depth = $(item).data('depth');
             let weight = $(item).data('weight');
 
+            if (weight < 5) {
 
-            $.ajax({
-                url: 'https://api.exline.systems/public/v1/calculate?' +
-                    'origin_id=27' +
-                    '&destination_id=' + destination_id +
-                    '&wight=' + width +
-                    '&height=' + height +
-                    '&depth=' + depth +
-                    '&weight=' + weight +
-                    '&service=' + deliveryMethod,
-                type: 'GET',
-                async: false,
-                success: function(data, textStatus, jqXHR) {
-                    console.log(data);
-                    sum = +(data.calculation.price) + +(data.calculation.declared_value_fee) + +(data.calculation.fuel_surplus);
-                    // if (textStatus == 'success') {
-                    //     $('#costDelivery').append($('<li>', {text: sum}));
-                    // }
+                sumDelivery += deliveryCostUpTo5;
 
-                    sumDelivery += sum;
-                    $('#sumDelivery').text(sumDelivery);
+            } else {
+                $.ajax({
+                    url: 'https://api.exline.systems/public/v1/calculate?' +
+                        'origin_id=27' +
+                        '&destination_id=' + destination_id +
+                        '&wight=' + width +
+                        '&height=' + height +
+                        '&depth=' + depth +
+                        '&weight=' + weight +
+                        '&service=' + deliveryMethod,
+                    type: 'GET',
+                    async: false,
+                    success: function(data, textStatus, jqXHR) {
+                        console.log(data);
+                        sum = +(data.calculation.price) + +(data.calculation.declared_value_fee) + +(data.calculation.fuel_surplus);
+                        // if (textStatus == 'success') {
+                        //     $('#costDelivery').append($('<li>', {text: sum}));
+                        // }
 
-                },
-            })
+                        sumDelivery += sum;
+                        $('#sumDelivery').text(sumDelivery);
+
+                    },
+                })
+            }
         })
         $('.close').trigger('click');
         $('#mainFormDelivery').append($('<input/>').attr({'type': 'text', 'name': 'price_delivery', 'value': sumDelivery, 'hidden': true}));

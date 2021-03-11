@@ -5,14 +5,15 @@ ini_set('display_errors', 0);
 error_reporting(E_ALL);
 header('Content-Type: text/html; charset=utf-8');
 
-if (!defined(PATH)){
-    define('PATH', $_SERVER['DOCUMENT_ROOT']);
+
+if (!defined('PATH')){
+    define('PATH', __DIR__);
 }
 define("VALID_CMS", 1);
 
 require_once PATH . '/core/cms.php';
 
-$dir = '/cache/';
+$dir = './cache/';
 $_SESSION['brand_option_name'] = 'Производитель';
 $_SESSION['brand_option_id'] = '';
 

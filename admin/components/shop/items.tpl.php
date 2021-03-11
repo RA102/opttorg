@@ -199,7 +199,7 @@
                             <th class="lt_header" width="16"><img src="/admin/components/shop/images/photogray.gif" border="0"/></th>
                             <th class="lt_header" width="">Название</th>
                             <th class="lt_header" width="80">Ст. цена</th>
-                            <th class="lt_header" width="80">Кол-во по складу</th>
+                            <th class="lt_header" width="80"><a href="">Кол-во по складу</a></th>
                             <th class="lt_header" width="80">Цена</th>
                             <th class="lt_header" width="65">Показ</th>
                             <?php if ($category_id && sizeof($items)>1){ ?>
