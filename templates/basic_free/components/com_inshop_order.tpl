@@ -11,8 +11,6 @@
                         {include file='com_inshop_cart_items.tpl'}
                     </div>
                 </div>
-
-
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     {if $delivery_types}
                         <h3 class="con_heading"><span>{$LANG.SHOP_DELIVERY_TYPE} *</span></h3>
@@ -67,7 +65,8 @@
                                     </td>
                                     <td class="btop">
                                         <span class="d_price pull-right">
-                                            <a href="/dostavka.html" target="_blank">примерная стоимость</a>
+{*                                            <a id="cost_delivery" href="/dostavka.html" target="_blank">Cтоимость доставки</a>*}
+                                            <button id="cost_delivery" class="btn btn-success">Стоимость доставки</button>
                                         </span>
                                         <span class="d_type">
                                             <label for="d_type100">Доставка по Казахстану</label>

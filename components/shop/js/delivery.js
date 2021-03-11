@@ -110,6 +110,37 @@ $(document).ready(function(event) {
                 break;
         }
     })
+
+    $('#cost_delivery').on('click', function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "https://jet7777.ru/cabinet/api/calc_transport",
+            headers: {
+                "Content-Type": "application/json",
+                "Referrer-Policy": "no-referrer",
+                "Referer": 'sanmarket.kz'
+            },
+            data: {
+                "access_token": "$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy",
+                "cityfrom": "Караганды",
+                "cityto": "Нур-Султан",
+                "ves": 5,
+                "obm3": 3,
+                "dlina": 120,
+                "mest": 1,
+                "cost": 15000,
+                "naimenovanie": "САНТЕХНИКА",
+                "dops": { "D_HARDPACK": 1, "D_EP": 0, "D_PB": 0, "D_VPP": 0, "D_SP": 0, "D_SDOC": 0, "D_EK": 0}
+            },
+            success: function(data) {
+                console.log(data);
+            }
+        })
+
+    });
+
 })
 
 $.fn.justtext = function() {
