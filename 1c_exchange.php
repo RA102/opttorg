@@ -1,10 +1,8 @@
 <?php
-
 ini_set('display_errors', 0);
 //error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 error_reporting(E_ALL);
 header('Content-Type: text/html; charset=utf-8');
-
 
 if (!defined('PATH')){
     define('PATH', __DIR__);
@@ -13,7 +11,8 @@ define("VALID_CMS", 1);
 
 require_once PATH . '/core/cms.php';
 
-$dir = './cache/';
+$dir = 'cache/';
+
 $_SESSION['brand_option_name'] = 'Производитель';
 $_SESSION['brand_option_id'] = '';
 
@@ -344,15 +343,15 @@ if ($type == 'catalog') {
 
     if ($type == 'catalog' && $mode == 'import') {
         if ($filename === 'import.xml') {
-            if (!isset($_SESSION['last_1c_imported_product_num'])) {
-                $z = new XMLReader;
-                $z->open($dir . $filename);
-                while ($z->read() && $z->name !== 'Классификатор');
-                $xml = new SimpleXMLElement($z->readOuterXML());
-                $z->close();
+//            if (!isset($_SESSION['last_1c_imported_product_num'])) {
+//                $z = new XMLReader;
+//                $z->open(__DIR__ . '/' . $dir . $filename);
+//                while ($z->read() && $z->name !== 'Классификатор');
+//                $xml = new SimpleXMLElement($z->readOuterXML());
+//                $z->close();
                 //import_categories($xml);
                 //import_features($xml);
-            }
+//            }
 
             $z = new XMLReader;
             $z->open($dir . $filename);

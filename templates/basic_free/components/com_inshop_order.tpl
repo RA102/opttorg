@@ -24,27 +24,53 @@
                         </script>
                         <div class="table-responsive1 small">
                             <table cellpadding="0" cellspacing="0" border="0" class="d_table table table-bordered">
-                                {foreach key=num item=dtype from=$delivery_types}
-                                    <tr>
-                                        <td width="30" class="btop">
-                                            <input type="radio" id="d_type{$num}" name="d_type" value="{$dtype.id}" onclick="calcSumm({$dtype.price});" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==$dtype.id}checked="checked"{/if}{/if} />
-                                        </td>
-                                        <td class="btop">
+                                <tr>
+                                    <td width="30" class="btop">
+                                        <input type="radio" id="d_type4" name="d_type" value="4" />
+                                    </td>
+                                    <td class="btop">
                                             <span class="d_price pull-right">
+                                            </span>
+                                        <span class="d_type">
+                                                <label for="d_type4">Доставка Караганда, Абай, Сарань</label>
+                                            </span>
+                                        <div></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="30" class="btop">
+                                        <input type="radio" id="d_type5" name="d_type" value="5" />
+                                    </td>
+                                    <td class="btop">
+                                            <span class="d_price pull-right">
+                                            </span>
+                                        <span class="d_type">
+                                                <label for="d_type4">Самовывоз</label>
+                                            </span>
+                                        <div></div>
+                                    </td>
+                                </tr>
+{*                                {foreach key=num item=dtype from=$delivery_types}*}
+{*                                    <tr>*}
+{*                                        <td width="30" class="btop">*}
+{*                                            <input type="radio" id="d_type{$num}" name="d_type" value="{$dtype.id}" onclick="calcSumm({$dtype.price});" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==$dtype.id}checked="checked"{/if}{/if} />*}
+{*                                        </td>*}
+{*                                        <td class="btop">*}
+{*                                            <span class="d_price pull-right">*}
 {*                                                {if $dtype.price}*}
 {*                                                    {$dtype.price}*}
 {*                                                    {$cfg.currency}*}
 {*                                                {else}*}
 {*                                                    {$LANG.SHOP_FREE}*}
 {*                                                {/if}*}
-                                            </span>
-                                            <span class="d_type">
-                                                <label for="d_type{$num}">{$dtype.title}</label>
-                                            </span>
-                                            <div>{$dtype.description}</div>
-                                        </td>
-                                    </tr>
-                                {/foreach}
+{*                                            </span>*}
+{*                                            <span class="d_type">*}
+{*                                                <label for="d_type{$num}">{$dtype.title}</label>*}
+{*                                            </span>*}
+{*                                            <div>{$dtype.description}</div>*}
+{*                                        </td>*}
+{*                                    </tr>*}
+{*                                {/foreach}*}
 {*                                <tr>*}
 {*                                    <td width="30" class="btop">*}
 {*                                        <input type="radio" id="d_type101" name="d_type" value="100" onclick="calcSumm(0);" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==100}checked="checked"{/if}{/if}/>*}
@@ -65,14 +91,14 @@
                                     </td>
                                     <td class="btop">
                                         <span class="d_price pull-right">
-{*                                            <a id="cost_delivery" href="/dostavka.html" target="_blank">Cтоимость доставки</a>*}
-                                            <button id="cost_delivery" class="btn btn-success">Стоимость доставки</button>
+                                            <a id="" href="/dostavka.html" target="_blank">Cтоимость доставки</a>
+{*                                            <button id="cost_delivery" class="btn btn-success">Стоимость доставки</button>*}
                                         </span>
                                         <span class="d_type">
                                             <label for="d_type100">Доставка по Казахстану</label>
                                         </span>
 
-                                        <div>Доставка по Казахстану осуществляется сторонней компанией, поэтому, для выяснения точной стоимости, вам необходимо оформить заказ, а затем дождаться ответа нашего оператора.</div>
+{*                                        <div>Доставка по Казахстану осуществляется сторонней компанией, поэтому, для выяснения точной стоимости, вам необходимо оформить заказ, а затем дождаться ответа нашего оператора.</div>*}
                                     </td>
                                 </tr>
                             </table>

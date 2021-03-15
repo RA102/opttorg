@@ -1537,6 +1537,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $item['price'] = $inCore->request('price', 'str', '0');
             $item['minsumm'] = $inCore->request('minsumm', 'str', '0');
             $item['freesumm'] = $inCore->request('freesumm', 'str', '0');
+            $item['category_id'] = nl2br($inCore->request('idCategoriesThatDeliveryWorksWith', 'str'));
 
             $model->updateDelivery($id, $item);
 
@@ -3863,6 +3864,9 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 <tr>
                     <td>
                         <abbr title="Введите id категорий с которыми работет эта ТК">Указать категории</abbr>
+                    </td>
+                    <td>
+                        <textarea class="form-control" name="idCategoriesThatDeliveryWorksWith" rows="3"><?php echo htmlspecialchars($mod['category_id']); ?></textarea>
                     </td>
                 </tr>
             </table>

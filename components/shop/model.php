@@ -2485,7 +2485,8 @@ class cms_model_shop
                     minsumm = '{$item['minsumm']}',
                     freesumm = '{$item['freesumm']}',
                     price = '{$item['price']}',
-                    nofree = '{$item['nofree']}'
+                    nofree = '{$item['nofree']}',
+                    category_id = '{$item['category_id']}'
                 WHERE id = $id
                 LIMIT 1";
         $this->inDB->query($sql);
@@ -3227,11 +3228,11 @@ class cms_model_shop
                         minsumm,
                         freesumm,
                         price,
-                        nofree
+                        nofree,
+                        category_id
 
                 FROM cms_shop_delivery
-                WHERE published=1 AND minsumm <= {$totalsumm}
-                ORDER BY price ASC";
+                WHERE published=1";
 
         $result = $this->inDB->query($sql);
 
