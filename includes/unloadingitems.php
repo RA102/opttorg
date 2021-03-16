@@ -1,12 +1,19 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 'on');
+ini_set('error_log', __DIR__ . '/../log/error_unloadingitems_.log');
 
 if (!defined('PATH')) {
     define('PATH', $_SERVER['DOCUMENT_ROOT']);
 }
-define('VALID_CMS', 1);
+if(!defined('VALID_CMS')) {
+    define('VALID_CMS', 1);
+}
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/core/cms.php';
-
+include_once __DIR__ .'/../core/cms.php';
+//error_reporting(E_ALL);
+//error_log('error_log', '/log/error_unloadingitems.log');
 
 $dir = '/cache/';
 $filename = 'import.xml';
@@ -34,13 +41,14 @@ if (file_exists( $_SERVER['DOCUMENT_ROOT'] . $dir . $filename)) {
     $z->close();
 
 } else {
+
     echo "Нет файла export.xml";
 }
 
 
 function import_product($xml_product)
 {
-    $item = [];
+    $item = array();
 
     $artNo = (string)$xml_product->Артикул;
 

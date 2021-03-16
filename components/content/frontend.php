@@ -708,4 +708,8 @@ function content()
 
     }
 
+    if ($do == 'delivery') {
+        echo 'delivery';
+    }
+
 }

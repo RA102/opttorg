@@ -114,6 +114,18 @@ $(document).ready(function(event) {
     $('#cost_delivery').on('click', function(event) {
         event.preventDefault();
 
+        $.ajax({
+            url: '/shop/list-cities',
+            type: 'POST',
+            success: function(data) {
+                console.log(this)
+                data.data.forEach(function(value, index) {
+                    $('.selectpicker').append(`<option data-tokens="${value}" style="max-width: 100%; overflow: hidden;">${value}</option>`);
+                })
+                $('.selectpicker').selectpicker('refresh');
+            }
+        })
+
         // $.ajax({
         //     type: "POST",
         //     url: "https://jet7777.ru/cabinet/api/calc_transport",
@@ -134,22 +146,26 @@ $(document).ready(function(event) {
         //         console.log(data);
         //     }
         // })
-        let settings = {
-            "url": "https://jet7777.ru/cabinet/api/calc_transport",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-                "contentType": "application/json",
-                "Access-Control-Allow-Origin": "*"
-            },
-            "data": JSON.stringify({"access_token":"$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy","cityfrom":"Караганды","cityto":"Нур-Султан","ves":5,"obm3":3,"dlina":120,"mest":1,"cost":15000,"naimenovanie":"САНТЕХНИКА","dops":{"D_HARDPACK":1,"D_EP":0,"D_PB":0,"D_VPP":0,"D_SP":0,"D_SDOC":0,"D_EK":0}}),
-        };
-
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-        });
+        // let settings = {
+        //     "url": "https://jet7777.ru/cabinet/api/calc_transport",
+        //     "method": "POST",
+        //     "timeout": 0,
+        //     "headers": {
+        //         "contentType": "application/json",
+        //         "Access-Control-Allow-Origin": "*"
+        //     },
+        //     "data": JSON.stringify({"access_token":"$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy","cityfrom":"Караганды","cityto":"Нур-Султан","ves":5,"obm3":3,"dlina":120,"mest":1,"cost":15000,"naimenovanie":"САНТЕХНИКА","dops":{"D_HARDPACK":1,"D_EP":0,"D_PB":0,"D_VPP":0,"D_SP":0,"D_SDOC":0,"D_EK":0}}),
+        // };
+        //
+        // $.ajax(settings).done(function (response) {
+        //     console.log(response);
+        // });
 
     });
+
+    $("input[name*='city']").on('input', function() {
+        return
+    })
 
 })
 

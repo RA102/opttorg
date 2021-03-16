@@ -33,9 +33,7 @@ $this->addHeadCSS('includes/jquery/colorbox/colorbox.css');
 $this->addHeadJS('includes/jquery/colorbox/init_colorbox.js');
 $this->addHeadJS('components/registration/js/check.js');
 $this->addHeadJS('components/shop/js/delivery.js');
-
-
-
+$this->addHeadJS('templates/' . TEMPLATE . '/js/popper.min.js');
 
 
 // LANG фразы для colorbox

@@ -91,8 +91,11 @@
                                     </td>
                                     <td class="btop">
                                         <span class="d_price pull-right">
-                                            <a id="" href="/dostavka.html" target="_blank">Cтоимость доставки</a>
-{*                                            <button id="cost_delivery" class="btn btn-success">Стоимость доставки</button>*}
+{*                                            <a id="" href="/dostavka.html" target="_blank">Cтоимость доставки</a>*}
+{*                                            <a id="" href="/content/delivery.html" target="_blank">Cтоимость доставки</a>*}
+
+                                            <button id="cost_delivery" class="btn btn-success" data-toggle="modal" data-target="#deliveryModal">Стоимость доставки</button>
+
                                         </span>
                                         <span class="d_type">
                                             <label for="d_type100">Доставка по Казахстану</label>
@@ -212,61 +215,25 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="delivery-modal" tabindex="-1" role="dialog" aria-labelledby="deliveryLabel" aria-hidden="true">
+<div class="modal fade" id="deliveryModal" tabindex="-1" role="dialog" aria-labelledby="deliveryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deliveryLabel">Доставка</h5>
+                <h5 class="modal-title" id="deliveryModalLabel">Стоимость доставки</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="post">
+                <div class="col-lg-12">
                     <div class="form-group">
-                        <label class="text-dark" for="country">Страна</label>
-                        <select id="country" class="form-control" name="country" disabled>
-                            <option value="KZ" selected>Казахстан</option>
-                        </select>
+                        <select class="selectpicker form-control" data-live-search="true" data-width="100%" data-container="body" data-size="10" title="Choose city..."></select>
                     </div>
-                    <select id="origin_id" class="" name="origin_id" hidden>
-                        <option value="27" selected>Караганда</option>
-                    </select>
-
-                    <div class="form-group ">
-                        <label class="text-dark" for="city">Пункт Б</label>
-                        <div class="position-relative">
-                            <input id="destination_id" class="form-control" type="search" autocomplete="off" required>
-                            <ul id="listCity" class="text-muted position-absolute bg-white d-none" role="listbox"></ul>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="text-dark" for="country">Услуга</label>
-                        <select id="deliveryMethod" class="form-control" name="deliveryMethod">
-                            <option value="express">Экспресс</option>
-                            <option value="standard" selected>Стандарт</option>
-                        </select>
-                    </div>
-
-                    <div id="params" class="d-none">
-                    {foreach name=outer from=$itemsParams item=itemParam}
-                        {foreach name=inner from=$itemParam item=item}
-                            <input type="number" name="itemParam[]"
-                                   data-width="{$item.width}"
-                                   data-height="{$item.height}"
-                                   data-depth="{$item.depth}"
-                                   data-weight="{$item.weight}"
-                                   hidden
-                            >
-                        {/foreach}
-                    {/foreach}
-                    </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
-                <button id="btn-calculate-delivery" type="button" class="btn btn-primary">Посчитать</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Посчитать</button>
             </div>
         </div>
     </div>

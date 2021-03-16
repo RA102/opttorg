@@ -27,6 +27,8 @@ function routes_shop()
 
     $routes[] = array('_uri' => '/^shop\/vendors.html$/i', 'do' => 'vendors');
 
+    $routes[] = array('_uri' => '/^shop\/list\-cities$/i', 'do' => 'list_cities');
+
     $routes[] = array('_uri' => '/^shop\/vendors\/([0-9]+)$/i', 'do' => 'view_vendor', 1 => 'vendor_id');
 
     $routes[] = array('_uri' => '/^shop\/vendors\/([0-9]+)\/page\-([0-9]+)$/i', 'do' => 'view_vendor', 1 => 'vendor_id', 2 => 'page');

@@ -59,6 +59,11 @@
                             2           => 'page'
                          );
 
+        $routes[] = [
+            '_uri'      => '/^content\/delivery.html$/i',
+            'do'        => 'delivery',
+        ];
+
         $routes[] = array(
                             '_uri'      => '/^content\/(.+).html$/i',
                             'do'        => 'read',
@@ -73,10 +78,11 @@
                          );
 
         $routes[] = array(
-                            '_uri'      => '/^content\/(.*)$/i',
-                            'do'        => 'view',
-                            1           => 'seolink'
-                         );
+            '_uri'      => '/^content\/(.*)$/i',
+            'do'        => 'view',
+            1           => 'seolink'
+        );
+
 
 
 

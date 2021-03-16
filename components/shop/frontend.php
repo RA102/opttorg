@@ -1561,4 +1561,14 @@ function shop()
 //============================================================================//
 //============================================================================//
 
+
+    if ($do == 'list_cities') {
+        $inPage->setRequestIsAjax();
+
+        $data = file_get_contents(PATH . DIRECTORY_SEPARATOR . 'listCity.csv');
+        $listCities = explode("\r\n", $data);
+
+        cmsCore::jsonOutput(array('error' => false,'data'  => $listCities));
+    }
+
 }
