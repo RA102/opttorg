@@ -169,7 +169,7 @@
 
             <div style="font-size:24px;line-height:32px;" >
                 <strong>Стоимость доставки: </strong>
-                <span id="sumDelivery"></span>
+                <span id="sumDelivery">{$response.result}</span>
             </div>
             <div class="pull-left result-clearfix" style="font-size:24px;line-height:32px;">
                 <strong>К оплате:</strong> <span id="result">
@@ -217,24 +217,26 @@
 <!-- Modal -->
 <div class="modal fade" id="deliveryModal" tabindex="-1" role="dialog" aria-labelledby="deliveryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <form id="formDelivery" class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deliveryModalLabel">Стоимость доставки</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="col-lg-12">
-                    <div class="form-group">
-                        <select class="selectpicker form-control" data-live-search="true" data-width="100%" data-container="body" data-size="10" title="Choose city..."></select>
+            <form action="/shop/order.html" method="post" >
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <select name="city" class="selectpicker form-control" data-live-search="true" data-width="100%" data-container="body" data-size="10" title="Choose city..."></select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary">Посчитать</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Посчитать</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
