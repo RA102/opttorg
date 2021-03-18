@@ -863,92 +863,47 @@ function shop()
 
         $city = $inCore->request('city', "str");
         $response = null;
-        $sumDelivery = null;
+        $sumDelivery = 0;
+        $volume = 0;
+        define('SENTIMETER', 100);
 
-        if(!empty($city)) {
+        if (!empty($city)) {
 
             foreach ($items as $index => $item) {
-                if ((int)$item['category_id'] == 11059 || (int)$item['category_id'] == 10510 || (int)$item['category_id'] == 11012 || (int)$item['category_id'] == 11013 || (int)$item['category_id'] == 11014 ||
-                    (int)$item['category_id'] == 11015 || (int)$item['category_id'] == 11016 || (int)$item['category_id'] == 1036 || (int)$item['category_id'] == 1037 || (int)$item['category_id'] == 1065 ||
-                    (int)$item['category_id'] == 1067 || (int)$item['category_id'] == 1069 || (int)$item['category_id'] == 10956 || (int)$item['category_id'] == 11035 || (int)$item['category_id'] == 10954 ||
-                    (int)$item['category_id'] == 11040
-                ) {
-                    $sumDelivery += 1580;
-
+                if ((int)$item['category_id'] == 11059 || (int)$item['category_id'] == 10510 || (int)$item['category_id'] == 11012 || (int)$item['category_id'] == 11013 || (int)$item['category_id'] == 11014 || (int)$item['category_id'] == 11015 || (int)$item['category_id'] == 11016 || (int)$item['category_id'] == 1036 || (int)$item['category_id'] == 1037 || (int)$item['category_id'] == 1065 || (int)$item['category_id'] == 1067 || (int)$item['category_id'] == 1069 || (int)$item['category_id'] == 10956 || (int)$item['category_id'] == 11035 || (int)$item['category_id'] == 10954 || (int)$item['category_id'] == 11040) {
+                    $sumDelivery += 1580 * $item['cart_qty'];
                 } else {
 
-                    $item['id'];
+                    foreach ($paramsItems as $key => $paramsItem) {
 
+                        foreach ($paramsItem as $value) {
+
+                            $volume += (float)($value['width'] / SENTIMETER) * ($value['height'] / SENTIMETER) * ($value['depth'] / SENTIMETER);
+                            $tmp = max($value['width'], $value['height'], $value['depth']) / SENTIMETER;
+                            $isLongest = $isLongest < $tmp ? $tmp : $isLongest;
+                            $weight += $value['weight'];
+                        }
+                        $postField = ["access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy', "cityfrom" => "Караганды-(Карагандинская область)", "cityto" => $city, "ves" => $weight, "obm3" => $volume, "dlina" => $isLongest, "mest" => count($paramsItem), "cost" => $item['price'], "naimenovanie" => "САНТЕХНИКА", "dops" => ["D_HARDPACK" => 1, "D_EP" => 0, "D_PB" => 0, "D_VPP" => 0, "D_SP" => 0, "D_SDOC" => 0, "D_EK" => 0]];
+
+                        $curl = curl_init();
+
+                        curl_setopt_array($curl, [CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport', CURLOPT_RETURNTRANSFER => true, CURLOPT_ENCODING => '', CURLOPT_MAXREDIRS => 10, CURLOPT_TIMEOUT => 0, CURLOPT_FOLLOWLOCATION => true, CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE), CURLOPT_HTTPHEADER => ['contentType: application/json; charset=UTF-8', 'Content-Type: application/json; charset=UTF-8',],]);
+
+                        $rawResponse = curl_exec($curl);
+
+                        curl_close($curl);
+
+                        $response = json_decode($rawResponse, true);
+
+                        $sumDelivery += ($response['result']['price_zabor'] + $response['result']['price_terminal'] + $response['result']['price_delivery'] + $response['result']['price_dop']) * $item['cart_qty'];
+                    }
                 }
-//                switch ((int)$item['category_id']) {
-//                    case 11059:
-//                    case 10510:
-//                    case 11012:
-//                    case 11013:
-//                    case 11014:
-//                    case 11015:
-//                    case 11016:
-//                    case 1036:
-//                    case 1037:
-//                    case 1065:
-//                    case 1067:
-//                    case 1069:
-//                    case 10956:
-//                    case 11035:
-//                    case 10954:
-//                    case 11040: 
-//                        $sumDelivery += 1580;
-//                        break;
-//                    default:
-//
-//                }
             }
 
-            $postField = [
-                "access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
-                "cityfrom" => "Караганды",
-                "cityto" => $city,
-                "ves" => 5,
-                "obm3" => 3,
-                "dlina" => 120,
-                "mest" => 1,
-                "cost" => 15000,
-                "naimenovanie" => "САНТЕХНИКА",
-                "dops" => [
-                    "D_HARDPACK" => 1,
-                    "D_EP" => 0,
-                    "D_PB" => 0,
-                    "D_VPP" => 0,
-                    "D_SP" => 0,
-                    "D_SDOC" => 0,
-                    "D_EK" => 0
-                ]
-            ];
-
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE),
-                CURLOPT_HTTPHEADER => array(
-                    'contentType: application/json; charset=UTF-8',
-                    'Content-Type: application/json; charset=UTF-8',
-                ),
-            ));
-
-            $rawResponse = curl_exec($curl);
-
-            curl_close($curl);
-
-            $response = json_decode($rawResponse, true);
+            $delivery_types[7]['price'] = $sumDelivery;
         }
+
+
 
         //передаем все в шаблон
         $smarty = cmsPage::initTemplate('components', 'com_inshop_order.tpl');
@@ -962,7 +917,7 @@ function shop()
         $smarty->assign('items', $items);
         $smarty->assign('itemsParams', $paramsItems);
         $smarty->assign('delivery_types', $delivery_types);
-        $smarty->assign('response',$response);
+        $smarty->assign('sumDelivery',$sumDelivery);
         $smarty->assign('discount_size', $discount_size);
         $smarty->assign('totalsumm', round($totalsumm, 0));
         $smarty->assign('last_url', $_SESSION['inshop_last_url']);

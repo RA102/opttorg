@@ -158,9 +158,6 @@
                                     <input type="email" id="customer_email" name="customer_email" class="form-control" value="{$order.customer_email}" placeholder="mail@mail.com"/>
                                 </td>
                             </tr>
-
-                            {*            {$delivery_types|@var_dump}*}
-
                         </table>
                     </div>
                 </div>
@@ -169,19 +166,14 @@
 
             <div style="font-size:24px;line-height:32px;" >
                 <strong>Стоимость доставки: </strong>
-                <span id="sumDelivery">{$response.result}</span>
+                <span id="sumDelivery">{$sumDelivery}</span>
             </div>
             <div class="pull-left result-clearfix" style="font-size:24px;line-height:32px;">
                 <strong>К оплате:</strong> <span id="result">
-                <span id="resultsumm">                    
+                <span id="resultsumm">
+                    {$totalsumm}<span> + </span> {$sumDelivery} <span> = </span>{$totalsumm+$sumDelivery}
                     {if !$order}
-                        {if $delivery_types}
-                            {$totalsumm+$delivery_types[0].price}
-                        {else}
-                            {$totalsumm}
-                        {/if}
-                    {else}
-                        {$order.summ}
+
                     {/if}
                 </span> 
                 {$cfg.currency}
@@ -217,14 +209,14 @@
 <!-- Modal -->
 <div class="modal fade" id="deliveryModal" tabindex="-1" role="dialog" aria-labelledby="deliveryModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form id="formDelivery" class="modal-content">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deliveryModalLabel">Стоимость доставки</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/shop/order.html" method="post" >
+            <form id="formDelivery" method="post" action="/shop/order.html"  >
                 <div class="modal-body">
                     <div class="col-lg-12">
                         <div class="form-group">

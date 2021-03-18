@@ -118,10 +118,11 @@ $(document).ready(function(event) {
             url: '/shop/list-cities',
             type: 'POST',
             success: function(data) {
-                console.log(this)
+                $('.selectpicker').empty();
                 data.data.forEach(function(value, index) {
-                    $('.selectpicker').append(`<option data-tokens="${value}" style="max-width: 100%; overflow: hidden;">${value}</option>`);
+                    $('.selectpicker').append(`<option data-tokens="${value}" style="width: 100%; overflow: hidden;">${value}</option>`);
                 })
+                $('.selectpicker').selectpicker('render');
                 $('.selectpicker').selectpicker('refresh');
             }
         })
@@ -164,8 +165,6 @@ $(document).ready(function(event) {
     //     });
     //
     // })
-
-
 })
 
 $.fn.justtext = function() {
