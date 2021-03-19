@@ -15384,6 +15384,10 @@ input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
     font-size: 16px;
 }
 
+.d_table td {
+    vertical-align: middle;
+}
+
 /*  /cart  */
 
 

@@ -25,10 +25,10 @@
                         <div class="table-responsive1 small">
                             <table cellpadding="0" cellspacing="0" border="0" class="d_table table table-bordered">
                                 <tr>
-                                    <td width="30" class="btop">
+                                    <td width="30" class="" valign="middle">
                                         <input type="radio" id="d_type4" name="d_type" value="4" />
                                     </td>
-                                    <td class="btop">
+                                    <td class="">
                                             <span class="d_price pull-right">
                                             </span>
                                         <span class="d_type">
@@ -38,7 +38,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td width="30" class="btop">
+                                    <td width="30" class="" valign="middle">
                                         <input type="radio" id="d_type5" name="d_type" value="5" />
                                     </td>
                                     <td class="btop">
@@ -85,20 +85,19 @@
 {*                                        <ul id="costDelivery"></ul>*}
 {*                                    </td>*}
 {*                                </tr>*}
+
                                 <tr>
-                                    <td width="30" class="btop">
+                                    <td width="30" class="" valign="middle">
                                         <input type="radio" id="d_type100" name="d_type" value="100" onclick="calcSumm(0);" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==100}checked="checked"{/if}{/if}/>
                                     </td>
                                     <td class="btop">
                                         <span class="d_price pull-right">
 {*                                            <a id="" href="/dostavka.html" target="_blank">Cтоимость доставки</a>*}
 {*                                            <a id="" href="/content/delivery.html" target="_blank">Cтоимость доставки</a>*}
-
-                                            <button id="cost_delivery" class="btn btn-success" data-toggle="modal" data-target="#deliveryModal">Стоимость доставки</button>
-
+                                            <label for="d_type100">Доставка по Казахстану</label>
                                         </span>
                                         <span class="d_type">
-                                            <label for="d_type100">Доставка по Казахстану</label>
+                                            <button id="cost_delivery" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#deliveryModal">Стоимость доставки</button>
                                         </span>
 
 {*                                        <div>Доставка по Казахстану осуществляется сторонней компанией, поэтому, для выяснения точной стоимости, вам необходимо оформить заказ, а затем дождаться ответа нашего оператора.</div>*}
@@ -193,6 +192,9 @@
         <p><a href="{$last_url}" class="btn btn-not-main">&larr; Назад в магазин</a></p>
     {/if}
 </div>
+{foreach from=$items item=$item }
+    {$item}
+{/foreach}
 {literal}
     <script type="text/javascript">
         $(function() {
@@ -220,7 +222,8 @@
                 <div class="modal-body">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <select name="city" class="selectpicker form-control" data-live-search="true" data-width="100%" data-container="body" data-size="10" title="Choose city..."></select>
+                            <span class="text-muted d-block text-center py-3">Куда:</span>
+                            <select name="city" class="selectpicker form-control" data-live-search="true" data-width="100%" data-container="body" data-size="10" title="Выбрать город..."></select>
                         </div>
                     </div>
                 </div>
