@@ -1,6 +1,5 @@
 <h1 class="con_heading"><span>{$LANG.SHOP_START_ORDER}</span></h1>
 <script src="/templates/basic_free/js/jquery.maskedinput.min.js"></script>
-<script scr="/templates/basic_free/js/delivery.js"></script>
 <div style="background:#fff;padding:15px;margin-bottom:20px;">
     {if $items}
         <form id="mainFormDelivery" action="/shop/payment.html" method="post">
@@ -24,83 +23,33 @@
                         </script>
                         <div class="table-responsive1 small">
                             <table cellpadding="0" cellspacing="0" border="0" class="d_table table table-bordered">
-                                <tr>
-                                    <td width="30" class="" valign="middle">
-                                        <input type="radio" id="d_type4" name="d_type" value="4" />
-                                    </td>
-                                    <td class="">
+                                {foreach from=$delivery_types item=typeDelivery}
+                                    <tr>
+                                        <td width="30" class="" valign="middle">
+                                            <input type="radio" id="d_type{$typeDelivery.id}" name="d_type" value="{$typeDelivery.id}" {if $d_type != 6} checked {/if}/>
+                                        </td>
+                                        <td class="">
                                             <span class="d_price pull-right">
                                             </span>
-                                        <span class="d_type">
-                                                <label for="d_type4">Доставка Караганда, Абай, Сарань</label>
+                                            <span class="d_type">
+                                                <label for="d_type{$typeDelivery.id}">{$typeDelivery.title}</label>
                                             </span>
-                                        <div></div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td width="30" class="" valign="middle">
-                                        <input type="radio" id="d_type5" name="d_type" value="5" />
-                                    </td>
-                                    <td class="btop">
-                                            <span class="d_price pull-right">
-                                            </span>
-                                        <span class="d_type">
-                                                <label for="d_type4">Самовывоз</label>
-                                            </span>
-                                        <div></div>
-                                    </td>
-                                </tr>
-{*                                {foreach key=num item=dtype from=$delivery_types}*}
-{*                                    <tr>*}
-{*                                        <td width="30" class="btop">*}
-{*                                            <input type="radio" id="d_type{$num}" name="d_type" value="{$dtype.id}" onclick="calcSumm({$dtype.price});" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==$dtype.id}checked="checked"{/if}{/if} />*}
-{*                                        </td>*}
-{*                                        <td class="btop">*}
-{*                                            <span class="d_price pull-right">*}
-{*                                                {if $dtype.price}*}
-{*                                                    {$dtype.price}*}
-{*                                                    {$cfg.currency}*}
-{*                                                {else}*}
-{*                                                    {$LANG.SHOP_FREE}*}
-{*                                                {/if}*}
-{*                                            </span>*}
-{*                                            <span class="d_type">*}
-{*                                                <label for="d_type{$num}">{$dtype.title}</label>*}
-{*                                            </span>*}
-{*                                            <div>{$dtype.description}</div>*}
-{*                                        </td>*}
-{*                                    </tr>*}
-{*                                {/foreach}*}
-{*                                <tr>*}
-{*                                    <td width="30" class="btop">*}
-{*                                        <input type="radio" id="d_type101" name="d_type" value="100" onclick="calcSumm(0);" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==100}checked="checked"{/if}{/if}/>*}
-{*                                    </td>*}
-{*                                    <td class="btop">*}
-{*                                        <span class="d_price pull-right">*}
-{*                                            <button id="delivery-modal-active-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#delivery-modal">*}
-{*                                                Стоимость доставки*}
-{*                                            </button>*}
-{*                                            <span class="d_type"><label for="d_type100">Exline</label></span>*}
-{*                                        </span>*}
-{*                                        <ul id="costDelivery"></ul>*}
-{*                                    </td>*}
-{*                                </tr>*}
+                                            <div></div>
+                                        </td>
+                                    </tr>
+
+                                {/foreach}
 
                                 <tr>
-                                    <td width="30" class="" valign="middle">
-                                        <input type="radio" id="d_type100" name="d_type" value="100" onclick="calcSumm(0);" {if !$order}{if $num==0}checked="checked" {/if}{else}{if $order.d_type==100}checked="checked"{/if}{/if}/>
+                                    <td width="30" class="btop">
+                                        <input type="radio" id="d_type6" name="d_type" value="6" data-toggle="modal" data-target="#deliveryModal" {if $d_type==6}checked {/if}/>
                                     </td>
                                     <td class="btop">
                                         <span class="d_price pull-right">
-{*                                            <a id="" href="/dostavka.html" target="_blank">Cтоимость доставки</a>*}
-{*                                            <a id="" href="/content/delivery.html" target="_blank">Cтоимость доставки</a>*}
-                                            <label for="d_type100">Доставка по Казахстану</label>
+                                            <span>Доставка по Казахстану</span>
+{*                                            <a href="#" id="cost_delivery" class="text-warning stretched-link" data-toggle="modal" data-target="#deliveryModal">Стоимость доставки</a>*}
+{*                                            <a id="cost_delivery" href="/dostavka.html" target="_blank">Cтоимость доставки</a>*}
                                         </span>
-                                        <span class="d_type">
-                                            <button id="cost_delivery" class="btn btn-outline-primary btn-block" data-toggle="modal" data-target="#deliveryModal">Стоимость доставки</button>
-                                        </span>
-
-{*                                        <div>Доставка по Казахстану осуществляется сторонней компанией, поэтому, для выяснения точной стоимости, вам необходимо оформить заказ, а затем дождаться ответа нашего оператора.</div>*}
                                     </td>
                                 </tr>
                             </table>
@@ -157,6 +106,9 @@
                                     <input type="email" id="customer_email" name="customer_email" class="form-control" value="{$order.customer_email}" placeholder="mail@mail.com"/>
                                 </td>
                             </tr>
+
+                            {*            {$delivery_types|@var_dump}*}
+
                         </table>
                     </div>
                 </div>
@@ -166,17 +118,31 @@
             <div style="font-size:24px;line-height:32px;" >
                 <strong>Стоимость доставки: </strong>
                 <span id="sumDelivery">{$sumDelivery}</span>
+                {$cfg.currency}
+                <input type="text" name="price_delivery" value="{$sumDelivery}" hidden>
+            </div>
+            <div style="font-size:24px;line-height:32px;" >
+                <strong>Стоимость покупки: </strong>
+                <span>{$totalsumm}</span>
+                {$cfg.currency}
             </div>
             <div class="pull-left result-clearfix" style="font-size:24px;line-height:32px;">
-                <strong>К оплате:</strong> <span id="result">
-                <span id="resultsumm">
-                    {$totalsumm}<span> + </span> {$sumDelivery} <span> = </span>{$totalsumm+$sumDelivery}
-                    {if !$order}
-
-                    {/if}
-                </span> 
-                {$cfg.currency}
-            </span>
+                <strong>К оплате:</strong>
+                <span id="result">
+                    <span id="resultsumm">
+                        {$totalsumm+$sumDelivery}
+    {*                    {if !$order}*}
+    {*                        {if $delivery_types}*}
+    {*                            {$totalsumm+$delivery_types[0].price}*}
+    {*                        {else}*}
+    {*                            {$totalsumm}*}
+    {*                        {/if}*}
+    {*                    {else}*}
+    {*                        {$order.summ}*}
+    {*                    {/if}*}
+                    </span>
+                    {$cfg.currency}
+                </span>
             </div>
 
             <div class="pull-right">
@@ -192,9 +158,6 @@
         <p><a href="{$last_url}" class="btn btn-not-main">&larr; Назад в магазин</a></p>
     {/if}
 </div>
-{foreach from=$items item=$item }
-    {$item}
-{/foreach}
 {literal}
     <script type="text/javascript">
         $(function() {
@@ -222,8 +185,7 @@
                 <div class="modal-body">
                     <div class="col-lg-12">
                         <div class="form-group">
-                            <span class="text-muted d-block text-center py-3">Куда:</span>
-                            <select name="city" class="selectpicker form-control" data-live-search="true" data-width="100%" data-container="body" data-size="10" title="Выбрать город..."></select>
+                            <select name="city" class="selectpicker form-control" data-live-search="true" data-width="100%" data-container="body" data-size="10" title="Choose city..."></select>
                         </div>
                     </div>
                 </div>

@@ -3230,7 +3230,6 @@ class cms_model_shop
                         price,
                         nofree,
                         category_id
-
                 FROM cms_shop_delivery
                 WHERE published=1";
 

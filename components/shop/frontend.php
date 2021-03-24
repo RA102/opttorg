@@ -865,7 +865,7 @@ function shop()
         $response = null;
         $sumDelivery = 0;
         $volume = 0;
-        define('SENTIMETER', 100);
+        define('CENTIMETERS_PER_METER', 100);
 
         if (!empty($city)) {
 
@@ -878,8 +878,8 @@ function shop()
 
                         foreach ($paramsItem as $value) {
 
-                            $volume += (float)($value['width'] / SENTIMETER) * ($value['height'] / SENTIMETER) * ($value['depth'] / SENTIMETER);
-                            $tmp = max($value['width'], $value['height'], $value['depth']) / SENTIMETER;
+                            $volume += (float)($value['width'] / CENTIMETERS_PER_METER) * ($value['height'] / CENTIMETERS_PER_METER) * ($value['depth'] / CENTIMETERS_PER_METER);
+                            $tmp = max($value['width'], $value['height'], $value['depth']) / CENTIMETERS_PER_METER;
                             $isLongest = $isLongest < $tmp ? $tmp : $isLongest;
                             $weight += $value['weight'];
                         }
@@ -899,8 +899,7 @@ function shop()
                     }
                 }
             }
-
-            $delivery_types[7]['price'] = $sumDelivery;
+            $d_type = 6;
         }
 
 
@@ -917,6 +916,7 @@ function shop()
         $smarty->assign('items', $items);
         $smarty->assign('itemsParams', $paramsItems);
         $smarty->assign('delivery_types', $delivery_types);
+        $smarty->assign('d_type', $d_type);
         $smarty->assign('sumDelivery',$sumDelivery);
         $smarty->assign('discount_size', $discount_size);
         $smarty->assign('totalsumm', round($totalsumm, 0));
@@ -1227,6 +1227,9 @@ function shop()
             $order_id = $_SESSION['orderid'];
         }
 
+        if ($order_id == null) {
+            return;
+        }
         $order = $model->getOrder($order_id);
 
         $order_items = $model->getCartItems($cfg);
@@ -1282,7 +1285,11 @@ function shop()
                 $showorders .= '<td>' . $item['price'] . ' kzt</td>';
                 $showorders .= '</tr>';
             }
-
+            $showorders .= '<tr>';
+            $showorders .= '<td>Стоимость доставки</td>';
+            $showorders .= '<td></td>';
+            $showorders .= '<td>'. $order['d_price'] .'</td>';
+            $showorders .= '</tr>';
             $showorders .= '</table>';
             $showorders .= '<div style="max-width:600px;margin-top:15px;font-size:18px;text-align:right;">Итого: ' . $order['summ'] . ' kzt</div>';
 

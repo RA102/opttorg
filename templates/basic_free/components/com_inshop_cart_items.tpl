@@ -9,7 +9,6 @@
         <div class="p-4 mr-3 bg-white cart-left--div" style="width: 760px;">{* col-md-7 col-lg-7 col-xl-7 *}
             <ul class="media-list cart_table">
                 {foreach key=num item=item from=$items}
-                    {$item.category_id|@var_dump}
                     {if $smarty.session.user.group_id==10}<!-- оптовик -->{$iprice=$item.opt}{else}<!-- все остальные -->{$iprice=$item.price}{/if}
                     <li class="media">
                         <div class="media-left">

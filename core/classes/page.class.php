@@ -122,7 +122,11 @@ public function setRequestIsAjax() {
  */
 public function addHead($tag){
 	if (!in_array($tag, $this->page_head)){
-        if($this->is_ajax) { echo $tag; } else { $this->page_head[] = $tag; }
+        if ($this->is_ajax) {
+            echo $tag;
+        } else {
+            $this->page_head[] = $tag;
+        }
     }
     return $this;
 }
@@ -138,6 +142,20 @@ public function addHeadJS($src){
 public function prependHeadJS($src){
     array_unshift($this->page_head, '<script type="text/javascript" src="/'.$src.'"></script>');
 	return $this;
+}
+
+
+// Сonnects all files in directory = $path
+public function autoIncludeFilesInDirectory($path)
+{
+    $scannedDirectory = scandir( PATH . $path);
+    $filesInDirectory = array_diff($scannedDirectory, ['..', '.']);
+    if ($filesInDirectory) {
+        foreach ($filesInDirectory as $item) {
+            array_push($this->page_head, '<script type="text/javascript" src=" '.$path. '/' .$item.'"></script>');
+        }
+    }
+    return $this;
 }
 
 /**

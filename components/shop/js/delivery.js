@@ -111,13 +111,14 @@ $(document).ready(function(event) {
         }
     })
 
-    $('#cost_delivery').on('click', function(event) {
+    $('#d_type6').on('click', function(event) {
         event.preventDefault();
 
         $.ajax({
             url: '/shop/list-cities',
             type: 'POST',
             success: function(data) {
+                console.log(data);
                 $('.selectpicker').empty();
                 data.data.forEach(function(value, index) {
                     $('.selectpicker').append(`<option data-tokens="${value}" style="width: 100%; overflow: hidden;">${value}</option>`);

@@ -14,28 +14,31 @@ $mod_count['accordeon'] = $this->countModules('accordeon');
 // подключаем jQuery и js ядра в самое начало
 $this->prependHeadJS('core/js/common.js');
 $this->prependHeadJS('includes/jquery/jquery.js');
-$this->prependHeadJS('templates/' . TEMPLATE . 'js/bootstrap-4.js');
+$this->addHeadJS('templates/' . TEMPLATE . '/js/popper.js');
+$this->addHeadJS('templates/' . TEMPLATE . '/js/jquery.cookie.js');
+$this->autoIncludeFilesInDirectory('/templates/'. TEMPLATE .'/js/autoload');
+//$this->addHeadJS('templates/' . TEMPLATE . '/js/bootstrap-4.js');
 // Подключаем стили шаблона
 $this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-4.css');
-//$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap.css');
+
 
 $this->addHeadCSS('templates/' . TEMPLATE . '/css/all.css?v=' . rand(10, 1000));
 
-//$this->addHeadCSS('templates/'.TEMPLATE.'/css/font-awesome.min.css');
-//$this->addHeadCSS('templates/'.TEMPLATE.'/css/responsive.css');
-//$this->addHeadCSS('templates/'.TEMPLATE.'/css/styles.css');
-//$this->addHeadCSS('templates/'.TEMPLATE.'/css/template.css');
+
+
+$this->addHeadJS('templates/' . TEMPLATE . '/js/bootstrap-select.js');
+
+
 
 // Подключаем colorbox (просмотр фото)
 $this->addHeadJS('templates/' . TEMPLATE . '/js/lib_timer.js');
 $this->addHeadJS('includes/jquery/colorbox/jquery.colorbox.js');
-$this->addHeadCSS('includes/jquery/colorbox/colorbox.css');
 $this->addHeadJS('includes/jquery/colorbox/init_colorbox.js');
 $this->addHeadJS('components/registration/js/check.js');
 $this->addHeadJS('components/shop/js/delivery.js');
-$this->addHeadJS('templates/' . TEMPLATE . '/js/popper.min.js');
+$this->addHeadJS('templates/'. TEMPLATE . '/js/custom.js');
 
-
+$this->addHeadCSS('includes/jquery/colorbox/colorbox.css');
 // LANG фразы для colorbox
 $this->addHeadJsLang(array('CBOX_IMAGE', 'CBOX_FROM', 'CBOX_PREVIOUS', 'CBOX_NEXT', 'CBOX_CLOSE', 'CBOX_XHR_ERROR', 'CBOX_IMG_ERROR', 'CBOX_SLIDESHOWSTOP', 'CBOX_SLIDESHOWSTART'));
 /*
@@ -153,7 +156,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             <script src="/templates/<?php echo TEMPLATE; ?>/js/html5shiv.js"></script>
             <script src="/templates/<?php echo TEMPLATE; ?>/js/respond.min.js"></script>
             <script src="/templates/<?php echo TEMPLATE; ?>/js/css3-mediaqueries.js"></script>
-<!--            <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.cookie.js"></script>-->
+<!--            <script src="/templates/--><?php //echo TEMPLATE; ?><!--/js/jquery.cookie.js"></script>-->
 
 
     <!-- Latest compiled and minified CSS -->
@@ -162,7 +165,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 
 
-            <link rel="stylesheet" href="/templates/<?php echo TEMPLATE; ?>/css/ie.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/templates/<?php echo TEMPLATE; ?>/css/ie.css" type="text/css" media="all" />
         <!-- [endif]-->
     <link rel="icon" type="image/svg" href="/images/favicon.svg"/>
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"/>
@@ -173,6 +176,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <!--    <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/custom.css" />-->
 
 <!--  Vuetify  -->
+
 
 <!--  /Vuetify -->
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
@@ -304,15 +308,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     </div>
                 </div>
                 <div class="d-none">
-                    <!--                    <div class="">-->
-                    <!--                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">-->
-                    <!--                            <span><span class="glyphicon glyphicon-list"></span> Каталог</span>-->
-                    <!--                        </button>-->
-                    <!--                    </div>-->
-                    <!--                    <div class="">-->
-                    <!--Ваш город<br />
-                    <a href="#" data-toggle="modal" data-target="#city_modal"><?php echo $gorod; ?> <span class="caret"></span></a>-->
-                    <!--                    </div>-->
                 </div>
 
                 <nav class="row d-none d-sm-none d-md-none d-lg-none d-xl-flex border-top justify-content-between">
@@ -641,13 +636,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         </a>
     </div>
 
-    <script src="/templates/<?php echo TEMPLATE; ?>/js/bootstrap-4.js"></script>
-    <script src="/templates/<?php echo TEMPLATE; ?>/js/bootstrap-select/js/bootstrap-select.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/truncatelines.js"></script>
-    <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.cookie.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.nicescroll.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.barrating.min.js"></script>
-    <!--    <script src="/templates/--><?php //echo TEMPLATE; ?><!--/js/vue.js"></script>-->
 
     <script>
         $(document).ready(function () {
@@ -706,22 +697,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             });
         });
     </script>
-<!--    <script>-->
-<!--         jQuery.colorbox.settings.maxWidth = '95%'; -->
-<!--         jQuery.colorbox.settings.maxHeight = '95%'; -->
-<!--         var resizeTimer;-->
-<!--         function resizeColorBox() {-->
-<!--             if (resizeTimer) clearTimeout(resizeTimer);-->
-<!--             resizeTimer = setTimeout(function () {-->
-<!--                 if (jQuery('#cboxOverlay').is(':visible')) {-->
-<!--                     jQuery.colorbox.load(true);-->
-<!--                 }-->
-<!--             }, 300);-->
-<!--         }-->
-<!---->
-<!--         jQuery(window).resize(resizeColorBox);-->
-<!--         window.addEventListener("orientationchange", resizeColorBox, false);-->
-<!--    </script> -->
 
     <noindex>
         <div class="modal fade" id="fil_modal" tabindex="-1" role="dialog" aria-labelledby="filModalLabel">
@@ -1058,8 +1033,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     });
 
 </script>
-
-
 
 </body>
 </html>
