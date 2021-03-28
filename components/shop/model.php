@@ -3392,6 +3392,18 @@ class cms_model_shop
 
     }
 
+    // wrapper для getPaymentSystems()
+    public function wrapperPaymentSystem($typeDelivery)
+    {
+        $paymentSystems = $this->getPaymentSystems();
+        if ($typeDelivery == 6) {
+            unset($paymentSystems['cash']);
+        }
+
+        return $paymentSystems;
+
+    }
+
     /* ==================================================================================================== */
     /* ==================================================================================================== */
 

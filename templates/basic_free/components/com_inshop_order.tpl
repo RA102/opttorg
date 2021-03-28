@@ -26,7 +26,7 @@
                                 {foreach from=$delivery_types item=typeDelivery}
                                     <tr>
                                         <td width="30" class="" valign="middle">
-                                            <input type="radio" id="d_type{$typeDelivery.id}" name="d_type" value="{$typeDelivery.id}" {if $d_type != 6} checked {/if}/>
+                                            <input type="radio" id="d_type{$typeDelivery.id}" name="d_type" value="{$typeDelivery.id}" {if $d_type == $typeDelivery.id} checked="checked" {/if} />
                                         </td>
                                         <td class="">
                                             <span class="d_price pull-right">
@@ -40,29 +40,29 @@
 
                                 {/foreach}
 
-                                <tr>
-                                    <td width="30" class="btop">
-                                        <input type="radio" id="d_type6" name="d_type" value="6" data-toggle="modal" data-target="#deliveryModal" {if $d_type==6}checked {/if}/>
-                                    </td>
-                                    <td class="btop">
-                                        <span class="d_price pull-right">
-                                            <span>Доставка по Казахстану</span>
+{*                                <tr>*}
+{*                                    <td width="30" class="btop">*}
+{*                                        <input type="radio" id="d_type6" name="d_type" value="6" data-toggle="modal" data-target="#deliveryModal" {if $d_type==6}checked {/if}/>*}
+{*                                    </td>*}
+{*                                    <td class="btop">*}
+{*                                        <span class="d_price pull-right">*}
+{*                                            <span>Доставка по Казахстану</span>*}
 {*                                            <a href="#" id="cost_delivery" class="text-warning stretched-link" data-toggle="modal" data-target="#deliveryModal">Стоимость доставки</a>*}
 {*                                            <a id="cost_delivery" href="/dostavka.html" target="_blank">Cтоимость доставки</a>*}
-                                        </span>
-                                    </td>
-                                </tr>
+{*                                        </span>*}
+{*                                    </td>*}
+{*                                </tr>*}
                             </table>
                         </div>
                     {/if}
 
-                    <script type="text/javascript">
-                        {literal}
-                        $(document).ready(function() {
-                            $(".d_table input:radio").eq(0).trigger("click");
-                        });
-                        {/literal}
-                    </script>
+{*                    <script type="text/javascript">*}
+{*                        {literal}*}
+{*                        $(document).ready(function() {*}
+{*                            $(".d_table input:radio").eq(0).trigger("click");*}
+{*                        });*}
+{*                        {/literal}*}
+{*                    </script>*}
 
                     <div class="small"></div>
                 </div>
@@ -164,9 +164,6 @@
             //2. Получить элемент, к которому необходимо добавить маску
             $("#customer_phone").mask("8 (999) 999 99 99");
         });
-
-        console.log($('input[name=d_type]:checked').val());
-
     </script>
 {/literal}
 

@@ -22,30 +22,6 @@ $(document).ready(function(event) {
         })
     });
 
-    $('#listCity').on('click', function(event) {
-        event.stopPropagation();
-
-        let target = $(event.target);
-
-        if (target.is('span')) {
-            let div = $(target).parent('div');
-            let id = $(div).data('id');
-            let text = $(div).justtext();
-
-            $('#destination_id').attr('data-city-id', id).val(text);
-            $('#listCity').addClass('d-none');
-
-        } else if (target.is('div')) {
-            let id = $(event.target).data('id');
-            let text = $(event.target).justtext();
-
-            $('#destination_id').attr('data-city-id', id).val(text);
-            $('#listCity').addClass('d-none');
-
-        }
-
-    })
-
     $('#btn-calculate-delivery').on('click', function(event) {
         let origin_id = $('.origin_id').val();
         let destination_id = $('#destination_id').attr('data-city-id');
@@ -112,7 +88,7 @@ $(document).ready(function(event) {
     })
 
     $('#d_type6').on('click', function(event) {
-        event.preventDefault();
+        $('#deliveryModal').modal(true);
 
         $.ajax({
             url: '/shop/list-cities',
@@ -129,43 +105,6 @@ $(document).ready(function(event) {
         })
     });
 
-    // $("#formDelivery").submit(function(event) {
-    //     event.preventDefault();
-        // $.ajax({
-        //     type: "POST",
-        //     url: "https://jet7777.ru/cabinet/api/calc_transport",
-        //     contentType: 'application/json',
-        //     data: {
-        //         "access_token": "$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy",
-        //         "cityfrom": "Караганды",
-        //         "cityto": "Нур-Султан",
-        //         "ves": 5,
-        //         "obm3": 3,
-        //         "dlina": 120,
-        //         "mest": 1,
-        //         "cost": 15000,
-        //         "naimenovanie": "САНТЕХНИКА",
-        //         "dops": { "D_HARDPACK": 1, "D_EP": 0, "D_PB": 0, "D_VPP": 0, "D_SP": 0, "D_SDOC": 0, "D_EK": 0}
-        //     },
-        //     success: function(data) {
-        //         console.log(data);
-        //     }
-        // })
-        // let settings = {
-        //     "url": "https://jet7777.ru/cabinet/api/calc_transport",
-        //     "method": "POST",
-        //     "timeout": 0,
-        //     "headers": {
-        //         "contentType": "application/json",
-        //     },
-        //     "data": JSON.stringify({"access_token":"$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy","cityfrom":"Караганды","cityto":"Нур-Султан","ves":5,"obm3":3,"dlina":120,"mest":1,"cost":15000,"naimenovanie":"САНТЕХНИКА","dops":{"D_HARDPACK":1,"D_EP":0,"D_PB":0,"D_VPP":0,"D_SP":0,"D_SDOC":0,"D_EK":0}}),
-        // };
-
-    //     $.ajax(settings).done(function (response) {
-    //         console.log(response);
-    //     });
-    //
-    // })
 })
 
 $.fn.justtext = function() {

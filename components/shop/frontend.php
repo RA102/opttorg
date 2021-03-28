@@ -744,7 +744,10 @@ function shop()
 
         // ---- ПОЛУЧАЕМ ФОРМЫ ПЛАТЕЖНЫХ СИСТЕМ ----
 
-        $p_systems = $model->getPaymentSystems();
+        define('ID_PAYMENT_ROBOCASSA', 8);
+
+        $p_systems = $model->wrapperPaymentSystem($d_type);  //$model->getPaymentSystems();
+
 
         if ($p_systems) {
             $inCore->includeFile('components/shop/payments/paysys.class.php');
@@ -759,7 +762,7 @@ function shop()
 
             $inCore->includeFile('components/shop/payments/' . $sys_id . '/' . $sys_id . '.php');
             $inCore->includeFile('components/shop/payments/' . $sys_id . '/info.php');
-            eval('$sys = new ps_' . $sys_id . '($order, $p_sys[\'config\']);');
+            eval('$sys = new ps_'.$sys_id.'($order, $p_sys[\'config\']);');
 
             if ($p_sys['config']['currency']) {
                 foreach ($p_sys['config']['currency'] as $currency => $kurs) {
@@ -771,7 +774,6 @@ function shop()
             }
 
         }
-
 
         //передаем все в шаблон
         $smarty = cmsPage::initTemplate('components', 'com_inshop_pay.tpl');
