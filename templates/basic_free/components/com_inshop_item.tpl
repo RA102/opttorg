@@ -1,6 +1,5 @@
 <div itemscope itemtype="http://schema.org/Product">
-    {
-    add_js file='components/shop/js/cart.js'}
+    {add_js file='components/shop/js/cart.js'}
     {if $smarty.session.user.group_id==10}{$iprice=$item.opt}{else}{$iprice=$item.price}{/if}
         <a href="#" class="history-back hidden-lg hidden-md" onclick="history.back();">&laquo;</a>
     <script src="/templates/basic_free/js/jquery.maskedinput.min.js"></script>

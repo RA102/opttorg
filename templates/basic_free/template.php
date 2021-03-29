@@ -4,7 +4,6 @@
  * Доступны объекты $inCore $inUser $inPage($this) $inConf $inDB
  */
 
-
 // Получаем количество модулей на нужные позиции
 $mod_count['top'] = $this->countModules('top');
 $mod_count['topmenu'] = $this->countModules('topmenu');
@@ -14,12 +13,14 @@ $mod_count['accordeon'] = $this->countModules('accordeon');
 // подключаем jQuery и js ядра в самое начало
 $this->prependHeadJS('core/js/common.js');
 $this->prependHeadJS('includes/jquery/jquery.js');
-$this->addHeadJS('templates/' . TEMPLATE . '/js/popper.js');
-$this->addHeadJS('templates/' . TEMPLATE . '/js/jquery.cookie.js');
 $this->autoIncludeFilesInDirectory('/templates/'. TEMPLATE .'/js/autoload');
+//$this->addHeadJS('templates/' . TEMPLATE . '/js/popper.js');
+$this->addHeadJS('templates/' . TEMPLATE . '/js/jquery.cookie.js');
+
 //$this->addHeadJS('templates/' . TEMPLATE . '/js/bootstrap-4.js');
 // Подключаем стили шаблона
 $this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-4.css');
+$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-select v1.13.14.css');
 
 
 $this->addHeadCSS('templates/' . TEMPLATE . '/css/all.css?v=' . rand(10, 1000));

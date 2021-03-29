@@ -87,7 +87,7 @@ $(document).ready(function(event) {
         }
     })
 
-    $('#d_type6').on('click', function(event) {
+    $('#d_type7').on('click', function(event) {
         $('#deliveryModal').modal(true);
 
         $.ajax({
@@ -97,7 +97,7 @@ $(document).ready(function(event) {
                 console.log(data);
                 $('.selectpicker').empty();
                 data.data.forEach(function(value, index) {
-                    $('.selectpicker').append(`<option data-tokens="${value}" style="width: 100%; overflow: hidden;">${value}</option>`);
+                    $('.selectpicker').append(`<option class="picker-option" data-tokens="${value}" style="width: 100%; overflow: hidden;">${value}</option>`);
                 })
                 $('.selectpicker').selectpicker('render');
                 $('.selectpicker').selectpicker('refresh');

@@ -13,6 +13,10 @@ if (!file_exists(PATH.'/includes/config.inc.php')) {
     die();
 }
 
+$referer = $_SERVER["HTTP_REFERER"];
+$file = file_put_contents(PATH . '\RespLog.log', json_encode($referer));
+
+
 session_start();
 
 require(PATH.'/core/cms.php');
