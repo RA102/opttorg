@@ -236,7 +236,8 @@ function shop()
         $orderby = $_SESSION['inshop_orderby'] ? $_SESSION['inshop_orderby'] : $cfg['items_orderby'];
         $orderto = $_SESSION['inshop_orderto'] ? $_SESSION['inshop_orderto'] : $cfg['items_orderto'];
 //        $model->orderByItemsWithPriceAndCount();
-        $model->orderBy($orderby, $orderto);
+        //$model->orderBy($orderby, $orderto);
+        $model->orderByItems($orderby, $orderto);
         $model->wherePriceFrom(1);
 
         $order_types = array();
@@ -267,6 +268,23 @@ function shop()
 
         //получим все подходящие товары на текущей странице
         $items = $model->getItems();
+
+//        usort($items, function ($a, $b) {
+//           return ($a['qty'] < 2) ? -1 : 0;
+//        });
+
+//        $tmp = $items;
+//
+//        foreach ($tmp as $index => $item) {
+//            if ((int)$item['qty'] > 1 || (int)$item['qty_from_vendor'] > 1) {
+//                continue;
+//            } else {
+//                array_push($tmp, $item);
+//                unset($tmp[$index]);
+//            }
+//        }
+
+//        $items = array_splice($tmp, 0, count($tmp));
 
         //считаем конечное число страниц 
         $pages = ceil($total / $perpage);

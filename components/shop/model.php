@@ -25,7 +25,49 @@ class cms_model_shop
     public static function getDefaultConfig()
     {
 
-        $cfg = array('is_shop' => 1, 'is_skip_pay' => 1, 'show_vendors' => 1, 'show_cats' => 1, 'show_subcats' => 1, 'show_desc' => 1, 'show_full_desc' => 1, 'show_thumb' => 1, 'show_hit_img' => 1, 'show_decimals' => 2, 'show_filter' => 1, 'show_filter_vendors' => 1, 'show_compare' => 1, 'compare_prices' => 1, 'show_char_grp' => 1, 'show_comments' => 0, 'show_related' => 1, 'related_count' => 5, 'img_w' => 350, 'img_h' => 350, 'thumb_w' => 150, 'thumb_h' => 150, 'img_sqr' => 0, 'thumb_sqr' => 1, 'watermark' => 0, 'perpage' => 15, 'currency' => 'тг.', 'notify_send' => 0, 'notify_send_customer' => 0, 'notify_email' => 'orders@instantshop.ru', 'qty_mode' => 'any', 'subcats_order' => 'title', 'show_cat_chars' => 0, 'show_items_nav' => 0, 'link_ttl' => 48, 'items_orderby' => 'ordering', 'items_orderto' => 'asc', 'after_cart' => 'stay', 'ord_req' => array('name', 'email', 'org', 'inn', 'phone', 'email', 'address'), 'track_qty' => 0, 'ratings' => 1);
+        $cfg = [
+            'is_shop' => 1,
+            'is_skip_pay' => 1,
+            'show_vendors' => 1,
+            'show_cats' => 1,
+            'show_subcats' => 1,
+            'show_desc' => 1,
+            'show_full_desc' => 1,
+            'show_thumb' => 1,
+            'show_hit_img' => 1,
+            'show_decimals' => 2,
+            'show_filter' => 1,
+            'show_filter_vendors' => 1,
+            'show_compare' => 1,
+            'compare_prices' => 1,
+            'show_char_grp' => 1,
+            'show_comments' => 0,
+            'show_related' => 1,
+            'related_count' => 5,
+            'img_w' => 350,
+            'img_h' => 350,
+            'thumb_w' => 150,
+            'thumb_h' => 150,
+            'img_sqr' => 0,
+            'thumb_sqr' => 1,
+            'watermark' => 0,
+            'perpage' => 15,
+            'currency' => 'тг.',
+            'notify_send' => 0,
+            'notify_send_customer' => 0,
+            'notify_email' => 'orders@instantshop.ru',
+            'qty_mode' => 'any',
+            'subcats_order' => 'title',
+            'show_cat_chars' => 0,
+            'show_items_nav' => 0,
+            'link_ttl' => 48,
+            'items_orderby' => 'ordering',
+            'items_orderto' => 'asc',
+            'after_cart' => 'stay',
+            'ord_req' => ['name', 'email', 'org', 'inn', 'phone', 'email', 'address'],
+            'track_qty' => 0,
+            'ratings' => 1
+        ];
 
         return $cfg;
 
@@ -256,7 +298,13 @@ class cms_model_shop
 
     public function orderBy($field, $direction = 'ASC')
     {
-        $this->order_by = 'ORDER BY ' . $field . ' ' . $direction;
+        $this->order_by = 'ORDER BY ' . $field . ' ' . $direction; //'(CASE WHEN (qty < 2 and qty_from_vendor < 2) THEN sorting ASC ELSE ' . $field . ' END) ' . $direction;
+    }
+
+    public function orderByItems($field, $direction = 'ASC')
+    {
+        $this->order_by = 'ORDER BY ' . ' sorting DESC, ' . $field . ' ' . $direction; //. 'CASE WHEN (qty < 2 and qty_from_vendor < 2) THEN 0 ELSE 1 END ' . $field . ' ' . $direction;
+
     }
 
     public function limitIs($from, $howmany = '')
@@ -403,6 +451,13 @@ class cms_model_shop
         }
 
         $this->resetConditions();
+
+//        usort($items, function($a, $b) {
+//            if ($a['qty'] < 2) {
+//                return -1;
+//            }
+//        });
+
 
         return $items;
 
@@ -4537,7 +4592,7 @@ class cms_model_shop
                         $html .= '</div>';
                         $html .= '  <div class="pr-4">';
                         $html .= '    <div class="h5"><a href="/shop/' . $item['seolink'] . '.html" class="tr-2" style="text-overflow: ellipsis;">' . $item['title'] . '</a></div>';
-                        $html .= '    Цена: ' . $item['price'] . ' тенге';
+                        $html .= '    Цена: ' . number_format($item['price'], 0, ',', ' ') . ' тенге';
                         $html .= '  </div>';
 //                        $html .= '</div>';
                         $html .= '</div>';
@@ -4758,6 +4813,22 @@ class cms_model_shop
                 $availability2 = $availabilities->appendChild($xml->createElement('availability'));
                 $availability2->setAttribute('available', 'yes');
                 $availability2->setAttribute('storeId', 'PP7');
+
+                $availability2 = $availabilities->appendChild($xml->createElement('availability'));
+                $availability2->setAttribute('available', 'yes');
+                $availability2->setAttribute('storeId', 'PP8');
+
+                $availability2 = $availabilities->appendChild($xml->createElement('availability'));
+                $availability2->setAttribute('available', 'yes');
+                $availability2->setAttribute('storeId', 'PP9');
+
+                $availability2 = $availabilities->appendChild($xml->createElement('availability'));
+                $availability2->setAttribute('available', 'yes');
+                $availability2->setAttribute('storeId', 'PP10');
+
+                $availability2 = $availabilities->appendChild($xml->createElement('availability'));
+                $availability2->setAttribute('available', 'yes');
+                $availability2->setAttribute('storeId', 'PP11');
 
                 $price = $offer->appendChild($xml->createElement('price', floatval($item['price'])));
 
@@ -5028,5 +5099,15 @@ class cms_model_shop
 
     }
 
+    public function sortingItemsBasedQuantity(&$array)
+    {
+        foreach ($array as $index => $item) {
+            if ($item['qty'] < 2) {
+                array_unshift($array, $item);
+            } else if($item['qty']) {
+                return 0;
+            }
+        }
+    }
 
 }

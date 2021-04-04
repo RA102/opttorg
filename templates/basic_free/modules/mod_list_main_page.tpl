@@ -135,9 +135,9 @@
 {/foreach}
 
 {* Modal One'cLick *}
-<div class="modal" id="oneclicker" tabindex="-1" role="dialog" aria-labelledby="oneclickerLabel">
+<div class="modal fade" id="oneclicker" tabindex="-1" role="dialog" aria-labelledby="oneclickerLabel">
     <div class="modal-dialog modal-sm" role="document">
-        <form action="" method="POST">
+        <form id="form-order-oneclick" action="/" method="POST">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -171,7 +171,7 @@
                     <input type="text" id="customer_phone" class="form-control" name="ytel" placeholder="Ваш телефон" required/>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-whapp btn-block">Заказать</button>
+                    <button id="btn-order-submit" class="btn btn-whapp btn-block" type="submit" >Заказать</button>
                 </div>
             </div>
         </form>
@@ -179,3 +179,4 @@
 </div>
 
 {* End modal One click *}
+

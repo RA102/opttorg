@@ -19,9 +19,11 @@ $this->addHeadJS('templates/' . TEMPLATE . '/js/jquery.cookie.js');
 
 //$this->addHeadJS('templates/' . TEMPLATE . '/js/bootstrap-4.js');
 // Подключаем стили шаблона
-$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-4.css');
+$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap.css');
+$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-grid.css');
+$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-reboot.css');
+//$this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-4.css');
 $this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-select v1.13.14.css');
-
 
 $this->addHeadCSS('templates/' . TEMPLATE . '/css/all.css?v=' . rand(10, 1000));
 
@@ -87,9 +89,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 	';
     $headers = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    $headers .= 'To: <sales@sanmarket.kz>' . "\r\n";
-    $headers .= 'From: <admin@sanmarket.kz>' . "\r\n";
-    mail('sales@sanmarket.kz', $subject, $message, $headers);
+    $headers .= 'To: <santehopttorg00@mail.ru>' . "\r\n";
+    $headers .= 'From: <santehopttorg00@mail.ru>' . "\r\n";
+    mail('santehopttorg00@mail.ru', $subject, $message, $headers);
 }
 ?>
 <!DOCTYPE html>
@@ -231,7 +233,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 				<a class="d-lg-none" href="#" data-toggle="modal" data-target="#city_modal"><span class="glyphicon glyphicon-map-marker"></span></a>
 				<a class="d-lg-none" href="tel:+77775409927"><span class="glyphicon glyphicon-phone"></span></a>
 			</span>
-
         </div>
     </div>
 
@@ -336,7 +337,20 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         </div>
     </header>
 
-    <div class="main-body">
+    <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 10%; right: 0; z-index: 11000; min-height: 200px; width: auto;">
+        <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true"  data-autohide="true" data-delay="5000">
+            <div class="toast-header">
+<!--                <img src="/templates/basic_free/images/LOGO_full_blue.svg" class="rounded mr-2" style="width: 50px; max-width: 50px; height: auto;" alt="sanmarket.kz">-->
+                <strong class="mr-auto">Заказ в один клик</strong>
+<!--                <small>sanmarket.kz</small>-->
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+            </div>
+        </div>
+    </div>
         <div class="container-fluid d-block d-lg-block d-xl-none mt-5 mb-5">
             <div class="search-mobile">
                 <input class="search-mobile-input search-all" type="text" placeholder="Начать поиск...">
@@ -348,6 +362,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         </div>
         <?php if ($this->pathway['1']['link'] == '/den-rozhdenie.html') { ?>
             <main class="main" style="margin-top: 0; background-color: #ffffff">
+
                 <div class="component">
                     <div class="">
                         <?php $messages = cmsCore::getSessionMessages(); ?>
@@ -631,7 +646,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </footer>
     </div>
-    <div id="back-top" class="d-md-none d-sm-none d-none d-lg-block">
+    <div id="back-top" class="">
         <a href="#top">
             <img src="/templates/<?php echo TEMPLATE; ?>/img/totop.png"/>
         </a>
@@ -700,14 +715,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </script>
 
     <noindex>
-        <div class="modal fade" id="fil_modal" tabindex="-1" role="dialog" aria-labelledby="filModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <?php $this->printModules('filter'); ?>
-                </div>
-            </div>
-        </div>
-
+        
         <!-- start Modal authorization-->
 
         <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true" style="margin-top: 20%;">
@@ -930,7 +938,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         </div>
     </div>
 </div>
-
 
 <div id="app"></div>
 <script>

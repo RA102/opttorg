@@ -119,7 +119,27 @@ $(document).ready(function () {
         $('input[name=ttl]').attr('value', titleItem);
         $('input[name=arts]').attr('value', artNoItem);
 
+    });
+
+    $('#form-order-oneclick').on('submit', function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/',
+            type: 'post',
+            data: $('#form-order-oneclick').serialize(),
+            success: function (response) {
+                $("#oneclicker").removeClass("fade").modal("hide");
+                $('.toast-body').text('Заказ принят');
+                $('.toast').toast('show');
+            },
+            error: function (response) {
+                $('.toast-body').text('Ошибка что то пошло не так');
+                $('.toast').toast();
+            },
+
+        })
     })
+
 })
 
 function search($value) {
@@ -183,5 +203,7 @@ function search($value) {
         }
     });
 }
+
+
 
 

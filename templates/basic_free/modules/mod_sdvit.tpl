@@ -130,7 +130,13 @@
         </div>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="tab2">
-        <div class="row no-gutters">        {foreach key=tid item=sd from=$sd2}        {if $smarty.session.user.group_id==10}{$iprice=$sd.opt}{else}{$iprice=$sd.price}{/if}
+        <div class="row no-gutters">
+            {foreach key=tid item=sd from=$sd2}
+                {if $smarty.session.user.group_id==10}
+                    {$iprice=$sd.opt}
+                {else}
+                    {$iprice=$sd.price}
+                {/if}
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="thumb"><a href="/shop/{$sd.seolink}.html" title="{$sd.title}" class="imgthumb"><img
                                     src="/images/photos/small/shop{$sd.id}.jpg" class="img-resp" alt="{$sd.title}"/>
@@ -265,8 +271,8 @@
                 {else}
                     {$iprice=$sd.price}{/if}
                 <div class="col-md-3 col-sm-4 col-xs-6">
-                    <div class="thumb"><a href="/shop/{$sd.seolink}.html" title="{$sd.title}" class="imgthumb"><img
-                                    src="/images/photos/small/shop{$sd.id}.jpg" class="img-resp" alt="{$sd.title}"/>
+                    <div class="thumb"><a href="/shop/{$sd.seolink}.html" title="{$sd.title}" class="imgthumb">
+                            <img src="/images/photos/small/shop{$sd.id}.jpg" class="img-resp" alt="{$sd.title}"/>
                             {if $sd.old_price>0}
                                 {assign var="disco" value=((100-($iprice*100/$sd.old_price))|ceil)}
                                 <div class="ribbon-lt"><span>Скидка {$disco}%</span></div>{/if}
@@ -283,11 +289,18 @@
                                 <img src="/templates/basic_free/img/bankaspiski1.png" class="bankaspiski"/>
                             {/if}
                         </a>
-                        <div class="capt"><a href="/shop/{$sd.seolink}.html" title="{$sd.title}"
-                                             data-truncate="2">{$sd.title}</a></div>
-                        <div class="pricer">                        {if $sd.old_price}
-                                <s>{$sd.old_price|number_format:0:' ':' '}</s>{/if}
-                            <div{if $sd.old_price} class="color_red"{/if}>{if $iprice>0}{$iprice|number_format:0:' ':' '} тг.{else}&nbsp;{/if}</div>
+                        <div class="capt">
+                            <a href="/shop/{$sd.seolink}.html" title="{$sd.title}" data-truncate="2">{$sd.title}</a>
+                        </div>
+                        <div class="pricer">
+                            {if $sd.old_price}
+                                <s>{$sd.old_price|number_format:0:' ':' '}</s>
+                            {/if}
+                            <div{if $sd.old_price} class="color_red"{/if}>
+                                {if $iprice>0}
+                                    {$iprice|number_format:0:' ':' '} тг.
+                                {/if}
+                            </div>
                         </div>
                         <form action="/shop/addtocart" method="POST"><input type="hidden" name="add_to_cart_item_id"
                                                                             value="{$sd.id}"/>

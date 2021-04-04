@@ -78,7 +78,7 @@
 {/if}
 
 {* modal order one click *}
-<div class="modal" id="oneclicker" tabindex="-1" role="dialog" aria-labelledby="oneclickerLabel">
+<div class="modal fade" id="oneclicker" tabindex="-1" role="dialog" aria-labelledby="oneclickerLabel">
     <div class="modal-dialog modal-sm" role="document">
         <form action="" method="POST">
             <div class="modal-content">

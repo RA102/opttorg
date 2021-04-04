@@ -14,8 +14,10 @@ if (!file_exists(PATH.'/includes/config.inc.php')) {
 }
 
 $referer = $_SERVER["HTTP_REFERER"];
-$file = file_put_contents(PATH . '\RespLog.log', json_encode($referer));
 
+$file = fopen(PATH . '/RespLog.log', "a+");
+file_put_contents($file, date("Y-m-d H:i:s") . json_encode($referer) . "\n", FILE_APPEND);
+fclose($file);
 
 session_start();
 

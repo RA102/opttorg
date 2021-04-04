@@ -149,7 +149,7 @@ public function prependHeadJS($src){
 public function autoIncludeFilesInDirectory($path)
 {
     $scannedDirectory = scandir( PATH . $path);
-    $filesInDirectory = array_diff($scannedDirectory, ['..', '.']);
+    $filesInDirectory = array_diff($scannedDirectory, array('..', '.'));
     if ($filesInDirectory) {
         foreach ($filesInDirectory as $item) {
             array_push($this->page_head, '<script type="text/javascript" src=" '.$path. '/' .$item.'"></script>');
@@ -816,15 +816,16 @@ public static function getPagebar($total, $page, $perpage, $link, $params=array(
 
     global $_LANG;
 
-    $html  = '<div class="pagebar">';
-    $html .= '<span class="pagebar_title"><strong>'.$_LANG['PAGES'].': </strong></span>';
+    $html  = '<nav aria-label="Page navigation example">';
+//    $html .= '<span class="pagebar_title"><strong>'.$_LANG['PAGES'].': </strong></span>';
+    $html .= '<ul class="pagination pagination-sm">';
 
     $total_pages = ceil($total / $perpage);
 
     if ($total_pages < 2) { return; }
 
     //configure for the starting links per page
-    $max = 3;
+    $max = 10;
 
     //used in the loop
     $max_links = $max+1;
@@ -844,7 +845,7 @@ public static function getPagebar($total, $page, $perpage, $link, $params=array(
 
     //if the top page is visible then reset the top of the loop to the $total_pages
     if($max_links>$total_pages){
-        $max_links=$total_pages+1;
+        $max_links=$total_pages + 1;
     }
 
     //next and prev buttons
@@ -856,15 +857,15 @@ public static function getPagebar($total, $page, $perpage, $link, $params=array(
                 $href = str_replace('%'.$param.'%', $value, $href);
             }
         }
-        $html .= ' <a href="'.str_replace('%page%', 1, $href).'" class="pagebar_page">'.$_LANG['FIRST'].'</a> ';
-        $html .= ' <a href="'.str_replace('%page%', ($page-1), $href).'" class="pagebar_page">'.$_LANG['PREVIOUS'].'</a> ';
+        $html .= ' <li class="page-item"><a href="'.str_replace('%page%', 1, $href).'" class="page-link">'.$_LANG['FIRST'].'</a></li> ';
+        $html .= ' <li class="page-item"><a href="'.str_replace('%page%', ($page-1), $href).'" class="page-link">'.$_LANG['PREVIOUS'].'</a></li> ';
 
     }
 
     //create the page links
     for ($i=$h;$i<$max_links;$i++){
         if($i==$page){
-            $html .= '<span class="pagebar_current">'.$i.'</span>';
+            $html .= '<li class="page-item active"><span class="page-link">'.$i.'</span></li>';
         }
         else{
             $href = $link;
@@ -874,7 +875,7 @@ public static function getPagebar($total, $page, $perpage, $link, $params=array(
                 }
             }
             $href = str_replace('%page%', $i, $href);
-            $html .= ' <a href="'.$href.'" class="pagebar_page">'.$i.'</a> ';
+            $html .= ' <li class="page-item"><a href="'.$href.'" class="page-link">'.$i.'</a></li> ';
         }
     }
 
@@ -886,11 +887,12 @@ public static function getPagebar($total, $page, $perpage, $link, $params=array(
                 $href = str_replace('%'.$param.'%', $value, $href);
             }
         }
-        $html .= ' <a href="'.str_replace('%page%', ($page+1), $href).'" class="pagebar_page">'.$_LANG['NEXT'].'</a> ';
-        $html .= ' <a href="'.str_replace('%page%', $total_pages, $href).'" class="pagebar_page">'.$_LANG['LAST'].'</a> ';
+        $html .= ' <li class="page-item"><a href="'.str_replace('%page%', ($page+1), $href).'" class="page-link">'.$_LANG['NEXT'].'</a></li> ';
+        $html .= ' <li class="page-item"><a href="'.str_replace('%page%', $total_pages, $href).'" class="page-link">'.$_LANG['LAST'].'</a></li> ';
     }
 
-    $html.='</div>';
+    $html .= '</ul>';
+    $html.='</nav>';
 
     return $html;
 }
