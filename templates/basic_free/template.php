@@ -178,14 +178,22 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/slicebox.css" />
     <!--    <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/custom.css" />-->
 
-<!--  Vuetify  -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
 
 
-<!--  /Vuetify -->
+
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fish.js"> </script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/custom.js"></script>
+
+    <!-- VueJS and Vuetify  -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+
+    <!-- /VueJS and Vuetify -->
 
     <meta name="mailru-domain" content="JfeuTFsOLTPijEWd"/>
     <!-- Facebook Pixel Code -->
@@ -351,6 +359,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </div>
     </div>
+    <div class="main-body">
         <div class="container-fluid d-block d-lg-block d-xl-none mt-5 mb-5">
             <div class="search-mobile">
                 <input class="search-mobile-input search-all" type="text" placeholder="Начать поиск...">
@@ -558,7 +567,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
                                     <?php } ?>
                                 </ul>
-                                <div id="shadow" class="shadow"></div>
+                                <div id="shadow" class="shadow-slider"></div>
                                 <?php if ($banner2 || $banner3 || $banner4 || $banner5 || $banner6 || $banner7 || $banner8 || $banner9 || $banner10) { ?>
                                     <div id="nav-arrows" class="nav-arrows">
                                         <a href="#">Next</a>

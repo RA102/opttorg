@@ -15114,7 +15114,7 @@ input[type="number"].input-item-quantity::-webkit-inner-spin-button {
 }
 
 
-.shadow {
+.shadow-slider {
     width: 100%;
     height: 168px;
     position: relative;

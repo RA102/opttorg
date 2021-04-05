@@ -21,6 +21,12 @@ fclose($file);
 
 session_start();
 
+$autoloadFiles = [
+    '/vendor/autoload.php',
+    '/'
+];
+
+
 require(PATH.'/core/cms.php');
 $inCore = cmsCore::getInstance();
 

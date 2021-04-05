@@ -440,7 +440,7 @@ class cms_model_shop
 
             $today = date('d.m.Y');
 
-            if ($item['pubdate'] > $today) {
+            if (strtotime($item['pubdate']) > strtotime($today)) {
                 $item['novinka'] = 1;
             } else {
                 $item['novinka'] = 0;
@@ -624,7 +624,8 @@ class cms_model_shop
         $inCore->loadLib('tags');
         $item['tagline'] = cmsTagBar('shop', $item['id']);
         $today = date('d.m.Y');
-        if ($item['pubdate'] > $today) {
+
+        if (strtotime($item['pubdate']) > strtotime($today)) {
             $item['novinka'] = 1;
         } else {
             $item['novinka'] = 0;

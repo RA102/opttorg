@@ -948,6 +948,17 @@ function shop()
 //============================================================================//
 //============================================================================//
 
+    
+    /*
+     * форма покупателя в корзине
+     */
+    
+    if ($do == 'customer_data') {
+        $smarty = cmsPage::initTemplate('components', 'com_inshop_customer_form.tpl');
+        $smarty->display('com_inshop_customer_form.tpl');
+    }
+    
+    
     //
     // ПРОСМОТР КОРЗИНЫ
     //
