@@ -194,7 +194,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 
     <!-- /VueJS and Vuetify -->
-
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
+    <!--/Axios-->
     <meta name="mailru-domain" content="JfeuTFsOLTPijEWd"/>
     <!-- Facebook Pixel Code -->
     <script>

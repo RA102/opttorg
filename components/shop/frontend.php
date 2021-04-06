@@ -903,7 +903,14 @@ function shop()
                             $isLongest = $isLongest < $tmp ? $tmp : $isLongest;
                             $weight += $value['weight'];
                         }
-                        $postField = ["access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy', "cityfrom" => "Караганды-(Карагандинская область)", "cityto" => $city, "ves" => $weight, "obm3" => $volume, "dlina" => $isLongest, "mest" => count($paramsItem), "cost" => $item['price'], "naimenovanie" => "САНТЕХНИКА", "dops" => ["D_HARDPACK" => 1, "D_EP" => 0, "D_PB" => 0, "D_VPP" => 0, "D_SP" => 0, "D_SDOC" => 0, "D_EK" => 0]];
+                        $postField = [
+                            "access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
+                            "cityfrom" => "Караганды-(Карагандинская область)",
+                            "cityto" => $city,
+                            "ves" => $weight,
+                            "obm3" => $volume,
+                            "dlina" => $isLongest,
+                            "mest" => count($paramsItem), "cost" => $item['price'], "naimenovanie" => "САНТЕХНИКА", "dops" => ["D_HARDPACK" => 1, "D_EP" => 0, "D_PB" => 0, "D_VPP" => 0, "D_SP" => 0, "D_SDOC" => 0, "D_EK" => 0]];
 
                         $curl = curl_init();
 
@@ -1646,12 +1653,13 @@ function shop()
 
 
     if ($do == 'list_cities') {
+
+        $listCities = $model->listCities();
+
         $inPage->setRequestIsAjax();
 
-        $data = file_get_contents(PATH . DIRECTORY_SEPARATOR . 'listCity.csv');
-        $listCities = explode("\r\n", $data);
+        cmsCore::jsonOutput(['error' => false, 'data' => $listCities]);
 
-        cmsCore::jsonOutput(array('error' => false,'data'  => $listCities));
     }
 
 }

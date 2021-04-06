@@ -87,7 +87,7 @@
         </div>
         <div class="bg-white cart-right--div" style="width: 360px;"> {* col-12 col-sm-12 col-md-4 col-lg-4 clo-xl-4 *}
             <div class="">
-                <input type="button" name="go_order" class="btn btn-main" value="Продолжить оформление &rarr;" onclick="$('#cart_form').submit()"/>
+                <input type="button" name="go_order" class="btn btn-main" value="Продолжить оформление &rarr;" onclick="$('#cart_form').submit()" />
             </div>
             <div class="wrapper-div--right---block px-2 pb-3 border-bottom">
                 <span class="cart-delivery--descriptions text-muted">

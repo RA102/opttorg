@@ -5111,4 +5111,14 @@ class cms_model_shop
         }
     }
 
+
+    public function listCities()
+    {
+        $data = file_get_contents(PATH . DIRECTORY_SEPARATOR . 'listCity.csv');
+        $listCities = explode("\r\n", $data);
+        array_shift($listCities);
+
+        return $listCities;
+    }
+
 }
