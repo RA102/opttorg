@@ -13841,6 +13841,8 @@ a {
 }
 
 
+
+
 .btn-main:hover {
     background-color: #0c5da5;
 }
@@ -15389,6 +15391,17 @@ input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
 }
 
 /*  /cart  */
+
+/* order */
+
+.separator_with_border {
+    position: absolute;
+    top: 10%;
+    right: 0;
+    height: 80%;
+    border-right: 1px solid #e6e6e6;
+}
+/* /order*/
 
 
 /*  glyphicon  */

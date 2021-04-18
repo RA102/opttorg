@@ -812,11 +812,11 @@ function shop()
     if ($do == 'view_order') {
 
         //сохраняем кол-во товаров в корзине
-        $qty_arr = $inCore->request('qty', 'array');
-        if ($qty_arr) {
-            $model->saveCart($qty_arr);
-            $inCore->redirect($_SERVER['REQUEST_URI']);
-        }
+//        $qty_arr = $inCore->request('qty', 'array');
+//        if ($qty_arr) {
+//            $model->saveCart($qty_arr);
+//            $inCore->redirect($_SERVER['REQUEST_URI']);
+//        }
 
         //получаем ID заказа (на случай если мы вернулись сюда из выбора оплаты)
         $order_id = $inCore->request('order_id', 'int', 0);
@@ -862,32 +862,41 @@ function shop()
         }
         $totalsumm = $model->getOrderSummDiscounted($totalsumm, $discount_size);
 
-        //получаем способы доставки
-        if ($items) {
-            $delivery_types = $model->getDeliveryTypes($totalsumm);
-        }
-
         //получаем данные покупателя
         if ($inUser->id) {
             $customer_data = $model->getCustomerData($inUser->id);
             if ($customer_data && !$order) {
                 $order = array();
-                $order['customer_name'] = $customer_data['customer_name'];
+                $order['customer_name'] = $customer_data['customer_name'] ? $customer_data['customer_name'] : $inCore->request('name', "str");
                 $order['customer_org'] = $customer_data['customer_org'];
                 $order['customer_inn'] = $customer_data['customer_inn'];
-                $order['customer_phone'] = $customer_data['customer_phone'];
-                $order['customer_email'] = $customer_data['customer_email'];
-                $order['customer_address'] = $customer_data['customer_address'];
+                $order['customer_phone'] = $customer_data['customer_phone'] ? $customer_data['customer_phone'] : $inCore->request('phone', "str");
+                $order['customer_email'] = $customer_data['customer_email'] ? $customer_data['customer_email'] : $inCore->request('email', "str");
+                $order['customer_address'] = $customer_data['customer_address'] ? $customer_data['customer_address'] : $inCore->request('address', "str");
             }
+        } else {
+            $order = array();
+            $order['customer_name'] = $inCore->request('name', "str");
+            $order['customer_phone'] = $inCore->request('phone', "str");
+            $order['customer_email'] = $inCore->request('email', "str");
+            $order['customer_address'] = $inCore->request('address', "str");
         }
 
         $city = $inCore->request('city', "str");
+
+        //получаем способы доставки
+        if ($items) {
+            $delivery_types = $model->getDeliveryTypes($totalsumm);
+        }
+
         $response = null;
         $sumDelivery = 0;
         $volume = 0;
         define('CENTIMETERS_PER_METER', 100);
 
-        if (!empty($city)) {
+        $isFreeDelivery = $model->isFreeDelivery($city);
+
+        if (!$isFreeDelivery) {
 
             foreach ($items as $index => $item) {
                 if ((int)$item['category_id'] == 11059 || (int)$item['category_id'] == 10510 || (int)$item['category_id'] == 11012 || (int)$item['category_id'] == 11013 || (int)$item['category_id'] == 11014 || (int)$item['category_id'] == 11015 || (int)$item['category_id'] == 11016 || (int)$item['category_id'] == 1036 || (int)$item['category_id'] == 1037 || (int)$item['category_id'] == 1065 || (int)$item['category_id'] == 1067 || (int)$item['category_id'] == 1069 || (int)$item['category_id'] == 10956 || (int)$item['category_id'] == 11035 || (int)$item['category_id'] == 10954 || (int)$item['category_id'] == 11040) {
@@ -926,7 +935,14 @@ function shop()
                     }
                 }
             }
-            $d_type = 6;
+        }
+
+        if($isFreeDelivery) {
+            unset($delivery_types[6]);
+        }
+        if (!$isFreeDelivery) {
+            unset($delivery_types[4]);
+            $delivery_types[6]['price'] = $sumDelivery;
         }
 
 
@@ -961,6 +977,14 @@ function shop()
      */
     
     if ($do == 'customer_data') {
+
+        //сохраняем кол-во товаров в корзине
+        $qty_arr = $inCore->request('qty', 'array');
+        if ($qty_arr) {
+            $model->saveCart($qty_arr);
+//            $inCore->redirect($_SERVER['REQUEST_URI']);
+        }
+
         $smarty = cmsPage::initTemplate('components', 'com_inshop_customer_form.tpl');
         $smarty->display('com_inshop_customer_form.tpl');
     }
@@ -1254,6 +1278,7 @@ function shop()
 
         $inPage->setTitle($_LANG['SHOP_ORDER_ACCEPTED_TEXT']);
         $inPage->addHead('<meta name="robots" content="noindex, nofollow" />');
+        $inPage->addHeadJS('/templates/basic_free/js/order-accept.js');
         $order_id = $inCore->request('order_id', 'int', 0);
         //если оплата была отключена
         if ($cfg['is_skip_pay']) {

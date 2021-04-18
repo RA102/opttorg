@@ -35,9 +35,9 @@ function routes_shop()
 
     $routes[] = array('_uri' => '/^shop\/cart.html$/i', 'do' => 'view_cart');
 
-    $routes[] = array('_uri' => '/^shop\/order.html$/i', 'do' => 'view_order');
-
     $routes[] = array('_uri' => '/^shop\/customer\-form.html$/i', 'do' => 'customer_data');
+
+    $routes[] = array('_uri' => '/^shop\/order.html$/i', 'do' => 'view_order');
 
     $routes[] = array('_uri' => '/^shop\/([0-9]+)\/order.html$/i', 'do' => 'view_order', 1 => 'order_id');
 

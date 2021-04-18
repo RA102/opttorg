@@ -3233,18 +3233,7 @@ class cms_model_shop
     /* ==================================================================================================== */
     /* ==================================================================================================== */
 
-    public function getParamsItems(array $itemsId)
-    {
-        $itemsParams = [];
-        foreach ($itemsId as $index => $item) {
-            $sql = "SELECT * FROM cms_item_params WHERE item_id = '{$item}'";
-            $result = $this->inDB->query($sql);
-            if ($this->inDB->num_rows($result)) {
-                $itemsParams[$item] = $this->inDB->fetchAllFromArray($result);
-            }
-        }
-        return $itemsParams;
-    }
+
 
     /* ==================================================================================================== */
     /* ==================================================================================================== */
@@ -3307,6 +3296,42 @@ class cms_model_shop
         }
 
         return $types_list;
+
+    }
+
+    /* ==================================================================================================== */
+    /* ==================================================================================================== */
+
+    public function isFreeDelivery($city)
+    {
+        $cityFreeDelivery = [
+            1 => 'Нур-Султан-(Столица Республики Казахстан)',
+            'Караганды-(Карагандинская область)',
+            'Майкудук, Пришахтинск-(Карагандинская область)',
+            'Шахтинск-(Карагандинская область)',
+            'Темиртау-(Карагандинская область)',
+            'Доскей-(Карагандинская область)',
+            'Сарань-(Карагандинская область)',
+            'Темиртау-(Карагандинская область)',
+            'Шахтинск-(Карагандинская область)'
+        ];
+        if (array_search($city, $cityFreeDelivery)) {
+            return 1;
+        }
+
+        return 0;
+
+    }
+
+    public function filteringDelivery($city)
+    {
+        $citySearching = [
+            'Нур-Султан-(Столица Республики Казахстан)',
+            'Караганды-(Карагандинская область)',
+            'Майкудук, Пришахтинск-(Карагандинская область)',
+            'Шахтинск-(Карагандинская область)',
+            'Темиртау-(Карагандинская область)'
+        ];
 
     }
 
@@ -4983,6 +5008,19 @@ class cms_model_shop
 
     }
 
+    public function getParamsItems(array $itemsId)
+    {
+        $itemsParams = [];
+        foreach ($itemsId as $index => $item) {
+            $sql = "SELECT * FROM cms_item_params WHERE item_id = '{$item}'";
+            $result = $this->inDB->query($sql);
+            if ($this->inDB->num_rows($result)) {
+                $itemsParams[$item] = $this->inDB->fetchAllFromArray($result);
+            }
+        }
+        return $itemsParams;
+    }
+
 
     public function addParamsItem($idItem, $params)
     {
@@ -5100,6 +5138,8 @@ class cms_model_shop
 
     }
 
+
+    // удалить
     public function sortingItemsBasedQuantity(&$array)
     {
         foreach ($array as $index => $item) {

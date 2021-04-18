@@ -129,7 +129,8 @@ $(document).ready(function () {
             data: $('#form-order-oneclick').serialize(),
             success: function (response) {
                 $("#oneclicker").removeClass("fade").modal("hide");
-                $('.toast-body').text('Заказ принят');
+                $('.toast-body').text('Завка принята');
+                $('#toast-wrap').removeClass('d-none');
                 $('.toast').toast('show');
             },
             error: function (response) {
@@ -138,6 +139,15 @@ $(document).ready(function () {
             },
 
         })
+    });
+
+    $('.toast').on('hidden.bs.toast', function () {
+        $('#toast-wrap').addClass('d-none');
+    })
+
+
+    $('.toast').on('hidden.bs.toast', function () {
+        $('#toast-wrap').addClass('d-none');
     })
 
 })

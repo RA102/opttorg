@@ -197,6 +197,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
     <!--/Axios-->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-393443092"></script>
+
     <meta name="mailru-domain" content="JfeuTFsOLTPijEWd"/>
     <!-- Facebook Pixel Code -->
     <script>
@@ -213,6 +216,31 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=218958602915744&ev=PageView&noscript=1"/></noscript>
     <!-- / Facebook Pixel Code -->
+
+    <script>
+        function gtag_report_conversion(url) {
+            var callback = function () {
+                if (typeof(url) != 'undefined') {
+                    window.location = url;
+                }
+            };
+            gtag('event', 'conversion', {
+                'send_to': 'AW-393443092/htXHCNua8_8BEJTuzbsB',
+                'event_callback': callback
+            });
+            return false;
+        }
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-393443092"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'AW-393443092');
+    </script>
 
 </head>
 <body>
@@ -347,17 +375,17 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         </div>
     </header>
 
-    <div aria-live="polite" aria-atomic="true" style="position: fixed; top: 10%; right: 0; z-index: 11000; min-height: 200px; width: auto;">
-        <div class="toast bg-danger text-white" role="alert" aria-live="assertive" aria-atomic="true"  data-autohide="true" data-delay="5000">
+    <div id="toast-wrap" class="d-none" aria-live="polite" aria-atomic="true" style="position: fixed; top: 10%; right: 0; z-index: 11000;">
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true"  data-autohide="true" data-delay="5000">
             <div class="toast-header">
-<!--                <img src="/templates/basic_free/images/LOGO_full_blue.svg" class="rounded mr-2" style="width: 50px; max-width: 50px; height: auto;" alt="sanmarket.kz">-->
                 <strong class="mr-auto">Заказ в один клик</strong>
 <!--                <small>sanmarket.kz</small>-->
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="toast-body">
+            <div class="toast-body" style="padding: 20px 30px;">
+                Заявка отправлена
             </div>
         </div>
     </div>

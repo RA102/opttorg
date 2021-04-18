@@ -25,7 +25,16 @@ $model = new cms_model_shop();
 if (file_exists( $_SERVER['DOCUMENT_ROOT'] . $dir . $filename)) {
 
     $z = new XMLReader;
-    $z->open($_SERVER['DOCUMENT_ROOT'] . $dir . $filename);
+    $errorOpen = $z->open("file://{$_SERVER['DOCUMENT_ROOT']}/cache/import.xml");
+
+    $z->read();
+
+    try {
+        $xmlProducts = new SimpleXMLElement($z->readString());
+        $xpath = $xmlProducts->xpath('Товары');
+    } catch (Exception $e) {
+        die($e->getMessage());
+    }
 
     while ($z->read() && $z->name !== 'Товары') ;
 
@@ -37,8 +46,11 @@ if (file_exists( $_SERVER['DOCUMENT_ROOT'] . $dir . $filename)) {
         import_product($xml->Товар[$i]);
         $current_product_num++;
     }
-
     $z->close();
+
+    $sql = "UPDATE cms_shop_items SET sorting = CASE WHEN 'qty' > 1 OR 'qty_from_vendor' > 1 THEN 1 ELSE 0 END";
+
+    cmsDatabase::getInstance()->query($sql);
 
 } else {
 
@@ -50,7 +62,8 @@ function import_product($xml_product)
 {
     $item = array();
 
-    $artNo = (string)$xml_product->Артикул;
+    $artNo = strval($xml_product->Артикул);
+
 
     if ($artNo) {
         $product_id = cmsDatabase::getInstance()->get_field('cms_shop_items', 'art_no=' . $artNo , 'id' );
