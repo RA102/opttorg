@@ -35,6 +35,7 @@ function spellcount($num, $one, $two, $many)
 }
 
 $inCore = cmsCore::getInstance();
+$inCore = cmsCore::getInstance();
 $inUser = cmsUser::getInstance();
 $inCore::loadLib('tags');
 $inCore->loadModel('shop');
@@ -1167,6 +1168,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
             $item['ves'] = number_format(str_replace(',', '.', $inCore->request('ves', 'str', '0.00')), 2, '.', '');
             $item['vol'] = number_format(str_replace(',', '.', $inCore->request('vol', 'str', '0.00')), 2, '.', '');
+            $item['longest_side'] = number_format(str_replace(',', '.', $inCore->request('longest_side', 'str', '0.00')), 2, '.', '');
             $item['ven_code'] = $inCore->request('ven_code', 'str');
             $item['ordering'] = $inCore->request('ordering', 'int', 0);
 
@@ -2510,6 +2512,14 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                             <input name="vol" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($mod['vol']); ?>"/>
                                         </div>
                                     </td>
+
+                                    <td valign="top" width="140">
+                                        <div><strong>Длинная сторонна, м</strong></div>
+                                        <div>
+                                            <input name="longest_side" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($mod['longest_side']); ?>"/>
+                                        </div>
+                                    </td>
+
                                     <td>
                                         <div><strong>Наверх списка</strong></div>
                                         <div>

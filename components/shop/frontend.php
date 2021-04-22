@@ -841,12 +841,12 @@ function shop()
         //получаем все товары из корзины для текущей сессии
         $items = $model->getCartItems($cfg);
 
-        $itemsId = [];
-        foreach ($items as $index => $item) {
-            array_push($itemsId, $item['item_id']);
-        }
+//        $itemsId = [];
+//        foreach ($items as $index => $item) {
+//            array_push($itemsId, $item['item_id']);
+//        }
 
-        $paramsItems = $model->getParamsItems($itemsId);
+//        $paramsItems = $model->getParamsItems($itemsId);
 
         $totalsumm = 0;
 
@@ -891,50 +891,93 @@ function shop()
 
         $response = null;
         $sumDelivery = 0;
-        $volume = 0;
-        define('CENTIMETERS_PER_METER', 100);
+
+        define('CENTIMETERS_PER_METER', 100.00);
+        define('CUBIC_METERS', 1000000);
 
         $isFreeDelivery = $model->isFreeDelivery($city);
 
         if (!$isFreeDelivery) {
 
+            $places = 0;
+            
+            $responseVolume = 0;
             foreach ($items as $index => $item) {
+
+
                 if ((int)$item['category_id'] == 11059 || (int)$item['category_id'] == 10510 || (int)$item['category_id'] == 11012 || (int)$item['category_id'] == 11013 || (int)$item['category_id'] == 11014 || (int)$item['category_id'] == 11015 || (int)$item['category_id'] == 11016 || (int)$item['category_id'] == 1036 || (int)$item['category_id'] == 1037 || (int)$item['category_id'] == 1065 || (int)$item['category_id'] == 1067 || (int)$item['category_id'] == 1069 || (int)$item['category_id'] == 10956 || (int)$item['category_id'] == 11035 || (int)$item['category_id'] == 10954 || (int)$item['category_id'] == 11040) {
+
                     $sumDelivery += 1580 * $item['cart_qty'];
+
                 } else {
 
-                    foreach ($paramsItems as $key => $paramsItem) {
+                $partsItem = $model->getParamsItem($item['item_id']);
+                    $volumeItem = 0;
+//                    $tmp = 0;
+//                    $isLongestItem = 0;
+                    $weightItem = 0;
+                    foreach ($partsItem as $params) {
 
-                        foreach ($paramsItem as $value) {
+                        $width = doubleval($params['width']) / doubleval(100);
+                        $height = doubleval($params['height']) / doubleval(100);
+                        $depth = doubleval($params['depth']) / doubleval(CENTIMETERS_PER_METER);
 
-                            $volume += (float)($value['width'] / CENTIMETERS_PER_METER) * ($value['height'] / CENTIMETERS_PER_METER) * ($value['depth'] / CENTIMETERS_PER_METER);
-                            $tmp = max($value['width'], $value['height'], $value['depth']) / CENTIMETERS_PER_METER;
-                            $isLongest = $isLongest < $tmp ? $tmp : $isLongest;
-                            $weight += $value['weight'];
-                        }
-                        $postField = [
-                            "access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
-                            "cityfrom" => "Караганды-(Карагандинская область)",
-                            "cityto" => $city,
-                            "ves" => $weight,
-                            "obm3" => $volume,
-                            "dlina" => $isLongest,
-                            "mest" => count($paramsItem), "cost" => $item['price'], "naimenovanie" => "САНТЕХНИКА", "dops" => ["D_HARDPACK" => 1, "D_EP" => 0, "D_PB" => 0, "D_VPP" => 0, "D_SP" => 0, "D_SDOC" => 0, "D_EK" => 0]];
+                        $volumeItem += $width * $height * $depth;
 
-                        $curl = curl_init();
 
-                        curl_setopt_array($curl, [CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport', CURLOPT_RETURNTRANSFER => true, CURLOPT_ENCODING => '', CURLOPT_MAXREDIRS => 10, CURLOPT_TIMEOUT => 0, CURLOPT_FOLLOWLOCATION => true, CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE), CURLOPT_HTTPHEADER => ['contentType: application/json; charset=UTF-8', 'Content-Type: application/json; charset=UTF-8',],]);
-
-                        $rawResponse = curl_exec($curl);
-
-                        curl_close($curl);
-
-                        $response = json_decode($rawResponse, true);
-
-                        $sumDelivery += ($response['result']['price_zabor'] + $response['result']['price_terminal'] + $response['result']['price_delivery'] + $response['result']['price_dop']) * $item['cart_qty'];
+                        $tmp = max($params['width'], $params['height'], $params['depth']);
+                        $isLongestItem = $isLongestItem < $tmp ? $tmp : $isLongestItem;
+                        $weightItem += $params['weight'];
                     }
+                    
                 }
+                $weightItem *= $item['cart_qty'];
+                $volumeItem *= $item['cart_qty'];
+                $places += $item['cart_qty'];
+
+                $weight += $weightItem;
+                $volume += $volumeItem;
+                
             }
+
+            $isLongest = number_format($isLongestItem / CENTIMETERS_PER_METER, 2, ',', '');
+
+            $formatVolume = $volume;
+
+            $postField = [
+                "access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
+                "cityfrom" => "Караганды-(Карагандинская область)",
+                "cityto" => $city,
+                "ves" => $weight,
+                "obm3" => $formatVolume,
+                "dlina" => $isLongest,
+                "mest" => $places,
+                "cost" => $totalsumm,
+                "naimenovanie" => "САНТЕХНИКА",
+                "dops" => [
+                    "D_HARDPACK" => 0,
+                    "D_EP" => 0,
+                    "D_PB" => 1,
+                    "D_VPP" => 0,
+                    "D_SP" => 0,
+                    "D_SDOC" => 0,
+                    "D_EK" => 0
+                ]
+            ];
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, [CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport', CURLOPT_RETURNTRANSFER => true, CURLOPT_ENCODING => '', CURLOPT_MAXREDIRS => 10, CURLOPT_TIMEOUT => 0, CURLOPT_FOLLOWLOCATION => true, CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE), CURLOPT_HTTPHEADER => ['contentType: application/json; charset=UTF-8', 'Content-Type: application/json; charset=UTF-8',],]);
+
+            $rawResponse = curl_exec($curl);
+
+            curl_close($curl);
+
+            $response = json_decode($rawResponse, true);
+
+            $sumDelivery += ($response['result']['price_zabor'] + $response['result']['price_terminal'] + $response['result']['price_delivery'] + $response['result']['price_dop']) * $item['cart_qty'];
+
+
         }
 
         if($isFreeDelivery) {
@@ -957,7 +1000,7 @@ function shop()
             $smarty->assign('order', $order);
         }
         $smarty->assign('items', $items);
-        $smarty->assign('itemsParams', $paramsItems);
+//        $smarty->assign('itemsParams', $paramsItems);
         $smarty->assign('delivery_types', $delivery_types);
         $smarty->assign('d_type', $d_type);
         $smarty->assign('sumDelivery',$sumDelivery);

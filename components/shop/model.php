@@ -1746,11 +1746,11 @@ class cms_model_shop
 
         //Добавляем товар
         $sql = "INSERT INTO cms_shop_items (`category_id`, `vendor_id`, `art_no`, `title`, `shortdesc`, `description`,
-                                            `metakeys`, `metadesc`, `ves`, `vol`, `price`, `old_price`, `published`, `pubdate`,
+                                            `metakeys`, `metadesc`, `ves`, `vol`, `longest_side`, `price`, `old_price`, `published`, `pubdate`,
                                             `is_hit`, `is_front`, `is_digital`, `seolink`, `qty`, `img_count`,
                                             `filename`, `filesize`, `filedate`, `hits`, `tpl`, `url`, `kaspikz`, `is_spec`, `ven_code`)
 				VALUES ('{$item['category_id']}', '{$item['vendor_id']}', '{$item['art_no']}', '{$item['title']}', '{$item['shortdesc']}', '{$item['description']}',
-                        '{$item['metakeys']}', '{$item['metadesc']}', '{$item['ves']}', '{$item['vol']}', '{$item['price']}', '{$item['old_price']}', '{$item['published']}', '{$item['pubdate']}',
+                        '{$item['metakeys']}', '{$item['metadesc']}', '{$item['ves']}', '{$item['vol']}', '{$item['longest_side']}','{$item['price']}', '{$item['old_price']}', '{$item['published']}', '{$item['pubdate']}',
                         '{$item['is_hit']}', '{$item['is_front']}', '{$item['is_digital']}', '', '{$item['qty']}', '{$item['img_count']}',
                         '{$item['filename']}', '{$item['rels']}', NOW(), 0, '{$item['tpl']}', '{$item['url']}', '{$item['kaspikz']}', '{$item['is_spec']}', '{$item['ven_code']}')";
 
@@ -1802,11 +1802,11 @@ class cms_model_shop
 
         //Добавляем товар
         $sql = "INSERT INTO cms_shop_items (`category_id`, `art_no`, `title`, `shortdesc`, `description`,
-                                            `metakeys`, `metadesc`, `ves`, `vol`, `price`, `old_price`, `published`, `pubdate`,
+                                            `metakeys`, `metadesc`, `ves`, `vol`, `longest_side`, `price`, `old_price`, `published`, `pubdate`,
                                             `is_hit`, `is_front`, `is_digital`, `seolink`, `qty`, `img_count`,
                                             `filename`, `filedate`, `hits`, `tpl`, `url`, `kaspikz`, `is_spec`, `ven_code`)
 				VALUES ('{$item['category_id']}', '{$item['art_no']}', '{$item['title']}', '{$item['shortdesc']}', '{$item['description']}',
-                        '{$item['metakeys']}', '{$item['metadesc']}', '{$item['ves']}', '{$item['vol']}', '{$item['price']}', '{$item['old_price']}', '{$item['published']}', '{$item['pubdate']}',
+                        '{$item['metakeys']}', '{$item['metadesc']}', '{$item['ves']}', '{$item['vol']}', '{$item['longest_side']}','{$item['price']}', '{$item['old_price']}', '{$item['published']}', '{$item['pubdate']}',
                         '{$item['is_hit']}', '{$item['is_front']}', '{$item['is_digital']}', '', '{$item['qty']}', '{$item['img_count']}',
                         '{$item['filename']}', NOW(), 0, '{$item['tpl']}', '{$item['url']}', '{$item['kaspikz']}', '{$item['is_spec']}', '{$item['ven_code']}')";
 
@@ -1879,7 +1879,8 @@ class cms_model_shop
                     metakeys='{$item['metakeys']}',
                     metadesc='{$item['metadesc']}',
                     ves='{$item['ves']}',
-                    vol='{$item['vol']}',					
+                    vol='{$item['vol']}',
+                    longest_side='{$item['longest_side']}',
                     price='{$item['price']}',
                     old_price='{$item['old_price']}',
                     published='{$item['published']}',
