@@ -2516,7 +2516,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     <td valign="top" width="140">
                                         <div><strong>Длинная сторонна, м</strong></div>
                                         <div>
-                                            <input name="longest_side" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($mod['longest_side']); ?>"/>
+                                            <input name="longest_side" type="text" id="longest_side" style="width:80px" value="<?php echo htmlspecialchars($mod['longest_side']); ?>"/>
                                         </div>
                                     </td>
 

@@ -3234,7 +3234,18 @@ class cms_model_shop
     /* ==================================================================================================== */
     /* ==================================================================================================== */
 
-
+    public function getParamsItems(array $itemsId)
+    {
+        $itemsParams = [];
+        foreach ($itemsId as $index => $item) {
+            $sql = "SELECT * FROM cms_item_params WHERE item_id = '{$item}'";
+            $result = $this->inDB->query($sql);
+            if ($this->inDB->num_rows($result)) {
+                $itemsParams[$item] = $this->inDB->fetchAllFromArray($result);
+            }
+        }
+        return $itemsParams;
+    }
 
     /* ==================================================================================================== */
     /* ==================================================================================================== */
@@ -5008,20 +5019,6 @@ class cms_model_shop
         return $itemParts;
 
     }
-
-    public function getParamsItems(array $itemsId)
-    {
-        $itemsParams = [];
-        foreach ($itemsId as $index => $item) {
-            $sql = "SELECT * FROM cms_item_params WHERE item_id = '{$item}'";
-            $result = $this->inDB->query($sql);
-            if ($this->inDB->num_rows($result)) {
-                $itemsParams[$item] = $this->inDB->fetchAllFromArray($result);
-            }
-        }
-        return $itemsParams;
-    }
-
 
     public function addParamsItem($idItem, $params)
     {
