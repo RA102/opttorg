@@ -42,11 +42,18 @@ class ps_robokassa extends shopPaymentSystem
 //
 //        $this->order['secret_key'] = md5($signature);
 
+       /* $signature = $this->config['sMerchantLogin']['value'] . ':' .
+                     $this->order['summ'] . ':' .
+                     $this->order['id'] . ':' .
+                     $this->config['sMerchantPass1']['value'];
+
+        $this->order['secret_key'] = md5($signature);*/
+
         $mrh_login = "Sanmarket.kz";
-        $mrh_pass1 = "d2Jid9m01xu6FscdYkTo";
+        $mrh_pass1 = "IuE4RRz284vadcE1Jdcz";
         $inv_id = $order['id'];
         $inv_desc = $order['description'];
-        $out_summ = $order['summ'];
+        $out_summ = (int)$order['summ'];
         $IsTest = 1;
         $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1");
 

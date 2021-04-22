@@ -863,24 +863,25 @@ function shop()
         $totalsumm = $model->getOrderSummDiscounted($totalsumm, $discount_size);
 
         //получаем данные покупателя
-        if ($inUser->id) {
-            $customer_data = $model->getCustomerData($inUser->id);
-            if ($customer_data && !$order) {
-                $order = array();
-                $order['customer_name'] = $customer_data['customer_name'] ? $customer_data['customer_name'] : $inCore->request('name', "str");
-                $order['customer_org'] = $customer_data['customer_org'];
-                $order['customer_inn'] = $customer_data['customer_inn'];
-                $order['customer_phone'] = $customer_data['customer_phone'] ? $customer_data['customer_phone'] : $inCore->request('phone', "str");
-                $order['customer_email'] = $customer_data['customer_email'] ? $customer_data['customer_email'] : $inCore->request('email', "str");
-                $order['customer_address'] = $customer_data['customer_address'] ? $customer_data['customer_address'] : $inCore->request('address', "str");
-            }
-        } else {
+//        if ($inUser->id) {
+//            $customer_data = $model->getCustomerData($inUser->id);
+//            if ($customer_data && !$order) {
+//                $order = array();
+//                $order['customer_name'] = $customer_data['customer_name'] ? $customer_data['customer_name'] : $inCore->request('name', "str");
+//                $order['customer_org'] = $customer_data['customer_org'];
+//                $order['customer_inn'] = $customer_data['customer_inn'];
+//                $order['customer_phone'] = $customer_data['customer_phone'] ? $customer_data['customer_phone'] : $inCore->request('phone', "str");
+//                $order['customer_email'] = $customer_data['customer_email'] ? $customer_data['customer_email'] : $inCore->request('email', "str");
+//                $order['customer_address'] = $customer_data['customer_address'] ? $customer_data['customer_address'] : $inCore->request('address', "str");
+//            }
+
+        // Получение данных покупателя из запроса
             $order = array();
             $order['customer_name'] = $inCore->request('name', "str");
             $order['customer_phone'] = $inCore->request('phone', "str");
             $order['customer_email'] = $inCore->request('email', "str");
-            $order['customer_address'] = $inCore->request('address', "str");
-        }
+            $order['customer_address'] = $inCore->request('city', "str") . ' ' . $inCore->request('address', 'str');
+
 
         $city = $inCore->request('city', "str");
 
@@ -891,11 +892,16 @@ function shop()
 
         $response = null;
         $sumDelivery = 0;
+        $totalSumItemForPaidDelivery = 0;
+        $sumFixedCostDelivery = 0;
 
         define('CENTIMETERS_PER_METER', 100.00);
         define('CUBIC_METERS', 1000000);
+        define('FIXED_COST_DELIVERY', 1580);
 
         $isFreeDelivery = $model->isFreeDelivery($city);
+
+        // Просчет доставки
 
         if (!$isFreeDelivery) {
 
@@ -904,18 +910,20 @@ function shop()
             $responseVolume = 0;
             foreach ($items as $index => $item) {
 
+                $volumeItem = 0;
+                $weightItem = 0;
 
                 if ((int)$item['category_id'] == 11059 || (int)$item['category_id'] == 10510 || (int)$item['category_id'] == 11012 || (int)$item['category_id'] == 11013 || (int)$item['category_id'] == 11014 || (int)$item['category_id'] == 11015 || (int)$item['category_id'] == 11016 || (int)$item['category_id'] == 1036 || (int)$item['category_id'] == 1037 || (int)$item['category_id'] == 1065 || (int)$item['category_id'] == 1067 || (int)$item['category_id'] == 1069 || (int)$item['category_id'] == 10956 || (int)$item['category_id'] == 11035 || (int)$item['category_id'] == 10954 || (int)$item['category_id'] == 11040) {
 
-                    $sumDelivery += 1580 * $item['cart_qty'];
+                    $sumFixedCostDelivery += FIXED_COST_DELIVERY * $item['cart_qty'];
 
                 } else {
 
                 $partsItem = $model->getParamsItem($item['item_id']);
-                    $volumeItem = 0;
+
 //                    $tmp = 0;
 //                    $isLongestItem = 0;
-                    $weightItem = 0;
+
                     foreach ($partsItem as $params) {
 
                         $width = doubleval($params['width']) / doubleval(100);
@@ -937,6 +945,8 @@ function shop()
 
                 $weight += $weightItem;
                 $volume += $volumeItem;
+
+                $totalSumItemForPaidDelivery += $item['price'] * $item['cart_qty'];
                 
             }
 
@@ -944,39 +954,44 @@ function shop()
 
             $formatVolume = $volume;
 
-            $postField = [
-                "access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
-                "cityfrom" => "Караганды-(Карагандинская область)",
-                "cityto" => $city,
-                "ves" => $weight,
-                "obm3" => $formatVolume,
-                "dlina" => $isLongest,
-                "mest" => $places,
-                "cost" => $totalsumm,
-                "naimenovanie" => "САНТЕХНИКА",
-                "dops" => [
-                    "D_HARDPACK" => 0,
-                    "D_EP" => 0,
-                    "D_PB" => 1,
-                    "D_VPP" => 0,
-                    "D_SP" => 0,
-                    "D_SDOC" => 0,
-                    "D_EK" => 0
-                ]
-            ];
+            if ($weight != 0 && $formatVolume != 0) {
 
-            $curl = curl_init();
+                $postField = [
+                    "access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
+                    "cityfrom" => "Караганды-(Карагандинская область)",
+                    "cityto" => $city,
+                    "ves" => $weight,
+                    "obm3" => $formatVolume,
+                    "dlina" => $isLongest,
+                    "mest" => $places,
+                    "cost" => $totalSumItemForPaidDelivery,
+                    "naimenovanie" => "САНТЕХНИКА",
+                    "dops" => [
+                        "D_HARDPACK" => 0,
+                        "D_EP" => 0,
+                        "D_PB" => 1,
+                        "D_VPP" => 0,
+                        "D_SP" => 0,
+                        "D_SDOC" => 0,
+                        "D_EK" => 0
+                    ]
+                ];
 
-            curl_setopt_array($curl, [CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport', CURLOPT_RETURNTRANSFER => true, CURLOPT_ENCODING => '', CURLOPT_MAXREDIRS => 10, CURLOPT_TIMEOUT => 0, CURLOPT_FOLLOWLOCATION => true, CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE), CURLOPT_HTTPHEADER => ['contentType: application/json; charset=UTF-8', 'Content-Type: application/json; charset=UTF-8',],]);
+                $curl = curl_init();
 
-            $rawResponse = curl_exec($curl);
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport', CURLOPT_RETURNTRANSFER => true, CURLOPT_ENCODING => '', CURLOPT_MAXREDIRS => 10, CURLOPT_TIMEOUT => 0, CURLOPT_FOLLOWLOCATION => true, CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE), CURLOPT_HTTPHEADER => ['contentType: application/json; charset=UTF-8', 'Content-Type: application/json; charset=UTF-8',],]);
 
-            curl_close($curl);
+                $rawResponse = curl_exec($curl);
 
-            $response = json_decode($rawResponse, true);
+                curl_close($curl);
 
-            $sumDelivery += ($response['result']['price_zabor'] + $response['result']['price_terminal'] + $response['result']['price_delivery'] + $response['result']['price_dop']) * $item['cart_qty'];
+                $response = json_decode($rawResponse, true);
 
+                $sumDelivery += ($response['result']['price_zabor'] + $response['result']['price_terminal'] + $response['result']['price_delivery'] + $response['result']['price_dop']);
+            }
+
+            $sumDelivery += $sumFixedCostDelivery;
 
         }
 

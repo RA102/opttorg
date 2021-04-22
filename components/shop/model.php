@@ -5012,7 +5012,7 @@ class cms_model_shop
         }
 
         if ($this->inDB->num_rows($result)) {
-            $itemParts = $this->inDB->fetch_all($result);
+            $itemParts = $this->inDB->fetchAllFromArray($result);
             return $itemParts;
         }
 

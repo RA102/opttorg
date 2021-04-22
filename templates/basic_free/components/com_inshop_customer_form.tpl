@@ -1,5 +1,6 @@
 <div class="row">
     <div class="col-md-12">
+        <h2>Данные покупателя</h2>
         <form class="col-md-8 offset-2 shadow p-3 mb-5 bg-white rounded" action="/shop/order.html" method="post">
 
             <div class="form-row">
