@@ -452,18 +452,13 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             }
             */
 
-            $arrayBannerItems = [];
 
-            array_push($arrayBannerItems, $banner1);
-            array_push($arrayBannerItems, $banner2);
-            array_push($arrayBannerItems, $banner3);
-            array_push($arrayBannerItems, $banner4);
-            array_push($arrayBannerItems, $banner5);
-            array_push($arrayBannerItems, $banner6);
-            array_push($arrayBannerItems, $banner7);
-            array_push($arrayBannerItems, $banner8);
-            array_push($arrayBannerItems, $banner9);
-            array_push($arrayBannerItems, $banner10);
+            $inCore->loadModel('banners');
+
+            $model = new cms_model_banners();
+
+            $arrayBannerItems = $model->getAllPublishedBanner();
+
 
             ?>
             <?php if ($banner1) { ?>
@@ -471,147 +466,56 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     <div class="row justify-content-center">
                         <section class="main-banner">
                             <!--  Слайдер html  -->
-                            <div class="wrapper">
-                                <!--                            <div id="carousel-1" class="carousel slide carousel-fabe" data-ride="carousel" data-interval="0">-->
-                                <!--                            <ol id="indicators" class="carousel-indicators">-->
-                                <!--                                <li data-target="#carousel-1" data-slide-to="0" class="active"></li>-->
-                                <!--                                <li data-target="#carousel-1" data-slide-to="1"></li>-->
-                                <!--                                <li data-target="#carousel-1" data-slide-to="2"></li>-->
-                                <!--                                <li data-target="#carousel-1" data-slide-to="3"></li>-->
-                                <!--                                <li data-target="#carousel-1" data-slide-to="4"></li>-->
-                                <!--                                <li data-target="#carousel-1" data-slide-to="5"></li>-->
-                                <!--                                <li data-target="#carousel-1" data-slide-to="6"></li>-->
-                                <!--                            </ol>-->
-                                <ul id="sb-slider" class="sb-slider">
-                                    <li>
-                                        <a href="<?php echo $banner1['link']; ?>" title="<?php echo $banner1['title']; ?>">
-                                            <img src="/images/banners/<?php echo $banner1['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner1['title']; ?>"/>
-                                        </a>
-                                        <!-- <a href="--><?php //echo $banner1['link']; ?><!--" title="--><?php //echo $banner1['title']; ?><!--">-->
-                                        <!-- <img src="/images/banners/--><?php //echo $banner1['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner1['title']; ?><!--"/>-->
-                                        <!-- </a>-->
+                            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel" data-keyboard="true" data-touch="true">
 
-                                    </li>
+                                <ol class="carousel-indicators">
+                                    <?php foreach ($arrayBannerItems as $index => $item) {
+                                        if($index == 0 && $item) { ?>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $index; ?>" class="active"> </li>
+                                        <?php } else if($item) { ?>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $index; ?>"></li>
+                                        <?php } ?>
+                                    <?php } ?>
 
-                                    <?php if ($banner2) { ?>
 
-                                        <li>
-                                            <a href="<?php echo $banner2['link']; ?>" title="<?php echo $banner2['title']; ?>">
-                                                <img src="/images/banners/<?php echo $banner2['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner2['title']; ?>" />
-                                            </a>
-                                            <!-- <a href="--><?php //echo $banner2['link']; ?><!--" title="--><?php //echo $banner2['title']; ?><!--">-->
-                                            <!-- <img  src="/images/banners/--><?php //echo $banner2['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner2['title'];  ?><!--"/>-->
-                                            <!-- </a>-->
-
-                                        </li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    
+                                    <?php foreach($arrayBannerItems as $index => $item) { ?>
+                                        
+                                        <?php  if($index == 0 )  {?>
+                                            <div class="carousel-item active">
+                                                <a href="<?php echo $item['link']; ?>" title="<?php echo $item['title']; ?>">
+                                                    <img src="/images/banners/<?php echo $item['fileurl']; ?>" class="d-block w-100" alt="<?php echo $item['title']; ?>"/>
+                                                </a>
+                                            </div>
+                                        <?php } else { ?>
+                                            <div class="carousel-item">
+                                                <a href="<?php echo $item['link']; ?>" title="<?php echo $item['title']; ?>">
+                                                    <img src="/images/banners/<?php echo $item['fileurl']; ?>" class="d-block w-100" alt="<?php echo $item['title']; ?>"/>
+                                                </a>
+                                            </div>
+                                        <?php } ?>
 
                                     <?php } ?>
-                                    <?php if ($banner3) { ?>
-
-                                        <li>
-                                            <a href="<?php echo $banner3['link']; ?>" title="<?php echo $banner3['title']; ?>">
-                                                <img src="/images/banners/<?php echo $banner3['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner3['title']; ?>" />
-                                            </a>
-                                            <!-- <a href="--><?php //echo $banner3['link']; ?><!--" title="--><?php //echo $banner3['title']; ?><!--">-->
-                                            <!-- <img src="/images/banners/--><?php //echo $banner3['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner3['title']; ?><!--"/>-->
-                                            <!-- </a>-->
-
-                                        </li>
-
-                                    <?php } ?>
-                                    <?php if ($banner4) { ?>
-
-                                        <li>
-                                            <a href="<?php echo $banner4['link']; ?>" title="<?php echo $banner4['title']; ?>">
-                                                <img src="/images/banners/<?php echo $banner4['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner4['title']; ?>"/>
-                                            </a>
-                                            <!-- <a href="--><?php //echo $banner4['link']; ?><!--" title="--><?php //echo $banner4['title']; ?><!--">-->
-                                            <!-- <img src="/images/banners/--><?php //echo $banner4['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner4['title']; ?><!--"/>-->
-                                            <!-- </a>-->
-
-                                        </li>
-
-                                    <?php } ?>
-                                    <?php if ($banner5) { ?>
-
-                                        <li>
-                                            <a href="<?php echo $banner5['link']; ?>" title="<?php echo $banner5['title']; ?>">
-                                                <img src="/images/banners/<?php echo $banner5['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner5['title']; ?>" />
-                                            </a>
-                                            <!-- <a href="--><?php //echo $banner5['link']; ?><!--" title="--><?php //echo $banner5['title']; ?><!--">-->
-                                            <!-- <img src="/images/banners/--><?php //echo $banner5['fileurl2']; ?><!--" class="img-fluid d-lg-none d-md-none d-block img-carousel" alt="--><?php //echo $banner5['title']; ?><!--"/>-->
-                                            <!-- </a>-->
-
-                                        </li>
-
-                                    <?php } ?>
-                                    <?php if ($banner6) { ?>
-
-                                        <li>
-                                            <a href="<?php echo $banner6['link']; ?>" title="<?php echo $banner6['title']; ?>">
-                                                <img src="/images/banners/<?php echo $banner6['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner6['title']; ?>" />
-                                            </a>
-
-                                        </li>
-
-                                    <?php } ?>
-                                    <?php if ($banner7) { ?>
-
-                                        <li>
-                                            <a href="<?php echo $banner7['link']; ?>" title="<?php echo $banner7['title']; ?>">
-                                                <img src="/images/banners/<?php echo $banner7['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner7['title']; ?>" />
-                                            </a>
-
-                                        </li>
-
-
-                                    <?php } ?>
-                                    <?php if ($banner8) { ?>
-
-                                        <li>
-                                            <a href="<?php echo $banner8['link']; ?>" title="<?php echo $banner8['title']; ?>">
-                                                <img src="/images/banners/<?php echo $banner8['fileurl']; ?>" class=" img-carousel" alt="<?php echo $banner8['title']; ?>" />
-                                            </a>
-
-                                        </li>
-
-                                    <?php } ?>
-                                    <?php if ($banner9) { ?>
-
-                                        <li>
-                                            <a href="<?php echo $banner9['link']; ?>" title="<?php echo $banner9['title']; ?>">
-                                                <img src="/images/banners/<?php echo $banner9['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner9['title']; ?>"/>
-                                            </a>
-
-                                        </li>
-
-                                    <?php } ?>
-                                    <?php if ($banner10) { ?>
-
-                                        <li>
-                                            <a href="<?php echo $banner10['link']; ?>" title="<?php echo $banner10['title']; ?>">
-                                                <img src="/images/banners/<?php echo $banner10['fileurl']; ?>" class="img-carousel" alt="<?php echo $banner10['title']; ?>" />
-                                            </a>
-
-                                        </li>
-
-                                    <?php } ?>
-                                </ul>
-                                <div id="shadow" class="shadow-slider"></div>
-                                <?php if ($banner2 || $banner3 || $banner4 || $banner5 || $banner6 || $banner7 || $banner8 || $banner9 || $banner10) { ?>
-                                    <div id="nav-arrows" class="nav-arrows">
-                                        <a href="#">Next</a>
-                                        <a href="#">Previous</a>
-                                    </div>
-                                <?php } ?>
-                                <div id="nav-dots" class="nav-dots">
-                                    <span class="nav-dot-current"></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
+                                    
                                 </div>
+
+                                <?php if ($banner2 || $banner3 || $banner4 || $banner5 || $banner6 || $banner7 || $banner8 || $banner9 || $banner10) { ?>
+
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+
+                                <?php } ?>
+
                             </div>
+
 
                             <!--  END слайдер                   -->
 

@@ -30,3 +30,13 @@ function banners()
     }
 
 }
+
+function getBanners()
+{
+    $inCore = cmsCore::getInstance();
+    $inCore->loadModel('banners');
+
+    $model = new cms_model_banners();
+
+    return $model->getAllPublishedBanner();
+}

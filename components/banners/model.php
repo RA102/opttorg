@@ -153,4 +153,20 @@ class cms_model_banners
         return true;
     }
 
+    public function getAllPublishedBanner()
+    {
+        $inDB = cmsDatabase::getInstance();
+
+        $query = "SELECT * FROM cms_banners WHERE published = 1";
+
+        $result = $inDB->query($query);
+
+        if ($inDB->num_rows($result)) {
+            return $arrayPublishedBanners = $inDB->fetchAllFromArray($result);
+        } else {
+            return [];
+        }
+
+    }
+
 }
