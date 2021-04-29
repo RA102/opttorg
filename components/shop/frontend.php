@@ -818,6 +818,23 @@ function shop()
 //            $inCore->redirect($_SERVER['REQUEST_URI']);
 //        }
 
+        if (isset($_POST['userInfo'])) {
+            $data['name'] = $inCore->request('name', 'str');
+            $data['email'] = $inCore->request('email', 'str');
+            $data['phone'] = $inCore->request('phone', 'str');
+            $data['city'] = $inCore->request('city', 'str');
+
+            $idUser = $inDB->get_field('user_table_new', "phone LIKE '{$data['phone']}'", 'id');
+
+            if ($idUser) {
+                $isUpdate = $inDB->update('user_table_new', $data, $idUser);
+            } else {
+                $isInsert = $inDB->insert('user_table_new', $data);
+            }
+
+        }
+
+
         //получаем ID заказа (на случай если мы вернулись сюда из выбора оплаты)
         $order_id = $inCore->request('order_id', 'int', 0);
 
@@ -1035,6 +1052,7 @@ function shop()
      */
     
     if ($do == 'customer_data') {
+        $session = session_id();
 
         //сохраняем кол-во товаров в корзине
         $qty_arr = $inCore->request('qty', 'array');

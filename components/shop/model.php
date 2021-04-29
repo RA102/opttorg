@@ -5085,23 +5085,23 @@ class cms_model_shop
 
                 $result .= "<tr class=\"\">
                                     <td>
-                                        <input name=\"partId[]\" type=\"hidden\" value=\"{$item->id}\">
-                                        <input name=\"titlePart[]\" type=\"text\" value=\"{$item->title_part}\"/>
+                                        <input name=\"partId[]\" type=\"hidden\" value=\"{$item['id']}\">
+                                        <input name=\"titlePart[]\" type=\"text\" value=\"{$item['title_part']} \"/>
                                     </td>
                                     <td>
-                                        <input name=\"widthItem[]\" type=\"number\" value=\"{$item->width}\"/>
+                                        <input name=\"widthItem[]\" type=\"number\" value=\"{$item['width']}\"/>
                                     </td>
                                     <td>
-                                        <input name=\"heightItem[]\" type=\"number\" value=\"{$item->height}\"/>
+                                        <input name=\"heightItem[]\" type=\"number\" value=\"{$item['height']}\"/>
                                     </td>
                                     <td>
-                                        <input name=\"depthItem[]\" type=\"number\" value=\"{$item->depth}\"/>
+                                        <input name=\"depthItem[]\" type=\"number\" value=\"{$item['depth']}\"/>
                                     </td>
                                     <td>
-                                        <input name=\"weightItem[]\" type=\"number\" value=\"{$item->weight}\"/>
+                                        <input name=\"weightItem[]\" type=\"number\" value=\"{$item['weight']}\"/>
                                     </td>
                                     <td>
-                                        <img class=\"buttonRemovePart img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\" data-id=\"$item->id\" >
+                                        <img class=\"buttonRemovePart img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\" data-id=\"{$item['id']}\" >
                                     </td>
                                 </tr>";
 

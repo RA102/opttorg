@@ -123,14 +123,14 @@
             <div style="font-size:24px;line-height:32px;" >
                 <strong>Стоимость доставки: </strong>
                 <span>
-                    <input id="sumDelivery" style="width: 100px;" type="text" name="price_delivery" value="{$sumDelivery}" disabled>
+                    <input id="sumDelivery" style="width: 100px; border: none;" type="text" name="price_delivery" value="{$sumDelivery}" readonly>
                 </span>
                 {$cfg.currency}
             </div>
             <div style="font-size:24px;line-height:32px;" >
                 <strong>Стоимость покупки: </strong>
                 <span>
-                    <input id="totalsumm" style="width: 100px;" type="text"  value="{$totalsumm}" disabled>
+                    <input id="totalsumm" style="width: 100px; border: none;" type="text"  value="{$totalsumm}" readonly>
                 </span>
                 {$cfg.currency}
             </div>
@@ -138,7 +138,7 @@
                 <strong>К оплате:</strong>
                 <span id="result">
                     <span>
-                        <input id="resultsumm" style="width: 100px;" type="text" value="" disabled>
+                        <input id="resultsumm" style="width: 100px; border: none;" type="text" value="" readonly>
 
     {*                    {if !$order}*}
     {*                        {if $delivery_types}*}

@@ -180,14 +180,12 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+<!--    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">-->
 
 
 
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
-    <script src="/templates/<?php echo TEMPLATE; ?>/js/fish.js"> </script>
-    <script src="/templates/<?php echo TEMPLATE; ?>/js/custom.js"></script>
 
     <!-- VueJS and Vuetify  -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -434,23 +432,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </main>
         <?php } else { ?>
             <?php
-            $inDB = cmsDatabase::getInstance();
-            $banners_top = $inDB->query("SELECT * FROM `cms_banners` WHERE `published` = '1' ORDER BY `position` DESC LIMIT 5");
-            $banner1 = $inDB->get_fields('cms_banners', "position = 'banner1' AND published = 1", '*');
-            $banner2 = $inDB->get_fields('cms_banners', "position = 'banner2' AND published = 1", '*');
-            $banner3 = $inDB->get_fields('cms_banners', "position = 'banner3' AND published = 1", '*');
-            $banner4 = $inDB->get_fields('cms_banners', "position = 'banner4' AND published = 1", '*');
-            $banner5 = $inDB->get_fields('cms_banners', "position = 'banner5' AND published = 1", '*');
-            $banner6 = $inDB->get_fields('cms_banners', "position = 'banner6' AND published = 1", '*');
-            $banner7 = $inDB->get_fields('cms_banners', "position = 'banner7' AND published = 1", '*');
-            $banner8 = $inDB->get_fields('cms_banners', "position = 'banner8' AND published = 1", '*');
-            $banner9 = $inDB->get_fields('cms_banners', "position = 'banner9' AND published = 1", '*');
-            $banner10 = $inDB->get_fields('cms_banners', "position = 'banner10' AND published = 1", '*');
-            /*
-            while($bt = $inDB->fetch_assoc($banners_top)){
-
-            }
-            */
 
 
             $inCore->loadModel('banners');
@@ -461,7 +442,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 
             ?>
-            <?php if ($banner1) { ?>
+            <?php if (!empty($arrayBannerItems)) { ?>
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <section class="main-banner">
@@ -480,9 +461,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
                                 </ol>
                                 <div class="carousel-inner">
-                                    
+
                                     <?php foreach($arrayBannerItems as $index => $item) { ?>
-                                        
+
                                         <?php  if($index == 0 )  {?>
                                             <div class="carousel-item active">
                                                 <a href="<?php echo $item['link']; ?>" title="<?php echo $item['title']; ?>">
@@ -498,10 +479,10 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                         <?php } ?>
 
                                     <?php } ?>
-                                    
+
                                 </div>
 
-                                <?php if ($banner2 || $banner3 || $banner4 || $banner5 || $banner6 || $banner7 || $banner8 || $banner9 || $banner10) { ?>
+                                <?php if (count($arrayBannerItems)) { ?>
 
                                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

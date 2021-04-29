@@ -157,7 +157,7 @@ class cms_model_banners
     {
         $inDB = cmsDatabase::getInstance();
 
-        $query = "SELECT * FROM cms_banners WHERE published = 1";
+        $query = "SELECT * FROM cms_banners WHERE published = 1 ORDER BY REVERSE(position)" ;
 
         $result = $inDB->query($query);
 

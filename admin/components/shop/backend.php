@@ -35,7 +35,6 @@ function spellcount($num, $one, $two, $many)
 }
 
 $inCore = cmsCore::getInstance();
-$inCore = cmsCore::getInstance();
 $inUser = cmsUser::getInstance();
 $inCore::loadLib('tags');
 $inCore->loadModel('shop');

@@ -8,6 +8,8 @@ $(document).ready(function () {
             e.preventDefault();
             $('.menu-left').toggleClass('d-none');
         });
+    } else {
+        $('.menu-left').removeClass('d-none');
     }
 
     $('.mega-dropdown').hover(
@@ -145,10 +147,28 @@ $(document).ready(function () {
         $('#toast-wrap').addClass('d-none');
     })
 
+    // Кнопки input в корзине
+    $('.inputTN__bottom').on('click', function (event) {
+        let input = $(this).prev().prev();
+        let oldCount = parseInt($(input).val());
+        if (oldCount == 1) {
+            return false;
+        }
+        let newCount = --oldCount;
+        input.val(newCount);
+        recountSumm();
+    });
 
-    $('.toast').on('hidden.bs.toast', function () {
-        $('#toast-wrap').addClass('d-none');
-    })
+
+    $('.inputTN__top').on('click', function (event) {
+
+        let input = $(this).prev();
+        let oldCount = parseInt($(input).val());
+        let newCount = ++oldCount;
+        input.val(newCount);
+        recountSumm();
+    });
+
 
 })
 
