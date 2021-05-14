@@ -110,6 +110,10 @@
                         <td width="60">
                             <input type="text" name="art_no" value="<?php echo $art_no_part; ?>" style="width:60px"/>
                         </td>
+                        <td width="40">Код произ.:</td>
+                        <td width="100">
+                          <input type="text" name="ven_code" value="<?php echo $ven_code ?>" style="width:100px"/>
+                        </td>
                         <td width="60">Название:</td>
                         <td width="">
                             <input type="text" name="title" value="<?php echo $title_part; ?>" style="width:99%"/>

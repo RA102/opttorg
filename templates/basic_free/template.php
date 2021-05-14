@@ -4,6 +4,10 @@
  * Доступны объекты $inCore $inUser $inPage($this) $inConf $inDB
  */
 
+if(isset($_GET['utm_source'])) {
+    $inDB->insert('utm_placemarks', $_GET);
+}
+
 // Получаем количество модулей на нужные позиции
 $mod_count['top'] = $this->countModules('top');
 $mod_count['topmenu'] = $this->countModules('topmenu');
@@ -92,6 +96,12 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     $headers .= 'To: <santehopttorg00@mail.ru>' . "\r\n";
     $headers .= 'From: <santehopttorg00@mail.ru>' . "\r\n";
     mail('santehopttorg00@mail.ru', $subject, $message, $headers);
+
+    $data['name'] = $inDB->escape_string($usr);
+    $data['phone'] = $inDB->escape_string($phn);
+    $data['city'] = $inDB->escape_string($city);
+    $data['email'] = $inDB->escape_string($mail);
+    $inDB->insert('users_data_new', $data);
 }
 ?>
 <!DOCTYPE html>

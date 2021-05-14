@@ -1092,9 +1092,6 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $model->vperedItem($id, $item['category_id']);
         }
 
-
-        $model->addParamsItem($item['id'], $paramsItem);
-
         if ($inCore->request('add_again', 'int', 0)) {
             $inCore->redirect('?view=components&do=config&opt=add_item&id=' . $_REQUEST['id'] . '&added=' . $item['id']);
         } else {
@@ -1222,9 +1219,6 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                     ];
                 }
             }
-
-            $model->updateParamsItem($id, $paramsItem);
-
 
             if ($item['ordering'] == 1) {
                 $model->vperedItem($id, $item['category_id']);
@@ -2065,6 +2059,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
         $title_part = $inCore->request('title', 'str', '');
         $art_no_part = $inCore->request('art_no', 'str', '');
+        $ven_code = $inCore->request('ven_code', 'str', '');
 
         $def_order = $category_id ? 'ic.ordering' : 'title';
         $orderby = $inCore->request('orderby', 'str', $def_order);
@@ -2095,6 +2090,10 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
         if ($art_no_part) {
             $model->where('LOWER(i.art_no) LIKE \'' . strtolower($art_no_part) . '%\'');
+        }
+
+        if ($ven_code) {
+          $model->where('LOWER(i.ven_code) LIKE \'' . strtolower($ven_code) . '%\'');
         }
 
         if ($vendor_id) {
@@ -2384,10 +2383,6 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $mod = $model->getItem($id, false);
 
 
-
-            $itemParts = $model->getParamsItem($id);
-
-
             echo '<h3>Товар: <span style="color:#808080">' . $mod['title'] . '</span> ' . $ostatok . '</h3>';
             cpAddPathway('Категории и товары', '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=list_items');
             cpAddPathway($mod['title'], '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_item&item_id=' . $id);
@@ -2528,28 +2523,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 </tr>
 
                             </table>
-                            <!--    RA      -->
-                            <table class="params-item">
-                                <tr>
 
-                                    <th width="200" class="text-center">Название</th>
-                                    <th width="50">Ширина(см.)</th>
-                                    <th width="50">Высота(см.)</th>
-                                    <th width="50">Глубина(см.)</th>
-                                    <th width="50">Вес(кг.)</th>
-                                    <th width="50">Действия</th>
-                                </tr>
-
-                                <?php echo $model->generateRowPartsItem($itemParts); ?>
-
-                                <tr name="addPartItem">
-                                    <td class="">
-                                        <img id="buttonAddPart" class="img-fluid" src="/admin/images/icons/hmenu/add.png" alt="">
-                                    </td>
-                                </tr>
-
-                            </table>
-                            <!--   /RA      -->
                             <hr/>
 
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -5066,13 +5040,14 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
     <?php }
 
-    if ($opt == 'remove_param') {
+    if ($opt == 'check-available-in-stock') {
+        (cmsPage::getInstance())->setRequestIsAjax();
+        $artNo = $inCore::request('art_no', 'int');
 
-        $paramId = $inCore->request('param_id', 'int');
-
-        $model->removeParamItem($paramId);
-
+        cmsCore::jsonOutput(['data'=>$model->availableInStock($artNo)]);
     }
+
+
 }
 
 

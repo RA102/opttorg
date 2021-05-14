@@ -25,9 +25,6 @@ function recountSumm(){
             specificCountProduct = Number($('.cart_table .media').eq(i).find('select').val());
         }
 
-        //specificCountProduct = Number($('.cart_table .media').eq(i).find('input').val());
-
-
         if (specificCountProduct < 1 || !Number(specificCountProduct)) {
             specificCountProduct = 1;
             $('.cart_table .media').eq(i).find('input').val(specificCountProduct);
@@ -36,11 +33,7 @@ function recountSumm(){
 
         price = Number($('.cart_table .trr').eq(i).find('.price .new-price').html());
 
-
         oldPrice = Number($('.cart_table .trr').eq(i).find('.cart-old--price').html()) ? Number($('.cart_table .trr').eq(i).find('.cart-old--price').html()) : 0;
-
-
-
 
         if (oldPrice) {
             amountWithoutDiscount += oldPrice * specificCountProduct;
@@ -49,14 +42,6 @@ function recountSumm(){
             amountWithoutDiscount += price * specificCountProduct;
             amountWithDiscount += price * specificCountProduct;
         }
-
-
-
-
-        //$('.cart_table .trr').eq(i).find('.totalprice .value').html(total);
-        //$('.cart_table .trr').eq(i).find('.totalprice .value').fadeOut().fadeIn();
-
-
 
         count += specificCountProduct;
 

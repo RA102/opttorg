@@ -14937,6 +14937,7 @@ ul.search_result li.search_result_item:hover {
 .input-item-quantity {
     height: 48px;
     line-height: 48px;
+    font-size: 1.5rem;
     width: 80px;
     border: 2px solid #E1E1E1;
     border-radius: 10px;
@@ -14944,18 +14945,14 @@ ul.search_result li.search_result_item:hover {
     position: relative;
 }
 
+/* input counter item  */
+
 input[type="number"].input-item-quantity::-webkit-outer-spin-button,
 input[type="number"].input-item-quantity::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    width: 30px;
-    background: #B0B0B0;
-    border-left: 1px solid #BBB;
-    opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
 }
 
 
@@ -14966,19 +14963,26 @@ input[type="number"].input-item-quantity::-webkit-inner-spin-button {
     outline: none;
 }
 
-input[type="number"].input-item-quantity::-webkit-outer-spin-button,
-input[type="number"].input-item-quantity::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    width: 30px;
-    height: 100%;
-    border-left: 1px solid #BBB;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
+.inputItemCount__top {
+    width: 0px;
+    border: 10px solid transparent;
+    border-bottom: 17px solid #d0c4db;
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    top: -8%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.inputItemCount__bottom {
+    width: 0px;
+    border: 10px solid transparent;
+    border-top: 17px solid #d0c4db;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
 }
 
 .chars-wrp .btn-vkorz {

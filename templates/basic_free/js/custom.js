@@ -169,6 +169,28 @@ $(document).ready(function () {
         recountSumm();
     });
 
+    // Кнопки input +- на карточке товара
+    $('.inputItemCount__bottom').on('click', function (event) {
+        let input = $(this).prev().prev();
+        let oldCount = parseInt($(input).val());
+        if (oldCount == 1) {
+            return false;
+        }
+        let newCount = --oldCount;
+        input.val(newCount);
+        recountSumm();
+    });
+
+
+    $('.inputItemCount__top').on('click', function (event) {
+
+        let input = $(this).prev();
+        let oldCount = parseInt($(input).val());
+        let newCount = ++oldCount;
+        input.val(newCount);
+        recountSumm();
+    });
+
 
 })
 

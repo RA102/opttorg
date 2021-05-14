@@ -284,12 +284,16 @@ function cpMenu()
                         <li class="admin-menu-item">
                             <a href="index.php?view=loadprices&do=" class="add"><?php echo $_LANG['LOADING_FROM_PRICE']; ?></a>
                         </li>
+                        <li>
+                            <a href="index.php?view=kaspiorders&do=view">Каспи заказы</a>
+                        </li>
+                        <li>
+                            <a href="index.php?do=utmplacemarks">Utm метки</a>
+                        </li>
 
                     </ul>
                 </li>
-                <li>
-                    <a href="index.php?view=kaspiorders&do=view">Каспи заказы</a>
-                </li>
+
 
             <?php } ?>
             <li>

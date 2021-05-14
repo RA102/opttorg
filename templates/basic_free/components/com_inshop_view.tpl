@@ -6,11 +6,13 @@
 
 {if $topbanner!=''}{$topbanner}{/if}
 {if $smarty.server.REQUEST_URI == "/shop"}
-<div class="row no-gutters mb20">
+<div class="row mb20">
     {foreach key=tid item=cat from=$subcats name=shopcats}
-	<div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
-		<div class="thumb-cat">
-			<a href="/shop/{$cat.seolink}" title="{$cat.title}"><img src="/images/photos/small/{$cat.config.icon}" class="img-fluid" alt="{$cat.title}" /></a>
+	<div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 px-1"> {*  *}
+		<div class="thumb-cat ">
+			<a href="/shop/{$cat.seolink}" title="{$cat.title}">
+				<img src="/images/photos/small/{$cat.config.icon}" class="img-thumbnail" alt="{$cat.title}"/>
+			</a>
 			<a class="cat-th-title" href="/shop/{$cat.seolink}" data-truncate="1">{$cat.title}</a>
 		</div>
 	</div>	
