@@ -349,6 +349,8 @@ class cms_model_shop
             $this->where('c.published = 1');
         }
 
+        $this->where('v.sell_warehouse = 1 OR v.sell_to_order = 1');
+
 
         $sql = "SELECT  DISTINCT i.id,
                         i.*,
