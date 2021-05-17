@@ -5,6 +5,8 @@
  */
 
 if(isset($_GET['utm_source'])) {
+    $file = fopen(__DIR__ . '/../../log/utm.txt', 'a+');
+    $write = fwrite($file, date('d-m-Y H:i:s') . PHP_EOL . var_export($_GET, true) . PHP_EOL);
     $inDB->insert('utm_placemarks', $_GET);
 }
 
