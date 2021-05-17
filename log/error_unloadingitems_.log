@@ -1,0 +1,141 @@
+[12-Apr-2021 02:16:56 Asia/Dhaka] PHP Warning:  XMLReader::open(): remote host file access not supported, file://__DIR__/../cache/import.xml in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:16:56 Asia/Dhaka] PHP Warning:  XMLReader::open(file://__DIR__/../cache/import.xml): failed to open stream: no suitable wrapper could be found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:16:56 Asia/Dhaka] PHP Warning:  XMLReader::open(): Unable to open source data in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:16:56 Asia/Dhaka] PHP Warning:  XMLReader::read(): Load Data before trying to read in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 30
+[12-Apr-2021 02:16:56 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: String could not be parsed as XML in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php:34
+Stack trace:
+#0 D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php(34): SimpleXMLElement->__construct('')
+#1 D:\OSPanel\domains\sanmarket.loc\core\cms.php(496): include_once('D:\\OSPanel\\doma...')
+#2 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(257): cmsCore::includeFile('includes/unload...')
+#3 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(239): cmsCron::executeJob(Array)
+#4 D:\OSPanel\domains\sanmarket.loc\admin\applets\cron.php(65): cmsCron::executeJobById(13)
+#5 D:\OSPanel\domains\sanmarket.loc\admin\includes\cp.php(343): applet_cron()
+#6 D:\OSPanel\domains\sanmarket.loc\admin\index.php(80): cpProceedBody()
+#7 {main}
+  thrown in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 34
+[12-Apr-2021 02:17:09 Asia/Dhaka] PHP Warning:  XMLReader::open(): remote host file access not supported, file://__DIR__/../cache/import.xml in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:17:09 Asia/Dhaka] PHP Warning:  XMLReader::open(file://__DIR__/../cache/import.xml): failed to open stream: no suitable wrapper could be found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:17:09 Asia/Dhaka] PHP Warning:  XMLReader::open(): Unable to open source data in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:17:09 Asia/Dhaka] PHP Warning:  XMLReader::read(): Load Data before trying to read in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 30
+[12-Apr-2021 02:17:09 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: String could not be parsed as XML in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php:34
+Stack trace:
+#0 D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php(34): SimpleXMLElement->__construct('')
+#1 D:\OSPanel\domains\sanmarket.loc\core\cms.php(496): include_once('D:\\OSPanel\\doma...')
+#2 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(257): cmsCore::includeFile('includes/unload...')
+#3 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(239): cmsCron::executeJob(Array)
+#4 D:\OSPanel\domains\sanmarket.loc\admin\applets\cron.php(65): cmsCron::executeJobById(13)
+#5 D:\OSPanel\domains\sanmarket.loc\admin\includes\cp.php(343): applet_cron()
+#6 D:\OSPanel\domains\sanmarket.loc\admin\index.php(80): cpProceedBody()
+#7 {main}
+  thrown in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 34
+[12-Apr-2021 02:17:35 Asia/Dhaka] PHP Warning:  XMLReader::open(): remote host file access not supported, file://__DIR__/../cache/import.xml in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:17:35 Asia/Dhaka] PHP Warning:  XMLReader::open(file://__DIR__/../cache/import.xml): failed to open stream: no suitable wrapper could be found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:17:35 Asia/Dhaka] PHP Warning:  XMLReader::open(): Unable to open source data in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:17:40 Asia/Dhaka] PHP Warning:  XMLReader::read(): Load Data before trying to read in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 30
+[12-Apr-2021 02:17:41 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: String could not be parsed as XML in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php:34
+Stack trace:
+#0 D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php(34): SimpleXMLElement->__construct('')
+#1 D:\OSPanel\domains\sanmarket.loc\core\cms.php(496): include_once('D:\\OSPanel\\doma...')
+#2 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(257): cmsCore::includeFile('includes/unload...')
+#3 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(239): cmsCron::executeJob(Array)
+#4 D:\OSPanel\domains\sanmarket.loc\admin\applets\cron.php(65): cmsCron::executeJobById(13)
+#5 D:\OSPanel\domains\sanmarket.loc\admin\includes\cp.php(343): applet_cron()
+#6 D:\OSPanel\domains\sanmarket.loc\admin\index.php(80): cpProceedBody()
+#7 {main}
+  thrown in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 34
+[12-Apr-2021 02:18:14 Asia/Dhaka] PHP Warning:  XMLReader::open(): remote host file access not supported, file://../cache/import.xml in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:18:14 Asia/Dhaka] PHP Warning:  XMLReader::open(file://../cache/import.xml): failed to open stream: no suitable wrapper could be found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:18:14 Asia/Dhaka] PHP Warning:  XMLReader::open(): Unable to open source data in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:18:16 Asia/Dhaka] PHP Warning:  XMLReader::read(): Load Data before trying to read in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 30
+[12-Apr-2021 02:18:17 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: String could not be parsed as XML in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php:34
+Stack trace:
+#0 D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php(34): SimpleXMLElement->__construct('')
+#1 D:\OSPanel\domains\sanmarket.loc\core\cms.php(496): include_once('D:\\OSPanel\\doma...')
+#2 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(257): cmsCore::includeFile('includes/unload...')
+#3 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(239): cmsCron::executeJob(Array)
+#4 D:\OSPanel\domains\sanmarket.loc\admin\applets\cron.php(65): cmsCron::executeJobById(13)
+#5 D:\OSPanel\domains\sanmarket.loc\admin\includes\cp.php(343): applet_cron()
+#6 D:\OSPanel\domains\sanmarket.loc\admin\index.php(80): cpProceedBody()
+#7 {main}
+  thrown in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 34
+[12-Apr-2021 02:18:41 Asia/Dhaka] PHP Warning:  XMLReader::open(): Unable to open source data in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:18:43 Asia/Dhaka] PHP Warning:  XMLReader::read(): Load Data before trying to read in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 30
+[12-Apr-2021 02:18:44 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: String could not be parsed as XML in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php:34
+Stack trace:
+#0 D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php(34): SimpleXMLElement->__construct('')
+#1 D:\OSPanel\domains\sanmarket.loc\core\cms.php(496): include_once('D:\\OSPanel\\doma...')
+#2 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(257): cmsCore::includeFile('includes/unload...')
+#3 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(239): cmsCron::executeJob(Array)
+#4 D:\OSPanel\domains\sanmarket.loc\admin\applets\cron.php(65): cmsCron::executeJobById(13)
+#5 D:\OSPanel\domains\sanmarket.loc\admin\includes\cp.php(343): applet_cron()
+#6 D:\OSPanel\domains\sanmarket.loc\admin\index.php(80): cpProceedBody()
+#7 {main}
+  thrown in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 34
+[12-Apr-2021 02:19:20 Asia/Dhaka] PHP Warning:  XMLReader::open(): remote host file access not supported, file://__DIR__/../cache/import.xml in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:19:20 Asia/Dhaka] PHP Warning:  XMLReader::open(file://__DIR__/../cache/import.xml): failed to open stream: no suitable wrapper could be found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:19:20 Asia/Dhaka] PHP Warning:  XMLReader::open(): Unable to open source data in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 28
+[12-Apr-2021 02:24:58 Asia/Dhaka] PHP Warning:  XMLReader::read(): Load Data before trying to read in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 30
+[12-Apr-2021 02:24:59 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: String could not be parsed as XML in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php:34
+Stack trace:
+#0 D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php(34): SimpleXMLElement->__construct('')
+#1 D:\OSPanel\domains\sanmarket.loc\core\cms.php(496): include_once('D:\\OSPanel\\doma...')
+#2 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(257): cmsCore::includeFile('includes/unload...')
+#3 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(239): cmsCron::executeJob(Array)
+#4 D:\OSPanel\domains\sanmarket.loc\admin\applets\cron.php(65): cmsCron::executeJobById(13)
+#5 D:\OSPanel\domains\sanmarket.loc\admin\includes\cp.php(343): applet_cron()
+#6 D:\OSPanel\domains\sanmarket.loc\admin\index.php(80): cpProceedBody()
+#7 {main}
+  thrown in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 34
+[12-Apr-2021 02:50:04 Asia/Dhaka] PHP Warning:  mysqli_query(): MySQL server has gone away in D:\OSPanel\domains\sanmarket.loc\core\classes\db.class.php on line 165
+[12-Apr-2021 02:50:04 Asia/Dhaka] PHP Warning:  mysqli_query(): Error reading result set's header in D:\OSPanel\domains\sanmarket.loc\core\classes\db.class.php on line 165
+[12-Apr-2021 03:22:54 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): Entity: line 1: parser error : Start tag expected, '&lt;' not found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:22:54 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): D:/OSPanel/domains/sanmarket.loc/cache/import.xml in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:22:54 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): ^ in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:22:54 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: String could not be parsed as XML in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php:31
+Stack trace:
+#0 D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php(31): SimpleXMLElement->__construct('D:/OSPanel/doma...')
+#1 D:\OSPanel\domains\sanmarket.loc\core\cms.php(496): include_once('D:\\OSPanel\\doma...')
+#2 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(257): cmsCore::includeFile('includes/unload...')
+#3 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(239): cmsCron::executeJob(Array)
+#4 D:\OSPanel\domains\sanmarket.loc\admin\applets\cron.php(65): cmsCron::executeJobById(13)
+#5 D:\OSPanel\domains\sanmarket.loc\admin\includes\cp.php(343): applet_cron()
+#6 D:\OSPanel\domains\sanmarket.loc\admin\index.php(80): cpProceedBody()
+#7 {main}
+  thrown in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:24:06 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): Entity: line 1: parser error : Start tag expected, '&lt;' not found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:24:06 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): 1 in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:24:06 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): ^ in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:24:06 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: String could not be parsed as XML in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php:31
+Stack trace:
+#0 D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php(31): SimpleXMLElement->__construct('1')
+#1 D:\OSPanel\domains\sanmarket.loc\core\cms.php(496): include_once('D:\\OSPanel\\doma...')
+#2 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(257): cmsCore::includeFile('includes/unload...')
+#3 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(239): cmsCron::executeJob(Array)
+#4 D:\OSPanel\domains\sanmarket.loc\admin\applets\cron.php(65): cmsCron::executeJobById(13)
+#5 D:\OSPanel\domains\sanmarket.loc\admin\includes\cp.php(343): applet_cron()
+#6 D:\OSPanel\domains\sanmarket.loc\admin\index.php(80): cpProceedBody()
+#7 {main}
+  thrown in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:25:44 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): Entity: line 1: parser error : Start tag expected, '&lt;' not found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:25:44 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): 1 in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:25:44 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): ^ in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[12-Apr-2021 03:25:44 Asia/Dhaka] PHP Fatal error:  Uncaught Exception: String could not be parsed as XML in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php:31
+Stack trace:
+#0 D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php(31): SimpleXMLElement->__construct('1')
+#1 D:\OSPanel\domains\sanmarket.loc\core\cms.php(496): include_once('D:\\OSPanel\\doma...')
+#2 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(257): cmsCore::includeFile('includes/unload...')
+#3 D:\OSPanel\domains\sanmarket.loc\core\classes\cron.class.php(239): cmsCron::executeJob(Array)
+#4 D:\OSPanel\domains\sanmarket.loc\admin\applets\cron.php(65): cmsCron::executeJobById(13)
+#5 D:\OSPanel\domains\sanmarket.loc\admin\includes\cp.php(343): applet_cron()
+#6 D:\OSPanel\domains\sanmarket.loc\admin\index.php(80): cpProceedBody()
+#7 {main}
+  thrown in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[13-Apr-2021 22:47:05 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): Entity: line 3: parser error : Start tag expected, '&lt;' not found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 33
+[13-Apr-2021 22:47:05 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): 		18e96683-47dd-401c-b34f-487cb65cc6ee in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 33
+[13-Apr-2021 22:47:05 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): 		^ in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 33
+[01-May-2021 00:57:22 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): Entity: line 3: parser error : Start tag expected, '&lt;' not found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 33
+[01-May-2021 00:57:22 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): 		18e96683-47dd-401c-b34f-487cb65cc6ee in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 33
+[01-May-2021 00:57:22 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): 		^ in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 33
+[01-May-2021 01:10:31 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): Entity: line 3: parser error : Start tag expected, '&lt;' not found in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[01-May-2021 01:10:31 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): 		18e96683-47dd-401c-b34f-487cb65cc6ee in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
+[01-May-2021 01:10:31 Asia/Dhaka] PHP Warning:  SimpleXMLElement::__construct(): 		^ in D:\OSPanel\domains\sanmarket.loc\includes\unloadingitems.php on line 31
