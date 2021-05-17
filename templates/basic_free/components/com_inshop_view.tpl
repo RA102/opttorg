@@ -40,7 +40,7 @@
 		{/if}
 	</div>
 	<div class="rub-wrp">
-		<div class="no-gutters row">
+		<div class="row">
 			<div class="col-12 col-sm-12 col-md-3 col-lg-3 pr-2">
 				{if $subcats}
 				<div class="subcats-style">

@@ -146,35 +146,42 @@ function applet_main(){
 
       <td width="" valign="top" style="">
         <?php if($do == 'utmplacemarks') { ?>
-          
-              <div class="small_box">
+
+        <div class="small_box">
                   <div class="small_title"><strong><?php echo "Utm метки" ?></strong></div>
                   <div id="">
                       <div id="">
                           <?php
+                          $page = $inCore->request('page', 'int', 1);
+                          $perpage = 12;
                           $sql = 'SELECT * FROM utm_placemarks';
 
                           $result = $inDB->query($sql);
 
                           $countRows = $inDB->num_rows($result);
+                          $pages = ceil($countRows / $perpage);
+                          $pages_url = '/admin/index.php?do=utmplacemarks&page=%page%';
+                          $pagebar = cmsPage::getPagebar($countRows, $page, $perpage, $pages_url);
+//                          echo cmsPage::getPagebar($total, $page, $perpage, $base_uri.'&hide_cats='.$hide_cats.'&title='.$title_part.'&art_no='.$art_no_part.'&orderby='.$orderby.'&orderto='.$orderto.'&vendor_id='.$vendor_id.'&cat_id='.$category_id.'&page=%page%');
 
                           if ($countRows) {
-                              //$utmPlacemarks = $inDB->get_table('utm_placemarks', '', '*', 'DESC', 12);
                               $inDB->limit(12);
                               $inDB->orderBy('id', 'DESC');
-                              $utmPlacemarks = $inDB->fetch_all($result);
+                              $offset = ($page - 1) * $perpage;
+                              $limit = "$offset, $perpage";
+                              $utmPlacemarks = $inDB->get_table('utm_placemarks', '', '*', 'DESC', $limit);
 
-                              echo "<table class='table table-bordered'><tr><th>id</th><th>utm_source</th><th>utm_medium</th><th>utm_campaign</th><th>utm_term</th><th>utm_content</th><th>utm_nooverride</th><th>utm_referrer</th></tr>";
+
+
+                              echo "<table class='table table-bordered'><tr><th>id</th><th>utm_source</th><th>utm_medium</th><th>utm_campaign</th><th>utm_term</th><th>utm_content</th><th>Дата</th><th>utm_nooverride</th><th>utm_referrer</th></tr>";
 
                               foreach ($utmPlacemarks as $utmPlacemark) {
-                                  echo "<tr><td>{$utmPlacemark->id}</td><td title='указывает на источник трафика'>{$utmPlacemark->utm_source}</td><td title='определяет тип трафика. Например, при размещении объявлений по модели оплаты за клик в этом параметре обычно прописывают значение «cpc»'>{$utmPlacemark->utm_medium}</td><td title='этот параметр нужен, чтобы указать к какой рекламной кампании относится ссылка'>{$utmPlacemark->utm_campaign}</td><td title='эта метка нужна для определения ключевого слова, по которому показывалось ваше рекламное объявление'>{$utmPlacemark->utm_term}</td>
-<td title='помогает различать объявления, если другие параметры идентичны'>{$utmPlacemark->utm_content}</td><td title='с помощью этой метки можно определить, где произошло первое касание с клиентом при отслеживании ассоциированных конверсий'>{$utmPlacemark->utm_nooverrid}</td><td title='помогает корректно отслеживать и учитывать переходы при наличии Javascript-редиректа. Эта метка понятна только для Яндекс.Метрики'>{$utmPlacemark->utm_referrer}</td></tr>";
+                                  echo "<tr><td>{$utmPlacemark['id']}</td><td title='указывает на источник трафика'>{$utmPlacemark['utm_source']}</td><td title='определяет тип трафика. Например, при размещении объявлений по модели оплаты за клик в этом параметре обычно прописывают значение «cpc»'>{$utmPlacemark['utm_medium']}</td><td title='этот параметр нужен, чтобы указать к какой рекламной кампании относится ссылка'>{$utmPlacemark['utm_campaign']}</td><td title='эта метка нужна для определения ключевого слова, по которому показывалось ваше рекламное объявление'>{$utmPlacemark['utm_term']}</td>
+<td title='помогает различать объявления, если другие параметры идентичны'>{$utmPlacemark['utm_content']}</td><td>{$utmPlacemark['created_at']}</td><td title='с помощью этой метки можно определить, где произошло первое касание с клиентом при отслеживании ассоциированных конверсий'>{$utmPlacemark['utm_nooverrid']}</td><td title='помогает корректно отслеживать и учитывать переходы при наличии Javascript-редиректа. Эта метка понятна только для Яндекс.Метрики'>{$utmPlacemark['utm_referrer']}</td></tr>";
 
                               }
                               echo "</table>";
-
                           }
-
                           ?>
                       </div>
                   </div>
@@ -319,6 +326,11 @@ function applet_main(){
     </table></td>
   </tr>
 </table>
+  <div class="row justify-content-center">
+    <div>
+      <?= $pagebar; ?>
+    </div>
+  </div>
 <?php
 	return true;
 }

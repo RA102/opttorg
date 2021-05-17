@@ -2,7 +2,7 @@
 
 {$col="1"}
 {$cols="1"}
-<div class="row no-gutters">
+<div class="row">
     {foreach key=tid item=item from=$items name=shpv}
         {if $cols==3}
             {if $itembanner!=''}{$itembanner}{/if}
