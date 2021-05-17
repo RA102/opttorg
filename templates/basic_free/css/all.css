@@ -14286,7 +14286,12 @@ label#label25 > div:nth-child(3) {
     line-height: 48px;
     text-align: center;
     vertical-align: middle;
-    background-color: #46CD3A;
+    /*background-color: #46CD3A;*/
+
+    background-color: #ed0c6d;
+    -webkit-box-shadow: 0 10px 40px 0 rgba(237, 12, 109, 0.25);
+    box-shadow: 0 10px 40px 0 rgba(237, 12, 109, 0.25);
+
     border-radius: 10px;
     color: #FFFFFF;
 }
@@ -14472,7 +14477,7 @@ header {
 
 
 .main-banner {
-    margin-left: 280px;
+    margin-left: 290px;
 }
 
 .mega-dropdown-menu > li ul > li > a:hover,.mega-dropdown-menu > li ul > li > a:focus
@@ -14932,6 +14937,7 @@ ul.search_result li.search_result_item:hover {
 .input-item-quantity {
     height: 48px;
     line-height: 48px;
+    font-size: 1.5rem;
     width: 80px;
     border: 2px solid #E1E1E1;
     border-radius: 10px;
@@ -14939,18 +14945,14 @@ ul.search_result li.search_result_item:hover {
     position: relative;
 }
 
+/* input counter item  */
+
 input[type="number"].input-item-quantity::-webkit-outer-spin-button,
 input[type="number"].input-item-quantity::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    width: 30px;
-    background: #B0B0B0;
-    border-left: 1px solid #BBB;
-    opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
 }
 
 
@@ -14961,19 +14963,26 @@ input[type="number"].input-item-quantity::-webkit-inner-spin-button {
     outline: none;
 }
 
-input[type="number"].input-item-quantity::-webkit-outer-spin-button,
-input[type="number"].input-item-quantity::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    width: 30px;
-    height: 100%;
-    border-left: 1px solid #BBB;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-    opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
+.inputItemCount__top {
+    width: 0px;
+    border: 10px solid transparent;
+    border-bottom: 17px solid #d0c4db;
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    top: -8%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.inputItemCount__bottom {
+    width: 0px;
+    border: 10px solid transparent;
+    border-top: 17px solid #d0c4db;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
 }
 
 .chars-wrp .btn-vkorz {
@@ -15331,17 +15340,39 @@ li.media .media-object {
 input[type="number"].input-item--cart---quantity::-webkit-outer-spin-button,
 input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    width: 20px;
-    height: 100%;
-    background: #C4C4C4;
-    color: #FFFFFF;
-    border-left: 1px solid #BBB;
-    opacity: .5; /* shows Spin Buttons per default (Chrome >= 39) */
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    -moz-appearance: none;
+    appearance: none;
 }
+
+/* Для Firefox */
+input[type=number]{
+    -moz-appearance: textfield;
+}
+
+
+.inputTN__top {
+    width: 0px;
+    border: 5px solid transparent;
+    border-bottom: 7px solid #d0c4db;
+    position: absolute;
+    top: 5%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+
+.inputTN__bottom {
+    width: 0px;
+    border: 5px solid transparent;
+    border-top: 7px solid #d0c4db;
+    position: absolute;
+    top: 60%;
+    right: 5px;
+    cursor: pointer;
+    transition: .2s;
+}
+
 
 .cart-delivery--descriptions {
     font-family: Source Sans Pro;
@@ -15475,7 +15506,7 @@ input[type="number"].input-item--cart---quantity::-webkit-inner-spin-button {
     }
 
     .main-banner {
-        margin-left: 280px;
+        margin-left: 290px;
     }
 
    .carousel-inner>.item>img, .carousel-inner>.item>a>img {

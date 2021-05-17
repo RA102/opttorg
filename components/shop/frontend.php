@@ -110,11 +110,11 @@ function shop()
                 $inPage->setDescription($root_cat['meta_desc']);
                 $inPage->addHead('<meta property="og:description" content="' . $root_cat['meta_desc'] . '" />');
             } else {
-                $inPage->setDescription($root_cat['title'] . ' – продажа по лучшим ценам ✔ Широкий ассортимент ✔ Гарантия качества ⛟ Доставка → Алматы, Нур-Султан (Астана), Караганда, Шымкент, Костанай, по всему Казахстану.');
+                $inPage->setDescription($root_cat['title'] . ' – продажа по лучшим ценам ✔ Широкий ассортимент ✔ Гарантия качества ⛟ Доставка → Нур-Султан (Астана), Караганда, Алматы,  Шымкент, Костанай, по всему Казахстану.');
                 $inPage->addHead('<meta property="og:description" content="' . $root_cat['title'] . ' – продажа по лучшим ценам ✔ Широкий ассортимент ✔ Гарантия качества ⛟ Доставка → Алматы, Нур-Султан (Астана), Караганда, Шымкент, Костанай, по всему Казахстану." />');
             }
         }
-        $inPage->addHead('<meta property="og:image" content="https://sanmarket.kz/templates/basic_free/img/logo.png" />');
+        $inPage->addHead('<meta property="og:image" content="https://sanmarket.kz/templates/basic_free/images/LOGO_full_blue.svg" />');
         $inPage->addHead('<meta property="og:url" content="https://sanmarket.kz/shop/' . $root_cat['seolink'] . '" />');
         //Если у категории есть родители, выводим их в глубиномере
         if ($path_list) {
@@ -660,7 +660,7 @@ function shop()
         $d_type = $inCore->request('d_type', 'int', 0);
 
         // Получить стоимость доставки
-        $priceDelivery = $inCore->request('price_delivery', 'str');
+        $priceDelivery = $inCore->request('price_delivery', 'int');
 
 
         // Получаем код скидки
@@ -677,6 +677,7 @@ function shop()
         $order['customer_inn'] = $inCore->request('customer_inn', 'str', '');
         $order['customer_phone'] = $inCore->request('customer_phone', 'str', '');
         $order['customer_email'] = $inCore->request('customer_email', 'str', '');
+        $order['customer_city'] = $inCore->request('customer_city', 'str', '');
         $order['customer_address'] = $inCore->request('customer_address', 'str', '');
         $order['customer_comment'] = $inCore->request('customer_comment', 'str', '');
 
@@ -688,13 +689,10 @@ function shop()
         $order['summ'] = $model->calculateOrderSumm($items, $priceDelivery, $giftcode);
 
         if ($d_type) {
-            $delivery_types = $model->getDeliveryTypes($order['summ']);
+//            $delivery_types = $model->getDeliveryTypes($order['summ']);
             $order['d_type'] = $d_type;
 //            $order['d_price']       = $delivery_types[$d_type]['price'];
             $order['d_price'] = $priceDelivery;
-        } else {
-            $order['d_type'] = $d_type;
-            $order['d_price'] = 0;
         }
 
         //удаляем старые заказы для этой сессии
@@ -707,6 +705,7 @@ function shop()
             $customer_data['customer_inn'] = $order['customer_inn'];
             $customer_data['customer_phone'] = $order['customer_phone'];
             $customer_data['customer_email'] = $order['customer_email'];
+            $customer_data['customer_city'] = $order['customer_city'];
             $customer_data['customer_address'] = $order['customer_address'];
             $model->saveCustomerData($inUser->id, $customer_data);
         }
@@ -811,12 +810,24 @@ function shop()
 
     if ($do == 'view_order') {
 
-        //сохраняем кол-во товаров в корзине
-//        $qty_arr = $inCore->request('qty', 'array');
-//        if ($qty_arr) {
-//            $model->saveCart($qty_arr);
-//            $inCore->redirect($_SERVER['REQUEST_URI']);
-//        }
+
+        if (isset($_POST['userInfo'])) {
+            $data['name'] = $inCore->request('name', 'str');
+            $data['address'] = $inCore->request('address', 'str');
+            $data['email'] = $inCore->request('email', 'str');
+            $data['phone'] = $inCore->request('phone', 'str');
+            $data['city'] = $inCore->request('city', 'str');
+
+            $idUser = $inDB->get_field('users_data_new', "phone LIKE '{$data['phone']}'", 'id');
+
+            if ($idUser) {
+                $isUpdate = $inDB->update('users_data_new', $data, $idUser);
+            } else {
+                $isInsert = $inDB->insert('users_data_new', $data);
+            }
+
+        }
+
 
         //получаем ID заказа (на случай если мы вернулись сюда из выбора оплаты)
         $order_id = $inCore->request('order_id', 'int', 0);
@@ -863,137 +874,27 @@ function shop()
         $totalsumm = $model->getOrderSummDiscounted($totalsumm, $discount_size);
 
         //получаем данные покупателя
-//        if ($inUser->id) {
-//            $customer_data = $model->getCustomerData($inUser->id);
-//            if ($customer_data && !$order) {
-//                $order = array();
-//                $order['customer_name'] = $customer_data['customer_name'] ? $customer_data['customer_name'] : $inCore->request('name', "str");
-//                $order['customer_org'] = $customer_data['customer_org'];
-//                $order['customer_inn'] = $customer_data['customer_inn'];
-//                $order['customer_phone'] = $customer_data['customer_phone'] ? $customer_data['customer_phone'] : $inCore->request('phone', "str");
-//                $order['customer_email'] = $customer_data['customer_email'] ? $customer_data['customer_email'] : $inCore->request('email', "str");
-//                $order['customer_address'] = $customer_data['customer_address'] ? $customer_data['customer_address'] : $inCore->request('address', "str");
-//            }
 
         // Получение данных покупателя из запроса
-            $order = array();
-            $order['customer_name'] = $inCore->request('name', "str");
-            $order['customer_phone'] = $inCore->request('phone', "str");
-            $order['customer_email'] = $inCore->request('email', "str");
-            $order['customer_address'] = $inCore->request('city', "str") . ' ' . $inCore->request('address', 'str');
+        $order = array();
+        $order['customer_name'] = $inCore->request('name', "str");
+        $order['customer_phone'] = $inCore->request('phone', "str");
+        $order['customer_email'] = $inCore->request('email', "str");
+        $order['customer_city'] = $inCore->request('city', "str");
+        $order['customer_address'] = $inCore->request('address', 'str');
 
 
         $city = $inCore->request('city', "str");
 
         //получаем способы доставки
-        if ($items) {
+        if (!empty($items)) {
             $delivery_types = $model->getDeliveryTypes($totalsumm);
         }
 
-        $response = null;
-        $sumDelivery = 0;
-        $totalSumItemForPaidDelivery = 0;
-        $sumFixedCostDelivery = 0;
-
-        define('CENTIMETERS_PER_METER', 100.00);
-        define('CUBIC_METERS', 1000000);
-        define('FIXED_COST_DELIVERY', 1580);
-
-        $isFreeDelivery = $model->isFreeDelivery($city);
-
         // Просчет доставки
+        $isFreeDelivery = $model->isFreeDelivery($city);
+        $sumDelivery = $model->getPriceDelivery($city, $isFreeDelivery, $items);
 
-        if (!$isFreeDelivery) {
-
-            $places = 0;
-            
-            $responseVolume = 0;
-            foreach ($items as $index => $item) {
-
-                $volumeItem = 0;
-                $weightItem = 0;
-
-                if ((int)$item['category_id'] == 11059 || (int)$item['category_id'] == 10510 || (int)$item['category_id'] == 11012 || (int)$item['category_id'] == 11013 || (int)$item['category_id'] == 11014 || (int)$item['category_id'] == 11015 || (int)$item['category_id'] == 11016 || (int)$item['category_id'] == 1036 || (int)$item['category_id'] == 1037 || (int)$item['category_id'] == 1065 || (int)$item['category_id'] == 1067 || (int)$item['category_id'] == 1069 || (int)$item['category_id'] == 10956 || (int)$item['category_id'] == 11035 || (int)$item['category_id'] == 10954 || (int)$item['category_id'] == 11040) {
-
-                    $sumFixedCostDelivery += FIXED_COST_DELIVERY * $item['cart_qty'];
-
-                } else {
-
-                $partsItem = $model->getParamsItem($item['item_id']);
-
-//                    $tmp = 0;
-//                    $isLongestItem = 0;
-
-                    foreach ($partsItem as $params) {
-
-                        $width = doubleval($params['width']) / doubleval(100);
-                        $height = doubleval($params['height']) / doubleval(100);
-                        $depth = doubleval($params['depth']) / doubleval(CENTIMETERS_PER_METER);
-
-                        $volumeItem += $width * $height * $depth;
-
-
-                        $tmp = max($params['width'], $params['height'], $params['depth']);
-                        $isLongestItem = $isLongestItem < $tmp ? $tmp : $isLongestItem;
-                        $weightItem += $params['weight'];
-                    }
-                    
-                }
-                $weightItem *= $item['cart_qty'];
-                $volumeItem *= $item['cart_qty'];
-                $places += $item['cart_qty'];
-
-                $weight += $weightItem;
-                $volume += $volumeItem;
-
-                $totalSumItemForPaidDelivery += $item['price'] * $item['cart_qty'];
-                
-            }
-
-            $isLongest = number_format($isLongestItem / CENTIMETERS_PER_METER, 2, ',', '');
-
-            $formatVolume = $volume;
-
-            if ($weight != 0 && $formatVolume != 0) {
-
-                $postField = [
-                    "access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
-                    "cityfrom" => "Караганды-(Карагандинская область)",
-                    "cityto" => $city,
-                    "ves" => $weight,
-                    "obm3" => $formatVolume,
-                    "dlina" => $isLongest,
-                    "mest" => $places,
-                    "cost" => $totalSumItemForPaidDelivery,
-                    "naimenovanie" => "САНТЕХНИКА",
-                    "dops" => [
-                        "D_HARDPACK" => 0,
-                        "D_EP" => 0,
-                        "D_PB" => 1,
-                        "D_VPP" => 0,
-                        "D_SP" => 0,
-                        "D_SDOC" => 0,
-                        "D_EK" => 0
-                    ]
-                ];
-
-                $curl = curl_init();
-
-                curl_setopt_array($curl, [
-                    CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport', CURLOPT_RETURNTRANSFER => true, CURLOPT_ENCODING => '', CURLOPT_MAXREDIRS => 10, CURLOPT_TIMEOUT => 0, CURLOPT_FOLLOWLOCATION => true, CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE), CURLOPT_HTTPHEADER => ['contentType: application/json; charset=UTF-8', 'Content-Type: application/json; charset=UTF-8',],]);
-
-                $rawResponse = curl_exec($curl);
-
-                curl_close($curl);
-
-                $response = json_decode($rawResponse, true);
-
-                $sumDelivery += ($response['result']['price_zabor'] + $response['result']['price_terminal'] + $response['result']['price_delivery'] + $response['result']['price_dop']);
-            }
-
-            $sumDelivery += $sumFixedCostDelivery;
-
-        }
 
         if($isFreeDelivery) {
             unset($delivery_types[6]);
@@ -1035,6 +936,9 @@ function shop()
      */
     
     if ($do == 'customer_data') {
+        $session = session_id();
+
+
 
         //сохраняем кол-во товаров в корзине
         $qty_arr = $inCore->request('qty', 'array');

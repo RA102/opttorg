@@ -134,7 +134,7 @@
     </table>
 </div>
 
-<div class="order_info" id="add_order_pos" style="display:none">
+<div id="add_order_pos" class="order_info" style="display:none">
     <form action="index.php" method="POST">
         <input type="hidden" name="view" value="components"/>
         <input type="hidden" name="do" value="config"/>
@@ -143,16 +143,30 @@
         <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>"/>
         <table cellpadding="0" cellspacing="0" border="0" width="100%">
             <tr>
-                <td class="first">Добавить позицию:</td>
+                <td class="" width="150">Добавить позицию:</td>
                 <td width="60">Артикул: </td>
-                <td width="100"><input type="text" name="add_art_no" id="add_art_no" style="width:100px" /></td>
+                <td width="200">
+                  <input type="text" name="add_art_no" id="add_art_no" style="width:100px" />
+                  <input type="button" id="btnCheckAvailableInStock" class="btn btn-default" value="Проверить" />
+                  <span
+                          id="hintInStock"
+                          class="text-danger"
+                  ></span>
+                </td>
                 <td width="36">
                     <a href="/admin/index.php?view=components&do=config&id=<?php echo $component_id; ?>&opt=list_items" target="_blank" title="Открыть список товаров в отдельном окне">
                         <img src="/admin/images/icons/hmenu/cats.png" border="0" />
                     </a>
                 </td>
                 <td width="50">Кол-во: </td>
-                <td><input type="text" name="add_qty" style="width:50px" /></td>
+                <td>
+                  <input
+                          name="add_qty"
+                          type="number"
+                          min="1"
+                          value="1"
+                          style="width:50px" />
+                </td>
                 <td width="100" align="right"><input type="submit" name="add_pos" value="Добавить" style="width:100px" /></td>
             </tr>
         </table>

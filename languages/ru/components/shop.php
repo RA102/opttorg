@@ -49,6 +49,7 @@ $_LANG['SHOP_CUSTOMER_COMPANY']   = 'Организация';
 $_LANG['SHOP_CUSTOMER_PHONE']     = 'Контактный телефон';
 $_LANG['SHOP_CUSTOMER_EMAIL']     = 'E-mail';
 $_LANG['SHOP_CUSTOMER_ADDRESS']   = 'Адрес доставки';
+$_LANG['SHOP_CUSTOMER_CITY']      = 'Город доставки';
 $_LANG['SHOP_CUSTOMER_COMMENT']   = 'Комментарий';
 $_LANG['SHOP_CUSTOMER_INN']       = 'ИНН';
 $_LANG['SHOP_ITEMS_LIST']         = 'Список товаров';

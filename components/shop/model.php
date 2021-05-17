@@ -2983,7 +2983,7 @@ class cms_model_shop
 
         $chars_hash = is_array($chars) ? "'" . md5(serialize($chars)) . "'" : 'NULL';
 
-        $exists_id = $this->inDB->get_field('cms_shop_cart', "session_id='{$session_id}' AND item_id='{$item_id}' AND var_art_no='{$var_art_no}' AND chars_hash = $chars_hash", 'id');
+        $exists_id = $this->inDB->get_field('cms_shop_cart', "session_id='{$session_id}' AND item_id='{$item_id}' ", 'id'); //AND var_art_no='{$var_art_no}' AND chars_hash = $chars_hash
 
         if (!$exists_id) {
 
@@ -3150,7 +3150,10 @@ class cms_model_shop
                                 items.is_digital as is_digital,
                                 items.filename as filename_item,
                                 items.filename_orig as filename_orig,
-                                items.category_id as category_id
+                                items.category_id as category_id,
+                                items.ves as ves,
+                                items.vol as vol,
+                                items.longest_side as longest_side
 
                         FROM    cms_shop_cart cart, cms_shop_items items
 
@@ -3173,7 +3176,10 @@ class cms_model_shop
                                 items.is_digital as is_digital,
                                 items.filename as filename_item,
                                 items.filename_orig as filename_orig,
-                                items.category_id as category_id
+                                items.category_id as category_id,
+                                items.ves as ves,
+                                items.vol as vol,
+                                items.longest_side as longest_side
 
                         FROM    cms_shop_cart cart, cms_shop_items items, cms_shop_items_bind vars
 
@@ -3317,7 +3323,7 @@ class cms_model_shop
     public function isFreeDelivery($city)
     {
         $cityFreeDelivery = [
-            1 => 'Нур-Султан-(Столица Республики Казахстан)',
+            'Нур-Султан-(Столица Республики Казахстан)',
             'Караганды-(Карагандинская область)',
             'Майкудук, Пришахтинск-(Карагандинская область)',
             'Шахтинск-(Карагандинская область)',
@@ -3327,11 +3333,13 @@ class cms_model_shop
             'Темиртау-(Карагандинская область)',
             'Шахтинск-(Карагандинская область)'
         ];
-        if (array_search($city, $cityFreeDelivery)) {
-            return 1;
-        }
 
-        return 0;
+        return in_array($city, $cityFreeDelivery);
+//        if (array_search($city, $cityFreeDelivery)) {
+//            return 1;
+//        }
+//
+//        return 0;
 
     }
 
@@ -3545,8 +3553,8 @@ class cms_model_shop
         $delivery_types = $this->getDeliveryTypes($totalsumm);
 
         // прибавляем к сумме заказа стоимость выбранного типа доставки
-//        $d_price = $delivery_types[$d_type]['price'];
-        $d_price = $d_type;
+        $d_price = $delivery_types[$d_type]['price'];
+//        $d_price = $d_type;
 
         $totalsumm += $d_price;
 
@@ -3731,10 +3739,14 @@ class cms_model_shop
 
         if ($is_base) {
             $sql = "SELECT i.id as item_id,
-                           i.title as title,
-                           i.price as price,
-                           i.art_no as art_no,
-                           i.qty as qty
+                            i.title as title,
+                            i.price as price,
+                            i.art_no as art_no,
+                            i.qty as qty,
+                            i.ves as ves,
+                            i.vol as vol,
+                            i.longest_side as longest_side
+       
                     FROM cms_shop_items i
                     WHERE LOWER(i.art_no)=LOWER('$art_no')
                     LIMIT 1";
@@ -3747,7 +3759,10 @@ class cms_model_shop
                            i.price as base_price,
                            v.art_no as art_no,
                            v.qty as qty,
-                           v.item_id as item_id
+                           v.item_id as item_id,
+                           i.ves as ves,
+                           i.vol as vol,
+                           i.longest_side as longest_side
                     FROM cms_shop_items i, cms_shop_items_bind v
                     WHERE LOWER(v.art_no)=LOWER('$art_no') AND
                           v.item_id = i.id
@@ -3773,8 +3788,13 @@ class cms_model_shop
 
         $order['items'][] = $item;
 
+        if ($order['d_type'] == 6) {
+
+
+        }
         $new_summ = $this->calculateOrderSumm($order['items'], $order['d_type'], $order['giftcode']);
         $new_items = $inDB->escape_string($inCore->arrayToYaml($order['items']));
+
 
         $delivery_types = $this->getDeliveryTypes($new_summ);
         $new_d_price = $delivery_types[$order['d_type']]['price'];
@@ -5003,153 +5023,7 @@ class cms_model_shop
         return $banner;
     }
 
-    public function getParamsItem($idItem)
-    {
-        $itemParts = [];
-        if ($idItem) {
-            $sql = "SElECT * FROM cms_item_params WHERE item_id = $idItem";
-            $result = $this->inDB->query($sql);
-        }
-
-        if ($this->inDB->num_rows($result)) {
-            $itemParts = $this->inDB->fetchAllFromArray($result);
-            return $itemParts;
-        }
-
-        return $itemParts;
-
-    }
-
-    public function addParamsItem($idItem, $params)
-    {
-
-        if ($params) {
-            foreach ($params as $key => $param) {
-
-                $sql = "INSERT INTO cms_item_params( item_id, title_part, width, height, depth, weight)
-                        VALUES ('$idItem', '{$param['title']}', '{$param['width']}', '{$param['height']}', '{$param['depth']}', '{$param['weight']}')";
-                $this->inDB->query($sql);
-
-            }
-            return 0;
-        }
-        
-        return 1;
-
-    }
-    
-    public function removeParamItem($paramId)
-    {
-        $sql = "DELETE FROM cms_item_params WHERE id = '$paramId'";
-        $this->inDB->query($sql);
-
-        return 0;
-    }
-
-
-    public function updateParamsItem($idItem, $params) : int
-    {
-        foreach ($params as $key => $param) {
-
-            if ($param['id'] != 0) {
-
-                $sql = "UPDATE cms_item_params 
-                    SET title_part = '{$param['title']}', 
-                        width = '{$param['width']}', 
-                        height = '{$param['height']}', 
-                        depth = '{$param['depth']}',
-                        weight = '{$param['weight']}'
-                    WHERE id = '{$param['id']}'
-                    ";
-                $this->inDB->query($sql);
-
-            } else {
-
-                $sql = "INSERT INTO cms_item_params( item_id, title_part, width, height, depth, weight)
-                        VALUES ('$idItem', '{$param['title']}', '{$param['width']}', '{$param['height']}', '{$param['depth']}', '{$param['weight']}')";
-                $this->inDB->query($sql);
-
-            }
-
-        }
-        
-        return 1;
-
-    }
-
-    public function generateRowPartsItem(array $partsItem) : string
-    {
-        $result = '';
-        if (boolval($partsItem)) {
-            foreach ($partsItem as $index => $item) {
-
-                $result .= "<tr class=\"\">
-                                    <td>
-                                        <input name=\"partId[]\" type=\"hidden\" value=\"{$item->id}\">
-                                        <input name=\"titlePart[]\" type=\"text\" value=\"{$item->title_part}\"/>
-                                    </td>
-                                    <td>
-                                        <input name=\"widthItem[]\" type=\"number\" value=\"{$item->width}\"/>
-                                    </td>
-                                    <td>
-                                        <input name=\"heightItem[]\" type=\"number\" value=\"{$item->height}\"/>
-                                    </td>
-                                    <td>
-                                        <input name=\"depthItem[]\" type=\"number\" value=\"{$item->depth}\"/>
-                                    </td>
-                                    <td>
-                                        <input name=\"weightItem[]\" type=\"number\" value=\"{$item->weight}\"/>
-                                    </td>
-                                    <td>
-                                        <img class=\"buttonRemovePart img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\" data-id=\"$item->id\" >
-                                    </td>
-                                </tr>";
-
-            }
-        } else {
-
-            $result = "<tr class=\"\">
-                                    <td>
-                                        <input name=\"partId[]\" type=\"hidden\" value=\"\">
-                                        <input name=\"titlePart[]\" type=\"text\" value=\"\"/>
-                                    </td>
-                                    <td>
-                                        <input name=\"widthItem[]\" type=\"number\" value=\"\"/>
-                                    </td>
-                                    <td>
-                                        <input name=\"heightItem[]\" type=\"number\" value=\"\"/>
-                                    </td>
-                                    <td>
-                                        <input name=\"depthItem[]\" type=\"number\" value=\"\"/>
-                                    </td>
-                                    <td>
-                                        <input name=\"weightItem[]\" type=\"number\" value=\"\"/>
-                                    </td>
-                                    <td>
-                                        <img class=\"buttonRemovePart img-fluid\" src=\"images/actions/delete.gif\" alt=\"remove\">
-                                    </td>
-                                </tr>";
-
-        }
-
-        return $result;
-
-    }
-
-
-    // удалить
-    public function sortingItemsBasedQuantity(&$array)
-    {
-        foreach ($array as $index => $item) {
-            if ($item['qty'] < 2) {
-                array_unshift($array, $item);
-            } else if($item['qty']) {
-                return 0;
-            }
-        }
-    }
-
-
+    // Получение списка городов из файла для логистической компании JetLogistic
     public function listCities()
     {
         $data = file_get_contents(PATH . DIRECTORY_SEPARATOR . 'listCity.csv');
@@ -5158,5 +5032,99 @@ class cms_model_shop
 
         return $listCities;
     }
+
+    public function availableInStock($artNo)
+    {
+        $sql = "SELECT item.qty as qty, item.qty_from_vendor as qty_from_vendor FROM cms_shop_items as item WHERE art_no = $artNo LIMIT 1";
+        $result = $this->inDB->query($sql);
+        if (!$this->inDB->num_rows($result)) {
+            return false;
+        }
+
+        $qtyIteminStock = $this->inDB->fetchObject($result);
+        return $qtyIteminStock;
+    }
+
+
+    public function getPriceDelivery($city, $isFreeDelivery, $items)
+    {
+        define('FIXED_COST_DELIVERY', 1580);
+
+
+        $sumDelivery = 0;
+        $totalSumItemForPaidDelivery = 0;
+        $sumFixedCostDelivery = 0;
+        $weight = 0.0;
+        $isLongest = 0.0;
+        $volume = 0.0;
+        $places = 0;
+
+        if (!$isFreeDelivery) {
+
+            $categoriesIdFixedDeliveryCost = [ 11059, 10510, 11012, 11013, 11014, 11015, 11016, 1036, 1037, 1065, 1067, 1069, 10956, 11035, 10954, 11040, ];
+
+            $responseVolume = 0;
+            foreach ($items as $index => $item) {
+
+                if (in_array($item['category_id'], $categoriesIdFixedDeliveryCost)) {
+
+                    $sumFixedCostDelivery += FIXED_COST_DELIVERY * $item['cart_qty'];
+
+                } else {
+
+                    $weight += $item['ves'] * $item['cart_qty'];
+                    $volume += $item['vol'] * $item['cart_qty'];
+                    $isLongest = $item['longest_side'] > $isLongest ? $item['longest_side'] : $isLongest;
+                    $totalSumItemForPaidDelivery += $item['price'] * $item['cart_qty'];
+                    $places += $item['cart_qty'];
+                }
+
+            }
+
+
+            if ($weight != 0 && $volume != 0) {
+
+                $postField = [
+                    "access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
+                    "cityfrom" => "Караганды-(Карагандинская область)",
+                    "cityto" => $city,
+                    "ves" => $weight,
+                    "obm3" => $volume,
+                    "dlina" => $isLongest,
+                    "mest" => $places,
+                    "cost" => $totalSumItemForPaidDelivery,
+                    "naimenovanie" => "САНТЕХНИКА",
+                    "dops" => [
+                        "D_HARDPACK" => 0,
+                        "D_EP" => 0,
+                        "D_PB" => 1,
+                        "D_VPP" => 0,
+                        "D_SP" => 0,
+                        "D_SDOC" => 0,
+                        "D_EK" => 0
+                    ]
+                ];
+
+                $curl = curl_init();
+
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport', CURLOPT_RETURNTRANSFER => true, CURLOPT_ENCODING => '', CURLOPT_MAXREDIRS => 10, CURLOPT_TIMEOUT => 0, CURLOPT_FOLLOWLOCATION => true, CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE), CURLOPT_HTTPHEADER => ['contentType: application/json; charset=UTF-8', 'Content-Type: application/json; charset=UTF-8',],]);
+
+                $rawResponse = curl_exec($curl);
+
+                curl_close($curl);
+
+                $response = json_decode($rawResponse, true);
+
+                $sumDelivery += ($response['result']['price_zabor'] + $response['result']['price_terminal'] + $response['result']['price_delivery'] + $response['result']['price_dop']);
+            }
+
+            $sumDelivery += $sumFixedCostDelivery;
+
+        }
+
+        return $sumDelivery;
+    }
+
 
 }

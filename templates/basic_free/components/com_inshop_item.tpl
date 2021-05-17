@@ -154,7 +154,19 @@
                                                                     {/if}
                                                                     {if $cfg.qty_mode=='any'}
                                                                         <div class="d-inline-block">
-                                                                            <input id="qtyy" class="input-item-quantity" name="qty" type="number" min="1" class="qty-control" value="1" oninput="change()"/>
+                                                                            <div class="position-relative">
+                                                                                <input
+                                                                                        id="qtyy"
+                                                                                        class="input-item-quantity"
+                                                                                        name="qty"
+                                                                                        type="number"
+                                                                                        min="1"
+                                                                                        value="1"
+                                                                                        oninput="change()"
+                                                                                />
+                                                                                <div class="inputItemCount__top"></div>
+                                                                                <div class="inputItemCount__bottom"></div>
+                                                                            </div>
                                                                         </div>
                                                                     {/if}
                                                                     <div class="d-inline-block">

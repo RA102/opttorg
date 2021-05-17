@@ -336,7 +336,7 @@ function applet_menu(){
     if ($do == 'addmenu'){
 
         $GLOBALS['cp_page_title'] = $_LANG['AD_MENU_ADD'];
-        cpAddPathway($_LANG['AD_MENU_ADD']);
+        cpAddPathway($_LANG['AD_MENU_ADD'], '');
 
         $menu_list = cpGetList('menu');
 

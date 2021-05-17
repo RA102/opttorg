@@ -14,7 +14,7 @@
 <!--</form>-->
 
 
-<script src="https://auth.robokassa.kz/Merchant/PaymentForm/FormMS.js?MerchantLogin=Sanmarket.kz&InvoiceID=<?php echo $inv_id; ?>&Culture=ru&Encoding=utf-8&OutSum=<?php echo $out_summ; ?>&SignatureValue=<?php echo $crc; ?>"></script>
+<script src="https://auth.robokassa.kz/Merchant/PaymentForm/FormMS.js?MerchantLogin=Sanmarket.kz&InvoiceID=<?php echo $inv_id; ?>&Culture=ru&Encoding=utf-8&OutSum=<?php echo $out_summ; ?>&SignatureValue=<?php echo $crc; ?>&"></script>
 
 
 

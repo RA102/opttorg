@@ -9,7 +9,10 @@
         <div class="p-4 mr-3 bg-white cart-left--div" style="width: 760px;">{* col-md-7 col-lg-7 col-xl-7 *}
             <ul class="media-list cart_table">
                 {foreach key=num item=item from=$items}
-                    {if $smarty.session.user.group_id==10}<!-- оптовик -->{$iprice=$item.opt}{else}<!-- все остальные -->{$iprice=$item.price}{/if}
+                    {if $smarty.session.user.group_id==10}<!-- оптовик -->
+                        {$iprice=$item.opt}
+                    {else}<!-- все остальные -->
+                        {$iprice=$item.price}{/if}
                     <li class="media">
                         <div class="media-left">
                             <a href="/shop/{$item.seolink}.html" title="{$item.art_no} / {$item.title}">
@@ -26,7 +29,20 @@
                             </div>
                             <div class="d-inline-block float-right">
                                 {if !$readonly}
-                                    <input class="input-item--cart---quantity" name="qty[{$item.cart_id}]" min="1" onchange="recountSumm()" value="{if $item.cart_qty}{$item.cart_qty}{else}1{/if}" type="number"/>
+                                    <div class="position-relative">
+                                        <input
+                                                class="input-item--cart---quantity"
+                                                name="qty[{$item.cart_id}]"
+                                                pattern="^[0-9]+$"
+                                                min="1"
+                                                step="1"
+                                                onchange="recountSumm()"
+                                                value="{if $item.cart_qty}{$item.cart_qty}{else}1{/if}"
+                                                type="number"
+                                        />
+                                        <div class="inputTN__top"></div>
+                                        <div class="inputTN__bottom"></div>
+                                    </div>
                                 {/if}
                             </div>
                             <div class="my-2">

@@ -7,20 +7,12 @@
                 <div class="d-none">
                     <h3 class="con_heading"><span>Товары в заказе</span></h3>
                     <div class="small">
-                        {include file='com_inshop_cart_items.tpl'}
+{*                        {include file='com_inshop_cart_items.tpl'}*}
                     </div>
                 </div>
                 <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     {if $delivery_types}
                         <h3 class="con_heading"><span>{$LANG.SHOP_DELIVERY_TYPE} *</span></h3>
-{*                        <script type="text/javascript">*}
-{*                            {literal}*}
-{*                            function calcSumm(del_price) {*}
-{*                                var result_summ = Number(del_price) + Number($("#totalsumm").val());*}
-{*                                $("#resultsumm").html(result_summ);*}
-{*                            }*}
-{*                            {/literal}*}
-{*                        </script>*}
                             <table class="d_table table">
                                 <thead class="w-100">
                                     <tr class="d-md-table-row">
@@ -33,7 +25,7 @@
                                     {foreach from=$delivery_types item=typeDelivery}
                                         <tr class="delivery-tr d-md-table-row">
                                             <td class="text-center d-md-table-cell" valign="middle">
-                                                <input class="align-content-center " type="radio" id="d_type{$typeDelivery.id}" name="d_type" value="{$typeDelivery.id}" {if $d_type == $typeDelivery.id} checked="checked" {/if} />
+                                                <input class="align-content-center " type="radio" id="d_type{$typeDelivery.id}" name="d_type" value="{$typeDelivery.id}" />
                                             </td>
                                             <td class="text-center d-md-table-cell">
                                                 <span class="d_price pull-right">
@@ -95,12 +87,22 @@
                             </tr>
                             <tr class="d-table-row">
                                 <td class="d-md-table-cell">
+                                    {$LANG.SHOP_CUSTOMER_CITY}{if in_array("city", $cfg.ord_req)}
+                                        <span style="color:red">*</span>
+                                    {/if}
+                                </td>
+                                <td class="d-md-table-cell">
+                                    <input type="text" id="customer_city" name="customer_city" class="form-control" value="{$order.customer_city}" placeholder="Город" required/>
+                                </td>
+                            </tr>
+                            <tr class="d-table-row">
+                                <td class="d-md-table-cell">
                                     {$LANG.SHOP_CUSTOMER_ADDRESS}{if in_array("address", $cfg.ord_req)}
                                         <span style="color:red">*</span>
                                     {/if}
                                 </td>
                                 <td class="d-md-table-cell">
-                                    <input type="text" id="customer_address" name="customer_address" class="form-control" value="{$order.customer_address}" placeholder="Город, улица, дом, квартира" required/>
+                                    <input type="text" id="customer_address" name="customer_address" class="form-control" value="{$order.customer_address}" placeholder="Улица, дом, квартира" required/>
                                 </td>
                             </tr>
                             <tr class="d-table-row">
@@ -123,14 +125,14 @@
             <div style="font-size:24px;line-height:32px;" >
                 <strong>Стоимость доставки: </strong>
                 <span>
-                    <input id="sumDelivery" style="width: 100px;" type="text" name="price_delivery" value="{$sumDelivery}" disabled>
+                    <input id="sumDelivery" style="width: 100px; border: none;" type="text" name="price_delivery" value="{$sumDelivery}" readonly>
                 </span>
                 {$cfg.currency}
             </div>
             <div style="font-size:24px;line-height:32px;" >
                 <strong>Стоимость покупки: </strong>
                 <span>
-                    <input id="totalsumm" style="width: 100px;" type="text"  value="{$totalsumm}" disabled>
+                    <input id="totalsumm" style="width: 100px; border: none;" type="text"  value="{$totalsumm}" readonly>
                 </span>
                 {$cfg.currency}
             </div>
@@ -138,17 +140,7 @@
                 <strong>К оплате:</strong>
                 <span id="result">
                     <span>
-                        <input id="resultsumm" style="width: 100px;" type="text" value="" disabled>
-
-    {*                    {if !$order}*}
-    {*                        {if $delivery_types}*}
-    {*                            {$totalsumm+$delivery_types[0].price}*}
-    {*                        {else}*}
-    {*                            {$totalsumm}*}
-    {*                        {/if}*}
-    {*                    {else}*}
-    {*                        {$order.summ}*}
-    {*                    {/if}*}
+                        <input id="resultsumm" style="width: 100px; border: none;" type="text" value="" readonly>
                     </span>
                     {$cfg.currency}
                 </span>
@@ -171,7 +163,9 @@
 {literal}
     <script>
         $(document).ready(function () {
+            $('#d_type4').prop('checked', true);
             $('#d_type6').prop('checked', true);
+
             $('input#resultsumm').val(+$('input#totalsumm').val() + +$('input#sumDelivery').val());
 
             $('tr.delivery-tr').on('click', function (event) {

@@ -4,9 +4,7 @@ ini_set('display_errors', 0);
 ini_set('log_errors', 'on');
 ini_set('error_log', __DIR__ . '/../log/error_unloadingitems_.log');
 
-if (!defined('PATH')) {
-    define('PATH', $_SERVER['DOCUMENT_ROOT']);
-}
+
 if(!defined('VALID_CMS')) {
     define('VALID_CMS', 1);
 }
@@ -22,19 +20,19 @@ cmsCore::loadModel('shop');
 $model = new cms_model_shop();
 
 
-if (file_exists( $_SERVER['DOCUMENT_ROOT'] . $dir . $filename)) {
+if (file_exists( __DIR__ . '/../'. $dir . $filename)) {
 
     $z = new XMLReader;
-    $errorOpen = $z->open("file://{$_SERVER['DOCUMENT_ROOT']}/cache/import.xml");
+    $errorOpen = $z->open(__DIR__ . '/../' . "/cache/import.xml");
 
     $z->read();
 
-    try {
-        $xmlProducts = new SimpleXMLElement($z->readString());
-        $xpath = $xmlProducts->xpath('Товары');
-    } catch (Exception $e) {
-        die($e->getMessage());
-    }
+//    try {
+//        $xmlProducts = new SimpleXMLElement($z->readString());
+//        $xpath = $xmlProducts->xpath('Товары');
+//    } catch (Exception $e) {
+//        die($e->getMessage());
+//    }
 
     while ($z->read() && $z->name !== 'Товары') ;
 
@@ -64,9 +62,10 @@ function import_product($xml_product)
 
     $artNo = strval($xml_product->Артикул);
 
+    $instanceDb = cmsDatabase::getInstance();
 
     if ($artNo) {
-        $product_id = cmsDatabase::getInstance()->get_field('cms_shop_items', 'art_no=' . $artNo , 'id' );
+        $product_id = $instanceDb->get_field('cms_shop_items', 'art_no=' . $artNo , 'id' );
     } else {
         return;
     }
@@ -75,7 +74,7 @@ function import_product($xml_product)
     if (empty($product_id)) {
         $item['category_id'] = 10991;
         $item['art_no'] = (string)$xml_product->Артикул;
-        $item['title'] = cmsDatabase::getInstance()->escape_string((string)$xml_product->Наименование);
+        $item['title'] = $instanceDb->escape_string((string)$xml_product->Наименование);
         $item['price'] = $xml_product->Стоимость;
         $item['published'] = 0;
         $item['pubdate'] = date('Y-m-d');
@@ -104,30 +103,26 @@ function import_product($xml_product)
 				        '{$item['tpl']}', 
 				        '{$item['external_id']}'
 				)";
-        $result = cmsDatabase::getInstance()->query($sql);
+        $result = $instanceDb->query($sql);
 
     } else {
 
         $sql = "SELECT id FROM cms_shop_items WHERE id = {$product_id} AND old_price = 0";
 
-        $result = cmsDatabase::getInstance()->query($sql);
+        $result = $instanceDb->query($sql);
 
-        if (cmsDatabase::getInstance()->num_rows($result)) {
+        if ($instanceDb->num_rows($result)) {
             $item['price'] = (int)$xml_product->Стоимость;
             $item['qty'] = (int)$xml_product->КоличествоОстаток;
             $item['update_at'] = date('Y-m-d H:i:s');
-            cmsDatabase::getInstance()
-                ->update('cms_shop_items', $item, $product_id);
+            $instanceDb->update('cms_shop_items', $item, $product_id);
         } else {
 
             $item['qty'] = (int)$xml_product->КоличествоОстаток;
             $item['update_at'] = date('Y-m-d H:i:s');
-            cmsDatabase::getInstance()
-                ->update('cms_shop_items', $item, $product_id);
+            $instanceDb->update('cms_shop_items', $item, $product_id);
 
         }
-
-        return;
 
     }
 

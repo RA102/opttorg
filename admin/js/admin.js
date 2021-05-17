@@ -42,6 +42,29 @@ $(document).ready(function(){
         if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );
         }
+    });
+
+    $('#btnCheckAvailableInStock').on('click', function(event) {
+      event.stopPropagation();
+      let artNumberItem = $('#add_art_no').val();
+      let idComponent = $('input[name=id]').val();
+      $.ajax({
+        url: 'index.php?view=components&do=config&id=' + idComponent + '&opt=check-available-in-stock&art_no='+artNumberItem,
+        success: function (data) {
+          console.log(data.data);
+          if (data.data.qty > 1){
+            $('#hintInStock').text('Есть в наличии: ' + data.data.qty);
+          } else if (data.data.qty_from_vendor > 2) {
+            $('#hintInStock').text('На заказ: ' + data.data.qty_from_vendor);
+          } else {
+            $('#hintInStock').text('Нет в наличии');
+          }
+        },
+        error: function (error) {
+          console.log(error);
+        },
+      })
+
     })
 
 });
