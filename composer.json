@@ -1,0 +1,18 @@
+{
+    "name": "mikarr/sanmarket.loc",
+    "authors": [
+        {
+            "name": "RA",
+            "email": "sanmarketopttorg00@mail.ru"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "*",
+        "doctrine/migrations": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+
+        }
+    }
+}

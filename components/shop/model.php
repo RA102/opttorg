@@ -349,6 +349,9 @@ class cms_model_shop
             $this->where('c.published = 1');
         }
 
+        $this->where('v.sell_warehouse = 1 OR v.sell_to_order = 1');
+
+
         $sql = "SELECT  DISTINCT i.id,
                         i.*,
                         c.title as category,
@@ -367,6 +370,7 @@ class cms_model_shop
                 LEFT JOIN cms_shop_compare cm   ON i.id = cm.item_id AND cm.session_id = '{$session_id}'
 
                 WHERE   1=1
+                      
                         {$this->where}
 
                 {$this->group_by}
@@ -2495,7 +2499,9 @@ class cms_model_shop
         $sql = "UPDATE cms_shop_vendors
                 SET title = '{$item['title']}',
 					descr = '{$item['descr']}',
-                    published = '{$item['published']}'
+                    published = '{$item['published']}',
+                    sell_warehouse = '{$item['sell_warehouse']}',
+                    sell_to_order = '{$item['sell_to_order']}'
                 WHERE id = $id
                 LIMIT 1";
         $this->inDB->query($sql);
