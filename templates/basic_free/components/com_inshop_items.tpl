@@ -55,7 +55,7 @@
                         <div {if $item.old_price|number_format} class="color_red"{/if}>{$iprice|number_format:0:' ':' '} {$cfg.currency}</div>
                     {/if}
                 </div>
-                {if $item.qty > 1 || $item.qty_from_vendor > 1}
+                {if $item.qty > 1 && $item.sell_warehouse}
                 <form action="/shop/addtocart" method="POST">
                     <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
                     <div class="text-center">
@@ -63,7 +63,10 @@
                     </div>
                     <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}" data-price="{$iprice|number_format:0:' ':' '}">Заказ в один клик!</a>
                 </form>
-                {else}
+                {elseif $item.qty_from_vendor > 1 && $item.sell_to_order}
+                    <div class="d-flex justify-content-center align-items-center" style="height: 38px;">
+                        <a class="text-green" href="#">Срок поставки: {$item.time_delivery} дней.</a>
+                    </div>
                     <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}">Узнать о сроках поступления</a>
                 {/if}
             </div>
@@ -107,7 +110,7 @@
                     <input type="hidden" name="arts" value=""/>
                     <input type="text" class="form-control" name="yname" placeholder="Ваше имя" required/><br/>
                     <div>
-                        {*				{city_input value=$item.city name="city" width="300px"}*}
+                        {* {city_input value=$item.city name="city" width="300px"} *}
                         <input type="text" name="city" width="300px" placeholder="Город" style="color: #1A1A1A;" required>
                     </div>
                     <span class="red-text" style="font-size: 12px;">Укажите город для просчета стоимости доставки</span>

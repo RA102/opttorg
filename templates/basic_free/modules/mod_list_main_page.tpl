@@ -95,7 +95,7 @@
             <div class="col-6 col-sm-6 col-md-6 col-lg-4 col-xl-3 item mb-3">
                 <div class="thumb">
                     <a href="/shop/{$item->seolink}.html" title="{$item->title}" class="">
-                        <img class="img-fluid list-item-img"  src="/images/photos/small/shop{$item->id}.jpg"  alt="{$item->title}"/>
+                        <img class="img-fluid img-thumbnail list-item-img" style="height: auto; max-width: 100%; object-fit: cover;" src="/images/photos/small/shop{$item->id}.jpg"  alt="{$item->title}"/>
                     </a>
                     <div class="capt">
                         <a href="/shop/{$item->seolink}.html" title="{$item->title}" data-truncate="2" style="word-break: break-all;">{$item->title}</a>

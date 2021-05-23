@@ -766,3 +766,15 @@ table.params-item tr[name="addPartItem"] td {
 .strikethrough-text {
 	text-decoration: line-through;
 }
+
+/*
+delivery area
+*/
+
+.time-delivery-wrapper {
+	transition: 1s d-none;
+}
+
+#timeDelivery {
+	width: 50px;
+}

@@ -28,7 +28,9 @@ cmsCore::loadClass('user');
 
 $inUser = cmsUser::getInstance();
 
-if (!$inUser->update() || $inUser->id) { cmsCore::halt(); }
+if (!$inUser->update() || $inUser->id) {
+    cmsCore::halt();
+}
 
 if (cmsConfig::getConfig('siteoff') && !$inUser->is_admin){ cmsCore::halt(); }
 

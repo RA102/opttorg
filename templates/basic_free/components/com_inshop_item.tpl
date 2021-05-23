@@ -86,12 +86,12 @@
                                             </p>
 
 
-                                            {if {$item.qty|intval}>1 || {$item.qty_from_vendor|intval}>1 }
-                                                {if {$item.qty|intval} > 1}
+                                            {if {$item.qty|intval} > 1 || {$item.qty_from_vendor|intval} > 1 }
+                                                {if {$item.qty|intval} > 1 && {$item.sell_warehouse} == 1}
                                                     <p class="text-right">
                                                         <u class="count-item text-green">Есть в наличии</u>
                                                     </p>
-                                                {elseif {$item.qty_from_vendor|intval}>1}
+                                                {elseif {$item.qty_from_vendor|intval}>1 && {$item.sell_to_order}}
                                                     <p class="text-right">
                                                         <u class="count-item text-yellow">Под заказ</u>
                                                     </p>
@@ -99,44 +99,6 @@
                                                 <input type="hidden" name="var_art_no" value=""/>
                                                 <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
 
-
-
-{*                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" class="price_table_tab">*}
-{*                                                <tr>*}
-{*                                                    <td>*}
-{*                                                        <div id="add_to_cart_{$item.id}">*}
-{*                                                            {if $cfg.qty_mode != 'one'}*}
-{*                                                                <div class="qty">*}
-{*                                                                    <table cellpadding="0" cellspacing="0" border="0" width="100%">*}
-{*                                                                        <tr>*}
-{*                                                                            <td valign="middle" width="100">*}
-{*                                                                                {if $cfg.qty_mode=='qty'}*}
-{*                                                                                    {if $item.qty}*}
-{*                                                                                        <select name="qty" class="vkorz">*}
-{*                                                                                            {section name=qty loop=$item.qty step=1}*}
-{*                                                                                                <option value="{$smarty.section.qty.index+1}" {if $smarty.section.qty.index+1 == $item.cart_qty}selected="selected"{/if}>{$smarty.section.qty.index+1}</option>*}
-{*                                                                                            {/section}*}
-{*                                                                                        </select>*}
-{*                                                                                    {/if}*}
-{*                                                                                {/if}*}
-{*                                                                                {if $cfg.qty_mode=='any'}*}
-{*                                                                                    <input id="qtyy" name="qty" type="number" min="1" class="qty-control" value="1" oninput="change()"/>*}
-{*                                                                                {/if}*}
-{*                                                                            </td>*}
-{*                                                                            <td valign="middle">*}
-{*                                                                                <button type="submit" class="btn-vkorz btn btn-main btn-block btn-lg{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>*}
-{*                                                                            </td>*}
-{*                                                                        </tr>*}
-{*                                                                    </table>*}
-{*                                                                </div>*}
-{*                                                            {else}*}
-{*                                                                <input type="submit" class="add btn-vkorz" name="addtocart" value="{$LANG.SHOP_ADD_TO_CART}"/>*}
-{*                                                            {/if}*}
-{*                                                        </div>*}
-{*                                                    </td>*}
-{*                                                </tr>*}
-{*                                            </table>*}
-{*      End     *}
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div id="add_to_cart_{$item.id}">
@@ -187,9 +149,6 @@
                                                     </div>
                                                 {/if}
                                                 <div id="dynamic"></div>
-                                                <!--<div class="h4 text-right">Оплачивайте без риска</div>
-                                                <p class="text-right text-small"><strong>Наличными при получении</strong><br /> предоплата не требуется, оплачиваете заказ во время доставки</p>
-                                                <p class="text-right text-small"><strong>Онлайн-оплата картой</strong><br /> Epay KKB защищает ваши платежи картами Visa и MasterCard</p>-->
 
                                                 <div class="text-right">
                                                     <img src="/templates/{template}/img/kaspired.jpg" class="kaspired"/>
@@ -198,10 +157,6 @@
                                                 </div>
 
                                             {elseif {$item.qty|intval} == 0 || {$item.qty_from_vendor|intval} == 0}
-
-                                                <a class="btn-oneclick item-card--button" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
-
-                                            {else}
 
                                                 <a class="btn-oneclick item-card--button" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
 
@@ -339,8 +294,6 @@
                 </div>
             {/foreach}
         </div>
-
-
     </div>
 </div>
 <script src="/templates/{template}/js/readmore.js"></script>
@@ -395,7 +348,8 @@
                     <input type="hidden" name="seolink" value="/shop/{$item.seolink}.html"/>
                     <input class="form-control" type="text" name="yname" placeholder="Ваше имя" required/><br/>
                     <div>
-                        {*				{city_input value=$item.city name="city" width="300px"}*}
+                        {* city_input value=$item.city name="city" width="300px" *}
+
                         <input class="form-control" type="text" name="city" width="300px" placeholder="Город" style="color: #1A1A1A;" required>
                     </div>
                     <span class="red-text" style="font-size: 12px;">Укажите город для просчета стоимости доставки</span>

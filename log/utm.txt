@@ -28,3 +28,375 @@ array (
   'utm_source' => 'google',
   'utm_content' => 'test',
 )
+17-05-2021 23:55:42
+array (
+  'utm_source' => 'test',
+)
+18-05-2021 01:17:13
+array (
+  '/shop/dushevye' => '',
+)
+18-05-2021 01:23:25
+array (
+)
+18-05-2021 01:23:44
+array (
+  '/shop/vendors/98' => '',
+)
+18-05-2021 01:26:45
+array (
+  '/shop/vendors/98' => '',
+)
+18-05-2021 01:27:08
+array (
+  '/shop/vendors/98' => '',
+)
+18-05-2021 01:30:45
+array (
+  '/shop/vendors/98' => '',
+)
+18-05-2021 01:59:14
+array (
+  '/shop/vendors/98' => '',
+)
+18-05-2021 13:56:47
+array (
+  '/shop/vendors/98' => '',
+)
+18-05-2021 13:59:36
+array (
+  '/shop/vendors/98' => '',
+)
+18-05-2021 21:46:34
+array (
+)
+18-05-2021 21:49:30
+array (
+  '/shop/dushevye' => '',
+)
+18-05-2021 21:50:48
+array (
+  '/shop/dushevye/page-3' => '',
+)
+18-05-2021 21:51:01
+array (
+  '/shop/dushevye/page-2' => '',
+)
+18-05-2021 21:54:24
+array (
+  '/shop/dushevye/page-2' => '',
+)
+18-05-2021 22:00:47
+array (
+  '/shop/dushevye' => '',
+)
+18-05-2021 22:20:25
+array (
+  '/shop/dushevye' => '',
+)
+18-05-2021 23:53:17
+array (
+  '/shop/dushevye' => '',
+)
+18-05-2021 23:54:16
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:04:17
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:06:01
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:06:15
+array (
+)
+19-05-2021 00:06:25
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:06:48
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:07:07
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:23:37
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:23:56
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:24:36
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:36:50
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:37:01
+array (
+  '/shop/vendors/98/page-2' => '',
+)
+19-05-2021 00:43:12
+array (
+  '/shop/vendors/98/page-2' => '',
+)
+19-05-2021 00:43:19
+array (
+  '/shop/vendors/98/page-3' => '',
+)
+19-05-2021 00:44:58
+array (
+  '/shop/vendors/98/page-3' => '',
+)
+19-05-2021 00:45:43
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:49:40
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 00:50:02
+array (
+  '/shop/vendors/98/page-2' => '',
+)
+19-05-2021 00:53:31
+array (
+  '/shop/vendors/98/page-2' => '',
+)
+19-05-2021 01:11:20
+array (
+  '/shop/vendors/98/page-1' => '',
+)
+19-05-2021 15:49:10
+array (
+  '/shop/vendors/98/page-1' => '',
+)
+19-05-2021 16:07:17
+array (
+  '/shop/vendors/98/page-1' => '',
+)
+19-05-2021 16:12:26
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 16:13:50
+array (
+  '/shop/vendors/98' => '',
+)
+19-05-2021 19:54:29
+array (
+  '/shop/vendors/98' => '',
+)
+20-05-2021 15:11:15
+array (
+  '/shop/vendors/98' => '',
+)
+20-05-2021 15:19:28
+array (
+  '/shop/vendors/98/page-7' => '',
+)
+20-05-2021 15:20:00
+array (
+  '/shop/vanny' => '',
+)
+20-05-2021 15:20:57
+array (
+  '/shop/vanny/page-5' => '',
+)
+21-05-2021 11:53:40
+array (
+  '/shop/vanny' => '',
+)
+21-05-2021 11:54:03
+array (
+)
+21-05-2021 12:12:54
+array (
+  '/shop/dushevye' => '',
+)
+21-05-2021 12:13:21
+array (
+  '/shop/dushevye' => '',
+)
+21-05-2021 12:13:22
+array (
+  '/shop/dushevye' => '',
+)
+21-05-2021 20:39:29
+array (
+)
+21-05-2021 20:40:11
+array (
+  '/shop/dushevye' => '',
+)
+21-05-2021 20:52:55
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 20:57:53
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 20:58:07
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 20:58:07
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 21:07:31
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 21:07:31
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 21:25:10
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 21:26:08
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 21:26:37
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 21:26:42
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 21:30:53
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+21-05-2021 21:30:57
+array (
+  '/shop/dushevye/dushevye-kabiny' => '',
+)
+22-05-2021 00:57:49
+array (
+)
+22-05-2021 01:03:32
+array (
+)
+22-05-2021 01:07:28
+array (
+)
+22-05-2021 01:09:36
+array (
+)
+22-05-2021 01:10:37
+array (
+)
+22-05-2021 01:19:59
+array (
+)
+23-05-2021 12:32:49
+array (
+)
+23-05-2021 12:51:44
+array (
+  '/shop/smesiteli/umyvalnik/smesitel-dlja-umyvalnika-520-neptun_html' => '',
+)
+23-05-2021 12:52:19
+array (
+  '/shop/smesiteli/umyvalnik' => '',
+)
+23-05-2021 12:57:15
+array (
+  '/shop/smesiteli/umyvalnik' => '',
+)
+23-05-2021 12:57:57
+array (
+  '/shop/smesiteli/umyvalnik' => '',
+)
+23-05-2021 12:58:24
+array (
+  '/shop/vendors/98' => '',
+)
+23-05-2021 13:02:14
+array (
+  '/shop/vendors/98' => '',
+)
+23-05-2021 13:11:05
+array (
+  '/shop/vendors/98' => '',
+)
+23-05-2021 13:12:06
+array (
+  '/shop/vendors/98' => '',
+)
+23-05-2021 13:12:51
+array (
+  '/shop/vendors_html' => '',
+)
+23-05-2021 13:12:53
+array (
+  '/shop/dushevye' => '',
+)
+23-05-2021 13:13:09
+array (
+  '/shop/dushevye/page-4' => '',
+)
+23-05-2021 13:13:25
+array (
+  '/shop/dushevye/page-5' => '',
+)
+23-05-2021 13:16:40
+array (
+  '/shop/dushevye/page-5' => '',
+)
+23-05-2021 13:17:46
+array (
+  '/shop/dushevye/page-5' => '',
+)
+23-05-2021 13:18:37
+array (
+  '/shop/dushevye/page-5' => '',
+)
+23-05-2021 13:19:18
+array (
+  '/shop/dushevye/trapy/komplekt-kombinirovannyh-gidrozatvorov-p095-dlja-nerzhaveyuschih-zhelobov-239238-alcaplast_html' => '',
+)
+23-05-2021 14:09:15
+array (
+  '/shop/dushevye/trapy/komplekt-kombinirovannyh-gidrozatvorov-p095-dlja-nerzhaveyuschih-zhelobov-239238-alcaplast_html' => '',
+)
+23-05-2021 14:09:35
+array (
+  '/shop/dushevye/page-5' => '',
+)
+23-05-2021 14:23:22
+array (
+  '/shop/dushevye' => '',
+)
+23-05-2021 14:31:55
+array (
+  '/shop/vendors/34' => '',
+)
+23-05-2021 14:33:26
+array (
+  '/shop/vendors/34' => '',
+)
+23-05-2021 14:34:17
+array (
+  '/shop/vendors/34' => '',
+)
+23-05-2021 14:35:27
+array (
+  '/shop/vendors/34' => '',
+)

@@ -328,7 +328,7 @@ class cms_model_shop
     /* ========================================================================== */
     /* ========================================================================== */
 
-    public function getItems($only_published = true, $is_discounts = true)
+    public function getItems($only_published = true, $is_discounts = true, $filterFromFrontend = false)
     {
 
         $inUser = cmsUser::getInstance();
@@ -349,8 +349,13 @@ class cms_model_shop
             $this->where('c.published = 1');
         }
 
-        $this->where('v.sell_warehouse = 1 OR v.sell_to_order = 1');
+//        $this->where('v.sell_warehouse = 1 OR v.sell_to_order = 1');
 
+        // кажется слишком перемудрил?
+        // все же нет
+        if ($filterFromFrontend) {
+            $this->where('(v.sell_warehouse = 1 AND i.qty > 1 ) OR (v.sell_to_order = 1 AND i.qty_from_vendor > 1 )');
+        }
 
         $sql = "SELECT  DISTINCT i.id,
                         i.*,
@@ -359,7 +364,11 @@ class cms_model_shop
                         DATE_FORMAT(i.filedate, '%d.%m.%Y') as filedate,
                         IFNULL(v.title, '') as vendor,
                         IFNULL(v.id, 0) as vendor_id,
-                        IFNULL(cm.item_id, 0) as is_in_compare
+                        IFNULL(cm.item_id, 0) as is_in_compare,
+                        v.sell_warehouse,
+                        v.sell_to_order,
+                        v.time_delivery
+                        
                         {$what_cats}
 
                 FROM    cms_shop_cats c
@@ -371,10 +380,8 @@ class cms_model_shop
 
                 WHERE   1=1
                       
-                        {$this->where}
-
+                {$this->where}
                 {$this->group_by}
-
                 {$this->order_by}\n";
 
         if ($this->limit) {
@@ -441,7 +448,6 @@ class cms_model_shop
 
             $item['user_voted'] = $this->isUserVoted($item['id'], $inUser->id);
 
-
             $today = date('d.m.Y');
 
             if (strtotime($item['pubdate']) > strtotime($today)) {
@@ -455,13 +461,6 @@ class cms_model_shop
         }
 
         $this->resetConditions();
-
-//        usort($items, function($a, $b) {
-//            if ($a['qty'] < 2) {
-//                return -1;
-//            }
-//        });
-
 
         return $items;
 
@@ -481,7 +480,7 @@ class cms_model_shop
     /* ========================================================================== */
     /* ========================================================================== */
 
-    public function getItemsCount($only_published = true)
+    public function getItemsCount($only_published = true, $filterFromFrontend = false)
     {
 
         $items = array();
@@ -492,13 +491,20 @@ class cms_model_shop
             $this->where('i.published = 1');
         }
 
+        if ($filterFromFrontend) {
+            $this->where('(v.sell_warehouse = 1 AND i.qty > 1 ) OR (v.sell_to_order = 1 AND i.qty_from_vendor > 1 )');
+        }
+
+
         $sql = "SELECT  i.id
 
                 FROM    cms_shop_items i,
-                        cms_shop_cats c
+                        cms_shop_cats c,
+                        cms_shop_vendors v
                         {$from_cats}
 
                 WHERE   1=1
+
                         {$this->where}
 
                 {$this->group_by}
@@ -2493,7 +2499,7 @@ class cms_model_shop
     /* ==================================================================================================== */
     /* ==================================================================================================== */
 
-    public function updateVendor($id, $item)
+    public function updateVendor($id, $item) : void
     {
         $item = cmsCore::callEvent('UPDATE_SHOP_VENDOR', $item);
         $sql = "UPDATE cms_shop_vendors
@@ -2501,7 +2507,8 @@ class cms_model_shop
 					descr = '{$item['descr']}',
                     published = '{$item['published']}',
                     sell_warehouse = '{$item['sell_warehouse']}',
-                    sell_to_order = '{$item['sell_to_order']}'
+                    sell_to_order = '{$item['sell_to_order']}',
+                    time_delivery = '{$item['time_delivery']}'
                 WHERE id = $id
                 LIMIT 1";
         $this->inDB->query($sql);

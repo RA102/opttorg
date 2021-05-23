@@ -1482,6 +1482,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $item['published'] = $inCore->request('published', 'int', 0);
             $item['sell_warehouse'] = $inCore->request('sellWarehouse', 'int');
             $item['sell_to_order'] = $inCore->request('sellToOrder', 'int');
+            $item['timeDelivery'] = $inCore->request('timeDelivery', 'int');
             $model->updateVendor($id, $item);
 
             $inCore->redirect('?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=list_vendors');
@@ -2105,7 +2106,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
         $model->limitPage($page, $perpage);
 
-        $total = $model->getItemsCount(false);
+        $total = $model->getItemsCount(false, false);
 
         $items = $model->getItems(false, false);
 
@@ -3748,30 +3749,47 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
             </table>
 
-            <div class="container">
-                <div class="row flex-column">
-                    <div class="">
+            <div class="container mb-3">
+                <div class="row">
+                    <div class="col-12">
                         <div class="form-check-inline">
                             <label class="" for="sellWarehouse">Продавать со склада</label>
                         </div>
                         <input name="sellWarehouse" type="radio" value="1" <?php if ($mod['sell_warehouse']) {
                             echo 'checked="checked"';
-                        } ?>/> Да <input name="sellWarehouse" type="radio" value="0" <?php if (@!$mod['sell_warehouse']) {
+                        } ?>/> Да <input name="sellWarehouse" type="radio" value="0" <?php if (!$mod['sell_warehouse']) {
                             echo 'checked="checked"';
                         } ?>/> Нет
                     </div>
-                    <div class="">
+                    <div class="col-12">
                         <div class="form-check-inline">
-                            <label class="" for="sellToOrder">Продавать под заказ</label>
+                            <label class="form-check-label" for="sellToOrder">Продавать под заказ</label>
                         </div>
-                        <input name="sellToOrder" type="radio" value="1" <?php if ($mod['sell_to_order']) {
+
+                        <input class="" name="sellToOrder" type="radio" value="1" <?php if ($mod['sell_to_order']) {
                             echo 'checked="checked"';
-                        } ?>/> Да <input name="sellToOrder" type="radio" value="0" <?php if (@!$mod['sell_to_order']) {
+                        } ?>/> Да
+                        <input class="" name="sellToOrder" type="radio" value="0" <?php if (!$mod['sell_to_order']) {
                             echo 'checked="checked"';
                         } ?>/> Нет
+
                     </div>
-                </div>
-            </div>
+
+                    <div class="time-delivery-wrapper  <?php if (!$mod['sell_to_order']) {
+                        echo 'hidden';
+                    } else {
+                        echo 'col-12';
+                    } ?>">
+                        <div class="form-check-inline">
+                            <label class="form-check-label" for="timeDelivery">Срок поставки</label>
+                        </div>
+                        <input id="timeDelivery" class="d-inline-block" name="timeDelivery" type="number" min="0" value="<?= $mod['time_delivery'];  ?>">
+                        <span>дней.</span>
+                    </div>
+
+
+                </div> <!-- row -->
+            </div> <!-- container -->
 
             <p>
                 <input name="add_mod" type="submit" id="add_mod" <?php if ($opt == 'add_vendor') {

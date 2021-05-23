@@ -230,7 +230,7 @@ function shop()
         $model->groupBy('i.id');
 
         //узнаем сколько всего подходящих товаров в базе
-        $total = $model->getItemsCount();
+        $total = $model->getItemsCount(true, true);
 
         //устанавливаем сортировку
         $orderby = $_SESSION['inshop_orderby'] ? $_SESSION['inshop_orderby'] : $cfg['items_orderby'];
@@ -267,27 +267,10 @@ function shop()
         $model->limitPage($page, $perpage);
 
         //получим все подходящие товары на текущей странице
-        $items = $model->getItems();
-
-//        usort($items, function ($a, $b) {
-//           return ($a['qty'] < 2) ? -1 : 0;
-//        });
-
-//        $tmp = $items;
-//
-//        foreach ($tmp as $index => $item) {
-//            if ((int)$item['qty'] > 1 || (int)$item['qty_from_vendor'] > 1) {
-//                continue;
-//            } else {
-//                array_push($tmp, $item);
-//                unset($tmp[$index]);
-//            }
-//        }
-
-//        $items = array_splice($tmp, 0, count($tmp));
+        $items = $model->getItems(true, true, true);
 
         //считаем конечное число страниц 
-        $pages = ceil($total / $perpage);
+        $pages = $total / $perpage;
 
         $pages_url = '/shop/' . $root_cat['seolink'] . '/page-%page%';
 
@@ -597,7 +580,7 @@ function shop()
         $model->whereVendorIs($vendor_id);
 
         //узнаем сколько всего подходящих товаров в базе
-        $total = $model->getItemsCount();
+        $total = $model->getItemsCount(true, true);
 
         //устанавливаем сортировку "по порядку"
         $model->orderBy('ordering', 'asc');
@@ -606,10 +589,10 @@ function shop()
         $model->limitPage($page, $perpage);
 
         //получим все подходящие товары на текущей странице
-        $items = $model->getItems();
+        $items = $model->getItems(true, true, true);
 
         //считаем конечное число страниц
-        $pages = ceil($total / $perpage);
+        $pages = $total / $perpage;
 
         $pagebar = cmsPage::getPagebar($total, $page, $perpage, '/shop/vendors/%vendor_id%/page-%page%', array('vendor_id' => $vendor_id));
 
