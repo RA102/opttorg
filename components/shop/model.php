@@ -487,6 +487,7 @@ class cms_model_shop
 
         $from_cats = mb_strstr($this->where, 'ic.') ? ', cms_shop_items_cats ic' : '';
 
+
         if ($only_published) {
             $this->where('i.published = 1');
         }
@@ -504,12 +505,13 @@ class cms_model_shop
                         {$from_cats}
 
                 WHERE   1=1
-
-                        {$this->where}
+                      
+                {$this->where}
 
                 {$this->group_by}
 
                 \n";
+
 
         $result = $this->inDB->query($sql);
 

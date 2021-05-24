@@ -1482,7 +1482,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $item['published'] = $inCore->request('published', 'int', 0);
             $item['sell_warehouse'] = $inCore->request('sellWarehouse', 'int');
             $item['sell_to_order'] = $inCore->request('sellToOrder', 'int');
-            $item['timeDelivery'] = $inCore->request('timeDelivery', 'int');
+            $item['time_delivery'] = $inCore->request('timeDelivery', 'int');
             $model->updateVendor($id, $item);
 
             $inCore->redirect('?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=list_vendors');
@@ -3775,11 +3775,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
                     </div>
 
-                    <div class="time-delivery-wrapper  <?php if (!$mod['sell_to_order']) {
-                        echo 'hidden';
-                    } else {
-                        echo 'col-12';
-                    } ?>">
+                    <div class="time-delivery-wrapper col-12">
                         <div class="form-check-inline">
                             <label class="form-check-label" for="timeDelivery">Срок поставки</label>
                         </div>

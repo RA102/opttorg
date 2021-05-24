@@ -67,7 +67,7 @@
                     <div class="d-flex justify-content-center align-items-center" style="height: 38px;">
                         <a class="text-green" href="#">Срок поставки: {$item.time_delivery} дней.</a>
                     </div>
-                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}">Узнать о сроках поступления</a>
+                    <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}">Заказ в один клик</a>
                 {/if}
             </div>
         </div>

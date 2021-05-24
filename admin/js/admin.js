@@ -66,12 +66,4 @@ $(document).ready(function(){
       })
     });
 
-    $('input[name="sellToOrder"]').on('change', function(event) {
-        if($(this).val() == 0) {
-            $('.time-delivery-wrapper').toggle('hidden');
-        } else if ($(this).val() == 1) {
-            $('.time-delivery-wrapper').toggle('hidden');
-        }
-    });
-
 });

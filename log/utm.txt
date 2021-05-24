@@ -28,6 +28,11 @@ array (
   'utm_source' => 'google',
   'utm_content' => 'test',
 )
+19-05-2021 12:22:04
+array (
+  'utm_source' => 'google',
+  'utm_content' => 'test',
+)
 17-05-2021 23:55:42
 array (
   'utm_source' => 'test',
@@ -399,4 +404,56 @@ array (
 23-05-2021 14:35:27
 array (
   '/shop/vendors/34' => '',
+)
+24-05-2021 09:43:27
+array (
+  '/shop/vendors/98' => '',
+)
+24-05-2021 16:32:16
+array (
+  '/shop/vendors/98' => '',
+)
+24-05-2021 16:32:21
+array (
+  '/shop/vendors/98/page-3' => '',
+)
+24-05-2021 16:35:32
+array (
+  '/shop/vendors/98/page-1' => '',
+)
+24-05-2021 16:35:46
+array (
+  '/shop/vendors/98/page-3' => '',
+)
+24-05-2021 16:42:20
+array (
+  '/shop/vendors/98' => '',
+)
+24-05-2021 17:22:40
+array (
+  '/shop/vendors/98' => '',
+)
+24-05-2021 17:22:46
+array (
+  '/shop/vendors/98/page-3' => '',
+)
+24-05-2021 17:22:59
+array (
+  '/shop/vendors_html' => '',
+)
+24-05-2021 17:23:03
+array (
+  '/shop/vendors/34' => '',
+)
+24-05-2021 17:23:10
+array (
+  '/shop/vendors_html' => '',
+)
+24-05-2021 17:23:14
+array (
+  '/shop/vendors/94' => '',
+)
+24-05-2021 17:43:24
+array (
+  '/shop/vendors_html' => '',
 )
