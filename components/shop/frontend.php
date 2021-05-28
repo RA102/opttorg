@@ -162,6 +162,17 @@ function shop()
             unset($_SESSION['shop_filters']);
         }
 
+//        $filterByVendorFromMenu = $inCore->request('vendors', 'int');
+//        if ($filterByVendorFromMenu) {
+//            if (isset($filter['vendors'])) {
+//                array_push($filter['vendors'], $filterByVendorFromMenu);
+//            } else {
+//                $filter['vendors'] = [$filterByVendorFromMenu];
+//            }
+//        }
+
+
+
         if (is_array($filter)) {
 
             foreach ($filter as $key => $val) {
@@ -583,7 +594,7 @@ function shop()
         $total = $model->getItemsCount(true, true);
 
         //устанавливаем сортировку "по порядку"
-        $model->orderBy('ordering', 'asc');
+        $model->orderBy('sorting', 'desc');
 
         //устанавливаем номер текущей страницы и кол-во товаров на странице
         $model->limitPage($page, $perpage);

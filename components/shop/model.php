@@ -494,7 +494,9 @@ class cms_model_shop
 
         if ($filterFromFrontend) {
             $this->where('(v.sell_warehouse = 1 AND i.qty > 1 ) OR (v.sell_to_order = 1 AND i.qty_from_vendor > 1 )');
+            $this->where('i.vendor_id = v.id');
         }
+
 
 
         $sql = "SELECT  i.id
@@ -541,11 +543,14 @@ class cms_model_shop
         $inUser = cmsUser::getInstance();
 
         $item = array();
-
+//
         $sql = "SELECT i.*,
                        DATE_FORMAT(i.pubdate, '%d.%m.%Y') as pubdate,
                        DATE_FORMAT(i.filedate, '%d.%m.%Y') as filedate,
                        IFNULL(v.title, '') as vendor,
+                       v.sell_warehouse,
+                       v.sell_to_order,
+                       v.time_delivery,
                        c.is_catalog as hide_price
                 FROM cms_shop_items i
                 LEFT JOIN cms_shop_vendors v ON i.vendor_id = v.id
@@ -4704,7 +4709,7 @@ class cms_model_shop
         return $html;
     }
 
-    public function getSdBrand($sd_brand)
+    public function getSdBrand($sd_brand, $category)
     {
         $inCore = cmsCore::getInstance();
         $inDB = cmsDatabase::getInstance();
@@ -4720,7 +4725,7 @@ class cms_model_shop
                 $result = $inDB->query($sql);
                 if ($inDB->num_rows($result)) {
                     while ($item = $inDB->fetch_assoc($result)) {
-                        $html .= '<li><a href="/shop/vendors/' . $item['id'] . '">&bull; ' . $item['title'] . '</a></li>';
+                        $html .= '<li><a href="/shop/' . $category . '/?filter[vendors][]=' . $id . '">&bull; ' . $item['title'] . '</a></li>';
 
                     }
                 }
@@ -5123,7 +5128,21 @@ class cms_model_shop
                 $curl = curl_init();
 
                 curl_setopt_array($curl, [
-                    CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport', CURLOPT_RETURNTRANSFER => true, CURLOPT_ENCODING => '', CURLOPT_MAXREDIRS => 10, CURLOPT_TIMEOUT => 0, CURLOPT_FOLLOWLOCATION => true, CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1, CURLOPT_CUSTOMREQUEST => 'POST', CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE), CURLOPT_HTTPHEADER => ['contentType: application/json; charset=UTF-8', 'Content-Type: application/json; charset=UTF-8',],]);
+                    CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE),
+                    CURLOPT_HTTPHEADER => [
+                        'contentType: application/json; charset=UTF-8',
+                        'Content-Type: application/json; 
+                        charset=UTF-8',
+                        ],
+                    ]);
 
                 $rawResponse = curl_exec($curl);
 

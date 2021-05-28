@@ -65,7 +65,15 @@
                 </form>
                 {elseif $item.qty_from_vendor > 1 && $item.sell_to_order}
                     <div class="d-flex justify-content-center align-items-center" style="height: 38px;">
-                        <a class="text-green" href="#">Срок поставки: {$item.time_delivery} дней.</a>
+                        <a class="text-green" href="#">Срок поставки: {$item.time_delivery}
+                            {if $item.time_delivery == 1}
+                                день.
+                            {elseif $item.time_delivery == 2 || $item.time_delivery == 3 || $item.time_delivery == 4}
+                                дня.
+                            {else}
+                                дней.
+                            {/if}
+                        </a>
                     </div>
                     <a class="btn-oneclick" href="#" data-toggle="modal" data-target="#oneclicker" data-art-no="{$item.art_no}" data-title="{$item.title}" data-seolink="/shop/{$item.seolink}.html" data-img="/images/photos/small/{$item.filename}">Заказ в один клик</a>
                 {/if}

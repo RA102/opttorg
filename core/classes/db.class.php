@@ -620,6 +620,28 @@ class cmsDatabase
 
     }
 
+
+// TODO дописать фунционал создания таблицы
+    /**
+     * create table
+     * @example
+     * CREATE TABLE dbo.Employee (
+     * EmployeeID INT PRIMARY KEY CLUSTERED
+     * );
+     *
+    */
+
+
+    public function createTable($tableName, $arrayColumn)
+    {
+        $sql = "CREATE table $tableName";
+    }
+
+
+
+
+
+
 // ============================================================================ //
 // ============================================================================ //
 
@@ -859,9 +881,9 @@ class cmsDatabase
     public function fetchUtmPlacemarks()
     {
         $sql = "SELECT * FROM utm_placemarks";
-
-
     }
+
+
 
 
 }

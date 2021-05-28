@@ -29,4 +29,4 @@ function install_component_sitemap(){
 function upgrade_component_sitemap(){
     return true;
 }
-?>
+

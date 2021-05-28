@@ -202,7 +202,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
 
     <!-- VueJS and Vuetify  -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>-->
+    <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 
     <!-- /VueJS and Vuetify -->

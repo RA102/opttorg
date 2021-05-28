@@ -19,7 +19,6 @@ $filename = 'import.xml';
 cmsCore::loadModel('shop');
 $model = new cms_model_shop();
 
-
 if (file_exists( __DIR__ . '/../'. $dir . $filename)) {
 
     $z = new XMLReader;
@@ -58,7 +57,8 @@ if (file_exists( __DIR__ . '/../'. $dir . $filename)) {
 
 function import_product($xml_product)
 {
-    $item = array();
+
+    $item = [];
 
     $artNo = strval($xml_product->Артикул);
 
@@ -75,53 +75,57 @@ function import_product($xml_product)
         $item['category_id'] = 10991;
         $item['art_no'] = (string)$xml_product->Артикул;
         $item['title'] = $instanceDb->escape_string((string)$xml_product->Наименование);
-        $item['price'] = $xml_product->Стоимость;
         $item['published'] = 0;
+        $item['price'] = $xml_product->Стоимость;
         $item['pubdate'] = date('Y-m-d');
         $item['qty'] = $xml_product->КоличествоОстаток;
         $item['tpl'] = 'com_inshop_item.tpl';
         $item['external_id'] = (string)$xml_product->Ид;
 
-        $sql = "INSERT INTO cms_shop_items (
-                            `category_id`, 
-                            `art_no`,
-                            `title`, 
-                            `price`, 
-                            `published`,
-                            `pubdate`,
-                            `qty`,
-                            `tpl`,
-                            `external_id`)
-				VALUES (
-				        '{$item['category_id']}',
-				        '{$item['art_no']}',
-				        '{$item['title']}',
-				        '{$item['price']}',
-				        '{$item['published']}',
-				         NOW(),
-				        '{$item['qty']}',
-				        '{$item['tpl']}', 
-				        '{$item['external_id']}'
-				)";
-        $result = $instanceDb->query($sql);
+        $instanceDb->insert('cms_shop_items', $item);
+
+//        $sql = "INSERT INTO cms_shop_items (
+//                            `category_id`,
+//                            `art_no`,
+//                            `title`,
+//                            `price`,
+//                            `published`,
+//                            `pubdate`,
+//                            `qty`,
+//                            `tpl`,
+//                            `external_id`)
+//				VALUES (
+//				        '{$item['category_id']}',
+//				        '{$item['art_no']}',
+//				        '{$item['title']}',
+//				        '{$item['price']}',
+//				        '{$item['published']}',
+//				         NOW(),
+//				        '{$item['qty']}',
+//				        '{$item['tpl']}',
+//				        '{$item['external_id']}'
+//				)";
+//        $result = $instanceDb->query($sql);
 
     } else {
 
+        // TODO переделать не нравится
         $sql = "SELECT id FROM cms_shop_items WHERE id = {$product_id} AND old_price = 0";
 
         $result = $instanceDb->query($sql);
 
-        if ($instanceDb->num_rows($result)) {
+        if ($instanceDb->num_rows($result) && (int)$xml_product->КоличествоОстаток > 1) {
+
             $item['price'] = (int)$xml_product->Стоимость;
             $item['qty'] = (int)$xml_product->КоличествоОстаток;
             $item['update_at'] = date('Y-m-d H:i:s');
             $instanceDb->update('cms_shop_items', $item, $product_id);
+
         } else {
 
             $item['qty'] = (int)$xml_product->КоличествоОстаток;
             $item['update_at'] = date('Y-m-d H:i:s');
             $instanceDb->update('cms_shop_items', $item, $product_id);
-
         }
 
     }

@@ -67,7 +67,7 @@
 							<div class="ex-click">Производство <span class="pull-right"><span class="glyphicon glyphicon-plus-sign"></span></span></div>
 							<div class="ex-slide">
 							{foreach key=vendor_id item=vendor from=$vendors}
-							<div class="f-label"><label><input type="checkbox" value="{$vendor.id}" name="filter[vendors][]" {if in_array($vendor.id, $filter.vendors)}checked="checked"{/if} /> {$vendor.title}</label></div>
+							<div class="f-label"><label><input type="checkbox" value="{$vendor.id}" name="filter[vendors][]" {if in_array($vendor_id, $filter.vendors)}checked="checked"{/if} /> {$vendor.title}</label></div>
 							{/foreach}
 							</div>
 						</div>

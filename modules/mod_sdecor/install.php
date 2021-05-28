@@ -10,9 +10,9 @@
 		$_module['config'] = array();
 		return $_module;
 	}
-	function install_module_mod_sdecor(){
-		return true;
+	function install_module_mod_sdecor() {
+
 	}
-	function upgrade_module_mod_sdecor(){
+	function upgrade_module_mod_sdecor() {
 		return true;
 	}

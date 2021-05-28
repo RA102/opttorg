@@ -820,7 +820,7 @@ public static function getPagebar($total, $page, $perpage, $link, $params=array(
 //    $html .= '<span class="pagebar_title"><strong>'.$_LANG['PAGES'].': </strong></span>';
     $html .= '<ul class="pagination pagination-sm">';
 
-    $total_pages = floor($total / $perpage);
+    $total_pages = ceil($total / $perpage);
 
     if ($total_pages < 2) { return; }
 

@@ -1,6 +1,5 @@
 <?php
 
-require_once '/';
 
 function mod_my_search($mod, $cfg)
 {

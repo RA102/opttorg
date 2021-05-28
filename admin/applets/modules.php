@@ -183,11 +183,11 @@ function applet_modules(){
                 return $i['title'];
             }
         );
-		$fields[] = array('title'=>$_LANG['TITLE'], 'field'=>'name', 'width'=>'220', 'filter'=>'15');
+		$fields[] = array('title'=>$_LANG['TITLE'], 'field'=>'name', 'width'=>'180', 'filter'=>'15');
         $fields[] = array('title'=>$_LANG['AD_VERSION'], 'field'=>'version', 'width'=>'55');
 		$fields[] = array('title'=>$_LANG['AD_AUTHOR'], 'field'=>'author', 'width'=>'110');
 		$fields[] = array('title'=>$_LANG['SHOW'], 'field'=>'published', 'width'=>'65');
-		$fields[] = array('title'=>$_LANG['AD_ORDER'], 'field'=>'ordering', 'width'=>'75');
+		$fields[] = array('title'=>$_LANG['AD_ORDER'], 'field'=>'ordering', 'width'=>'120');
 		$fields[] = array('title'=>$_LANG['AD_POSITION'], 'field'=>'position', 'width'=>'70', 'filter'=>'10', 'filterlist'=>cpGetList('positions'));
 
         $actions[] = array('title'=>$_LANG['AD_CONFIG'], 'icon'=>'config.gif', 'link'=>'?view=modules&do=config&id=%id%', 'condition'=>'cpModuleHasConfig');
