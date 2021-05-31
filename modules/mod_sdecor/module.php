@@ -153,10 +153,10 @@ function mod_sdecor($module_id, $cfg){
 
 
     cmsPage::initTemplate('modules', 'mod_sdecor')->
-    assign('menuCategory0', $menuCategory0)->
     assign('sd_tovar_0', $sd_tovar_0)->
     assign('sd_rubric_0', $sd_rubric_0)->
     assign('sd_brand_0', $sd_brand_0)->
+    assign('menuCategory0', $menuCategory0)->
     assign('menuCategory1', $menuCategory1)->
     assign('sd_banner', $sd_banner)->
     assign('sd_link', $sd_link)->

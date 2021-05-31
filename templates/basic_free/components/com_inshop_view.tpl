@@ -41,7 +41,7 @@
 	</div>
 	<div class="rub-wrp">
 		<div class="row">
-			<div class="col-12 col-sm-12 col-md-3 col-lg-3 pr-2">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-3 pr-2">
 				{if $subcats}
 				<div class="subcats-style">
 				<ul class="rub-list">
@@ -51,72 +51,92 @@
 				</ul>
 				</div>
 				{/if}
-				<div class="hidden-md hidden-sm hidden-xs">
-				<div class="subcats-style">
-				<form action="/shop/{$root_cat.seolink}" method="post">
-					<div class="filter-block">
-						<div class="ex-click">Цена, тенге</div>
-						<div class="row">
-							<div class="col-xs-6"><input type="number" min="1" name="filter[pfrom]" class="form-control" value="{$filter.pfrom}" placeholder="от" /></div>
-							<div class="col-xs-6"><input type="number" min="1" name="filter[pto]" class="form-control" value="{$filter.pto}" placeholder="до" /></div>
-						</div>
-					</div>
-					<div class="clearfix">
-						{if $cfg.show_filter_vendors && is_array($vendors)}
-						<div class="filter-block">
-							<div class="ex-click">Производство <span class="pull-right"><span class="glyphicon glyphicon-plus-sign"></span></span></div>
-							<div class="ex-slide">
-							{foreach key=vendor_id item=vendor from=$vendors}
-							<div class="f-label"><label><input type="checkbox" value="{$vendor.id}" name="filter[vendors][]" {if in_array($vendor_id, $filter.vendors)}checked="checked"{/if} /> {$vendor.title}</label></div>
-							{/foreach}
+				<div class="hidden-xs hidden-sm hidden-md">
+					<div class="subcats-style">
+						<form action="/shop/{$root_cat.seolink}" method="post">
+							<div class="filter-block row">
+								<div class="ex-click col-12">Цена, тенге</div>
+								<div class="row">
+									<div class="col-6 col-xs-6">
+										<input
+												class="form-control"
+												type="number"
+												min="1"
+												name="filter[pfrom]"
+												value="{$filter.pfrom}"
+												placeholder="от"
+												width="150px"
+										/>
+									</div>
+									<div class="col-6 col-xs-6">
+										<input
+												class="form-control"
+												type="number"
+												min="1"
+												name="filter[pto]"
+												value="{$filter.pto}"
+												placeholder="до"
+												width="150px"
+										/>
+									</div>
+								</div>
 							</div>
-						</div>
-						{/if}
-						{$crse="1"}
-						{foreach key=tid item=char from=$chars}
-						{if $char.is_filter}
-						<div class="filter-block">
-							<div class="ex-click">{$char.title}{if $char.units}, {$char.units}{/if} <span class="pull-right"><span class="glyphicon glyphicon-plus-sign"></span></span></div>
-							<div class="ex-slide">
-							{if $char.fieldtype != 'int'}
-								{if $char.values}
-									{if $char.is_filter_many}
-									{foreach key=vid item=val from=$char.values_arr}
-										<div class="f-label"><label><input type="checkbox" value="{$val}" name="filter[{$char.id}][]" {if in_array(trim($val), $filter[$char.id])}checked="checked"{/if} /> {$val}</label></div>
+							<div class="clearfix">
+								{if $cfg.show_filter_vendors && is_array($vendors)}
+								<div class="filter-block">
+									<div class="ex-click">Производство <span class="pull-right"><span class="glyphicon glyphicon-plus-sign"></span></span></div>
+									<div class="ex-slide">
+									{foreach key=vendor_id item=vendor from=$vendors}
+									<div class="f-label"><label><input type="checkbox" value="{$vendor.id}" name="filter[vendors][]" {if in_array($vendor_id, $filter.vendors)}checked="checked"{/if} /> {$vendor.title}</label></div>
 									{/foreach}
-									{else}
-										<select name="filter[{$char.id}]" class="form-control">
-											<option value="" {if !$filter[$char.id]}selected="selected"{/if}>{$LANG.SHOP_FILTER_ALL}</option>
-											{foreach key=vid item=val from=$char.values_arr}
-											<option value="{$val}" {if trim($filter[$char.id]) == trim($val)}selected="selected"{/if}>{$val}</option>
-											{/foreach}
-										</select>
-									{/if}
-								{else}
-									<input type="text" name="filter[{$char.id}]" class="form-control" value="{$filter[$char.id]}" />
+									</div>
+								</div>
 								{/if}
-							{else}
-								<input type="text" name="filter[{$char.id}][from]" class="form-control" value="{$filter[$char.id].from}" /><input type="text" name="filter[{$char.id}][to]" class="form-control" value="{$filter[$char.id].to}" />
-							{/if}
+								{$crse="1"}
+								{foreach key=tid item=char from=$chars}
+								{if $char.is_filter}
+								<div class="filter-block">
+									<div class="ex-click">{$char.title}{if $char.units}, {$char.units}{/if} <span class="pull-right"><span class="glyphicon glyphicon-plus-sign"></span></span></div>
+									<div class="ex-slide">
+									{if $char.fieldtype != 'int'}
+										{if $char.values}
+											{if $char.is_filter_many}
+											{foreach key=vid item=val from=$char.values_arr}
+												<div class="f-label"><label><input type="checkbox" value="{$val}" name="filter[{$char.id}][]" {if in_array(trim($val), $filter[$char.id])}checked="checked"{/if} /> {$val}</label></div>
+											{/foreach}
+											{else}
+												<select name="filter[{$char.id}]" class="form-control">
+													<option value="" {if !$filter[$char.id]}selected="selected"{/if}>{$LANG.SHOP_FILTER_ALL}</option>
+													{foreach key=vid item=val from=$char.values_arr}
+													<option value="{$val}" {if trim($filter[$char.id]) == trim($val)}selected="selected"{/if}>{$val}</option>
+													{/foreach}
+												</select>
+											{/if}
+										{else}
+											<input type="text" name="filter[{$char.id}]" class="form-control" value="{$filter[$char.id]}" />
+										{/if}
+									{else}
+										<input type="text" name="filter[{$char.id}][from]" class="form-control" value="{$filter[$char.id].from}" /><input type="text" name="filter[{$char.id}][to]" class="form-control" value="{$filter[$char.id].to}" />
+									{/if}
+									</div>
+								</div>
+								{$crse=$crse+1}
+								{/if}
+								{/foreach}
 							</div>
-						</div>
-						{$crse=$crse+1}
-						{/if}
-						{/foreach}
-					</div>
 
-					<p>
-						<input type="submit" value="{$LANG.SHOP_FILTER_SUBMIT}" class="btn btn-main" />
-						{if $filter}<input type="button" value="Сброс" onclick="window.location.href='/shop/{$root_cat.seolink}/all'"  class="btn btn-not-main" />{/if}
-					</p>
-				</form>
-				</div>
+							<p>
+								<input type="submit" value="{$LANG.SHOP_FILTER_SUBMIT}" class="btn btn-main" />
+								{if $filter}<input type="button" value="Сброс" onclick="window.location.href='/shop/{$root_cat.seolink}/all'"  class="btn btn-not-main" />{/if}
+							</p>
+						</form>
+					</div>
 
 
 				</div>
 				{if $leftbanner!=''}{$leftbanner}{/if}
 			</div>
-			<div class="col-12 col-sm-12 col-md-9 col-lg-9">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-9">
 
 			{if $items}
 				{include file='com_inshop_items.tpl'}
