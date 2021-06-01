@@ -47,6 +47,8 @@
                     -->
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
+                    {$item.sell_warehouse}
+                    1
                     <div class="chars-wrp">
                         <div class="row mb-lg-3 mb-md-3">
                             <div class="col-12 border-bottom px-0">
@@ -84,10 +86,20 @@
                                             <p class="text-right text-small">
                                                 <strong>При заказе по телефону</strong><br/> назовите менеджеру данный код
                                             </p>
-                                           {if {$item.qty|intval} > 1 && {$item.sell_warehouse} == 1}
-                                                <p class="text-right">
-                                                    <u class="count-item text-green">Есть в наличии</u>
-                                                </p>
+
+
+                                            {if {$item.qty|intval} > 1 || {$item.qty_from_vendor|intval} > 1 }
+                                                {if {$item.qty|intval} > 1 && {$item.sell_warehouse} == 1}
+                                                    <p class="text-right">
+                                                        <u class="count-item text-green">Есть в наличии</u>
+                                                    </p>
+                                                {elseif {$item.qty_from_vendor|intval}>1 && {$item.sell_to_order}}
+                                                    <p class="text-right">
+                                                        <u class="count-item text-yellow">Под заказ</u>
+                                                    </p>
+                                                {/if}
+                                                <input type="hidden" name="var_art_no" value=""/>
+                                                <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
 
                                                 <div class="row">
                                                     <div class="col-12">
@@ -99,8 +111,7 @@
                                                                         {if $item.qty}
                                                                             <select name="qty" class="vkorz">
                                                                                 {section name=qty loop=$item.qty step=1}
-                                                                                    <option value="{$smarty.section.qty.index+1}"
-                                                                                            {if $smarty.section.qty.index+1 == $item.cart_qty}selected="selected"{/if}>{$smarty.section.qty.index+1}</option>
+                                                                                    <option value="{$smarty.section.qty.index+1}" {if $smarty.section.qty.index+1 == $item.cart_qty}selected="selected"{/if}>{$smarty.section.qty.index+1}</option>
                                                                                 {/section}
                                                                             </select>
                                                                         {/if}
@@ -123,14 +134,12 @@
                                                                         </div>
                                                                     {/if}
                                                                     <div class="d-inline-block">
-                                                                        <button type="submit"
-                                                                                class="btn-vkorz btn btn-main btn-block btn-lg{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
+                                                                        <button type="submit" class="btn-vkorz btn btn-main btn-block btn-lg{if $item.is_in_cart>0} btn-disabled{/if}">{if $item.is_in_cart>0}В корзине{else}{if $item.qty!=0}В корзину{else}В корзину{/if}{/if}</button>
                                                                     </div>
 
                                                                 </div>
                                                             {else}
-                                                                <input type="submit" class="add btn-vkorz" name="addtocart"
-                                                                       value="{$LANG.SHOP_ADD_TO_CART}"/>
+                                                                <input type="submit" class="add btn-vkorz" name="addtocart" value="{$LANG.SHOP_ADD_TO_CART}"/>
                                                             {/if}
                                                         </div>
                                                     </div>
@@ -138,41 +147,22 @@
                                                 <a class="btn-oneclick ml-auto" href="#" data-toggle="modal" data-target="#oneclicker" >Заказать в один клик!</a>
                                                 {if $item.kaspikz}
                                                     <div class="small mt10 text-center btn-kaspi">
-                                                        <a rel="nofollow" target="_blank" href="{$item.kaspikz}"><img src="/templates/basic_free/img/kaspykz.png" height="48"/></a>
+                                                    <a rel="nofollow" target="_blank" href="{$item.kaspikz}"><img src="/templates/basic_free/img/kaspykz.png" height="48"/></a>
                                                     </div>
                                                 {/if}
+                                                <div id="dynamic"></div>
 
+                                                <div class="text-right">
+                                                    <img src="/templates/{template}/img/kaspired.jpg" class="kaspired"/>
+                                                    <img src="/templates/{template}/img/visa.jpg" class="visa"/>
+                                                    <div class="smallest">Kaspi Red 0% только в Караганде</div>
+                                                </div>
 
-                                           {elseif {$item.qty_from_vendor|intval} > 1 && {$item.sell_to_order} == 1}
-                                                <p class="text-right">
-                                                    <u class="count-item text-yellow">Под заказ</u>
-                                                </p>
-                                               <p class="text-right">
-                                                   <u class="text-green">Срок доставки:
-                                                       {$item.time_delivery}
-                                                        {if $item.time_delivery == 1}
-                                                            день.
-                                                        {elseif $item.time_delivery == 2 || $item.time_delivery == 3 || $item.time_delivery == 4}
-                                                            дня.
-                                                        {else}
-                                                            дней.
-                                                        {/if}
-                                                   </u>
-                                               </p>
+                                            {elseif {$item.qty|intval} == 0 || {$item.qty_from_vendor|intval} == 0}
 
-                                                <a class="btn-oneclick ml-auto" href="#" data-toggle="modal" data-target="#oneclicker" >Заказать в один клик!</a>
+                                                <a class="btn-oneclick item-card--button" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
 
                                             {/if}
-                                            <input type="hidden" name="var_art_no" value=""/>
-                                            <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
-
-                                            <div id="dynamic"></div>
-
-                                            <div class="text-right">
-                                                <img src="/templates/{template}/img/kaspired.jpg" class="kaspired"/>
-                                                <img src="/templates/{template}/img/visa.jpg" class="visa"/>
-                                                <div class="smallest">Kaspi Red 0% только в Караганде</div>
-                                            </div>
 
                                         {/if}
 
