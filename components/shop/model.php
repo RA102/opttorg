@@ -4996,7 +4996,7 @@ class cms_model_shop
     public function selectRelatives($cat_id, $item_id)
     {
         $massiv = array();
-        $sql = "SELECT * FROM cms_shop_items WHERE category_id='{$cat_id}' AND id!='{$item_id}' AND published='1' ORDER BY id LIMIT 12";
+        $sql = "SELECT * FROM cms_shop_items WHERE category_id='{$cat_id}' AND id!='{$item_id}' AND published='1' AND (qty > 1 OR qty_from_vendor > 1) ORDER BY id LIMIT 12";
         $result = $this->inDB->query($sql);
         if (!$this->inDB->num_rows($result)) {
             return false;

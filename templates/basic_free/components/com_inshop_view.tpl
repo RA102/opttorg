@@ -21,7 +21,7 @@
 {else}
 	<div class="d-flex flex-row justify-content-between align-items-center">
 		<div class="">
-			<a class="mob-filter hidden-lg">Фильтр товаров</a>
+			<a id="btnFilterItems" class="mob-filter hidden-lg">Фильтр товаров</a>
 		</div>
 		{if $items}
 			<div class="shop_items_sort">
@@ -51,13 +51,17 @@
 				</ul>
 				</div>
 				{/if}
-				<div class="hidden-xs hidden-sm hidden-md">
+				<div
+						id="divFilterItems"
+						class="d-none d-lg-block"
+{*						style="display: none"*}
+				>
 					<div class="subcats-style">
 						<form action="/shop/{$root_cat.seolink}" method="post">
-							<div class="filter-block row">
+							<div class="filter-block col-12">
 								<div class="ex-click col-12">Цена, тенге</div>
-								<div class="row">
-									<div class="col-6 col-xs-6">
+								<div class="row"> {* col-sm-12 col-md-12 col-lg-12   *}
+									<div class="col-6 col-sm-6 col-md-6 col-lg-6 pl-0">
 										<input
 												class="form-control"
 												type="number"
@@ -65,10 +69,10 @@
 												name="filter[pfrom]"
 												value="{$filter.pfrom}"
 												placeholder="от"
-												width="150px"
+
 										/>
 									</div>
-									<div class="col-6 col-xs-6">
+									<div class="col-6 col-sm-6 col-md-6 col-lg-6">
 										<input
 												class="form-control"
 												type="number"
@@ -76,7 +80,7 @@
 												name="filter[pto]"
 												value="{$filter.pto}"
 												placeholder="до"
-												width="150px"
+
 										/>
 									</div>
 								</div>
@@ -127,7 +131,7 @@
 
 							<p>
 								<input type="submit" value="{$LANG.SHOP_FILTER_SUBMIT}" class="btn btn-main" />
-								{if $filter}<input type="button" value="Сброс" onclick="window.location.href='/shop/{$root_cat.seolink}/all'"  class="btn btn-not-main" />{/if}
+								{if $filter}<input type="button" value="Сброс" onclick="window.location.href='/shop/{$root_cat.seolink}/all'"  class="btn-oneclick" />{/if}
 							</p>
 						</form>
 					</div>

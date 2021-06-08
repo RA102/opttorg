@@ -53,7 +53,7 @@ class ps_robokassa extends shopPaymentSystem
         $mrh_pass1 = "IuE4RRz284vadcE1Jdcz";
         $inv_id = $order['id'];
         $inv_desc = $order['description'];
-        $out_summ = (int)$order['summ'];
+        $out_summ = (int)$order['summ'] + (int)$order['d_price'];
         $IsTest = 1;
         $crc = md5("$mrh_login:$out_summ:$inv_id:$mrh_pass1");
 

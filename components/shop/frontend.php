@@ -779,7 +779,7 @@ function shop()
                 foreach ($p_sys['config']['currency'] as $currency => $kurs) {
                     if ($kurs) {
                         $p_systems[$sys_id]['forms'][$currency] = $sys->getHtmlForm($order, $currency);
-                        $p_systems[$sys_id]['config']['currency'][$currency] = round($order['summ'] / $kurs, 2);
+                        $p_systems[$sys_id]['config']['currency'][$currency] = round(($order['summ'] + $order['d_price']) / $kurs, 2);
                     }
                 }
             }
@@ -897,8 +897,6 @@ function shop()
             unset($delivery_types[4]);
             $delivery_types[6]['price'] = $sumDelivery;
         }
-
-
 
         //передаем все в шаблон
         $smarty = cmsPage::initTemplate('components', 'com_inshop_order.tpl');

@@ -11,7 +11,7 @@ $(document).ready(function () {
     } else {
         $('.menu-left').removeClass('d-none');
     }
-
+    
     $('.mega-dropdown').hover(
         function (e) {
             $(this).find('.sub-menu').removeAttr('style');
@@ -21,37 +21,36 @@ $(document).ready(function () {
             $(this).find('.sub-menu').css({'display': 'none'});
         }
     );
-
+    
     let ajaxSuccess = 0;
-
+    
     //  поиск по сайту xl
     $('.input-search').bind("input", function (e) {
         if (this.value.length >= 3) {
             search(this.value);
         }
     });
-
+    
     // поиск по сайту мобильный
     $('.search-mobile-input').bind("input", function (e) {
         if (this.value.length >= 3) {
             search(this.value);
         }
     });
-
-
-
+    
+    
     $(".mega-dropdown").hover(function () {
         $('body').append('<div class="overlay-1qk5q intered"></div>');
         $('.site-header').css({'z-index': '1000', 'position': 'relative'});
     }, function () {
         $('.overlay-1qk5q').remove();
     });
-
-
+    
+    
     $(".search_result").on('focus', function () {
         alert("ok");
     });
-
+    
     $(document).mouseup(function (e) { // событие клика по веб-документу
         let ul = $(".search_result"); // тут указываем ID элемента
         if (!ul.is(e.target) // если клик был не по нашему блоку
@@ -59,59 +58,59 @@ $(document).ready(function () {
             $(".search_result").fadeOut(); // скрываем его
         }
     });
-
+    
     //При выборе результата поиска, прячем список и заносим выбранный результат в input
     $(".search_result").on("click", "li", function () {
         s_user = $(this).text();
         //$(".who").val(s_user).attr('disabled', 'disabled'); //деактивируем input, если нужно
         $(".search_result").fadeOut();
     });
-
+    
     $("input[name='referal']").keyup(function (e) {
         if (e.which == 8 && this.length < 3) {
             $('.search_result').empty();
         }
     });
-
-
+    
+    
     $("input[name='referal']").keypress(function (e) {
         if (e.which == 13 && ajaxSuccess == 1) {
             window.location.href = $(".search_result").first().children('a').attr('href');
         }
     });
-
+    
     $("#icon-search").keypress(function (e) {
-
+        
         if ($(".search_result")) {
-
+        
         }
         window.location.href = $(".search_result").first().children('a').attr('href')
     })
-
-
+    
+    
     $('#btn-cookies').on('click', function (e) {
-
+        
         $.cookie('approval_cookies', 1, {
             expires: 90,
             path: '/'
         });
         $('.cookies-notification').addClass('d-none');
     });
-
+    
     if (!$.cookie('approval_cookies')) {
         $('.cookies-notification').removeClass('d-none');
     }
-
+    
     // button order one click
-
-    $('.btn-oneclick').on('click', function(event) {
+    
+    $('.btn-oneclick').on('click', function (event) {
         let $this = $(this);
         let linkItem = $this[0].dataset.seolink;
         let titleItem = $this[0].dataset.title;
         let imgItem = $this[0].dataset.img;
         let artNoItem = $this[0].dataset.artNo;
         let priceItem = $this[0].dataset.price;
-
+        
         $('#oneclickerLabel').text(titleItem);
         $('#oneClickImg').attr('src', imgItem);
         $('#oneClickImg').attr('alt', titleItem);
@@ -120,9 +119,9 @@ $(document).ready(function () {
         $('input[name=seolink]').attr('value', linkItem);
         $('input[name=ttl]').attr('value', titleItem);
         $('input[name=arts]').attr('value', artNoItem);
-
+        
     });
-
+    
     $('#form-order-oneclick').on('submit', function (event) {
         event.preventDefault();
         $.ajax({
@@ -139,14 +138,14 @@ $(document).ready(function () {
                 $('.toast-body').text('Ошибка что то пошло не так');
                 $('.toast').toast();
             },
-
+            
         })
     });
-
+    
     $('.toast').on('hidden.bs.toast', function () {
         $('#toast-wrap').addClass('d-none');
     })
-
+    
     // Кнопки input в корзине
     $('.inputTN__bottom').on('click', function (event) {
         let input = $(this).prev().prev();
@@ -158,17 +157,17 @@ $(document).ready(function () {
         input.val(newCount);
         recountSumm();
     });
-
-
+    
+    
     $('.inputTN__top').on('click', function (event) {
-
+        
         let input = $(this).prev();
         let oldCount = parseInt($(input).val());
         let newCount = ++oldCount;
         input.val(newCount);
         recountSumm();
     });
-
+    
     // Кнопки input +- на карточке товара
     $('.inputItemCount__bottom').on('click', function (event) {
         let input = $(this).prev().prev();
@@ -180,18 +179,22 @@ $(document).ready(function () {
         input.val(newCount);
         recountSumm();
     });
-
-
+    
+    
     $('.inputItemCount__top').on('click', function (event) {
-
+        
         let input = $(this).prev();
         let oldCount = parseInt($(input).val());
         let newCount = ++oldCount;
         input.val(newCount);
         recountSumm();
     });
-
-
+    
+    $('#btnFilterItems').on('click', function (event) {
+        $('#divFilterItems').toggleClass('d-none');
+    })
+    
+    
 })
 
 function search($value) {
@@ -202,17 +205,17 @@ function search($value) {
         data: {
             'referal': $value,
         },
-
+        
         success: function (data) {
             let arr = JSON.parse(data);
             let div = $('<div></div>');
-
+            
             $(".search_result").empty();
-
+            
             if (arr['categories'].length == 0 && arr['vendors'].length == 0 && arr['ven_code'].length == 0 && arr['prod'].length == 0) {
                 $(".search_result").append('<li class="search_result_item"><p class="">Ничего не найдено</p></li>')
             }
-
+            
             if (arr['categories'].length) {
                 $('<div></div>').prependTo('#categories');
                 $(".search_result").append('<h5 class="text-bold">Категории</h5>');
@@ -225,21 +228,21 @@ function search($value) {
             //     $(".search_result").append('<h5 class="text-bold">Категории</h5>');
             //     $(".search_result").append(`<li class="category search_result_item">Ничего не найдено</li>`);
             // }
-
+            
             if (arr['vendors'].length) {
                 $(".search_result").append('<h5 class="text-bold">Производители</h5>');
                 arr['vendors'].forEach(function (item, i) {
                     $(".search_result").append(`<a href="/shop/vendors/${item.id}"><li class="vendor search_result_item">${item?.title}</li></a>`);
                 });
             }
-
+            
             if (arr['ven_code'].length) {
                 $(".search_result").append('<h5 class="text-bold">Артикул</h5>');
                 arr['ven_code'].forEach(function (item, i) {
                     $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="art_no search_result_item"><span style="color: #000000;">Арт:</span> ${item?.art_no} <br> <span style="color: #000000;">Код товара:</span>${item?.ven_code} <br><span style="color: #000000;">Название: </span> ${item?.title}</li></a>`);
                 });
             }
-
+            
             if (arr['prod'].length) {
                 $(".search_result").append('<h5 class="text-bold">Товары</h5>');
                 $(".prod").remove();
@@ -247,13 +250,49 @@ function search($value) {
                     $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="prod search_result_item">${item?.title}</li></a>`);
                 });
             }
-
+            
             ajaxSuccess = 1;
-
+            
             $(".search_result").fadeIn();
-
+            
         }
     });
+}
+
+// не используется
+function fetchResponse() {
+    const url = 'https://jet7777.ru/cabinet/api/calc_transport';
+    const data = {
+        "access_token": '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
+        "cityfrom": "Караганды-(Карагандинская область)",
+        "cityto": 'Тараз-(Жамбыльская область)',
+        "ves": 30,
+        "obm3": 0.5,
+        "dlina":  '1.92',
+        "mest": 1,
+        "cost": '20700',
+        "naimenovanie": "САНТЕХНИКА",
+        "dops": {
+            "D_HARDPACK": 0,
+            "D_EP": 0,
+            "D_PB": 1,
+            "D_VPP": 0,
+            "D_SP": 0,
+            "D_SDOC": 0,
+            "D_EK": 0
+        }
+    };
+    
+    const other_params = {
+        headers: {"content_type": "application/json; character=UTF-8"},
+        body: data,
+        method: "POST"
+    };
+    
+    fetch(url, other_params)
+        .then(function(response) {
+            console.log(response);
+        })
 }
 
 

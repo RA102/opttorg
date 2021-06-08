@@ -370,6 +370,12 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
                     <div class="d-inline-flex align-items-center">
                         <div class="icon-top-bar">
+                            <a href="https://wa.me/77775409927">
+                                <img class="img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat" width="30">
+                                <a href="/shop/akcii">Whatsapp</a>
+                            </a>
+                        </div>
+                        <div class="icon-top-bar">
                             <img src="/templates/basic_free/images/stock.png" alt="Акции" width="30">
                             <a href="/shop/akcii">Акции</a>
                         </div>
