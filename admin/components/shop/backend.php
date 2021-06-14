@@ -569,8 +569,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         $itemsId = $_REQUEST['item'];
 
         foreach ($itemsId as $item) {
-            $itemPrice = $items['price']["$item"];
-            $itemOldPrice = $items['old_price']["$item"];
+            $itemPrice = $items['price'][$item] ? $items['price'][$item] : 0;
+            $itemOldPrice = $items['old_price'][$item] ? $items['old_price'][$item] : 0;
             $itemPrice = str_replace(',', '.', $itemPrice);
             $itemPrice = number_format($itemPrice, $cfg['show_decimals'], '.', '');
 
@@ -1163,7 +1163,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $item['tags'] = $inCore->request('tags', 'str');
 
             $item['ves'] = number_format(str_replace(',', '.', $inCore->request('ves', 'str', '0.00')), 2, '.', '');
-            $item['vol'] = number_format(str_replace(',', '.', $inCore->request('vol', 'str', '0.00')), 2, '.', '');
+            $item['vol'] = number_format(str_replace(',', '.', $inCore->request('vol', 'str', '0.000')), 3, '.', '');
             $item['longest_side'] = number_format(str_replace(',', '.', $inCore->request('longest_side', 'str', '0.00')), 2, '.', '');
             $item['ven_code'] = $inCore->request('ven_code', 'str');
             $item['ordering'] = $inCore->request('ordering', 'int', 0);
@@ -3779,7 +3779,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <div class="form-check-inline">
                             <label class="form-check-label" for="timeDelivery">Срок поставки</label>
                         </div>
-                        <input id="timeDelivery" class="d-inline-block" name="timeDelivery" type="number" min="0" value="<?= $mod['time_delivery'];  ?>">
+                        <input id="timeDelivery" class="d-inline-block" name="timeDelivery" type="number" min="0" value="<?= $mod['time_delivery']; ?>">
                         <span>дней.</span>
                     </div>
 

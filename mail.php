@@ -1,42 +1,46 @@
 <?php
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+include_once __DIR__ . '/includes/LoadPriceOnEmail.php';
 
-//header("Content-Type: text/html; charset=utf=8");
-//
-//error_reporting(0);
-//
-//$mail_login = "price@sanmarket.kz";
-//$mail_password = 'vX1bO3hT7daP5y';
-//
-//$mail_imap = "{mail.sanmarket.kz:993}";
-//
-//$mail_filetypes = [
-//    "Exel"
-//];
-//
-//$connection = imap_open($mail_imap, $mail_login, $mail_password);
-//
-//if (!$connection) {
-//    echo "Ошибка соединения с почтой - " . $mail_login;
-//    exit;
-//} else {
-//    $msg_num = imap_num_msg($connection);
-//    $mails_data = [];
-//
-//    for ($i = 0; $i <= $msg_num; $i++) {
-//        echo $msg_num[$i] . "\n";
-//    }
-//
-//    for ($i = 0; $i <= $msg_header; $i++) {
-//        $msg_header = imap_header($connection, $i);
-//    }
-//}
-//
-//imap_close($connection);
+$mailFileTypes = [
+    'XML'
+];
+
+$connect = new LoadPriceOnEmail();
+$imap = $connect->openImap();
+$mailsId = $connect->fetchLetters($imap, 'ALL');
 
 
-$headers = 'MIME-Version: 1.0' . "\r\n";
-$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-$headers .= 'To: <price@sanmarket.kz>' . "\r\n";
-$headers .= 'From: <ra_lebedev@mail.ru>' . "\r\n";
+foreach($mailsId as $key => $num) {
+    $structure = $connect->fetchStructureLetters($imap, $num);
+}
+//var_dump('<pre>', $structure->parts, '</pre>');
 
-mail('ra_lebedev@mail.ru', 'test', 'test', $headers, []);
+if(isset($structure->parts)){
+
+    for($i = 0, $j = 0; $i < count($structure->parts); $i++, $j++){
+
+        $f = 2;
+        if(in_array($structure->parts[$i]->subtype, $mailFileTypes)){
+
+            $mails_data[$i]["attachs"][$j]["type"] = $structure->parts[$i]->subtype;
+            $mails_data[$i]["attachs"][$j]["size"] = $structure->parts[$i]->bytes;
+            $mails_data[$i]["attachs"][$j]["name"] = $connect->getImapTitle($structure->parts[$i]->parameters[0]->value);
+            $mails_data[$i]["attachs"][$j]["file"] = $connect->structureEncoding($structure->parts[$i]->encoding, imap_fetchbody($imap, 6, $f));
+
+//            var_dump('<pre>', $mails_data, '</pre>');
+
+            file_put_contents("tmp/".iconv("utf-8", "cp1251", $mails_data[$i]["attachs"][$j]["name"]), $mails_data[$i]["attachs"][$j]["file"]);
+        }
+    }
+}
+
+
+
+$connect->closeConnection($imap);
+
+
+
+
+

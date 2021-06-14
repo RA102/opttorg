@@ -86,20 +86,10 @@
                                             <p class="text-right text-small">
                                                 <strong>При заказе по телефону</strong><br/> назовите менеджеру данный код
                                             </p>
-
-
-                                            {if {$item.qty|intval} > 1 || {$item.qty_from_vendor|intval} > 1 }
-                                                {if {$item.qty|intval} > 1 && {$item.sell_warehouse} == 1}
-                                                    <p class="text-right">
-                                                        <u class="count-item text-green">Есть в наличии</u>
-                                                    </p>
-                                                {elseif {$item.qty_from_vendor|intval}>1 && {$item.sell_to_order}}
-                                                    <p class="text-right">
-                                                        <u class="count-item text-yellow">Под заказ</u>
-                                                    </p>
-                                                {/if}
-                                                <input type="hidden" name="var_art_no" value=""/>
-                                                <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
+                                           {if {$item.qty|intval} > 1 && {$item.sell_warehouse} == 1}
+                                                <p class="text-right">
+                                                    <u class="count-item text-green">Есть в наличии</u>
+                                                </p>
 
                                                 <div class="row">
                                                     <div class="col-12">
@@ -111,7 +101,8 @@
                                                                         {if $item.qty}
                                                                             <select name="qty" class="vkorz">
                                                                                 {section name=qty loop=$item.qty step=1}
-                                                                                    <option value="{$smarty.section.qty.index+1}" {if $smarty.section.qty.index+1 == $item.cart_qty}selected="selected"{/if}>{$smarty.section.qty.index+1}</option>
+                                                                                    <option value="{$smarty.section.qty.index+1}"
+                                                                                            {if $smarty.section.qty.index+1 == $item.cart_qty}selected="selected"{/if}>{$smarty.section.qty.index+1}</option>
                                                                                 {/section}
                                                                             </select>
                                                                         {/if}
@@ -150,19 +141,41 @@
                                                     <a rel="nofollow" target="_blank" href="{$item.kaspikz}"><img src="/templates/basic_free/img/kaspykz.png" height="48"/></a>
                                                     </div>
                                                 {/if}
-                                                <div id="dynamic"></div>
+
+
+                                           {elseif {$item.qty_from_vendor|intval} > 1 && {$item.sell_to_order} == 1}
+                                                <p class="text-right">
+                                                    <u class="count-item text-yellow">Под заказ</u>
+                                                </p>
+                                               <p class="text-right">
+                                                   <u class="text-green">Срок доставки:
+                                                       {$item.time_delivery}
+                                                        {if $item.time_delivery == 1}
+                                                            день.
+                                                        {elseif $item.time_delivery == 2 || $item.time_delivery == 3 || $item.time_delivery == 4}
+                                                            дня.
+                                                        {else}
+                                                            дней.
+                                                        {/if}
+                                                   </u>
+                                               </p>
+
+                                                <a class="btn-oneclick ml-auto" href="#" data-toggle="modal" data-target="#oneclicker" >Заказать в один клик!</a>
+                                           {elseif $item.qty <= 1 && $item.qty_from_vendor <= 1}
+                                               <div class="bg-danger text-white text-right py-2 ml-auto px-1" style="max-width: 250px">
+                                                   <u class="count-item">Нет в наличии</u>
+                                               </div>
+                                            {/if}
+                                            <input type="hidden" name="var_art_no" value=""/>
+                                            <input type="hidden" name="add_to_cart_item_id" value="{$item.id}"/>
+
+                                            <div id="dynamic"></div>
 
                                                 <div class="text-right">
                                                     <img src="/templates/{template}/img/kaspired.jpg" class="kaspired"/>
                                                     <img src="/templates/{template}/img/visa.jpg" class="visa"/>
                                                     <div class="smallest">Kaspi Red 0% только в Караганде</div>
                                                 </div>
-
-                                            {elseif {$item.qty|intval} == 0 || {$item.qty_from_vendor|intval} == 0}
-
-                                                <a class="btn-oneclick item-card--button" href="#" data-toggle="modal" data-target="#oneclicker">Узнать о сроках поступления</a>
-
-                                            {/if}
 
                                         {/if}
 
@@ -230,6 +243,7 @@
 
                             </div>
 
+                            {if $item.qty > 1 || $item.qty_from_vendor > 1}
                             <div class="mobile-tocart d-lg-none d-md-none d-sm-none">
                                 <div class="mob-title">
                                     <img class="img-fluid" src="/images/photos/small/{$item.filename}"/> Товар: {$item.title}{if $iprice > 0} - {$iprice|number_format:0:" ":" "} {$cfg.currency}{/if}
@@ -249,6 +263,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {/if}
                         </div>
                     </div>
                 </div>

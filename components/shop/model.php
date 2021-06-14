@@ -581,7 +581,7 @@ class cms_model_shop
         $item['old_price'] = number_format($item['old_price'], $cfg['show_decimals'], '.', '');
 
         $item['ves'] = number_format($item['ves'], 2, '.', '');
-        $item['vol'] = number_format($item['vol'], 2, '.', '');
+        $item['vol'] = number_format($item['vol'], 3, '.', '');
 
         //изображения
         $item['filename'] = (file_exists($_SERVER['DOCUMENT_ROOT'] . '/images/photos/medium/shop' . $item['id'] . '.jpg')) ? 'shop' . $item['id'] . '.jpg' : 'shop_default.jpg';
