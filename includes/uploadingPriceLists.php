@@ -3,19 +3,23 @@
 $priceFiles = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
 
 $handle = opendir($priceFiles);
-$arrayFiles = [];
+$tmpArray = [];
 
-while (false !== ($arrayFiles[] = readdir($handle))) {
-//    var_dump('<pre>', $file, '</pre>');
-
-
+while (false !== ($file = readdir($handle))) {
+    $tmpArray[] = pathinfo($file);
 }
 
 
 closedir($handle);
 
 
-foreach ($arrayFiles as $index => $file) {
-    echo $file . "<br />";
+foreach ($tmpArray as $index => $item) {
+
 
 }
+
+
+//foreach ($arrayFiles as $index => $file) {
+//    echo pathinfo($file . "<br />");
+//
+//}
