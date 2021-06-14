@@ -1,6 +1,6 @@
 <?php
 
-class LoadPriceOnEmail
+class LoadPriceByEmail
 {
     protected $email = '{mail.santehopttorg.kz:143/novalidate-cert}';
     protected $login = 'admin@santehopttorg.kz';
@@ -66,7 +66,7 @@ class LoadPriceOnEmail
         return $connect;
     }
 
-    public function fetchLetters($imap, $flag = 'ALL')
+    public function fetchLetters($imap, $flag = 'NEW')
     {
         return imap_search($imap, $flag);
     }
@@ -126,14 +126,17 @@ class LoadPriceOnEmail
 
         foreach($mime as $key => $m){
 
-            if(!$this->checkUtf8($m->charset)){
+//            if(!$this->checkUtf8($m->charset)){
+//
+//                $title .= $this->convertToUtf8($m->charset, $m->text);
+//            }else{
+//
+//                $title .= $m->text;
+//            }
 
-                $title .= $this->convertToUtf8($m->charset, $m->text);
-            }else{
-
-                $title .= $m->text;
-            }
         }
+
+        $title .= $m->text;
 
         return $title;
     }
