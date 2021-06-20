@@ -9,7 +9,7 @@ $mailFileTypes = [
 
 $connect = new LoadPriceByEmail();
 $imap = $connect->openImap();
-$mailsId = $connect->fetchLetters($imap, 'ALL');
+$mailsId = $connect->fetchLetters($imap, 'UNSEEN');
 
 $structure = [];
 

@@ -5160,5 +5160,4 @@ class cms_model_shop
         return $sumDelivery;
     }
 
-
 }

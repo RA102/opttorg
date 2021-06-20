@@ -583,13 +583,6 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             }
         }
 
-
-//		if (is_array($prices) || is_array($old_price)){
-//			foreach($prices as $id=>$price) {
-//				$sql = "UPDATE cms_shop_items SET price='$price' WHERE id = $id";
-//				$inDB->query($sql);
-//			}
-//		}
         $var_prices = $_REQUEST['var_price'];
         $var_is_price = $_REQUEST['var_is_price'];
         if (is_array($var_prices)) {
@@ -1206,7 +1199,6 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $weightItem = $inCore->request('weightItem', 'array');
 
 
-
             for ($i = 0; $i < count($titlePart); $i++) {
                 if ($titlePart[$i]) {
                     $paramsItem[$i] = [
@@ -1808,6 +1800,33 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 //=================================================================================================//
 //=================================================================================================//
 
+
+    if ($opt == 'save_params_xls') {
+        $arrayConfigXlsFile = [];
+        $arrayIndexXls = $_REQUEST['indexParamsXls'];
+        $arrayValueXls = $_REQUEST['valueColumnXls'];
+
+        $rowsXls = array_combine($arrayIndexXls, $arrayValueXls);
+
+        $arrayConfigXlsFile['params_xls'] = json_encode($rowsXls);
+
+        $arrayConfigXlsFile['name_xls'] = $_REQUEST['nameXls'];
+        $arrayConfigXlsFile['vendor_id'] = $_REQUEST['vendorId'];
+        $arrayConfigXlsFile['row_start'] = $_REQUEST['row_start'];
+        $arrayConfigXlsFile['rows_count'] = $_REQUEST['rows_count'];
+        $arrayConfigXlsFile['margin'] = $_REQUEST['markUpPrice'];
+
+        $modelDatabase = cmsDatabase::getInstance();
+
+        $modelDatabase->insert('cms_vendors_params', $arrayConfigXlsFile);
+
+        $opt = 'list_vendors';
+    }
+
+
+//=================================================================================================//
+//=================================================================================================//
+
     if ($opt == 'list_vendors') {
 
         cpAddPathway('Производители', '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=list_vendors');
@@ -1822,7 +1841,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
         $fields[1]['title'] = 'Название';
         $fields[1]['field'] = 'title';
-        $fields[1]['width'] = '';
+        $fields[1]['width'] = '300';
         $fields[1]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_vendor&item_id=%id%';
 
         $fields[4]['title'] = 'Показ';
@@ -1830,6 +1849,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         $fields[4]['width'] = '100';
         $fields[4]['do'] = 'opt';
         $fields[4]['do_suffix'] = '_vendor';
+
 
         //ACTIONS
         $actions = array();
@@ -1960,14 +1980,17 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <?php foreach ($cfg['discount'] as $amount => $price) { ?>
                                     <tr class="var">
                                         <td>
-                                            <input type="text" class="dis_amount" name="dis_amount[]" style="width:80px" value="<?php echo $amount; ?>"/>
+                                            <input type="text" class="dis_amount" name="dis_amount[]" style="width:80px"
+                                                   value="<?php echo $amount; ?>"/>
                                         </td>
                                         <td>
-                                            <input type="text" class="dis_price" name="dis_price[]" style="width:80px" value="<?php echo $price; ?>"/>
+                                            <input type="text" class="dis_price" name="dis_price[]" style="width:80px"
+                                                   value="<?php echo $price; ?>"/>
                                         </td>
                                         <td width="17" class="char_del">
                                             <a href="javascript:" onclick="deleteDiscount(this)" title="Удалить скидку">
-                                                <img src="/admin/images/actions/delete.gif" alt="Удалить скидку" border="0">
+                                                <img src="/admin/images/actions/delete.gif" alt="Удалить скидку"
+                                                     border="0">
                                             </a>
                                         </td>
                                     </tr>
@@ -2095,7 +2118,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         }
 
         if ($ven_code) {
-          $model->where('LOWER(i.ven_code) LIKE \'' . strtolower($ven_code) . '%\'');
+            $model->where('LOWER(i.ven_code) LIKE \'' . strtolower($ven_code) . '%\'');
         }
 
         if ($vendor_id) {
@@ -2198,7 +2221,6 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         }
 
 
-
         $chars = $model->getCatChars($cat_id);
 
         if ($chars) {
@@ -2220,14 +2242,16 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     $filedata = $inCore->yamlToArray($mod['chars'][$char['id']]);
                                 } ?>
 
-                                <div id="cfile<?php echo $char['id']; ?>" style="display:<?php if ($filedata) { ?>none<?php } else { ?>block<?php } ?>">
+                                <div id="cfile<?php echo $char['id']; ?>"
+                                     style="display:<?php if ($filedata) { ?>none<?php } else { ?>block<?php } ?>">
                                     <input type="file" name="char_file<?php echo $char['id']; ?>"/>
                                 </div>
 
                                 <?php if ($filedata) { ?>
                                     <div style="float:left">
                                         <a href="#"><?php echo $filedata['name']; ?></a> <?php echo round($filedata['size'] / 1024); ?> Кб
-                                        <input type="button" style="margin-left:10px" value="Заменить" onclick="$(this).parent('div').hide();$('#cfile<?php echo $char['id']; ?>').show()">
+                                        <input type="button" style="margin-left:10px" value="Заменить"
+                                               onclick="$(this).parent('div').hide();$('#cfile<?php echo $char['id']; ?>').show()">
                                     </div>
                                 <?php } ?>
 
@@ -2252,7 +2276,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <div style="text-align:left">
                                     <?php foreach ($values as $value) { ?>
                                         <label>
-                                            <input type="checkbox" name="chars[<?php echo $char['id']; ?>][]" value="<?php echo trim($value); ?>" <?php if (in_array(trim($value), $checked)) {
+                                            <input type="checkbox" name="chars[<?php echo $char['id']; ?>][]"
+                                                   value="<?php echo trim($value); ?>" <?php if (in_array(trim($value), $checked)) {
                                                 echo 'checked="checked"';
                                             } ?> />
                                             <?php echo $value; ?>
@@ -2307,7 +2332,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     $default = $mod['chars'][$char['id']];
                                 }
                                 ?>
-                                <input type="text" name="chars[<?php echo $char['id']; ?>]" style="width:99%" value="<?php echo htmlspecialchars($default); ?>"/>
+                                <input type="text" name="chars[<?php echo $char['id']; ?>]" style="width:99%"
+                                       value="<?php echo htmlspecialchars($default); ?>"/>
                             <?php } ?>
 
                             <?php //Список выбора
@@ -2409,7 +2435,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             <?php cpCheckWritable('/images/photos/medium', 'folder'); ?>
             <?php cpCheckWritable('/images/photos/small', 'folder'); ?>
 
-            <form action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>" method="post" enctype="multipart/form-data" name="addform" id="addform" data-toggle="validator">
+            <form action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>" method="post"
+                  enctype="multipart/form-data" name="addform" id="addform" data-toggle="validator">
                 <table class="proptable" width="100%" cellpadding="15" cellspacing="2">
                     <tr>
 
@@ -2432,27 +2459,34 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     <td valign="top" width="80">
                                         <div class="form-group">
                                             <label for="art_no" class="">Артикул</label>
-                                            <input class="form-control" name="art_no" type="text" id="art_no" style="width:80px;" value="<?php echo htmlspecialchars($mod['art_no']); ?>"/>
+                                            <input class="form-control" name="art_no" type="text" id="art_no"
+                                                   style="width:80px;"
+                                                   value="<?php echo htmlspecialchars($mod['art_no']); ?>"/>
                                         </div>
                                     </td>
                                     <td valign="top" width="120">
                                         <div class="form-group">
                                             <label class="" for="ven_code">Код произв-ля</label>
-                                            <input class="form-control" name="ven_code" type="text" id="ven_code" style="width:120px;" onchange="checkVencode()" value="<?php echo htmlspecialchars($mod['ven_code']); ?>" required/>
+                                            <input class="form-control" name="ven_code" type="text" id="ven_code"
+                                                   style="width:120px;" onchange="checkVencode()"
+                                                   value="<?php echo htmlspecialchars($mod['ven_code']); ?>" required/>
                                             <div id="error_ven_code" class=""></div>
                                         </div>
                                     </td>
                                     <td valign="top">
                                         <div class="form-group">
                                             <label class="" for="title">Название товара</label>
-                                            <input class="form-control" name="title" type="text" id="title" style="width:97%" value="<?php echo htmlspecialchars($mod['title']); ?>" required/>
+                                            <input class="form-control" name="title" type="text" id="title"
+                                                   style="width:97%"
+                                                   value="<?php echo htmlspecialchars($mod['title']); ?>" required/>
                                         </div>
                                     </td>
 
                                     <td valign="top" width="120">
                                         <div><strong>Считать новинкой</strong></div>
                                         <div class="form-group">
-                                            <input class="form-control" name="pubdate" type="text" id="pubdate" style="width:120px;" <?php if (@!$mod['pubdate']) {
+                                            <input class="form-control" name="pubdate" type="text" id="pubdate"
+                                                   style="width:120px;" <?php if (@!$mod['pubdate']) {
                                                 echo 'value="' . date('Y-m-d') . '"';
                                             } else {
                                                 echo 'value="' . $mod['pubdate'] . '"';
@@ -2465,7 +2499,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                                 $GLOBALS['cp_page_head'][] = '<script type="text/javascript">$(document).ready(function(){$(\'#pubdate\').datepicker({startDate:\'01/01/1996\'}).val(\'' . $mod['pubdate'] . '\').trigger(\'change\');});</script>';
                                             }
                                             ?>
-                                            <input class="form-control" type="hidden" name="olddate" value="<?php echo @$mod['pubdate'] ?>"/>
+                                            <input class="form-control" type="hidden" name="olddate"
+                                                   value="<?php echo @$mod['pubdate'] ?>"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -2476,50 +2511,59 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     <td valign="top" width="80">
                                         <div><strong>Цена</strong></div>
                                         <div>
-                                            <input name="price" type="text" id="price" style="width:80px" value="<?php echo htmlspecialchars($mod['price']); ?>"/>
+                                            <input name="price" type="text" id="price" style="width:80px"
+                                                   value="<?php echo htmlspecialchars($mod['price']); ?>"/>
                                         </div>
                                     </td>
                                     <td width="12" valign="" style="padding:0px">
-                                        <a href="#" style="text-decoration:none" title="Перенести цену" style="padding-top:4px" onclick="$('input#old_price').val($('input#price').val());$('input#price').val('').focus();">
+                                        <a href="#" style="text-decoration:none" title="Перенести цену"
+                                           style="padding-top:4px"
+                                           onclick="$('input#old_price').val($('input#price').val());$('input#price').val('').focus();">
                                             <img src="components/shop/images/arrow.gif" border="0" </a>
                                     </td>
                                     <td valign="top" width="50">
                                         <div><strong>Старая цена</strong></div>
                                         <div>
-                                            <input name="old_price" type="text" id="old_price" style="width:80px" value="<?php echo htmlspecialchars($mod['old_price']); ?>"/>
+                                            <input name="old_price" type="text" id="old_price" style="width:80px"
+                                                   value="<?php echo htmlspecialchars($mod['old_price']); ?>"/>
                                         </div>
                                     </td>
 
                                     <td valign="top" width="80">
                                         <div><strong>На складе</strong></div>
                                         <div>
-                                            <input name="qty" type="text" id="qty" style="width:80px" value="<?php echo htmlspecialchars($mod['qty']); ?>"/>
+                                            <input name="qty" type="text" id="qty" style="width:80px"
+                                                   value="<?php echo htmlspecialchars($mod['qty']); ?>"/>
                                         </div>
                                     </td>
                                     <td valign="top" width="80">
                                         <div><strong>Вес, кг</strong></div>
                                         <div>
-                                            <input name="ves" type="text" id="ves" style="width:80px" value="<?php echo htmlspecialchars($mod['ves']); ?>"/>
+                                            <input name="ves" type="text" id="ves" style="width:80px"
+                                                   value="<?php echo htmlspecialchars($mod['ves']); ?>"/>
                                         </div>
                                     </td>
                                     <td valign="top" width="80">
                                         <div><strong>Объем, кв м</strong></div>
                                         <div>
-                                            <input name="vol" type="text" id="vol" style="width:80px" value="<?php echo htmlspecialchars($mod['vol']); ?>"/>
+                                            <input name="vol" type="text" id="vol" style="width:80px"
+                                                   value="<?php echo htmlspecialchars($mod['vol']); ?>"/>
                                         </div>
                                     </td>
 
                                     <td valign="top" width="140">
                                         <div><strong>Длинная сторонна, м</strong></div>
                                         <div>
-                                            <input name="longest_side" type="text" id="longest_side" style="width:80px" value="<?php echo htmlspecialchars($mod['longest_side']); ?>"/>
+                                            <input name="longest_side" type="text" id="longest_side" style="width:80px"
+                                                   value="<?php echo htmlspecialchars($mod['longest_side']); ?>"/>
                                         </div>
                                     </td>
 
                                     <td>
                                         <div><strong>Наверх списка</strong></div>
                                         <div>
-                                            <label><input name="ordering" type="checkbox" id="ordering" value="1"/> Поднять</label>
+                                            <label><input name="ordering" type="checkbox" id="ordering"
+                                                          value="1"/> Поднять</label>
                                         </div>
                                     </td>
                                 </tr>
@@ -2533,7 +2577,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     <!-- CHARS -->
                                     <td width="100%" valign="top">
                                         <div style="margin-top:10px"><strong>Характеристики товара</strong></div>
-                                        <div id="item_chars" style="padding:5px;background:#ECECEC;margin-top:10px;margin-bottom:10px;margin-right:10px;">
+                                        <div id="item_chars"
+                                             style="padding:5px;background:#ECECEC;margin-top:10px;margin-bottom:10px;margin-right:10px;">
                                             <!-- -->
                                         </div>
                                         <script type="text/javascript">
@@ -2601,7 +2646,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <?php if ($is_shop) { ?>
                                     <tr>
                                         <td width="20">
-                                            <input type="checkbox" name="canmany" id="canmany" value="1" <?php if (@$mod['canmany']) {
+                                            <input type="checkbox" name="canmany" id="canmany"
+                                                   value="1" <?php if (@$mod['canmany']) {
                                                 echo 'checked="checked"';
                                             } ?>/></td>
                                         <td>
@@ -2612,7 +2658,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             </table>
                             <div><strong>Сопутствующие товары, артикулы ч/з запятую без пробелов</strong></div>
                             <div>
-                                <input name="shortdesc" type="text" id="shortdesc" style="width:99%" value="<?php echo htmlspecialchars($mod['shortdesc']); ?>"/>
+                                <input name="shortdesc" type="text" id="shortdesc" style="width:99%"
+                                       value="<?php echo htmlspecialchars($mod['shortdesc']); ?>"/>
                             </div>
 
 
@@ -2637,28 +2684,32 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             <table width="100%" cellpadding="0" cellspacing="0" border="0" class="checklist">
                                 <tr>
                                     <td width="20">
-                                        <input type="checkbox" name="published" id="published" value="1" <?php if ($mod['published'] || $opt == 'add_item') {
+                                        <input type="checkbox" name="published" id="published"
+                                               value="1" <?php if ($mod['published'] || $opt == 'add_item') {
                                             echo 'checked="checked"';
                                         } ?>/></td>
                                     <td><label for="published"><strong>Публиковать товар</strong></label></td>
                                 </tr>
                                 <tr>
                                     <td width="20">
-                                        <input type="checkbox" name="is_front" id="is_front" value="1" <?php if ($mod['is_front']) {
+                                        <input type="checkbox" name="is_front" id="is_front"
+                                               value="1" <?php if ($mod['is_front']) {
                                             echo 'checked="checked"';
                                         } ?>/></td>
                                     <td><label for="is_front"><strong>На витрине</strong></label></td>
                                 </tr>
                                 <tr>
                                     <td width="20">
-                                        <input type="checkbox" name="is_hit" id="is_hit" value="1" <?php if ($mod['is_hit']) {
+                                        <input type="checkbox" name="is_hit" id="is_hit"
+                                               value="1" <?php if ($mod['is_hit']) {
                                             echo 'checked="checked"';
                                         } ?>/></td>
                                     <td><label for="is_hit"><strong>Хит продаж</strong></label></td>
                                 </tr>
                                 <tr>
                                     <td width="20">
-                                        <input type="checkbox" name="is_spec" id="is_spec" value="1" <?php if ($mod['is_spec']) {
+                                        <input type="checkbox" name="is_spec" id="is_spec"
+                                               value="1" <?php if ($mod['is_spec']) {
                                             echo 'checked="checked"';
                                         } ?>/></td>
                                     <td><label for="is_hit"><strong>Акцыя</strong></label></td>
@@ -2690,7 +2741,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <strong>Ссылка на каспи кз</strong>
                             </div>
                             <div>
-                                <input name="kaspikz" style="width:100%" value="<?php echo htmlspecialchars($mod['kaspikz']); ?>"/>
+                                <input name="kaspikz" style="width:100%"
+                                       value="<?php echo htmlspecialchars($mod['kaspikz']); ?>"/>
                             </div>
 
 
@@ -2711,7 +2763,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <strong>Категория</strong>
                             </div>
                             <div>
-                                <select name="cat_id" style="width:100%" onchange="loadItemChars(<?php echo $_REQUEST['id']; ?>, $(this).val(), <?php echo $mod['id'] ? $mod['id'] : 0; ?>)">
+                                <select name="cat_id" style="width:100%"
+                                        onchange="loadItemChars(<?php echo $_REQUEST['id']; ?>, $(this).val(), <?php echo $mod['id'] ? $mod['id'] : 0; ?>)">
                                     <?php
                                     if ($opt == 'edit_item') {
                                         echo $inCore->getListItemsNS('cms_shop_cats', $mod['category_id']);
@@ -2727,7 +2780,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <span class="hinttext">Можно выбрать несколько, удерживая CTRL</span>
                             </div>
                             <div>
-                                <select name="cats[]" id="cats" style="width:100%" size="6" multiple="1" <?php if ($mod['bind_all']) {
+                                <select name="cats[]" id="cats" style="width:100%" size="6"
+                                        multiple="1" <?php if ($mod['bind_all']) {
                                     echo 'disabled="disabled"';
                                 } ?>>
                                     <?php
@@ -2758,7 +2812,9 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                     <tr>
                                         <td>
-                                            <input type="text" name="url" value="<?php echo htmlspecialchars($mod['url']); ?>" style="width:100%"/>
+                                            <input type="text" name="url"
+                                                   value="<?php echo htmlspecialchars($mod['url']); ?>"
+                                                   style="width:100%"/>
                                         </td>
                                         <td width="40" align="center">.html</td>
                                     </tr>
@@ -2781,7 +2837,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     <div style="margin-top:3px;margin-bottom:3px;padding:10px;border:solid 1px gray;text-align:center">
                                         <img src="/images/photos/small/shop<?php echo $mod['id']; ?>.jpg" border="0"/>
                                         <div>
-                                            <label><input type="checkbox" name="img_delete[]" class="input" value="shop<?php echo $mod['id']; ?>.jpg"/> Удалить</label>
+                                            <label><input type="checkbox" name="img_delete[]" class="input"
+                                                          value="shop<?php echo $mod['id']; ?>.jpg"/> Удалить</label>
                                         </div>
                                     </div>
                                     <?php
@@ -2789,14 +2846,17 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 if ($mod['images']) {
                                     ?>
                                     <div style="margin-top:3px;margin-bottom:3px;padding:10px;border:solid 1px gray;overflow:hidden">
-                                        <div style="clear:both" class="hinttext">Отмеченные изображения будут удалены</div>
+                                        <div style="clear:both" class="hinttext">Отмеченные изображения будут удалены
+                                        </div>
                                         <?php
                                         foreach ($mod['images'] as $num => $filename) {
                                             ?>
                                             <div style="width:67px;height:80px;float:left;text-align:center">
-                                                <img src="/images/photos/small/<?php echo $filename; ?>" width="64" height="64" border="0"/>
+                                                <img src="/images/photos/small/<?php echo $filename; ?>" width="64"
+                                                     height="64" border="0"/>
                                                 <div style="width:45px;background:url(/admin/components/shop/images/del_small.gif) no-repeat right center;">
-                                                    <input type="checkbox" name="img_delete[]" class="input" value="<?php echo $filename; ?>"/>
+                                                    <input type="checkbox" name="img_delete[]" class="input"
+                                                           value="<?php echo $filename; ?>"/>
                                                 </div>
                                             </div>
                                             <?php
@@ -2839,14 +2899,16 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <span class="hinttext">Через запятую, 10-15 слов</span>
                             </div>
                             <div>
-                                <textarea name="metakeys" style="width:97%" rows="2" id="metakeys"><?php echo $mod['metakeys']; ?></textarea>
+                                <textarea name="metakeys" style="width:97%" rows="2"
+                                          id="metakeys"><?php echo $mod['metakeys']; ?></textarea>
                             </div>
 
                             <div style="margin-top:20px">
                                 <strong>Описание</strong><br/> <span class="hinttext">Не более 250 символов</span>
                             </div>
                             <div>
-                                <textarea name="metadesc" style="width:97%" rows="4" id="metadesc"><?php echo $mod['metadesc']; ?></textarea>
+                                <textarea name="metadesc" style="width:97%" rows="4"
+                                          id="metadesc"><?php echo $mod['metadesc']; ?></textarea>
                             </div>
 
                             {/tabs}
@@ -2862,7 +2924,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                     <table width="100%" cellpadding="0" cellspacing="0" border="0" class="checklist">
                         <tr>
                             <td width="20">
-                                <input type="checkbox" name="add_again" id="add_again" value="1" <?php if ($inCore->inRequest('added')) {
+                                <input type="checkbox" name="add_again" id="add_again"
+                                       value="1" <?php if ($inCore->inRequest('added')) {
                                     echo 'selected="selected"';
                                 } ?>/></td>
                             <td><label for="add_again">Добавить еще один товар после сохранения</label></td>
@@ -2871,7 +2934,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 <?php } ?>
                 <p>
                     <input name="add_mod" type="submit" id="add_mod" value="Сохранить товар"/>
-                    <input name="back2" type="button" id="back2" value="Отмена" onclick="window.location.href='index.php?view=components';"/>
+                    <input name="back2" type="button" id="back2" value="Отмена"
+                           onclick="window.location.href='index.php?view=components';"/>
                     <input name="opt" type="hidden" id="do" <?php if ($opt == 'add_item') {
                         echo 'value="submit_item"';
                     } else {
@@ -2952,7 +3016,9 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         }
         ?>
 
-        <form id="addform" name="addform" method="post" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>" enctype="multipart/form-data">
+        <form id="addform" name="addform" method="post"
+              action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>"
+              enctype="multipart/form-data">
             <table class="proptable" width="100%" cellpadding="15" cellspacing="2">
                 <tr>
 
@@ -2983,11 +3049,13 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             </tr>
                             <tr>
                                 <td>
-                                    <input name="title" type="text" id="title" style="width:99%" value="<?php echo htmlspecialchars($mod['title']); ?>"/>
+                                    <input name="title" type="text" id="title" style="width:99%"
+                                           value="<?php echo htmlspecialchars($mod['title']); ?>"/>
                                 </td>
                                 <td><input name="icon" type="file"/></td>
                                 <td style="padding-left:6px">
-                                    <input name="tpl" type="text" style="width:98%" value="<?php echo htmlspecialchars($mod['tpl']); ?>"/>
+                                    <input name="tpl" type="text" style="width:98%"
+                                           value="<?php echo htmlspecialchars($mod['tpl']); ?>"/>
                                 </td>
                             </tr>
                         </table>
@@ -3010,14 +3078,16 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <table width="100%" cellpadding="0" cellspacing="0" border="0" class="checklist">
                             <tr>
                                 <td width="20">
-                                    <input type="checkbox" name="published" id="published" value="1" <?php if ($mod['published'] || $opt == 'add_cat') {
+                                    <input type="checkbox" name="published" id="published"
+                                           value="1" <?php if ($mod['published'] || $opt == 'add_cat') {
                                         echo 'checked="checked"';
                                     } ?>/></td>
                                 <td><label for="published"><strong>Публиковать категорию</strong></label></td>
                             </tr>
                             <tr>
                                 <td width="20">
-                                    <input type="checkbox" name="is_catalog" id="is_catalog" value="1" <?php if ($mod['is_catalog']) {
+                                    <input type="checkbox" name="is_catalog" id="is_catalog"
+                                           value="1" <?php if ($mod['is_catalog']) {
                                         echo 'checked="checked"';
                                     } ?>/></td>
                                 <td><label for="is_catalog"><strong>Режим каталога (не показывать цены)</strong></label>
@@ -3025,7 +3095,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             </tr>
                             <tr>
                                 <td width="20">
-                                    <input type="checkbox" name="is_xml" id="is_xml" value="1" <?php if ($mod['is_xml']) {
+                                    <input type="checkbox" name="is_xml" id="is_xml"
+                                           value="1" <?php if ($mod['is_xml']) {
                                         echo 'checked="checked"';
                                     } ?>/></td>
                                 <td><label for="is_xml"><strong>Отправлять в XML-фид</strong></label></td>
@@ -3058,27 +3129,31 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             <div style="color:gray">Если не указан, генерируется из заголовка</div>
                         </div>
                         <div>
-                            <input type="text" name="url" value="<?php echo htmlspecialchars($mod['url']); ?>" style="width:99%"/>
+                            <input type="text" name="url" value="<?php echo htmlspecialchars($mod['url']); ?>"
+                                   style="width:99%"/>
                         </div>
                         <div style="margin-top:20px">
                             <strong>Заголовок страницы</strong>
                         </div>
                         <div>
-                            <input type="text" name="pagetitle" value="<?php echo htmlspecialchars($mod['pagetitle']); ?>" style="width:99%"/>
+                            <input type="text" name="pagetitle"
+                                   value="<?php echo htmlspecialchars($mod['pagetitle']); ?>" style="width:99%"/>
                         </div>
 
                         <div style="margin-top:20px">
                             <strong>Ключевые слова</strong><br/> <span class="hinttext">Через запятую, 10-15 слов</span>
                         </div>
                         <div>
-                            <textarea name="meta_keys" style="width:97%" rows="2" id="meta_keys"><?php echo @$mod['meta_keys']; ?></textarea>
+                            <textarea name="meta_keys" style="width:97%" rows="2"
+                                      id="meta_keys"><?php echo @$mod['meta_keys']; ?></textarea>
                         </div>
 
                         <div style="margin-top:20px">
                             <strong>Описание</strong><br/> <span class="hinttext">Не более 250 символов</span>
                         </div>
                         <div>
-                            <textarea name="meta_desc" style="width:97%" rows="4" id="meta_desc"><?php echo @$mod['meta_desc']; ?></textarea>
+                            <textarea name="meta_desc" style="width:97%" rows="4"
+                                      id="meta_desc"><?php echo @$mod['meta_desc']; ?></textarea>
                         </div>
 
 
@@ -3133,12 +3208,14 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             cpAddPathway($mod['title'], '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_discount&item_id=' . $_REQUEST['item_id']);
         }
         ?>
-        <form id="addform" name="addform" method="post" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
+        <form id="addform" name="addform" method="post"
+              action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
             <table width="584" border="0" cellspacing="5" class="proptable">
                 <tr>
                     <td width="250"><strong>Название: </strong></td>
                     <td width="315" valign="top">
-                        <input name="title" type="text" id="title" style="width:300px" value="<?php echo @$mod['title']; ?>"/>
+                        <input name="title" type="text" id="title" style="width:300px"
+                               value="<?php echo @$mod['title']; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -3160,9 +3237,10 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <strong>Значение: </strong>
                     </td>
                     <td valign="top">
-                        <input name="amount" type="text" id="amount" style="width:80px" value="<?php if ($opt == 'edit_discount') {
-                            echo $mod['amount'];
-                        } ?>"/> <select name="is_percent" id="is_percent" style="width:60px">
+                        <input name="amount" type="text" id="amount" style="width:80px"
+                               value="<?php if ($opt == 'edit_discount') {
+                                   echo $mod['amount'];
+                               } ?>"/> <select name="is_percent" id="is_percent" style="width:60px">
                             <option value="1" <?php if ($mod['is_percent']) {
                                 echo 'selected';
                             } ?>>%
@@ -3191,7 +3269,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <strong>Действует до: </strong>
                     </td>
                     <td valign="top">
-                        <input name="date_until" type="text" id="date_until" style="width:142px" value="<?php echo $mod['date_until']; ?>"/>
+                        <input name="date_until" type="text" id="date_until" style="width:142px"
+                               value="<?php echo $mod['date_until']; ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -3263,7 +3342,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 } else {
                     echo 'value="Сохранить изменения"';
                 } ?> />
-                <input name="back3" type="button" id="back3" value="Отмена" onclick="window.location.href='index.php?view=components';"/>
+                <input name="back3" type="button" id="back3" value="Отмена"
+                       onclick="window.location.href='index.php?view=components';"/>
                 <input name="opt" type="hidden" id="do" <?php if ($opt == 'add_discount') {
                     echo 'value="submit_discount"';
                 } else {
@@ -3279,7 +3359,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
         <script type="text/javascript">
 
-            $(document).ready(function() {
+            $(document).ready(function () {
                 var datePickerOptions = {showStatus: true, showOn: "focus"};
                 $('#date_until').datepicker({
                     showOn: "both",
@@ -3329,7 +3409,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             cpAddPathway($mod['title'], '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_char&item_id=' . $_REQUEST['item_id']);
         }
         ?>
-        <form id="addform" name="addform" method="post" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
+        <form id="addform" name="addform" method="post"
+              action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
             <?php if ($mod['val_count']) { ?>
                 <table width="600" border="0" cellspacing="5" height="35" class="proptable" style="background:#ECECEC">
                     <tr>
@@ -3345,7 +3426,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 <tr>
                     <td width=""><strong>Название: </strong></td>
                     <td width="315" valign="top">
-                        <input name="title" type="text" id="title" style="width:300px" value="<?php echo htmlspecialchars($mod['title']); ?>"/>
+                        <input name="title" type="text" id="title" style="width:300px"
+                               value="<?php echo htmlspecialchars($mod['title']); ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -3399,7 +3481,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <select name="fieldgroup" id="fieldgroup" style="width:307px">
                             <option value="">---</option>
                             <?php foreach ($char_groups as $group) { ?>
-                                <option value="<?php echo $group; ?>" <?php if ($group == $mod['fieldgroup']) { ?>selected="selected"<?php } ?>><?php echo $group; ?></option>
+                                <option value="<?php echo $group; ?>"
+                                        <?php if ($group == $mod['fieldgroup']) { ?>selected="selected"<?php } ?>><?php echo $group; ?></option>
                             <?php } ?>
                         </select>
                     </td>
@@ -3418,7 +3501,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <span class="hinttext">Для числовых характеристик</span>
                     </td>
                     <td width="315" valign="top">
-                        <input name="units" type="text" id="units" style="width:300px" value="<?php echo htmlspecialchars($mod['units']); ?>"/>
+                        <input name="units" type="text" id="units" style="width:300px"
+                               value="<?php echo htmlspecialchars($mod['units']); ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -3460,7 +3544,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         } ?> onclick="$('input[name=is_filter_many]').attr('disabled', '');"/> Да
                         <input name="is_filter" type="radio" value="0" <?php if (@!$mod['is_filter']) {
                             echo 'checked="checked"';
-                        } ?> onclick="$('input[name=is_filter_many]').attr('disabled', 'disabled');$('input[name=is_filter_many][value=0]').attr('checked', 'checked');"/> Нет
+                        } ?>
+                               onclick="$('input[name=is_filter_many]').attr('disabled', 'disabled');$('input[name=is_filter_many][value=0]').attr('checked', 'checked');"/> Нет
                     </td>
                 </tr>
                 <tr>
@@ -3468,12 +3553,14 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <strong>Множественный выбор в фильтре: </strong>
                     </td>
                     <td valign="top">
-                        <input name="is_filter_many" type="radio" value="1" <?php if (@$mod['is_filter_many'] && $mod['is_filter']) {
+                        <input name="is_filter_many" type="radio"
+                               value="1" <?php if (@$mod['is_filter_many'] && $mod['is_filter']) {
                             echo 'checked="checked"';
                         } ?> <?php if (!$mod['is_filter']) {
                             echo 'disabled="disabled"';
                         } ?>/> Да
-                        <input name="is_filter_many" type="radio" value="0" <?php if (@!$mod['is_filter_many'] || !$mod['is_filter']) {
+                        <input name="is_filter_many" type="radio"
+                               value="0" <?php if (@!$mod['is_filter_many'] || !$mod['is_filter']) {
                             echo 'checked="checked"';
                         } ?> <?php if (!$mod['is_filter']) {
                             echo 'disabled="disabled"';
@@ -3486,7 +3573,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <span class="hinttext">Каждое значение с новой строки</span>
                     </td>
                     <td valign="top">
-                        <textarea name="values" style="width:293px;" rows="5"><?php echo htmlspecialchars($mod['values']); ?></textarea>
+                        <textarea name="values" style="width:293px;"
+                                  rows="5"><?php echo htmlspecialchars($mod['values']); ?></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -3498,14 +3586,16 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <table border="0" cellpadding="0" cellspacing="0" width="" style="margin-bottom:5px">
                             <tr>
                                 <td width="16">
-                                    <input type="checkbox" name="bind_all" id="bind_all" value="1" onclick="toggleBindAll()" <?php if ($mod['bind_all']) {
+                                    <input type="checkbox" name="bind_all" id="bind_all" value="1"
+                                           onclick="toggleBindAll()" <?php if ($mod['bind_all']) {
                                         echo 'checked="checked"';
                                     } ?>>
                                 </td>
                                 <td><label for="bind_all">Все категории</label></td>
                             </tr>
                         </table>
-                        <select name="cats[]" id="cats" style="width:307px" size="10" multiple="1" <?php if ($mod['bind_all']) {
+                        <select name="cats[]" id="cats" style="width:307px" size="10"
+                                multiple="1" <?php if ($mod['bind_all']) {
                             echo 'disabled="disabled"';
                         } ?>>
                             <?php
@@ -3535,7 +3625,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 } else {
                     echo 'value="Сохранить изменения"';
                 } ?> />
-                <input name="back3" type="button" id="back3" value="Отмена" onclick="window.location.href='index.php?view=components';"/>
+                <input name="back3" type="button" id="back3" value="Отмена"
+                       onclick="window.location.href='index.php?view=components';"/>
                 <input name="opt" type="hidden" id="do" <?php if ($opt == 'add_char') {
                     echo 'value="submit_char"';
                 } else {
@@ -3573,7 +3664,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         cpAddPathway('Значения', '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_char_values&item_id=' . $_REQUEST['item_id']);
 
         ?>
-        <form id="addform" name="addform" method="post" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
+        <form id="addform" name="addform" method="post"
+              action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
             <table width="600" border="0" cellspacing="5" class="proptable">
                 <?php
 
@@ -3596,12 +3688,15 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                     } ?>
                     <tr>
                         <td width="" style="padding-left:15px">
-                            <a style="color:#09C" href="?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>&opt=edit_item&item_id=<?php echo $item['id']; ?>" target="_blank">
+                            <a style="color:#09C"
+                               href="?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>&opt=edit_item&item_id=<?php echo $item['id']; ?>"
+                               target="_blank">
                                 <?php echo $item['title']; ?></a>:
                         </td>
                         <td width="315" valign="top">
                             <?php if (!$mod['values']) { ?>
-                                <input name="val[<?php echo $item['id']; ?>]" type="text" style="width:300px" value="<?php echo htmlspecialchars($item['val']); ?>"/>
+                                <input name="val[<?php echo $item['id']; ?>]" type="text" style="width:300px"
+                                       value="<?php echo htmlspecialchars($item['val']); ?>"/>
                             <?php } ?>
                             <?php
                             if ($mod['values']) {
@@ -3646,7 +3741,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         $config = false;
 
         ?>
-        <form id="addform" name="addform" method="post" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
+        <form id="addform" name="addform" method="post"
+              action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
 
             <?php if ($mod['config']['currency']) { ?>
                 <h3 style="margin-top:0px;font-weight:normal;font-size:16px">Курсы валют</h3>
@@ -3658,7 +3754,9 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     <strong>1 <?php echo $currency; ?> = </strong>
                                 </td>
                                 <td>
-                                    <input type="text" name="config[currency][<?php echo $currency; ?>]" value="<?php echo $kurs; ?>" style="width:60px"/> <?php echo htmlspecialchars($cfg['currency']); ?>
+                                    <input type="text" name="config[currency][<?php echo $currency; ?>]"
+                                           value="<?php echo $kurs; ?>"
+                                           style="width:60px"/> <?php echo htmlspecialchars($cfg['currency']); ?>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -3675,10 +3773,12 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             <tr>
                                 <td width="250">
                                     <strong><?php echo $param['title']; ?>:</strong>
-                                    <input type="hidden" name="config[<?php echo $param_id; ?>][title]" value="<?php echo $param['title']; ?>"/>
+                                    <input type="hidden" name="config[<?php echo $param_id; ?>][title]"
+                                           value="<?php echo $param['title']; ?>"/>
                                 </td>
                                 <td>
-                                    <input type="text" name="config[<?php echo $param_id; ?>][value]" value="<?php echo htmlspecialchars($param['value']); ?>" style="width:98%"/>
+                                    <input type="text" name="config[<?php echo $param_id; ?>][value]"
+                                           value="<?php echo htmlspecialchars($param['value']); ?>" style="width:98%"/>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -3694,7 +3794,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 <?php if ($confg) { ?>
                     <input name="add_mod" type="submit" id="add_mod" value="Сохранить изменения"/>
                 <?php } ?>
-                <input name="back" type="button" id="back" value="Отмена" onclick="window.location.href='index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>&opt=list_psys';"/>
+                <input name="back" type="button" id="back" value="Отмена"
+                       onclick="window.location.href='index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>&opt=list_psys';"/>
                 <input name="opt" type="hidden" id="do" value="save_psys_config"/>
                 <input name="item_id" type="hidden" value="<?php echo $mod['id']; ?>"/>
             </p>
@@ -3717,6 +3818,12 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 if (mysqli_num_rows($result)) {
                     $mod = mysqli_fetch_assoc($result);
                 }
+
+                $sql = "SELECT * FROM cms_vendors_params WHERE vendor_id = $id LIMIT 1";
+                $result = $inDB->query($sql);
+                if(mysqli_num_rows($result)) {
+                    $vendorParams = mysqli_fetch_assoc($result);
+                }
             }
 
             echo '<h3>' . $mod['title'] . '</h3>';
@@ -3724,93 +3831,305 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             cpAddPathway($mod['title'], '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_vendor&item_id=' . $_REQUEST['item_id']);
         }
         ?>
-        <form id="addform" name="addform" method="post" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
-            <table width="600" border="0" cellspacing="5" class="proptable">
-                <tr>
-                    <td width=""><strong>Название: </strong></td>
-                    <td width="315" valign="top">
-                        <input name="title" type="text" id="title" style="width:300px" value="<?php echo htmlspecialchars($mod['title']); ?>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td width=""><strong>Описание: </strong></td>
-                    <td width="315" valign="top"><?php $inCore->insertEditor('descr', $mod['descr'], '200', '100%'); ?></td>
-                </tr>
-                <tr>
-                    <td><strong>Показывать на сайте: </strong></td>
-                    <td valign="top">
-                        <input name="published" type="radio" value="1" <?php if (@$mod['published']) {
-                            echo 'checked="checked"';
-                        } ?>/> Да <input name="published" type="radio" value="0" <?php if (@!$mod['published']) {
-                            echo 'checked="checked"';
-                        } ?>/> Нет
-                    </td>
-                </tr>
 
-            </table>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                   aria-selected="true">Производитель</a>
+            </li>
+        <?php if( $mod['id'] ): ?>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                   aria-controls="profile" aria-selected="false">Настройка xls файла</a>
+            </li>
+        <?php endif; ?>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <form id="addform" name="addform" method="post" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
+                    <table style="width: 50%; float: left;" border="0" cellspacing="5" class="proptable">
+                        <tr>
+                            <td width=""><strong>Название: </strong></td>
+                            <td width="315" valign="top">
+                                <input name="title" type="text" id="title" style="width:300px"
+                                       value="<?php echo htmlspecialchars($mod['title']); ?>"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width=""><strong>Описание: </strong></td>
+                            <td width="315"
+                                valign="top"><?php $inCore->insertEditor('descr', $mod['descr'], '200', '100%'); ?></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Показывать на сайте: </strong></td>
+                            <td valign="top">
+                                <input name="published" type="radio" value="1" <?php if (@$mod['published']) {
+                                    echo 'checked="checked"';
+                                } ?>/> Да <input name="published" type="radio"
+                                                 value="0" <?php if (@!$mod['published']) {
+                                    echo 'checked="checked"';
+                                } ?>/> Нет
+                            </td>
+                        </tr>
 
-            <div class="container mb-3">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-check-inline">
-                            <label class="" for="sellWarehouse">Продавать со склада</label>
-                        </div>
-                        <input name="sellWarehouse" type="radio" value="1" <?php if ($mod['sell_warehouse']) {
-                            echo 'checked="checked"';
-                        } ?>/> Да <input name="sellWarehouse" type="radio" value="0" <?php if (!$mod['sell_warehouse']) {
-                            echo 'checked="checked"';
-                        } ?>/> Нет
-                    </div>
-                    <div class="col-12">
-                        <div class="form-check-inline">
-                            <label class="form-check-label" for="sellToOrder">Продавать под заказ</label>
-                        </div>
+                    </table>
 
-                        <input class="" name="sellToOrder" type="radio" value="1" <?php if ($mod['sell_to_order']) {
-                            echo 'checked="checked"';
-                        } ?>/> Да
-                        <input class="" name="sellToOrder" type="radio" value="0" <?php if (!$mod['sell_to_order']) {
-                            echo 'checked="checked"';
-                        } ?>/> Нет
+                    <div class="clearfix"></div>
+                    <div class="container mb-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-check-inline">
+                                    <label class="" for="sellWarehouse">Продавать со склада</label>
+                                </div>
+                                <input name="sellWarehouse" type="radio" value="1" <?php if ($mod['sell_warehouse']) {
+                                    echo 'checked="checked"';
+                                } ?>/> Да <input name="sellWarehouse" type="radio"
+                                                 value="0" <?php if (!$mod['sell_warehouse']) {
+                                    echo 'checked="checked"';
+                                } ?>/> Нет
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check-inline">
+                                    <label class="form-check-label" for="sellToOrder">Продавать под заказ</label>
+                                </div>
 
-                    </div>
+                                <input class="" name="sellToOrder" type="radio"
+                                       value="1" <?php if ($mod['sell_to_order']) {
+                                    echo 'checked="checked"';
+                                } ?>/> Да
+                                <input class="" name="sellToOrder" type="radio"
+                                       value="0" <?php if (!$mod['sell_to_order']) {
+                                    echo 'checked="checked"';
+                                } ?>/> Нет
 
-                    <div class="time-delivery-wrapper col-12">
-                        <div class="form-check-inline">
-                            <label class="form-check-label" for="timeDelivery">Срок поставки</label>
-                        </div>
-                        <input id="timeDelivery" class="d-inline-block" name="timeDelivery" type="number" min="0" value="<?= $mod['time_delivery']; ?>">
-                        <span>дней.</span>
-                    </div>
+                            </div>
+
+                            <div class="time-delivery-wrapper col-12">
+                                <div class="form-check-inline">
+                                    <label class="form-check-label" for="timeDelivery">Срок поставки</label>
+                                </div>
+                                <input id="timeDelivery" class="d-inline-block" name="timeDelivery" type="number"
+                                       min="0" value="<?= $mod['time_delivery']; ?>">
+                                <span>дней.</span>
+                            </div>
 
 
-                </div> <!-- row -->
-            </div> <!-- container -->
+                        </div> <!-- row -->
+                    </div> <!-- container -->
 
-            <p>
-                <input name="add_mod" type="submit" id="add_mod" <?php if ($opt == 'add_vendor') {
-                    echo 'value="Создать"';
-                } else {
-                    echo 'value="Сохранить изменения"';
-                } ?> />
-                <input name="back" type="button" id="back" value="Отмена" onclick="window.location.href='index.php?view=components';"/>
-                <input name="opt" type="hidden" id="do" <?php if ($opt == 'add_vendor') {
-                    echo 'value="submit_vendor"';
-                } else {
-                    echo 'value="update_vendor"';
-                } ?> />
-                <?php
-                if ($opt == 'edit_vendor') {
-                    echo '<input name="item_id" type="hidden" value="' . $mod['id'] . '" />';
-                }
-                ?>
-            </p>
-        </form>
+                    <p>
+                        <input name="add_mod" type="submit" id="add_mod" <?php if ($opt == 'add_vendor') {
+                            echo 'value="Создать"';
+                        } else {
+                            echo 'value="Сохранить изменения"';
+                        } ?> />
+                        <input
+                                id="back"
+                                name="back"
+                                type="button"
+                                value="Отмена"
+                                onclick="window.location.href='index.php?view=components';"
+                        />
+                        <input
+                                id="do"
+                                name="opt"
+                                type="hidden"
+                                <?php if ($opt == 'add_vendor') {
+                                    echo 'value="submit_vendor"';
+                                } else {
+                                    echo 'value="update_vendor"';
+                                } ?>
+                        />
+                        <?php
+                        if ($opt == 'edit_vendor') {
+                            echo '<input name="item_id" type="hidden" value="' . $mod['id'] . '" />';
+                        }
+                        ?>
+                    </p>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <form id="import" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>" method="post"  target="_self" enctype="multipart/form-data">
+                    <table cellpadding="4" cellspacing="0" border="0" width="" class="proptable" style="border:none">
+                        <tr>
+                            <td>
+                                <strong>Наценка: </strong><br/>
+                                <span class="font-italic">значение в процентах</span>
+
+                            </td>
+                            <td>
+                                <input
+                                        id="margin"
+                                        name="margin"
+                                        type="number"
+                                        value="<?= $vendorParams['margin'] ?>"
+                                        style="width:80px"
+                                />
+                            </td>
+                            <td>
+                                <span>%</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>Начинать со строки:</strong>
+                            </td>
+                            <td>
+                                <input type="text" id="row_start" name="row_start" value="<?= $vendorParams['row_start'] ?>" style="width:50px"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Импортировать строк <span style="color:gray">(0 - все):</span></strong>
+                            </td>
+                            <td valign="top">
+                                <input type="text" id="rows_count" name="rows_count" value="<?= $vendorParams['rows_count'] ?>" style="width:50px"/>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <h3 style="margin-bottom:0px">Шаблон cтруктуры данных</h3>
+                        Здесь нужно задать шаблон для строк импортируемого Excel-файла.
+                    </p>
+
+                    <?php
+                        if ($vendorParams['params_xls'] != '') {
+                            $columnsXls = json_decode($vendorParams['params_xls'], true);
+                        } else {
+                            $columnsXls = [
+                                'A' => 'ven_code',
+                                'B' => 'ven_code',
+                                'C' => 'ven_code',
+                                'D' => 'ven_code'
+                            ];
+                        }
+
+                        $rowsKey = array_keys($columnsXls);
+                        $rowName = array_values($columnsXls);
+
+                    ?>
+                    <table cellpadding="2" cellspacing="0" border="0">
+                        <tr style="height: 30px;">
+                            <td>
+                                <span>Столбец</span>
+                            </td>
+                            <?php
+                                $alphabet = [
+                                    'A', 'B', 'C', 'D', 'E', 'F'
+                                ];
+
+                                foreach ($rowsKey as $index => $key) {
+
+
+                                        echo '<td> 
+                                                <select 
+                                                    id="params_xls_column_"' . $index .
+                                                    'name="indexParamsXl[]" 
+                                                    style="width: 100%;"
+                                                />';
+                                                foreach ($alphabet as $char) {
+                                                    echo '
+                                                            <option 
+                                                                value="' . $char . '"'
+                                                                . ($char == $key) ? 'selected': '' .
+                                                            '>' . $char . '</option>';
+                                                }
+
+                                        echo '</select> </td>';
+                                    }
+                            ?>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td>
+                                <span>Значение</span>
+                            </td>
+                            <td>
+                                <select id="params_xls_column_2" name="valueColumnXls[]" style="width: 100%;">
+                                    <option value="ven_code">Код</option>
+                                    <option value="title">Название</option>
+                                    <option value="price">Цена</option>
+                                    <option value="qty_from_vendor">Количество</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="params_xls_column_3" name="valueColumnXls[]" style="width: 100%;">
+                                    <option value="ven_code">Код</option>
+                                    <option value="title">Название</option>
+                                    <option value="price">Цена</option>
+                                    <option value="qty_from_vendor">Количество</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="params_xls_column_4" name="valueColumnXls[]" style="width: 100%;">
+                                    <option value="ven_code">Код</option>
+                                    <option value="title">Название</option>
+                                    <option value="price">Цена</option>
+                                    <option value="qty_from_vendor">Количество</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="params_xls_column_4" name="valueColumnXls[]" style="width: 100%;">
+                                    <option value="ven_code">Код</option>
+                                    <option value="title">Название</option>
+                                    <option value="price">Цена</option>
+                                    <option value="qty_from_vendor">Количество</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr>
+                            <td>
+                                <span>Название excel-файла:</span> <br />
+                            </td>
+                            <td>
+                                <input
+                                        class="ml-2"
+                                        name="nameXls"
+                                        type="text"
+                                        value="<?= $vendorParams['name_xls']; ?>"
+                                        style="width: 200px;"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <em>название указывается без расширения файла</em>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                    <p style="margin-top:50px">
+                        <input name="vendorId" type="hidden" value="<?= $mod['id']; ?>" />
+                        <input name="opt" type="hidden" value="save_params_xls" />
+                        <input
+                                type="submit"
+                                value="Сохранить"
+                        />
+                        <input
+                                id="back"
+                                name="back"
+                                type="button"
+                                value="Отмена"
+                                onclick="window.location.href='index.php?view=components';"
+                        />
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
         <?php
     }
 
 //=================================================================================================//
 //=================================================================================================//
+
 
     if ($opt == 'add_delivery' || $opt == 'edit_delivery') {
         if ($opt == 'add_delivery') {
@@ -3832,12 +4151,14 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             cpAddPathway($mod['title'], '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_vendor&item_id=' . $_REQUEST['item_id']);
         }
         ?>
-        <form id="addform" name="addform" method="post" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
+        <form id="addform" name="addform" method="post"
+              action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
             <table width="100%" border="0" cellspacing="5" class="proptable">
                 <tr>
                     <td width="200"><strong>Название: </strong></td>
                     <td width="" valign="top">
-                        <input name="title" type="text" id="title" style="width:50%" value="<?php echo htmlspecialchars($mod['title']); ?>"/>
+                        <input name="title" type="text" id="title" style="width:50%"
+                               value="<?php echo htmlspecialchars($mod['title']); ?>"/>
                     </td>
                 </tr>
                 <tr>
@@ -3853,19 +4174,22 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 <tr>
                     <td width="200" valign="top"><strong>Описание: </strong></td>
                     <td width="" valign="top">
-                        <textarea name="description" style="width:50%;height:200px"><?php echo htmlspecialchars($mod['description']); ?></textarea>
+                        <textarea name="description"
+                                  style="width:50%;height:200px"><?php echo htmlspecialchars($mod['description']); ?></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td width="200"><strong>Стоимость: </strong></td>
                     <td width="" valign="top">
-                        <input name="price" type="text" id="price" style="width:100px" value="<?php echo htmlspecialchars($mod['price']); ?>"/> <?php echo $cfg['currency']; ?>
+                        <input name="price" type="text" id="price" style="width:100px"
+                               value="<?php echo htmlspecialchars($mod['price']); ?>"/> <?php echo $cfg['currency']; ?>
                     </td>
                 </tr>
                 <tr>
                     <td width="200"><strong>Доступно при заказе от:</strong></td>
                     <td width="" valign="top">
-                        <input name="minsumm" type="text" id="minsumm" style="width:100px" value="<?php echo htmlspecialchars($mod['minsumm']); ?>"/> <?php echo $cfg['currency']; ?>
+                        <input name="minsumm" type="text" id="minsumm" style="width:100px"
+                               value="<?php echo htmlspecialchars($mod['minsumm']); ?>"/> <?php echo $cfg['currency']; ?>
                     </td>
                 </tr>
                 <tr>
@@ -3874,10 +4198,12 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <table cellpadding="0" cellspacing="0" border="0">
                             <tr>
                                 <td style="padding-right:2px">
-                                    <input name="freesumm" type="text" id="freesumm" style="width:100px" value="<?php echo htmlspecialchars($mod['freesumm']); ?>"/> <?php echo $cfg['currency']; ?> или
+                                    <input name="freesumm" type="text" id="freesumm" style="width:100px"
+                                           value="<?php echo htmlspecialchars($mod['freesumm']); ?>"/> <?php echo $cfg['currency']; ?> или
                                 </td>
                                 <td width="16">
-                                    <input type="checkbox" id="nofree" name="nofree" value="1" <?php if ($mod['nofree']) {
+                                    <input type="checkbox" id="nofree" name="nofree"
+                                           value="1" <?php if ($mod['nofree']) {
                                         echo 'checked="checked"';
                                     } ?>/></td>
                                 <td><label for="nofree"><strong>Всегда платно</strong></label></td>
@@ -3891,7 +4217,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <abbr title="Введите id категорий с которыми работет эта ТК">Указать категории</abbr>
                     </td>
                     <td>
-                        <textarea class="form-control" name="idCategoriesThatDeliveryWorksWith" rows="3"><?php echo htmlspecialchars($mod['category_id']); ?></textarea>
+                        <textarea class="form-control" name="idCategoriesThatDeliveryWorksWith"
+                                  rows="3"><?php echo htmlspecialchars($mod['category_id']); ?></textarea>
                     </td>
                 </tr>
             </table>
@@ -3901,7 +4228,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 } else {
                     echo 'value="Сохранить изменения"';
                 } ?> />
-                <input name="back" type="button" id="back" value="Отмена" onclick="window.location.href='index.php?view=components';"/>
+                <input name="back" type="button" id="back" value="Отмена"
+                       onclick="window.location.href='index.php?view=components';"/>
                 <input name="opt" type="hidden" id="do" <?php if ($opt == 'add_delivery') {
                     echo 'value="submit_delivery"';
                 } else {
@@ -3931,7 +4259,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             $fstruct = unserialize($cat['fieldsstruct']);
 
             ?>
-        <form action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>" method="POST" enctype="multipart/form-data" name="addform">
+        <form action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>" method="POST"
+              enctype="multipart/form-data" name="addform">
             <p><strong>Рубрика:</strong>
                 <a href="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>&opt=import_xls"><?php echo $cat['title']; ?></a>
             </p>
@@ -3975,14 +4304,17 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                     <td width=""><strong>Название:</strong></td>
                     <td>Столбец:</td>
                     <td>
-                        <input type="text" onkeyup="xlsEditCol()" id="title_col" name="cells[title][col]" style="width:40px"/>
+                        <input type="text" onkeyup="xlsEditCol()" id="title_col" name="cells[title][col]"
+                               style="width:40px"/>
                     </td>
                     <td>Строка:</td>
                     <td>
-                        <input type="text" onkeyup="xlsEditRow()" id="title_row" name="cells[title][row]" style="width:40px"/>
+                        <input type="text" onkeyup="xlsEditRow()" id="title_row" name="cells[title][row]"
+                               style="width:40px"/>
                     </td>
                     <td width="90">
-                        <input type="checkbox" id="ignore_title" name="cells[title][ignore]" onclick="ignoreRow('title')" value="1"/> Текст:
+                        <input type="checkbox" id="ignore_title" name="cells[title][ignore]"
+                               onclick="ignoreRow('title')" value="1"/> Текст:
                     </td>
                     <td><input type="text" class="other" name="cells[title][other]" style="width:200px" disabled/></td>
                 </tr>
@@ -4006,17 +4338,22 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <td width="150"><strong><?php echo $value; ?>:</strong></td>
                         <td>Столбец:</td>
                         <td>
-                            <input type="text" class="col" id="<?php echo $current; ?>" name="cells[<?php echo $current; ?>][col]" style="width:40px"/>
+                            <input type="text" class="col" id="<?php echo $current; ?>"
+                                   name="cells[<?php echo $current; ?>][col]" style="width:40px"/>
                         </td>
                         <td>Строка:</td>
                         <td>
-                            <input type="text" class="row" name="cells[<?php echo $current; ?>][row]" style="width:40px"/>
+                            <input type="text" class="row" name="cells[<?php echo $current; ?>][row]"
+                                   style="width:40px"/>
                         </td>
                         <td>
-                            <input type="checkbox" id="ignore_<?php echo $current; ?>" name="cells[<?php echo $current; ?>][ignore]" onclick="ignoreRow('<?php echo $current; ?>')" value="1"/> Текст:
+                            <input type="checkbox" id="ignore_<?php echo $current; ?>"
+                                   name="cells[<?php echo $current; ?>][ignore]"
+                                   onclick="ignoreRow('<?php echo $current; ?>')" value="1"/> Текст:
                         </td>
                         <td>
-                            <input type="text" class="other" name="cells[<?php echo $current; ?>][other]" style="width:200px" disabled/>
+                            <input type="text" class="other" name="cells[<?php echo $current; ?>][other]"
+                                   style="width:200px" disabled/>
                         </td>
                     </tr>
                     <?php
@@ -4032,7 +4369,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <td>Строка:</td>
                         <td><input type="text" class="row" name="cells[price][row]" style="width:40px"/></td>
                         <td>
-                            <input type="checkbox" id="ignore_price" name="cells[price][ignore]" onclick="ignoreRow('price')" value="1"/> Текст:
+                            <input type="checkbox" id="ignore_price" name="cells[price][ignore]"
+                                   onclick="ignoreRow('price')" value="1"/> Текст:
                         </td>
                         <td><input type="text" class="other" name="cells[price][other]" style="width:200px" disabled/>
                         </td>
@@ -4263,7 +4601,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         }
 
         ?>
-        <form action="index.php?view=components&amp;do=config&amp;id=<?php echo $_REQUEST['id']; ?>" method="post" name="optform" target="_self" id="form1">
+        <form action="index.php?view=components&amp;do=config&amp;id=<?php echo $_REQUEST['id']; ?>" method="post"
+              name="optform" target="_self" id="form1">
 
             <div id="config_tabs" style="margin-top:12px;" class="uitabs">
 
@@ -4298,10 +4637,12 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <strong>Режим вывода цен:</strong>
                             </td>
                             <td valign="top">
-                                <label><input name="show_decimals" type="radio" value="2" <?php if (@$cfg['show_decimals'] == 2) {
+                                <label><input name="show_decimals" type="radio"
+                                              value="2" <?php if (@$cfg['show_decimals'] == 2) {
                                         echo 'checked="checked"';
                                     } ?>/> Дробные (x.xx)</label>
-                                <label><input name="show_decimals" type="radio" value="0" <?php if (@!$cfg['show_decimals']) {
+                                <label><input name="show_decimals" type="radio"
+                                              value="0" <?php if (@!$cfg['show_decimals']) {
                                         echo 'checked="checked"';
                                     } ?>/> Целые (x)</label>
                             </td>
@@ -4311,7 +4652,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <strong>Валюта магазина:</strong>
                             </td>
                             <td valign="top">
-                                <input type="text" name="currency" value="<?php echo $cfg['currency']; ?>" style="width:60px"/>
+                                <input type="text" name="currency" value="<?php echo $cfg['currency']; ?>"
+                                       style="width:60px"/>
                             </td>
                         </tr>
                     </table>
@@ -4389,7 +4731,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <input name="show_full_desc" type="radio" value="1" <?php if (@$cfg['show_full_desc']) {
                                     echo 'checked="checked"';
                                 } ?>/> Да
-                                <input name="show_full_desc" type="radio" value="0" <?php if (@!$cfg['show_full_desc']) {
+                                <input name="show_full_desc" type="radio"
+                                       value="0" <?php if (@!$cfg['show_full_desc']) {
                                     echo 'checked="checked"';
                                 } ?>/> Нет
                             </td>
@@ -4454,7 +4797,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <input name="show_items_nav" type="radio" value="1" <?php if (@$cfg['show_items_nav']) {
                                     echo 'checked="checked"';
                                 } ?>/> Да
-                                <input name="show_items_nav" type="radio" value="0" <?php if (@!$cfg['show_items_nav']) {
+                                <input name="show_items_nav" type="radio"
+                                       value="0" <?php if (@!$cfg['show_items_nav']) {
                                     echo 'checked="checked"';
                                 } ?>/> Нет
                             </td>
@@ -4473,7 +4817,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <tr>
                             <td width=""><strong>Количество связанных товаров: </strong></td>
                             <td>
-                                <input type="text" name="related_count" value="<?php echo $cfg['related_count']; ?>" style="width:40px;"/>
+                                <input type="text" name="related_count" value="<?php echo $cfg['related_count']; ?>"
+                                       style="width:40px;"/>
                             </td>
                         </tr>
                     </table>
@@ -4506,10 +4851,12 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <tr>
                             <td><strong>Cортировать дочерние категории: </strong></td>
                             <td>
-                                <input name="subcats_order" type="radio" value="title" <?php if (@$cfg['subcats_order'] == 'title') {
+                                <input name="subcats_order" type="radio"
+                                       value="title" <?php if (@$cfg['subcats_order'] == 'title') {
                                     echo 'checked="checked"';
                                 } ?>/> По алфавиту
-                                <input name="subcats_order" type="radio" value="NSLeft" <?php if (@$cfg['subcats_order'] == 'NSLeft') {
+                                <input name="subcats_order" type="radio"
+                                       value="NSLeft" <?php if (@$cfg['subcats_order'] == 'NSLeft') {
                                     echo 'checked="checked"';
                                 } ?>/> По порядку
                             </td>
@@ -4528,10 +4875,12 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <tr>
                             <td width=""><strong>Показывать производителей в фильтре: </strong></td>
                             <td>
-                                <input name="show_filter_vendors" type="radio" value="1" <?php if (@$cfg['show_filter_vendors']) {
+                                <input name="show_filter_vendors" type="radio"
+                                       value="1" <?php if (@$cfg['show_filter_vendors']) {
                                     echo 'checked="checked"';
                                 } ?>/> Да
-                                <input name="show_filter_vendors" type="radio" value="0" <?php if (@!$cfg['show_filter_vendors']) {
+                                <input name="show_filter_vendors" type="radio"
+                                       value="0" <?php if (@!$cfg['show_filter_vendors']) {
                                     echo 'checked="checked"';
                                 } ?>/> Нет
                             </td>
@@ -4586,7 +4935,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <input name="compare_prices" type="radio" value="1" <?php if (@$cfg['compare_prices']) {
                                     echo 'checked="checked"';
                                 } ?>/> Да
-                                <input name="compare_prices" type="radio" value="0" <?php if (@!$cfg['compare_prices']) {
+                                <input name="compare_prices" type="radio"
+                                       value="0" <?php if (@!$cfg['compare_prices']) {
                                     echo 'checked="checked"';
                                 } ?>/> Нет
                             </td>
@@ -4597,7 +4947,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <input name="show_cat_chars" type="radio" value="1" <?php if (@$cfg['show_cat_chars']) {
                                     echo 'checked="checked"';
                                 } ?>/> Да
-                                <input name="show_cat_chars" type="radio" value="0" <?php if (@!$cfg['show_cat_chars']) {
+                                <input name="show_cat_chars" type="radio"
+                                       value="0" <?php if (@!$cfg['show_cat_chars']) {
                                     echo 'checked="checked"';
                                 } ?>/> Нет
                             </td>
@@ -4610,15 +4961,19 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <tr>
                             <td width="260"><strong>Макс. размер большой фотографии: </strong></td>
                             <td>
-                                <input name="img_w" type="text" id="img_w" size="5" value="<?php echo @$cfg['img_w']; ?>" style="text-align:center"/> x
-                                <input name="img_h" type="text" id="img_h" size="5" value="<?php echo @$cfg['img_h']; ?>" style="text-align:center"/> пикс.
+                                <input name="img_w" type="text" id="img_w" size="5"
+                                       value="<?php echo @$cfg['img_w']; ?>" style="text-align:center"/> x
+                                <input name="img_h" type="text" id="img_h" size="5"
+                                       value="<?php echo @$cfg['img_h']; ?>" style="text-align:center"/> пикс.
                             </td>
                         </tr>
                         <tr>
                             <td><strong>Макс. размер маленькой фотографии: </strong></td>
                             <td>
-                                <input name="thumb_w" type="text" id="thumb_w" size="5" value="<?php echo @$cfg['thumb_w']; ?>" style="text-align:center"/> x
-                                <input name="thumb_h" type="text" id="thumb_h" size="5" value="<?php echo @$cfg['thumb_h']; ?>" style="text-align:center"/> пикс.
+                                <input name="thumb_w" type="text" id="thumb_w" size="5"
+                                       value="<?php echo @$cfg['thumb_w']; ?>" style="text-align:center"/> x
+                                <input name="thumb_h" type="text" id="thumb_h" size="5"
+                                       value="<?php echo @$cfg['thumb_h']; ?>" style="text-align:center"/> пикс.
                             </td>
                         </tr>
                         <tr>
@@ -4680,22 +5035,28 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             </td>
                             <td>
                                 <div>
-                                    <label><input type="checkbox" name="ord_req[]" value="name" <?php if (in_array('name', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> Имя, фамилия</label>
+                                    <label><input type="checkbox" name="ord_req[]" value="name"
+                                                  <?php if (in_array('name', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> Имя, фамилия</label>
                                 </div>
                                 <div>
-                                    <label><input type="checkbox" name="ord_req[]" value="phone" <?php if (in_array('phone', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> Контактный телефон</label>
+                                    <label><input type="checkbox" name="ord_req[]" value="phone"
+                                                  <?php if (in_array('phone', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> Контактный телефон</label>
                                 </div>
                                 <div>
-                                    <label><input type="checkbox" name="ord_req[]" value="email" <?php if (in_array('email', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> E-mail</label>
+                                    <label><input type="checkbox" name="ord_req[]" value="email"
+                                                  <?php if (in_array('email', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> E-mail</label>
                                 </div>
                                 <div>
-                                    <label><input type="checkbox" name="ord_req[]" value="address" <?php if (in_array('address', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> Адрес доставки</label>
+                                    <label><input type="checkbox" name="ord_req[]" value="address"
+                                                  <?php if (in_array('address', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> Адрес доставки</label>
                                 </div>
                                 <div>
-                                    <label><input type="checkbox" name="ord_req[]" value="org" <?php if (in_array('org', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> Организация</label>
+                                    <label><input type="checkbox" name="ord_req[]" value="org"
+                                                  <?php if (in_array('org', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> Организация</label>
                                 </div>
                                 <div>
-                                    <label><input type="checkbox" name="ord_req[]" value="inn" <?php if (in_array('inn', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> ИНН</label>
+                                    <label><input type="checkbox" name="ord_req[]" value="inn"
+                                                  <?php if (in_array('inn', $cfg['ord_req'])){ ?>checked="checked"<?php } ?> /> ИНН</label>
                                 </div>
                             </td>
                         </tr>
@@ -4705,7 +5066,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <span class="hinttext">Заказы будут создаваться, но оплатить на сайте их будет нельзя. Покупатель будет видеть сообщение "Заказ принят".</span>
                             </td>
                             <td valign="top">
-                                <label><input type="checkbox" name="is_skip_pay" value="1" <?php if ($cfg['is_skip_pay']){ ?>checked="checked"<?php } ?> /> Да</label>
+                                <label><input type="checkbox" name="is_skip_pay" value="1"
+                                              <?php if ($cfg['is_skip_pay']){ ?>checked="checked"<?php } ?> /> Да</label>
                             </td>
                         </tr>
                     </table>
@@ -4727,10 +5089,12 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         <tr>
                             <td><strong>Отправлять уведомление о заказе покупателю: </strong></td>
                             <td>
-                                <input name="notify_send_customer" type="radio" value="1" <?php if (@$cfg['notify_send_customer']) {
+                                <input name="notify_send_customer" type="radio"
+                                       value="1" <?php if (@$cfg['notify_send_customer']) {
                                     echo 'checked="checked"';
                                 } ?>/> Да
-                                <input name="notify_send_customer" type="radio" value="0" <?php if (@!$cfg['notify_send_customer']) {
+                                <input name="notify_send_customer" type="radio"
+                                       value="0" <?php if (@!$cfg['notify_send_customer']) {
                                     echo 'checked="checked"';
                                 } ?>/> Нет
                             </td>
@@ -4742,13 +5106,15 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         </span>
                             </td>
                             <td>
-                                <input name="notify_email" type="text" id="notify_email" value="<?php echo @$cfg['notify_email']; ?>" style="width:220px"/>
+                                <input name="notify_email" type="text" id="notify_email"
+                                       value="<?php echo @$cfg['notify_email']; ?>" style="width:220px"/>
                             </td>
                         </tr>
                         <tr>
                             <td height="24"><strong>Шаблон письма уведомления: </strong></td>
                             <td>
-                                <a href="/includes/letters/inshop-order.txt" target="_blank">/includes/letters/inshop-order.txt</a>
+                                <a href="/includes/letters/inshop-order.txt"
+                                   target="_blank">/includes/letters/inshop-order.txt</a>
                             </td>
                         </tr>
                     </table>
@@ -4788,7 +5154,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             <p>
                 <input name="opt" type="hidden" value="saveconfig"/>
                 <input name="save" type="submit" id="save" value="Сохранить"/>
-                <input name="back" type="button" id="back" value="Отмена" onclick="window.location.href='index.php?view=components';"/>
+                <input name="back" type="button" id="back" value="Отмена"
+                       onclick="window.location.href='index.php?view=components';"/>
             </p>
 
         </form>
@@ -4812,7 +5179,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         <table width="100%" border="0">
             <tr>
                 <td width="50%">
-                    <form action="index.php?view=components&amp;do=config&amp;id=<?php echo $_REQUEST['id']; ?>" method="post" name="optform" target="_self" id="form1">
+                    <form action="index.php?view=components&amp;do=config&amp;id=<?php echo $_REQUEST['id']; ?>"
+                          method="post" name="optform" target="_self" id="form1">
 
                         <div id="config_tabs" style="margin-top:12px;">
                             <?php $lastdate = getdate($cfg['yml']['shop_name']); ?>
@@ -4820,7 +5188,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <p style="font-size:14px;color:#09C">1) Ссылка на прайс-лист для
                                     <b>Kaspi KZ</b> (последний от <?php echo $lastdate['mday'] . '.' . $lastdate['mon'] . '.' . $lastdate['year'] . ', ' . $lastdate['hours'] . ':' . $lastdate['minutes']; ?>):
                                 </p>
-                                <pre style="font-size:18px"><a target="_blank" href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/price.xml">https://<?php echo $_SERVER['HTTP_HOST']; ?>/price.xml</a></pre>
+                                <pre style="font-size:18px"><a target="_blank"
+                                                               href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/price.xml">https://<?php echo $_SERVER['HTTP_HOST']; ?>/price.xml</a></pre>
                             </div>
 
                         </div>
@@ -4833,7 +5202,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                     </form>
                 </td>
                 <td width="50%">
-                    <form action="index.php?view=components&amp;do=config&amp;id=<?php echo $_REQUEST['id']; ?>" method="post" name="optform" target="_self" id="form2">
+                    <form action="index.php?view=components&amp;do=config&amp;id=<?php echo $_REQUEST['id']; ?>"
+                          method="post" name="optform" target="_self" id="form2">
 
                         <div id="config_tabse" style="margin-top:12px;">
                             <?php $lastmdate = getdate($cfg['merchant']['shop_name']); ?>
@@ -4841,7 +5211,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <p style="font-size:14px;color:#09C">2) Ссылка на прайс-лист для
                                     <b>Google Merchant</b> (последний от <?php echo $lastmdate['mday'] . '.' . $lastmdate['mon'] . '.' . $lastmdate['year'] . ', ' . $lastmdate['hours'] . ':' . $lastmdate['minutes']; ?>):
                                 </p>
-                                <pre style="font-size:18px"><a target="_blank" href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/merchant.xml">https://<?php echo $_SERVER['HTTP_HOST']; ?>/merchant.xml</a></pre>
+                                <pre style="font-size:18px"><a target="_blank"
+                                                               href="https://<?php echo $_SERVER['HTTP_HOST']; ?>/merchant.xml">https://<?php echo $_SERVER['HTTP_HOST']; ?>/merchant.xml</a></pre>
                             </div>
 
                         </div>
@@ -4919,7 +5290,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         </p>
 
 
-        <form action="index.php?view=components&amp;do=config&amp;id=<?php echo $_REQUEST['id']; ?>" method="post" id="import" target="_self" enctype="multipart/form-data">
+        <form action="index.php?view=components&amp;do=config&amp;id=<?php echo $_REQUEST['id']; ?>" method="post"
+              id="import" target="_self" enctype="multipart/form-data">
 
             <table cellpadding="4" cellspacing="0" border="0" width="" class="proptable" style="border:none">
                 <tr>
@@ -5020,7 +5392,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             </p>
 
             <p>
-                <input type="text" id="data_struct" name="data_struct" style="width:900px" value="art_no, title, qty, price"/>
+                <input type="text" id="data_struct" name="data_struct" style="width:900px"
+                       value="art_no, title, qty, price"/>
             </p>
 
             <table cellpadding="2" cellspacing="0" border="0">
@@ -5053,7 +5426,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         </select>
                     </td>
                     <td style="padding-left:10px">
-                        <input type="button" id="insert_data_param" name="insert_data_param" value="Вставить" onClick="addToCSVTemplate('data_param')"/>
+                        <input type="button" id="insert_data_param" name="insert_data_param" value="Вставить"
+                               onClick="addToCSVTemplate('data_param')"/>
                     </td>
                 </tr>
                 <tr>
@@ -5067,7 +5441,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         </select>
                     </td>
                     <td style="padding-left:10px">
-                        <input type="button" id="insert_data_param" name="insert_data_param" value="Вставить" onClick="addToCSVTemplate('char_param')"/>
+                        <input type="button" id="insert_data_param" name="insert_data_param" value="Вставить"
+                               onClick="addToCSVTemplate('char_param')"/>
                     </td>
                 </tr>
             </table>
@@ -5075,7 +5450,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
             <p style="margin-top:50px">
                 <input name="opt" type="hidden" value="go_import_csv"/>
                 <input name="save" type="button" id="save" value="Импортировать товары" onClick="checkImport()"/>
-                <input name="back" type="button" id="back" value="Отмена" onclick="window.location.href='index.php?view=components';"/>
+                <input name="back" type="button" id="back" value="Отмена"
+                       onclick="window.location.href='index.php?view=components';"/>
             </p>
 
         </form>
@@ -5086,7 +5462,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         (cmsPage::getInstance())->setRequestIsAjax();
         $artNo = $inCore::request('art_no', 'int');
 
-        cmsCore::jsonOutput(['data'=>$model->availableInStock($artNo)]);
+        cmsCore::jsonOutput(['data' => $model->availableInStock($artNo)]);
     }
 
 

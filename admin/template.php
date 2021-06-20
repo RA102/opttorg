@@ -16,6 +16,7 @@
     <link href="js/hmenu/hmenu.css" rel="stylesheet" type="text/css"/>
     <link href="/includes/jquery/tablesorter/style.css" rel="stylesheet" type="text/css"/>
     <link href="/includes/jqueryui/css/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/templates/basic_free/js/bootstrap-4.js"></script>
     <script type="text/javascript" src="js/admin.js"></script>
     <script type="text/javascript" src="js/custom.js"></script>
     <script type="text/javascript" src="/includes/jquery/jquery.columnfilters.js"></script>
