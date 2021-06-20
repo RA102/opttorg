@@ -5068,7 +5068,7 @@ class cms_model_shop
 
     public function getPriceDelivery($city, $isFreeDelivery, $items)
     {
-        define('FIXED_COST_DELIVERY', 1580);
+        define('FIXED_COST_DELIVERY', 1990);
 
 
         $sumDelivery = 0;
