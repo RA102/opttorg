@@ -1814,11 +1814,20 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         $arrayConfigXlsFile['vendor_id'] = $_REQUEST['vendorId'];
         $arrayConfigXlsFile['row_start'] = $_REQUEST['row_start'];
         $arrayConfigXlsFile['rows_count'] = $_REQUEST['rows_count'];
-        $arrayConfigXlsFile['margin'] = $_REQUEST['markUpPrice'];
+        $arrayConfigXlsFile['margin'] = $_REQUEST['margin'];
+        $arrayConfigXlsFile['email'] = $_REQUEST['emailVendor'];
 
         $modelDatabase = cmsDatabase::getInstance();
 
-        $modelDatabase->insert('cms_vendors_params', $arrayConfigXlsFile);
+        $sql = "SELECT id FROM cms_vendors_params WHERE vendor_id = {$arrayConfigXlsFile['vendor_id']}";
+        $result = $modelDatabase->query($sql);
+
+        if (mysqli_num_rows($result)) {
+            $row = mysqli_fetch_assoc($result);
+            $modelDatabase->update('cms_vendors_params', $arrayConfigXlsFile, $row['id']);
+        } else {
+            $modelDatabase->insert('cms_vendors_params', $arrayConfigXlsFile);
+        }
 
         $opt = 'list_vendors';
     }
@@ -3815,6 +3824,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 $id = $_REQUEST['item_id'];
                 $sql = "SELECT * FROM cms_shop_vendors WHERE id = $id LIMIT 1";
                 $result = $inDB->query($sql);
+
                 if (mysqli_num_rows($result)) {
                     $mod = mysqli_fetch_assoc($result);
                 }
@@ -3949,15 +3959,15 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 </form>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <form id="import" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>" method="post"  target="_self" enctype="multipart/form-data">
-                    <table cellpadding="4" cellspacing="0" border="0" width="" class="proptable" style="border:none">
+                <form id="import" class="w-50" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>" method="post"  target="_self" enctype="multipart/form-data">
+                    <table class="table table-striped">
                         <tr>
                             <td>
                                 <strong>Наценка: </strong><br/>
                                 <span class="font-italic">значение в процентах</span>
 
                             </td>
-                            <td>
+                            <td >
                                 <input
                                         id="margin"
                                         name="margin"
@@ -3995,7 +4005,8 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                     </p>
 
                     <?php
-                        if ($vendorParams['params_xls'] != '') {
+
+                        if ($vendorParams['params_xls'] != "null" && $vendorParams['params_xls'] != '') {
                             $columnsXls = json_decode($vendorParams['params_xls'], true);
                         } else {
                             $columnsXls = [
@@ -4010,7 +4021,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                         $rowName = array_values($columnsXls);
 
                     ?>
-                    <table cellpadding="2" cellspacing="0" border="0">
+                    <table class="table table-striped">
                         <tr style="height: 30px;">
                             <td>
                                 <span>Столбец</span>
@@ -4020,67 +4031,62 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                     'A', 'B', 'C', 'D', 'E', 'F'
                                 ];
 
+                                $selectHtml = '';
                                 foreach ($rowsKey as $index => $key) {
 
+                                    $selectHtml .= '<td> <select id="params_xls_column_' . $index . '"' . ' name="indexParamsXls[]" style="width: 100%;" >';
+                                            foreach ($alphabet as $char) {
 
-                                        echo '<td> 
-                                                <select 
-                                                    id="params_xls_column_"' . $index .
-                                                    'name="indexParamsXl[]" 
-                                                    style="width: 100%;"
-                                                />';
-                                                foreach ($alphabet as $char) {
-                                                    echo '
-                                                            <option 
-                                                                value="' . $char . '"'
-                                                                . ($char == $key) ? 'selected': '' .
-                                                            '>' . $char . '</option>';
-                                                }
+                                                $selectHtml .= '<option value="' . $char . '"';
+                                                $selectHtml .= ($char == $key) ? 'selected': '';
+                                                $selectHtml .= '>';
+                                                $selectHtml .= $char;
+                                                $selectHtml .= '</option>';
 
-                                        echo '</select> </td>';
-                                    }
+                                            }
+
+                                    $selectHtml .= '</select> </td>';
+                                }
+                                echo $selectHtml;
                             ?>
                         </tr>
                         <tr style="height: 30px;">
                             <td>
                                 <span>Значение</span>
                             </td>
-                            <td>
-                                <select id="params_xls_column_2" name="valueColumnXls[]" style="width: 100%;">
-                                    <option value="ven_code">Код</option>
-                                    <option value="title">Название</option>
-                                    <option value="price">Цена</option>
-                                    <option value="qty_from_vendor">Количество</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="params_xls_column_3" name="valueColumnXls[]" style="width: 100%;">
-                                    <option value="ven_code">Код</option>
-                                    <option value="title">Название</option>
-                                    <option value="price">Цена</option>
-                                    <option value="qty_from_vendor">Количество</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="params_xls_column_4" name="valueColumnXls[]" style="width: 100%;">
-                                    <option value="ven_code">Код</option>
-                                    <option value="title">Название</option>
-                                    <option value="price">Цена</option>
-                                    <option value="qty_from_vendor">Количество</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select id="params_xls_column_4" name="valueColumnXls[]" style="width: 100%;">
-                                    <option value="ven_code">Код</option>
-                                    <option value="title">Название</option>
-                                    <option value="price">Цена</option>
-                                    <option value="qty_from_vendor">Количество</option>
-                                </select>
-                            </td>
+
+                                <?php
+
+                                $selectHtml2 = '';
+                                $listRowName = [
+                                    'ven_code' => 'Код',
+                                    'title' => 'Название',
+                                    'price' => 'Цена',
+                                    'qty_from_vendor' => 'Количество',
+                                ];
+
+                                foreach ($rowName as $index => $item) {
+                                    $selectHtml2 .= '<td> <select id="params_xls_column_' . $index;
+                                    $selectHtml2 .= '" name="valueColumnXls[]" style="width: 100%;">';
+
+                                    foreach ($listRowName as $key => $value) {
+                                        $selectHtml2 .= '<option value="' . $key . '"';
+                                        $selectHtml2 .= ($item == $key) ? 'selected' : '';
+                                        $selectHtml2 .= '>';
+                                        $selectHtml2 .= $value;
+                                        $selectHtml2 .= '</option>';
+                                    }
+                                    $selectHtml2 .= '</select></td>';                                       
+                                }
+                                
+                                echo $selectHtml2;
+                                
+                                ?>
+
                         </tr>
                     </table>
 
-                    <table>
+                    <table class="table table-striped">
                         <tr>
                             <td>
                                 <span>Название excel-файла:</span> <br />
@@ -4100,6 +4106,14 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <em>название указывается без расширения файла</em>
                             </td>
 
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Email</b>
+                            </td>
+                            <td>
+                                <input class="" name="emailVendor" type="text" value="<?php echo $vendorParams['email']; ?> " />
+                            </td>
                         </tr>
 
                     </table>

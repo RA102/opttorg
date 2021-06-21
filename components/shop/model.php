@@ -5088,7 +5088,7 @@ class cms_model_shop
 
                 if (in_array($item['category_id'], $categoriesIdFixedDeliveryCost)) {
 
-                    $sumFixedCostDelivery += FIXED_COST_DELIVERY * $item['cart_qty'];
+                    $sumFixedCostDelivery += (FIXED_COST_DELIVERY * $item['cart_qty']);
 
                 } else {
 
