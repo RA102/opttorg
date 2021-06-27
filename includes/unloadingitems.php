@@ -82,7 +82,20 @@ function import_product($xml_product)
         $item['tpl'] = 'com_inshop_item.tpl';
         $item['external_id'] = (string)$xml_product->Ид;
 
-        $instanceDb->insert('cms_shop_items', $item);
+        $lastIdInTable = $instanceDb->insert('cms_shop_items', $item);
+        $sql = "SELECT MAX(ordering) FROM cms_shop_items_cats";
+
+        $result = $instanceDb->query($sql);
+
+        if ($instanceDb->num_rows($result)){
+            $maxNumberColumnOrdering = $instanceDb->fetch_assoc($result);
+        }
+
+        $thisItem['item_id'] = $lastIdInTable;
+        $thisItem['category_id'] = 10991;
+        $thisItem['ordering'] = $maxNumberColumnOrdering['MAX(ordering)'] + 1;
+
+        $instanceDb->insert('cms_shop_items_cats', $thisItem);
 
 //        $sql = "INSERT INTO cms_shop_items (
 //                            `category_id`,

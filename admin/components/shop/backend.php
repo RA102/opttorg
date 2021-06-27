@@ -3962,12 +3962,12 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                 <form id="import" class="w-50" action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>" method="post"  target="_self" enctype="multipart/form-data">
                     <table class="table table-striped">
                         <tr>
-                            <td>
+                            <td width="10%">
                                 <strong>Наценка: </strong><br/>
                                 <span class="font-italic">значение в процентах</span>
 
                             </td>
-                            <td >
+                            <td width="8%" >
                                 <input
                                         id="margin"
                                         name="margin"
@@ -3976,7 +3976,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                         style="width:80px"
                                 />
                             </td>
-                            <td>
+                            <td width="5%">
                                 <span>%</span>
                             </td>
                         </tr>
@@ -4013,7 +4013,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 'A' => 'ven_code',
                                 'B' => 'ven_code',
                                 'C' => 'ven_code',
-                                'D' => 'ven_code'
+                                'D' => 'ven_code',
                             ];
                         }
 
@@ -4028,7 +4028,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             </td>
                             <?php
                                 $alphabet = [
-                                    'A', 'B', 'C', 'D', 'E', 'F'
+                                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
                                 ];
 
                                 $selectHtml = '';

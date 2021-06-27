@@ -375,7 +375,7 @@ class cms_model_shop
                         {$from_cats},
                         cms_shop_items i
 
-                LEFT JOIN cms_shop_vendors v    ON i.vendor_id = v.id
+                LEFT JOIN cms_shop_vendors v ON i.vendor_id = v.id
                 LEFT JOIN cms_shop_compare cm   ON i.id = cm.item_id AND cm.session_id = '{$session_id}'
 
                 WHERE   1=1
