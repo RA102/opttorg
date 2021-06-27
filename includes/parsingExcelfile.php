@@ -41,16 +41,26 @@ $load = $excel->load($path . '/tmp/V.Pakhomov@sanmarket.kz/radomir.xls');
 $highestColumn = $load->setActiveSheetIndex(0)->getHighestColumn();
 $highestRow = $load->setActiveSheetIndex(0)->getHighestRow();
 
-foreach ($load->setActiveSheetIndex(0)->getRowIterator() as $row) {
-    $cellIterator = $row->getCellIterator();
+/**
+ * TODO
+ * итерация по строкам с помощью for
+ * загрузить настройки excel файла
+ * инициализировать $i из настройки
+ * максимальное значение  из $highestRow
+ */
+var_dump($load->getActiveSheet(0)->getCellByColumnAndRow(3, 17)->getValue());
+
+for ($i = )
 
 
-
-
-    foreach ($cellIterator as $cell) {
-
-        var_dump($cell->getValue());
-    }
-}
-
-var_dump($highestColumn, $highestRow);
+//foreach ($load->setActiveSheetIndex(0)->getRowIterator() as $row) {
+//    $cellIterator = $row->getCellIterator();
+//
+//
+//    foreach ($cellIterator as $cell) {
+//
+//        var_dump($cell->getValue());
+//    }
+//}
+//
+//var_dump($highestColumn, $highestRow);
