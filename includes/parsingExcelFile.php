@@ -5,9 +5,12 @@ ini_set('display_errors', true);
 ini_set('display_startup_errors', true);
 date_default_timezone_set('Asia/Almaty');
 
-$path = dirname(__DIR__, 1);
+
+define('PATH', dirname(__FILE__, 1));
 
 include_once 'phpexel/PHPExcel.php';
+include_once PATH . '/core/classes/db.class.php';
+
 
 //$excel = PHPExcel_IOFactory::load($path . '/tmp/V.Pakhomov@sanmarket.kz/radomir.xls');
 
@@ -36,8 +39,8 @@ include_once 'phpexel/PHPExcel.php';
 //    echo '</table>';
 //}
 
-$excel = PHPExcel_IOFactory::createReaderForFile($path . '/tmp/V.Pakhomov@sanmarket.kz/radomir.xls');
-$load = $excel->load($path . '/tmp/V.Pakhomov@sanmarket.kz/radomir.xls');
+$excel = PHPExcel_IOFactory::createReaderForFile(PATH . '/tmp/V.Pakhomov@sanmarket.kz/radomir.xls');
+$load = $excel->load(PATH . '/tmp/V.Pakhomov@sanmarket.kz/radomir.xls');
 $highestColumn = $load->setActiveSheetIndex(0)->getHighestColumn();
 $highestRow = $load->setActiveSheetIndex(0)->getHighestRow();
 
@@ -48,10 +51,14 @@ $highestRow = $load->setActiveSheetIndex(0)->getHighestRow();
  * инициализировать $i из настройки
  * максимальное значение  из $highestRow
  */
+
+
+
+for ($i = 17; $i < $highestRow; $i++ ) {
+
+}
+
 var_dump($load->getActiveSheet(0)->getCellByColumnAndRow(3, 17)->getValue());
-
-for ($i = )
-
 
 //foreach ($load->setActiveSheetIndex(0)->getRowIterator() as $row) {
 //    $cellIterator = $row->getCellIterator();

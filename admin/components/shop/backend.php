@@ -4035,10 +4035,10 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 foreach ($rowsKey as $index => $key) {
 
                                     $selectHtml .= '<td> <select id="params_xls_column_' . $index . '"' . ' name="indexParamsXls[]" style="width: 100%;" >';
-                                            foreach ($alphabet as $char) {
+                                            foreach ($alphabet as $number => $char) {
 
-                                                $selectHtml .= '<option value="' . $char . '"';
-                                                $selectHtml .= ($char == $key) ? 'selected': '';
+                                                $selectHtml .= '<option value="' . $number . '"';
+                                                $selectHtml .= ($number == $key) ? 'selected': '';
                                                 $selectHtml .= '>';
                                                 $selectHtml .= $char;
                                                 $selectHtml .= '</option>';
@@ -4112,7 +4112,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                                 <b>Email</b>
                             </td>
                             <td>
-                                <input class="" name="emailVendor" type="text" value="<?php echo $vendorParams['email']; ?> " />
+                                <input class="input" name="emailVendor" type="text" value="<?php echo $vendorParams['email']; ?> " />
                             </td>
                         </tr>
 

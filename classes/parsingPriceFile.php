@@ -3,7 +3,7 @@
 
 class parsingPriceFile
 {
-    public PHPExcel $phpExel;
+    public $phpExel;
     protected $pathFile;
 
     function __construct($pathFile)
