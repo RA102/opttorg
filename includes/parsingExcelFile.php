@@ -52,9 +52,9 @@ $highestRow = $load->setActiveSheetIndex(0)->getHighestRow();
  * максимальное значение  из $highestRow
  */
 
-
-
 for ($i = 17; $i < $highestRow; $i++ ) {
+    $venCode =
+    $listItems = $load->getActiveSheet(0)->getCellByColumnAndRow(3, $i);
 
 }
 
@@ -71,3 +71,35 @@ var_dump($load->getActiveSheet(0)->getCellByColumnAndRow(3, 17)->getValue());
 //}
 //
 //var_dump($highestColumn, $highestRow);
+
+
+class parsingExcelFile
+{
+    protected $pathToFile;
+    protected $startRow;
+    protected $countRow;
+    protected $column;
+    protected $excel;
+
+    /**
+     * @throws PHPExcel_Reader_Exception
+     */
+    public function __construct($pathToFile, $startRow, $countRow, $column)
+    {
+        $this->pathToFile = $pathToFile;
+        $this->startRow = $startRow;
+        $this->countRow = $countRow;
+        $this->column = $column;
+    }
+
+    public function instancePHPExcel()
+    {
+        $this->excel = PHPExcel_IOFactory::createReaderForFile($this->pathToFile);
+    }
+
+    public function parsingFileXls()
+    {
+
+    }
+
+}

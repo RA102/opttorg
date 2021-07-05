@@ -883,7 +883,24 @@ class cmsDatabase
         $sql = "SELECT * FROM utm_placemarks";
     }
 
+//    public function prepare($sql)
+//    {
+//        return mysqli_prepare($this->db_link, $sql);
+//    }
 
+
+    public function prepareSql($sql, $artNo, $replace_prefix = true)
+    {
+        $sql = $replace_prefix ? $this->replacePrefix($sql) : $sql;
+        $stmt = mysqli_prepare($this->db_link, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $artNo);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $id);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        return $id;
+    }
 
 
 }

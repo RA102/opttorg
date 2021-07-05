@@ -34,31 +34,58 @@ unset($listCatalogs[array_search('..', $listCatalogs)]);
 
 // перебор каталогов и получение даты изменения или создания каталога для определения в каком котологе были обновлены сегодня файлы
 // ? возможно придется определять по файлам в каталоге
-
+//mktime(
 foreach ($listCatalogs as $catalog) {
-    if (mktime(date('Y-m-d', filemtime($pathCatalog . $catalog))) == mktime(date('Y-m-d')) || mktime(date('Y-m-d', filectime($pathCatalog . $catalog))) == mktime(date('Y-m-d'))) {
+    $dateModify = date('Y-m-d', filemtime($pathCatalog . $catalog));
+    $dateCreate = date('Y-m-d', filectime($pathCatalog . $catalog));
+    if (date('Y-m-d', filemtime($pathCatalog . $catalog)) == date('Y-m-d') || date('Y-m-d', filectime($pathCatalog . $catalog)) == date('Y-m-d')) {
         $listFilesWithPoints = [];
         $listFilesWithoutPoints = [];
         $listFilesWithPoints = scandir($pathCatalog . $catalog);
         unset($listFilesWithPoints[array_search( '.', $listFilesWithPoints)]);
         unset($listFilesWithPoints[array_search( '..', $listFilesWithPoints)]);
-        $listFilesInDirectory[$catalog] = array_values($listFilesWithPoints);
+        if (!empty($listFilesWithPoints)) {
+            $listFilesWithoutPoints = array_values($listFilesWithPoints);
+            foreach ($listFilesWithoutPoints as $index => $file) {
+                $listFilesUpdatedToday = null;
+                if (date('Y-m-d', filemtime($pathCatalog . $catalog . DIRECTORY_SEPARATOR . $file)) == date('Y-m-d') || date('Y-m-d', filectime($pathCatalog . $catalog . DIRECTORY_SEPARATOR . $file)) == date('Y-m-d')) {
+                    $listFilesUpdatedToday[] = $file;
+                }
+            }
+        }
+        if (isset($listFilesUpdatedToday) && (!empty($listFilesUpdatedToday) || !is_null($listFilesUpdatedToday))) {
+
+            $arrayFilesAndParamsVendors[$catalog]['files'] = $listFilesUpdatedToday;
+            $sql = "SELECT vp.* FROM cms_vendors_params vp JOIN cms_shop_vendors sv ON sv.id = vp.vendor_id WHERE vp.email = '$catalog'";
+            $result = $instanceDb->query($sql);
+            if ($instanceDb->num_rows($result)) {
+                $params = $instanceDb->fetchObject($result);
+                $arrayFilesAndParamsVendors[$catalog]['params'] = $params;
+            }
+        }
+
     }
-
 }
 
+if (isset($listFilesUpdatedToday) && (!empty($listFilesUpdatedToday) || !is_null($listFilesUpdatedToday))) {
 
-
-$sql = "SELECT * FROM cms_vendors_params vp JOIN cms_shop_vendors sv ON sv.id = vp.vendor_id WHERE sv.published = 1";
-$result = $instanceDb->query($sql);
-if ($instanceDb->num_rows($result)) {
-    $listParamsVendors = $instanceDb->fetchAllFromArray($result);
+    $arrayFilesAndParamsVendors[$catalog]['files'] = $listFilesUpdatedToday;
+    $sql = "SELECT vp.* FROM cms_vendors_params vp JOIN cms_shop_vendors sv ON sv.id = vp.vendor_id WHERE vp.email = '$catalog'";
+    $result = $instanceDb->query($sql);
+    if ($instanceDb->num_rows($result)) {
+        $params = $instanceDb->fetchObject($result);
+        $arrayFilesAndParamsVendors[$catalog]['params'] = $params;
+    }
 }
 
-$priceFiles = PATH . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . $listParamsVendors[0]['email'] . DIRECTORY_SEPARATOR;
+if(empty($arrayFilesAndParamsVendors) || is_null($arrayFilesAndParamsVendors)) {
+    exit('Нет новых файлов!');
+}
 
-$handle = opendir($priceFiles);
-$listFiles = [];
+var_dump('<pre>', $arrayFilesAndParamsVendors, '</pre>');
+foreach ($arrayFilesAndParamsVendors as $index => $arrayFilesAndParamsVendor) {
+
+}
 
 while (false !== ($file = readdir($handle))) {
     $file;
@@ -70,22 +97,16 @@ while (false !== ($file = readdir($handle))) {
 }
 closedir($handle);
 
-$excel = PHPExcel_IOFactory::load('/tmp/V.Pakhomov@sanmarket.kz/radomir.xls');
-
-foreach ($excel->getWorksheetIterator() as $index => $worksheet) {
-    $lists[] = $worksheet->toArray();
-}
-
-foreach ($lists as $index => $list) {
-    echo '<table border="1">';
-    // Перебор строк
-    foreach($list as $row){
-        echo '<tr>';
-        // Перебор столбцов
-        foreach($row as $col){
-            echo '<td>'.$col.'</td>';
-        }
-        echo '</tr>';
-    }
-    echo '</table>';
-}
+//foreach ($lists as $index => $list) {
+//    echo '<table border="1">';
+//    // Перебор строк
+//    foreach($list as $row){
+//        echo '<tr>';
+//        // Перебор столбцов
+//        foreach($row as $col){
+//            echo '<td>'.$col.'</td>';
+//        }
+//        echo '</tr>';
+//    }
+//    echo '</table>';
+//}

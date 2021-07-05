@@ -123,21 +123,15 @@ class LoadPriceByEmail
         $mime = imap_mime_header_decode($str);
 
         $title = "";
-
+        $encoding = mb_detect_encoding($mime->text);
         foreach($mime as $key => $m){
-
-//            if(!$this->checkUtf8($m->charset)){
-//
-//                $title .= $this->convertToUtf8($m->charset, $m->text);
-//            }else{
-//
-//                $title .= $m->text;
-//            }
+            if(!$this->checkUtf8($m->charset)) {
+                $title .= $this->convertToUtf8($encoding, $m->text);
+            } else {
+                $title .= $m->text;
+            }
 
         }
-
-        $title .= $m->text;
-
         return $title;
     }
 
@@ -155,14 +149,13 @@ class LoadPriceByEmail
 
     public function convertToUtf8($in_charset, $str)
     {
-
         return iconv(strtolower($in_charset), "utf-8", $str);
     }
 
 
     function structureEncoding($encoding, $msg_body){
 
-        switch((int) $encoding){
+        switch((int)$encoding){
 
             case 4:
                 $body = imap_qprint($msg_body);

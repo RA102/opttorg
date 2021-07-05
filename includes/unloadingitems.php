@@ -10,8 +10,8 @@ if(!defined('VALID_CMS')) {
 }
 
 include_once __DIR__ .'/../core/cms.php';
-//error_reporting(E_ALL);
-//error_log('error_log', '/log/error_unloadingitems.log');
+
+
 
 $dir = '/cache/';
 $filename = 'import.xml';
@@ -60,18 +60,24 @@ function import_product($xml_product)
 
     $item = [];
 
-    $artNo = strval($xml_product->Артикул);
-
     $instanceDb = cmsDatabase::getInstance();
 
+    $artNo = strval($xml_product->Артикул);
+
     if ($artNo) {
-        $product_id = $instanceDb->get_field('cms_shop_items', 'art_no=' . $artNo , 'id' );
+
+        $sql = "SELECT id FROM cms_shop_items WHERE art_no = ?";
+        $product_id = $instanceDb->prepareSql($sql, $artNo);
+
     } else {
         return;
     }
 
 
-    if (empty($product_id)) {
+    if ( empty($product_id) )  {
+        if (is_null($product_id)) {
+            return;
+        }
         $item['category_id'] = 10991;
         $item['art_no'] = (string)$xml_product->Артикул;
         $item['title'] = $instanceDb->escape_string((string)$xml_product->Наименование);

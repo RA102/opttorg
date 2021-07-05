@@ -1,5 +1,5 @@
 <?php
-
+header("Content-Type: text/html; charset=utf-8");
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
@@ -39,26 +39,25 @@ if ($mailsId) {
     foreach ($structure as $numberMail => $mail) {
 
         if (isset($mail->parts)) {
+            for ($i = 1, $j = 0, $f = 2; $i < count($mail->parts); $i++, $j++, $f++) {
 
-            for ($i = 0, $j = 0; $i < count($mail->parts); $i++, $j++) {
-
-                $f = 2;
                 if (in_array($mail->parts[$i]->subtype, $mailFileTypes)) {
 
-                    $mails_data[$i]["attachs"][$j]["type"] = $mail->parts[$i]->subtype;
-                    $mails_data[$i]["attachs"][$j]["size"] = $mail->parts[$i]->bytes;
-                    $mails_data[$i]["attachs"][$j]["name"] = $connect->getImapTitle($mail->parts[$i]->parameters[0]->value);
-                    $mails_data[$i]["attachs"][$j]["file"] = $connect->structureEncoding($mail->parts[$i]->encoding, imap_fetchbody($imap, $numberMail, $f));
+                    $mails_data[$i]["attaches"][$j]["type"] = $mail->parts[$i]->subtype;
+                    $mails_data[$i]["attaches"][$j]["size"] = $mail->parts[$i]->bytes;
+                    $mails_data[$i]["attaches"][$j]["name"] = $connect->getImapTitle($mail->parts[$i]->parameters[0]->value);
+                    $mails_data[$i]["attaches"][$j]["file"] = $connect->structureEncoding($mail->parts[$i]->encoding, imap_fetchbody($imap, $numberMail, $f));
 
-                    file_put_contents($path . DIRECTORY_SEPARATOR . $catalogName[$numberMail] . DIRECTORY_SEPARATOR . $mails_data[$i]["attachs"][$j]["name"], $mails_data[$i]["attachs"][$j]["file"]);
+                    file_put_contents($path . DIRECTORY_SEPARATOR . $catalogName[$numberMail] . DIRECTORY_SEPARATOR . $mails_data[$i]["attaches"][$j]["name"], $mails_data[$i]["attaches"][$j]["file"]);
                 }
+
             }
         }
     }
 
 
 }  else {
-    echo 'Нет писем';
+    echo 'Новых писем нет';
 }
 
 $connect->closeConnection($imap);
