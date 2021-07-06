@@ -891,12 +891,15 @@ class cmsDatabase
 
     public function prepareSql($sql, $artNo, $replace_prefix = true)
     {
+        $id = 0;
         $sql = $replace_prefix ? $this->replacePrefix($sql) : $sql;
         $stmt = mysqli_prepare($this->db_link, $sql);
-        mysqli_stmt_bind_param($stmt, "s", $artNo);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $id);
-        mysqli_stmt_fetch($stmt);
+        $var1 = mysqli_stmt_bind_param($stmt, "s", $artNo);
+        $var2 = mysqli_stmt_execute($stmt);
+        $var3 = mysqli_stmt_bind_result($stmt, $id);
+        if (mysqli_stmt_fetch($stmt)) {
+            printf("%d", $id);
+        }
         mysqli_stmt_close($stmt);
 
         return $id;

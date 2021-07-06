@@ -6,12 +6,17 @@ class LoadFilesInFolder
 {
     protected $pathRoot;
     protected $pathToFolder;
-    protected $directoryIterator;
+    protected static $directoryIterator;
 
     public function __construct($pathToFolderFromRoot)
     {
         $this->pathRoot = dirname(__FILE__, 2);
         $this->pathToFolder = $this->pathRoot . DIRECTORY_SEPARATOR . $pathToFolderFromRoot;
+    }
+
+    public static function directoryIterator()
+    {
+
     }
 
     public function fetchExcelFilesInDir()
@@ -97,22 +102,69 @@ class LoadFilesInFolder
         foreach ($directoryIterator as $item) {
             if (!$item->isDot()) {
                 if ($this->isUpdateToday($item)) {
-                    $currentDirectory = $item->getPathname();
+                    if ($item->isDir()) {
 
-                    $pathDirectory = $item->getPathname();
-                    $iterator = new DirectoryIterator($pathDirectory);
-                    foreach ($iterator as $index => $files) {
-                        if ($this->isUpdateToday($files)) {
-                            $folder[$item->getFilename()] = $files;
-                        } else {
-                            continue;
+                        $currentDirectory = $item->getPathname();
+
+                        $pathDirectory = $item->getPathname();
+                        $iterator = new DirectoryIterator($pathDirectory);
+                        foreach ($iterator as $index => $files) {
+                            if ($this->isUpdateToday($files)) {
+                                $folder[$item->getFilename()] = $files;
+                            } else {
+                                continue;
+                            }
                         }
                     }
+
                 } else {
+
                     continue;
+
                 }
             }
         }
         return $folder;
+    }
+
+
+    public function getDirectioryUpdatedToday2($path = '')
+    {
+//        $folder = [];
+        $directoryIterator = new DirectoryIterator($path);
+
+        foreach ($directoryIterator as $item) {
+            if (!$item->isDot()) {
+                if ($this->isUpdateToday($item)) {
+                    if ($item->isDir()) {
+
+                        $currentDirectory = $item->getPathname();
+
+                        $iterator = new DirectoryIterator($currentDirectory);
+
+                        foreach ($iterator as $index => $file) {
+                            if (!$file->isDot()) {
+                                if ($this->isUpdateToday($file)) {
+                                    $listFiles[$item->getFilename()][] = $file->getFilename();
+                                }
+                            }
+                        }
+
+
+                    } else {
+
+                        continue;
+
+                    }
+
+
+                } else {
+
+                    continue;
+
+                }
+            }
+        }
+        return $listFiles;
     }
 }

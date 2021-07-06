@@ -58,24 +58,34 @@ if (file_exists( __DIR__ . '/../'. $dir . $filename)) {
 function import_product($xml_product)
 {
 
-    $item = [];
+    try {
 
-    $instanceDb = cmsDatabase::getInstance();
 
-    $artNo = strval($xml_product->Артикул);
+        $item = [];
 
-    if ($artNo) {
+        $instanceDb = cmsDatabase::getInstance();
 
-        $sql = "SELECT id FROM cms_shop_items WHERE art_no = ?";
-        $product_id = $instanceDb->prepareSql($sql, $artNo);
+        $artNo = trim($xml_product->Артикул);
 
-    } else {
-        return;
+        if ($artNo) {
+
+//            $sql = "SELECT id FROM cms_shop_items WHERE art_no = ?";
+            $sql = "SELECT id FROM cms_shop_items WHERE art_no = $artNo";
+//            $product_id = $instanceDb->prepareSql($sql, $artNo);
+            $result = $instanceDb->query($sql);
+            if ($instanceDb->num_rows($result)) {
+                $product_id = $instanceDb->fetch_assoc($result);
+            }
+
+        } else {
+            return;
+        }
+
+    } catch (Exception $exception) {
+        echo $exception->getMessage();
     }
-
-
-    if ( empty($product_id) )  {
-        if (is_null($product_id)) {
+    if ( empty($product_id['id']) <> 0)  {
+        if (is_null($product_id['id'])) {
             return;
         }
         $item['category_id'] = 10991;
@@ -129,23 +139,23 @@ function import_product($xml_product)
     } else {
 
         // TODO переделать не нравится
-        $sql = "SELECT id FROM cms_shop_items WHERE id = {$product_id} AND old_price = 0";
+        $sql = "SELECT id FROM cms_shop_items WHERE id = {$product_id['id']} AND old_price = 0";
 
         $result = $instanceDb->query($sql);
 
-        if ($instanceDb->num_rows($result) && (int)$xml_product->КоличествоОстаток > 1) {
+//        if ($instanceDb->num_rows($result) && (int)$xml_product->КоличествоОстаток > 1) {
 
             $item['price'] = (int)$xml_product->Стоимость;
             $item['qty'] = (int)$xml_product->КоличествоОстаток;
             $item['update_at'] = date('Y-m-d H:i:s');
-            $instanceDb->update('cms_shop_items', $item, $product_id);
+            $instanceDb->update('cms_shop_items', $item, $product_id['id']);
 
-        } else {
-
-            $item['qty'] = (int)$xml_product->КоличествоОстаток;
-            $item['update_at'] = date('Y-m-d H:i:s');
-            $instanceDb->update('cms_shop_items', $item, $product_id);
-        }
+//        } else {
+//
+//            $item['qty'] = (int)$xml_product->КоличествоОстаток;
+//            $item['update_at'] = date('Y-m-d H:i:s');
+//            $instanceDb->update('cms_shop_items', $item, $product_id['id']);
+//        }
 
     }
 
