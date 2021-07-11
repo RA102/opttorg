@@ -33,7 +33,7 @@ class cmsDatabase
 
     public function __destruct()
     {
-        mysqli_close($this->db_link);
+       mysqli_close($this->db_link);
     }
 
 // ============================================================================ //
@@ -264,6 +264,11 @@ class cmsDatabase
     public function fetchAllFromArray($result)
     {
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+
+    public function fetchNumericArray($result)
+    {
+        return mysqli_fetch_array($result, MYSQLI_NUM);
     }
 
 // ============================================================================ //

@@ -94,43 +94,43 @@ class LoadFilesInFolder
 
     }
 
+//    public function getDirectioryUpdatedToday($path = '')
+//    {
+//        $folder = [];
+//        $directoryIterator = new DirectoryIterator($this->pathToFolder);
+//
+//        foreach ($directoryIterator as $item) {
+//            if (!$item->isDot()) {
+//                if ($this->isUpdateToday($item)) {
+//                    if ($item->isDir()) {
+//
+//                        $currentDirectory = $item->getPathname();
+//
+//                        $pathDirectory = $item->getPathname();
+//                        $iterator = new DirectoryIterator($pathDirectory);
+//                        foreach ($iterator as $index => $files) {
+//                            if ($this->isUpdateToday($files)) {
+//                                $folder[$item->getFilename()] = $files;
+//                            } else {
+//                                continue;
+//                            }
+//                        }
+//                    }
+//
+//                } else {
+//
+//                    continue;
+//
+//                }
+//            }
+//        }
+//        return $folder;
+//    }
+
+
     public function getDirectioryUpdatedToday($path = '')
     {
-        $folder = [];
-        $directoryIterator = new DirectoryIterator($this->pathToFolder);
-
-        foreach ($directoryIterator as $item) {
-            if (!$item->isDot()) {
-                if ($this->isUpdateToday($item)) {
-                    if ($item->isDir()) {
-
-                        $currentDirectory = $item->getPathname();
-
-                        $pathDirectory = $item->getPathname();
-                        $iterator = new DirectoryIterator($pathDirectory);
-                        foreach ($iterator as $index => $files) {
-                            if ($this->isUpdateToday($files)) {
-                                $folder[$item->getFilename()] = $files;
-                            } else {
-                                continue;
-                            }
-                        }
-                    }
-
-                } else {
-
-                    continue;
-
-                }
-            }
-        }
-        return $folder;
-    }
-
-
-    public function getDirectioryUpdatedToday2($path = '')
-    {
-//        $folder = [];
+        $listFiles = [];
         $directoryIterator = new DirectoryIterator($path);
 
         foreach ($directoryIterator as $item) {
@@ -145,7 +145,7 @@ class LoadFilesInFolder
                         foreach ($iterator as $index => $file) {
                             if (!$file->isDot()) {
                                 if ($this->isUpdateToday($file)) {
-                                    $listFiles[$item->getFilename()][] = $file->getFilename();
+                                    $listFiles[$item->getFilename()]['files'][] = $file->getFilename();
                                 }
                             }
                         }

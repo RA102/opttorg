@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 'on');
-ini_set('error_log', __DIR__ . '/../log/error_unloadingitems_.log');
+ini_set('error_log' . PHP_EOL, __DIR__ . '/../log/error_unloadingitems_.log');
 
 
 if(!defined('VALID_CMS')) {
@@ -39,9 +39,14 @@ if (file_exists( __DIR__ . '/../'. $dir . $filename)) {
 
     $xml = new SimpleXMLIterator($z->readOuterXML());
 
-    for ($i = 0; $i <= $xml->count(); $i++) {
-        import_product($xml->Товар[$i]);
-        $current_product_num++;
+    try {
+        for ($i = 0; $i <= $xml->count(); $i++) {
+            import_product($xml->Товар[$i]);
+            $current_product_num++;
+            throw new Exception($current_product_num);
+        }
+    } catch(Exception $exception) {
+        echo $exception->getMessage(), '\n';
     }
     $z->close();
 
@@ -60,17 +65,17 @@ function import_product($xml_product)
 
     try {
 
-
         $item = [];
 
         $instanceDb = cmsDatabase::getInstance();
 
         $artNo = trim($xml_product->Артикул);
 
+
         if ($artNo) {
 
-//            $sql = "SELECT id FROM cms_shop_items WHERE art_no = ?";
-            $sql = "SELECT id FROM cms_shop_items WHERE art_no = $artNo";
+//            $sql = "SELECT id FROM cms_shop_items WHERE art_no LIKE ?";
+            $sql = "SELECT id FROM cms_shop_items WHERE art_no LIKE \"$artNo\"";
 //            $product_id = $instanceDb->prepareSql($sql, $artNo);
             $result = $instanceDb->query($sql);
             if ($instanceDb->num_rows($result)) {
@@ -84,10 +89,8 @@ function import_product($xml_product)
     } catch (Exception $exception) {
         echo $exception->getMessage();
     }
-    if ( empty($product_id['id']) <> 0)  {
-        if (is_null($product_id['id'])) {
-            return;
-        }
+    if ( empty($product_id['id']) || is_null($product_id['id'])) {
+
         $item['category_id'] = 10991;
         $item['art_no'] = (string)$xml_product->Артикул;
         $item['title'] = $instanceDb->escape_string((string)$xml_product->Наименование);
@@ -113,49 +116,29 @@ function import_product($xml_product)
 
         $instanceDb->insert('cms_shop_items_cats', $thisItem);
 
-//        $sql = "INSERT INTO cms_shop_items (
-//                            `category_id`,
-//                            `art_no`,
-//                            `title`,
-//                            `price`,
-//                            `published`,
-//                            `pubdate`,
-//                            `qty`,
-//                            `tpl`,
-//                            `external_id`)
-//				VALUES (
-//				        '{$item['category_id']}',
-//				        '{$item['art_no']}',
-//				        '{$item['title']}',
-//				        '{$item['price']}',
-//				        '{$item['published']}',
-//				         NOW(),
-//				        '{$item['qty']}',
-//				        '{$item['tpl']}',
-//				        '{$item['external_id']}'
-//				)";
-//        $result = $instanceDb->query($sql);
-
     } else {
 
         // TODO переделать не нравится
-        $sql = "SELECT id FROM cms_shop_items WHERE id = {$product_id['id']} AND old_price = 0";
+        $sql = "SELECT old_price FROM cms_shop_items WHERE id = {$product_id['id']}";
 
         $result = $instanceDb->query($sql);
 
-//        if ($instanceDb->num_rows($result) && (int)$xml_product->КоличествоОстаток > 1) {
+        if($instanceDb->num_rows($result)) {
+            $oldPrice = $instanceDb->fetch_row($result);
+        }
 
+        if (!(int)$oldPrice[0]) {
             $item['price'] = (int)$xml_product->Стоимость;
             $item['qty'] = (int)$xml_product->КоличествоОстаток;
             $item['update_at'] = date('Y-m-d H:i:s');
             $instanceDb->update('cms_shop_items', $item, $product_id['id']);
+        } else {
+            $item['qty'] = (int)$xml_product->КоличествоОстаток;
+            $item['old_price'] = (int)$xml_product->Стоимость;
+            $item['update_at'] = date('Y-m-d H:i:s');
+            $instanceDb->update('cms_shop_items', $item, $product_id['id']);
 
-//        } else {
-//
-//            $item['qty'] = (int)$xml_product->КоличествоОстаток;
-//            $item['update_at'] = date('Y-m-d H:i:s');
-//            $instanceDb->update('cms_shop_items', $item, $product_id['id']);
-//        }
+        }
 
     }
 

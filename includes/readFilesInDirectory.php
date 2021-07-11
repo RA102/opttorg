@@ -21,7 +21,7 @@ $instanceDb = cmsDatabase::getInstance();
 $pathCatalog = PATH . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
 
 
-$readFiles = new LoadFilesInFolder($pathCatalog2);
+$readFiles = new LoadFilesInFolder($pathCatalog);
 
 $files = $readFiles->getDirectioryUpdatedToday2($pathCatalog);
 

@@ -6,10 +6,12 @@ ini_set('display_startup_errors', true);
 date_default_timezone_set('Asia/Almaty');
 
 
-define('PATH', dirname(__FILE__, 1));
+define('PATH', dirname(__DIR__, 1));
 
 include_once 'phpexel/PHPExcel.php';
 include_once PATH . '/core/classes/db.class.php';
+
+
 
 
 //$excel = PHPExcel_IOFactory::load($path . '/tmp/V.Pakhomov@sanmarket.kz/radomir.xls');
@@ -52,7 +54,7 @@ $highestRow = $load->setActiveSheetIndex(0)->getHighestRow();
  * максимальное значение  из $highestRow
  */
 
-for ($i = 17; $i < $highestRow; $i++ ) {
+for ($i = 17; $i < $highestRow; $i++) {
     $venCode =
     $listItems = $load->getActiveSheet(0)->getCellByColumnAndRow(3, $i);
 
