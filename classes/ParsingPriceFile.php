@@ -68,32 +68,108 @@ class ParsingPriceFile
         $pathToFile = $this->pathRoot . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . $this->folderName . DIRECTORY_SEPARATOR . $this->fileName;
         $factoryExcel = PHPExcel_IOFactory::createReaderForFile($pathToFile);
         $definiteExcelFile = $factoryExcel->load($pathToFile);
+
         if (is_null($this->finishRow) || $this->finishRow = 0) {
             $this->finishRow = $definiteExcelFile->setActiveSheetIndex(0)->getHighestRow();
         }
 
+        $definiteExcelFile->setActiveSheetIndex(0);
+        $arrayFromFileXsl = $definiteExcelFile->getActiveSheet()->toArray();
+
+
+
         for ($i = $this->startRow; $i < $this->finishRow; $i++) {
             foreach ($this->paramsParsingXls as $index => $value) {
-                $valueColumn[$value] = $definiteExcelFile->setActiveSheetIndex(0)->getCell(strval($index . $i)); //->getCellByColumnAndRow($index, $i);
+                $valueColumn[$value] = trim($arrayFromFileXsl[$i][$index]);  // getCellByColumnAndRow($index, $i);
             }
             $this->writingInDatabase($valueColumn);
+//            $this->writingInDatabaseSqlite($valueColumn);
+        }
+
+//        if (is_null($this->finishRow) || $this->finishRow = 0) {
+//            $this->finishRow = $definiteExcelFile->setActiveSheetIndex(0)->getHighestRow();
+//        }
+//
+//        for ($i = $this->startRow; $i < $this->finishRow; $i++) {
+//            foreach ($this->paramsParsingXls as $index => $value) {
+//                $valueColumn[$value] = $definiteExcelFile->setActiveSheetIndex(0)->getCellByColumnAndRow($index, $i)->getValue(); // getCellByColumnAndRow($index, $i);
+//            }
+//            $this->writingInDatabase($valueColumn);
+//        }
+
+    }
+
+    public function writingInDatabaseSqlite($arrayValue)
+    {
+        if (empty($arrayValue['price']) || empty($arrayValue['ven_code'])) {
+            return;
+        }
+        $arrayValue['price'] = rtrim($arrayValue['price']);
+        $arrayValue['price'] += $arrayValue['price'] * ($this->margin / 100);
+        $query = "ven_code LIKE {$arrayValue['ven_code']}";
+        $dbSqlite = new SQLite3('sopt1_2.sqlite');
+        $query = "SELECT id FROM cms_shop_items WHERE ven_code LIKE \"{$arrayValue['ven_code']}\"";
+        $result = $dbSqlite->query($query);
+        if ($result) {
+            $idItem = $result->fetchArray();
+        } else {
+            $idItem = false;
+        }
+
+        if ($idItem) {
+            unset($arrayValue['title']);
+            unset($arrayValue['ven_code']);
+
+            $arrayValue['qty_from_vendor'] = rtrim($arrayValue['qty_from_vendor'], ',');
+
+            $set = '';
+            $where = "id = '$idItem' LIMIT 1";
+            foreach ($arrayValue as $field => $value) {
+                $set .= "{$field} = '{$value}',";
+            }
+            $set = rtrim($set, ',');
+
+            $dbSqlite->query("UPDATE cms_shop_items SET {$set} WHERE $where");
+            $dbSqlite->close();
+
+        } else {
+            $arrayValue['category_id'] = 10991;
+            $arrayValue['published'] = 0;
+            $arrayValue['pubdate'] = date('Y-m-d');
+            $arrayValue['tpl'] = 'com_inshop_item.tpl';
+
+            // формируем запрос на вставку в базу
+            foreach ($arrayValue as $field => $value) {
+                $set .= "{$field} = '{$value}',";
+            }
+            // убираем последнюю запятую
+            $set = rtrim($set, ',');
+
+            $dbSqlite->query("INSERT INTO cms_shop_items SET {$set}");
+            $dbSqlite->close();
         }
 
     }
 
     public function writingInDatabase($arrayValue)
     {
-        if (is_null($arrayValue['price']) || is_null($arrayValue['ven_code'])) {
+        if (empty($arrayValue['price']) || empty($arrayValue['ven_code'])) {
             return;
         }
-        $arrayValue['price'] += ($arrayValue['price'] * $this->margin);
-        $query = "ven_code LIKE {$arrayValue['ven_code']}";
+        $arrayValue['qty_from_vendor'] = number_format($arrayValue['qty_from_vendor'], 0, ',', ' ');
+        $arrayValue['price'] += $arrayValue['price'] * ($this->margin / 100);
+        $arrayValue['qty_from_vendor'] = number_format($arrayValue['qty_from_vendor'], 0);
+        $query = "ven_code LIKE \"{$arrayValue['ven_code']}\"";
         $idItem = $this->instanceDb->get_field('cms_shop_items', $query, 'id');
         if ($idItem) {
             unset($arrayValue['title']);
             unset($arrayValue['ven_code']);
+
+
+
             $querySuccess = $this->instanceDb->update('cms_shop_items', $arrayValue, $idItem);
         } else {
+            $arrayValue['vendor_id'] = $this->vendorId;
             $arrayValue['title'] = trim($arrayValue['title']);
             $arrayValue['category_id'] = 10991;
             $arrayValue['published'] = 0;
@@ -104,8 +180,6 @@ class ParsingPriceFile
         }
         return $querySuccess;
     }
-
-
 
 
 }

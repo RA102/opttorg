@@ -1,6 +1,6 @@
 <?php
-
-$db = new SQLite3('sopt1_2.sqlite');
+$path = __DIR__ . DIRECTORY_SEPARATOR . '/includes/sopt1_2.sqlite';
+$db = new SQLite3($path);
 if (!$db) {
     echo $db->lastErrorMsg();
 } else {
