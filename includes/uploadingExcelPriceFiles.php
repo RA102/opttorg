@@ -89,25 +89,6 @@ $readFiles = new LoadFilesInFolder($pathCatalog);
 $files = $readFiles->getDirectioryUpdatedToday($pathCatalog);
 
 /*
- * получение настроек excel файла бренда
- */
-
-//$inDataBase = cmsDatabase::getInstance();
-//
-//foreach ($files as $index => $item) {
-//    $email =
-//    $sql = "SELECT * FROM cms_vendors_params WHERE email LIKE \"$index%\"";
-//    $result = $inDataBase->query($sql);
-//    $countRows = $inDataBase->rows_count('cms_vendors_params', "email LIKE \"$index%\"");
-//    if ($inDataBase->num_rows($result)) {
-//        $files[$index]['params'] = $inDataBase->fetch_all($result);
-//    } else {
-//        $files[$index]['params'] = false;
-//    }
-//
-//}
-
-/*
  * блок парсинга excel файлов
  */
 
@@ -130,20 +111,3 @@ foreach ($listFolders as $index => $folderName) {
     }
 
 }
-
-//$handle = opendir($priceFiles);
-//$listFiles = [];
-//
-//while (false !== ($file = readdir($handle))) {
-//    $tmpCurrentFile = pathinfo($file);
-//    if (array_key_exists('extension', $tmpCurrentFile) && ($tmpCurrentFile['extension'] == 'xls' || $tmpCurrentFile['extension'] == 'xlsx')) {
-//        $listFiles[] = $tmpCurrentFile;
-//    }
-//}
-//closedir($handle);
-//
-//foreach ($listFiles as $index => $currenFile) {
-//    echo $currenFile . "<br />";
-//
-//}
-

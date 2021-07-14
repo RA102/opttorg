@@ -1808,6 +1808,9 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
         $rowsXls = array_combine($arrayIndexXls, $arrayValueXls);
 
+        $keyDelete = array_search('',$rowsXls);
+        unset($rowsXls[$keyDelete]);
+
         $arrayConfigXlsFile['params_xls'] = json_encode($rowsXls);
 
         $arrayConfigXlsFile['name_xls'] = $_REQUEST['nameXls'];
@@ -4028,7 +4031,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
                             </td>
                             <?php
                                 $alphabet = [
-                                    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+                                    '', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
                                 ];
 
                                 $selectHtml = '';
@@ -4059,6 +4062,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
                                 $selectHtml2 = '';
                                 $listRowName = [
+                                    '' => '',
                                     'ven_code' => 'Код',
                                     'title' => 'Название',
                                     'price' => 'Цена',

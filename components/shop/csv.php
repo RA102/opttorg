@@ -57,5 +57,5 @@ if (isset($_POST['vens47jiklo']) || isset($_POST['catrehiu647uii'])) {
 		exit();
 
 } else {
-	echo 'ХАЦКЕРПШЛНХЙ';
+	exit();
 }

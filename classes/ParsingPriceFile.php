@@ -50,7 +50,7 @@ class ParsingPriceFile
 //        $result = $this->instanceDb->get_table('cms_vendors_params', $queryWhere);
 
         if ($result) {
-            $this->paramsParsingXls = json_decode(strval($params['params_xls']));
+            $this->paramsParsingXls = json_decode($params['params_xls']);
             $this->folderName = $email;
             $this->fileName = join('.', $filename);
             $this->startRow = $params['row_start'];
@@ -73,29 +73,47 @@ class ParsingPriceFile
             $this->finishRow = $definiteExcelFile->setActiveSheetIndex(0)->getHighestRow();
         }
 
-        $definiteExcelFile->setActiveSheetIndex(0);
-        $arrayFromFileXsl = $definiteExcelFile->getActiveSheet()->toArray();
+        $activeSheet = $definiteExcelFile->getActiveSheet();
+//        $arrayFromFileXsl = $definiteExcelFile->getActiveSheet()->toArray();
 
 
 
-        for ($i = $this->startRow; $i < $this->finishRow; $i++) {
-            foreach ($this->paramsParsingXls as $index => $value) {
-                $valueColumn[$value] = trim($arrayFromFileXsl[$i][$index]);  // getCellByColumnAndRow($index, $i);
-            }
-            $this->writingInDatabase($valueColumn);
-//            $this->writingInDatabaseSqlite($valueColumn);
-        }
+//        for ($i = $this->startRow; $i < $this->finishRow; $i++) {
+//            foreach ($this->paramsParsingXls as $index => $value) {
+//                $valueColumn[$value] = trim($arrayFromFileXsl[$i][$index - 1]);  // getCellByColumnAndRow($index, $i);
+//            }
+//            $this->writingInDatabase($valueColumn);
+////            $this->writingInDatabaseSqlite($valueColumn);
+//        }
 
 //        if (is_null($this->finishRow) || $this->finishRow = 0) {
 //            $this->finishRow = $definiteExcelFile->setActiveSheetIndex(0)->getHighestRow();
 //        }
-//
-//        for ($i = $this->startRow; $i < $this->finishRow; $i++) {
-//            foreach ($this->paramsParsingXls as $index => $value) {
-//                $valueColumn[$value] = $definiteExcelFile->setActiveSheetIndex(0)->getCellByColumnAndRow($index, $i)->getValue(); // getCellByColumnAndRow($index, $i);
-//            }
-//            $this->writingInDatabase($valueColumn);
-//        }
+
+//        $arrAlfabet = [
+//            1 => 'A',
+//            2 => 'B',
+//            3 => 'C',
+//            4 => 'D',
+//            5 => 'E',
+//            6 => 'F',
+//            7 => 'G',
+//            8 => 'H'
+//        ];
+
+        for ($i = $this->startRow; $i < $this->finishRow; $i++) {
+            foreach ($this->paramsParsingXls as $index => $value) {
+                switch ($value) {
+                    case 'price':
+                    case 'qty_from_vendor':
+                        $valueColumns[$value] = PHPExcel_Style_NumberFormat::toFormattedString($activeSheet->getCellByColumnAndRow($index - 1, $i)->getValue(), PHPExcel_Style_NumberFormat::FORMAT_NUMBER);
+                        break;
+                    default:
+                        $valueColumns[$value] = trim($activeSheet->getCellByColumnAndRow($index - 1, $i)->getFormattedValue());
+                }
+            }
+            $this->writingInDatabase($valueColumns);
+        }
 
     }
 
@@ -153,7 +171,7 @@ class ParsingPriceFile
 
     public function writingInDatabase($arrayValue)
     {
-        if (empty($arrayValue['price']) || empty($arrayValue['ven_code'])) {
+        if ( empty($arrayValue['ven_code']) || empty($arrayValue['price']) ) {
             return;
         }
         $arrayValue['qty_from_vendor'] = number_format($arrayValue['qty_from_vendor'], 0, ',', ' ');
@@ -165,11 +183,10 @@ class ParsingPriceFile
             unset($arrayValue['title']);
             unset($arrayValue['ven_code']);
 
-
-
             $querySuccess = $this->instanceDb->update('cms_shop_items', $arrayValue, $idItem);
         } else {
             $arrayValue['vendor_id'] = $this->vendorId;
+            $arrayValue['price'] += $arrayValue['price'] * ($this->margin / 100);
             $arrayValue['title'] = trim($arrayValue['title']);
             $arrayValue['category_id'] = 10991;
             $arrayValue['published'] = 0;
