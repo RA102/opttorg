@@ -311,6 +311,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                     </div>
                                     <ul class="search_result list-search"></ul>
                                 </div>
+                                <?php $this->printModule(110) ?>
                             </div>
 
                             <div class="col-lg-4 col-xl-4 mt-auto" >

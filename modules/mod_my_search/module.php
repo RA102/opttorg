@@ -7,7 +7,9 @@ function mod_my_search($mod, $cfg)
     $inDb = cmsDatabase::getInstance();
 
     global $_LANG;
-
+    if (!isset($cfg['show_title'])) {
+        $cfg['show_title'] = 0;
+    }
     if (!empty($_POST["referal"])) {
         $response = [];
         $userQuery = trim($_POST['referal']);
@@ -16,7 +18,7 @@ function mod_my_search($mod, $cfg)
         $userQuery = htmlspecialchars($userQuery);
 
         // подсказка для поиска по артиклу
-        $queryForArt = 'SELECT p.art_no, p.seolink, p.title FROM cms_shop_items as p WHERE (p.art_no LIKE :art AND p.published <> 0';
+        $queryForArt = 'SELECT p.art_no, p.seolink, p.title FROM cms_shop_items as p WHERE (p.art_no LIKE :art AND p.published <> 0)';
 
         $response['art_no'] = $inDb->query($queryForArt);
 
@@ -32,11 +34,14 @@ function mod_my_search($mod, $cfg)
         $queryForItems = 'SELECT p.title, p.seolink FROM cms_shop_items as p WHERE (p.title LIKE :prod AND p.published <> 0) LIMIT 30';
         $response['items'] = $inDb->query($queryForItems);
 
-        return json_encode($response);
-        return json_encode($response);
-
     }
 
+    $htmlBodyModule =
+
+    cmsPage::initTemplate('modules', 'mod_my_search')->
+        assign('cfg', $cfg)->
+        display('mod_my_search.tpl');
+    return true;
 
 
 }

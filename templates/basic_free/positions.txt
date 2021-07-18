@@ -8,11 +8,12 @@
 #
 #
 sidebar
-cart
 girdmenu
+cart
 maintop
 mainbottom
 top
+search
 topmenu
 header
 accordeon

@@ -2,7 +2,7 @@
 
 // ========================================================================== //
 
-function info_module_mod_inshop_filter(){
+function info_module_mod_my_search(){
 
     //
     // Описание модуля
@@ -12,19 +12,19 @@ function info_module_mod_inshop_filter(){
     $_module['title']        = 'Поиск ';
 
     //Название (в админке)
-    $_module['name']         = 'RA: Поиск';
+    $_module['name']         = 'Поиск';
 
     //описание
     $_module['description']  = 'Поиск костомизированный';
 
     //ссылка (идентификатор)
-    $_module['link']         = 'mod_ra_search';
+    $_module['link']         = 'mod_my_search';
 
     //позиция
-    $_module['position']     = 'sidebar';
+    $_module['position']     = 'search';
 
     //автор
-    $_module['author']       = 'InstantSoft';
+    $_module['author']       = 'RA';
 
     //текущая версия
     $_module['version']      = '1.0';
@@ -40,7 +40,7 @@ function info_module_mod_inshop_filter(){
 
 // ========================================================================== //
 
-function install_module_mod_inshop_filter(){
+function install_module_mod_my_search(){
 
     return true;
 
@@ -48,7 +48,7 @@ function install_module_mod_inshop_filter(){
 
 // ========================================================================== //
 
-function upgrade_module_mod_inshop_filter(){
+function update_module_mod_my_search(){
 
     return true;
 

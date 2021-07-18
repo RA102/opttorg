@@ -13,12 +13,12 @@ function info_module_mod_order_call()
     return $_module;
 }
 
-function install_module_mod_list_main_page()
+function install_module_mod_order_call()
 {
     return true;
 }
 
-function upgrade_module_mod_list_mail_page()
+function upgrade_module_mod_order_call()
 {
     return true;
 }
