@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready( function () {
     if ($('section').is('.main-banner')) {
         // $('.menu-left').css('display', 'flex');
         $('.menu-left').removeClass('d-none');
@@ -197,62 +197,61 @@ $(document).ready(function () {
     
 })
 
-function search($value) {
+function search(value) {
+    let url =  "/search?do=words&value="; //"/432gsdt55gs34hhj.php";
     $.ajax({
         type: 'post',
-        url: "/432gsdt55gs34hhj.php", //Путь к обработчику
+        url: url + value, //Путь к обработчику
         // url: "/new-search.php", //Путь к обработчику
         data: {
-            'referal': $value,
+            'referal': value,
         },
-        
         success: function (data) {
+
             let arr = JSON.parse(data);
             let div = $('<div></div>');
             
             $(".search_result").empty();
-            
-            if (arr['categories'].length == 0 && arr['vendors'].length == 0 && arr['ven_code'].length == 0 && arr['prod'].length == 0) {
+
+            console.log("categories" in arr);
+            if (!("categoies" in arr) && !("vendors" in arr) && !("ven_code" in arr) && !("prod" in arr)) {
                 $(".search_result").append('<li class="search_result_item"><p class="">Ничего не найдено</p></li>')
             }
-            
-            if (arr['categories'].length) {
-                $('<div></div>').prependTo('#categories');
-                $(".search_result").append('<h5 class="text-bold">Категории</h5>');
-                $(".category").remove();
-                arr['categories'].forEach(function (item, i) {
-                    $(".search_result").append(`<a href="/shop/${item.seolink}"><li class="category search_result_item">${item?.title}</li></a>`);
-                });
+            if("categoies" in arr || "vendors" in arr || "ven_code" in arr || "prod" in arr ) {
+
+                if ("categories" in arr) {
+                    $('<div></div>').prependTo('#categories');
+                    $(".search_result").append('<h5 class="text-bold">Категории</h5>');
+                    $(".category").remove();
+                    arr['categories'].forEach(function (item, i) {
+                        $(".search_result").append(`<a href="/shop/${item.seolink}"><div class="category search_result_item">${item?.title}</div></a>`);
+                    });
+                }
+
+                if ("vendors" in arr) {
+                    $(".search_result").append('<h5 class="text-bold">Производители</h5>');
+                    arr['vendors'].forEach(function (item, i) {
+                        $(".search_result").append(`<a href="/shop/vendors/${item.id}"><li class="vendor search_result_item">${item?.title}</li></a>`);
+                    });
+                }
+
+                if ("ven_code" in arr) {
+                    $(".search_result").append('<h5 class="text-bold">Артикул</h5>');
+                    arr['ven_code'].forEach(function (item, i) {
+                        $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="art_no search_result_item"><span style="color: #000000;">Арт:</span> ${item?.art_no} <br> <span style="color: #000000;">Код товара:</span>${item?.ven_code} <br><span style="color: #000000;">Название: </span> ${item?.title}</li></a>`);
+                    });
+                }
+
+                if ("prod" in arr) {
+                    $(".search_result").append('<h5 class="text-bold">Товары</h5>');
+                    $(".prod").remove();
+                    arr['prod'].forEach(function (item, i) {
+                        $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="prod search_result_item">${item?.title}</li></a>`);
+                    });
+                }
             }
-            // else {
-            //     $(".search_result").append('<h5 class="text-bold">Категории</h5>');
-            //     $(".search_result").append(`<li class="category search_result_item">Ничего не найдено</li>`);
-            // }
-            
-            if (arr['vendors'].length) {
-                $(".search_result").append('<h5 class="text-bold">Производители</h5>');
-                arr['vendors'].forEach(function (item, i) {
-                    $(".search_result").append(`<a href="/shop/vendors/${item.id}"><li class="vendor search_result_item">${item?.title}</li></a>`);
-                });
-            }
-            
-            if (arr['ven_code'].length) {
-                $(".search_result").append('<h5 class="text-bold">Артикул</h5>');
-                arr['ven_code'].forEach(function (item, i) {
-                    $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="art_no search_result_item"><span style="color: #000000;">Арт:</span> ${item?.art_no} <br> <span style="color: #000000;">Код товара:</span>${item?.ven_code} <br><span style="color: #000000;">Название: </span> ${item?.title}</li></a>`);
-                });
-            }
-            
-            if (arr['prod'].length) {
-                $(".search_result").append('<h5 class="text-bold">Товары</h5>');
-                $(".prod").remove();
-                arr['prod'].forEach(function (item, i) {
-                    $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="prod search_result_item">${item?.title}</li></a>`);
-                });
-            }
-            
             ajaxSuccess = 1;
-            
+
             $(".search_result").fadeIn();
             
         }

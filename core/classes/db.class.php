@@ -888,10 +888,18 @@ class cmsDatabase
         $sql = "SELECT * FROM utm_placemarks";
     }
 
-//    public function prepare($sql)
-//    {
-//        return mysqli_prepare($this->db_link, $sql);
-//    }
+    public function prepare($sql, $typeBind = 's', ...$params)
+    {
+
+        $stmt = mysqli_prepare($this->db_link, $sql);
+        mysqli_stmt_bind_param($stmt, $typeBind, $params);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+        return $result;
+
+    }
 
 
     public function prepareSql($sql, $artNo, $replace_prefix = true)

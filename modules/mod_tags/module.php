@@ -15,7 +15,9 @@ function mod_tags($mod, $cfg){
 
     $inDB = cmsDatabase::getInstance();
 
-    if(!@$cfg['targets']) { return false; }
+    if (!@$cfg['targets']) {
+        return false;
+    }
 
     $tl = "'".implode("','", $cfg['targets'])."'";
 

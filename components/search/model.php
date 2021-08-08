@@ -446,7 +446,9 @@ class cms_model_search {
 		// совпадает с количеством компонентов, разрешенных к поиску
 		// считаем, что запроса $this->from_component не было и ищем
 		// по всем разрешенным компонентам
-		if(count($this->from_component) == count($enable_components)){ $this->from_component = array(); }
+        if (count($this->from_component) == count($enable_components)) {
+            $this->from_component = array();
+        }
 
 		// если пришел запрос на поиск в определенных компонентах
 		if($this->from_component){

@@ -4,9 +4,7 @@
 
 function info_module_mod_my_search(){
 
-    //
     // Описание модуля
-    //
 
     //Заголовок (на сайте)
     $_module['title']        = 'Поиск ';
@@ -15,13 +13,13 @@ function info_module_mod_my_search(){
     $_module['name']         = 'Поиск';
 
     //описание
-    $_module['description']  = 'Поиск костомизированный';
+    $_module['description']  = 'Поиск кастомизированный';
 
     //ссылка (идентификатор)
     $_module['link']         = 'mod_my_search';
 
     //позиция
-    $_module['position']     = 'search';
+    $_module['position']     = 'mysearch';
 
     //автор
     $_module['author']       = 'RA';
@@ -29,9 +27,7 @@ function info_module_mod_my_search(){
     //текущая версия
     $_module['version']      = '1.0';
 
-    //
     // Настройки по-умолчанию
-    //
     $_module['config'] = array();
 
     return $_module;
@@ -41,17 +37,13 @@ function info_module_mod_my_search(){
 // ========================================================================== //
 
 function install_module_mod_my_search(){
-
     return true;
-
 }
 
 // ========================================================================== //
 
 function update_module_mod_my_search(){
-
     return true;
-
 }
 
 // ========================================================================== //

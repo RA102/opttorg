@@ -47,8 +47,6 @@
                     -->
                 </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 ">
-                    {$item.sell_warehouse}
-                    1
                     <div class="chars-wrp">
                         <div class="row mb-lg-3 mb-md-3">
                             <div class="col-12 border-bottom px-0">
@@ -337,7 +335,7 @@
 
 {/literal}
 <!-- Modal -->
-<div class="modal" id="oneclicker" tabindex="-1" role="dialog" aria-labelledby="oneclickerLabel">
+<div class="modal fade" id="oneclicker" tabindex="-1" role="dialog" aria-labelledby="oneclickerLabel">
     <div class="modal-dialog modal-sm" role="document">
         <form action="" method="POST">
             <div class="modal-content">

@@ -1720,7 +1720,7 @@ class cmsUser
 
     /**
      * Извлекает переменную из сессии
-     * @param str $param Название переменной
+     * @param string $param Название переменной
      * @return bool
      */
     public static function sessionGet($param, $box = 'icms')

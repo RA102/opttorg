@@ -6,6 +6,13 @@ function mod_my_search($mod, $cfg)
     $inCore = cmsCore::getInstance();
     $inDb = cmsDatabase::getInstance();
 
+    cmsCore::loadClass('render');
+    cmsCore::loadModel('search');
+
+    $render = new Layout();
+
+    $model = cms_model_search::initModel();
+
     global $_LANG;
     if (!isset($cfg['show_title'])) {
         $cfg['show_title'] = 0;
@@ -36,13 +43,12 @@ function mod_my_search($mod, $cfg)
 
     }
 
-    $htmlBodyModule =
+    $pathToView = PATH . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . TEMPLATE . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'search_my.php';
 
-    cmsPage::initTemplate('modules', 'mod_my_search')->
-        assign('cfg', $cfg)->
-        display('mod_my_search.tpl');
+//    return $render->renderPhpFile($pathToView);
+    cmsPage::initTemplate('modules',  $cfg['tpl'])->
+        assign('path', PATH)->
+        display( $cfg['tpl']);
     return true;
-
-
 }
 

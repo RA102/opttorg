@@ -13,7 +13,7 @@ cart
 maintop
 mainbottom
 top
-search
+mysearch
 topmenu
 header
 accordeon

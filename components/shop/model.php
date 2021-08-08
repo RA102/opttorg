@@ -5016,7 +5016,7 @@ class cms_model_shop
 
         $fields = $this->inDB->get_fields('cms_banners', "position='banner{$pos}' AND published = 1", '*');
         if ($fields) {
-            $banner = '<a href="' . $fields['link'] . '" title="' . $fields['title'] . '" style="display:block;margin-bottom:5px;"><img src="/images/banners/' . $fields['fileurl'] . '" class="img-resp hidden-xs" alt="' . $fields['title'] . '" /><img src="/images/banners/' . $fields['fileurl'] . '" class="img-resp hidden-lg hidden-md hidden-sm" alt="' . $fields['title'] . '" /></a>';
+            $banner = '<a href="' . $fields['link'] . '" title="' . $fields['title'] . '" style="display:block;margin-bottom:5px;"><img src="/images/banners/' . $fields['fileurl'] . '" class="img-fluid d-none d-md-block" alt="' . $fields['title'] . '" /><img src="/images/banners/' . $fields['fileurl'] . '" class="img-fluid d-sm-block d-lg-none d-md-none d-xl-none" alt="' . $fields['title'] . '" /></a>';
         }
         return $banner;
     }

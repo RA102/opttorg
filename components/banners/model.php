@@ -153,11 +153,11 @@ class cms_model_banners
         return true;
     }
 
-    public function getAllPublishedBanner()
+    public function getAllPublishedSlider()
     {
         $inDB = cmsDatabase::getInstance();
 
-        $query = "SELECT * FROM cms_banners WHERE published = 1 ORDER BY REVERSE(position)" ;
+        $query = "SELECT * FROM cms_banners WHERE published = 1 AND REVERSE(position) <= 10 ORDER BY REVERSE(position)" ;
 
         $result = $inDB->query($query);
 

@@ -18,6 +18,8 @@ $mod_count['topmenu'] = $this->countModules('topmenu');
 $mod_count['sidebar'] = $this->countModules('sidebar');
 $mod_count['sidebar-1'] = $this->countModules('sidebar-1');
 $mod_count['accordeon'] = $this->countModules('accordeon');
+$mode_count['mysearch'] = $this->countModules('mysearch');
+
 // подключаем jQuery и js ядра в самое начало
 $this->prependHeadJS('core/js/common.js');
 $this->prependHeadJS('includes/jquery/jquery.js');
@@ -35,10 +37,7 @@ $this->addHeadcss('templates/' . TEMPLATE . '/css/bootstrap-select v1.13.14.css'
 
 $this->addHeadCSS('templates/' . TEMPLATE . '/css/all.css?v=' . rand(10, 1000));
 
-
-
 $this->addHeadJS('templates/' . TEMPLATE . '/js/bootstrap-select.js');
-
 
 
 // Подключаем colorbox (просмотр фото)
@@ -286,7 +285,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 			</span>
         </div>
     </div>
-
     <header class="navbar-nav navbar-expand">
         <div class="main-body">
             <div class="container-fluid ">
@@ -301,18 +299,19 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
                     <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-xl-9 px-0" >
                         <div class="row">
-                            <div class=" col-xl-8 mt-auto">
-                                <div class="input-group">
-                                    <input id="main-search" name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
-                                    <div class="input-group-append">
-                                        <button id="icon-search" class="btn btn-secondary" type="button" >
-                                            <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
-                                        </button>
-                                    </div>
-                                    <ul class="search_result list-search"></ul>
-                                </div>
-                                <?php $this->printModule(110) ?>
+                            <div class="col-xl-8 mt-auto">
+<!--                                <div class="input-group">-->
+<!--                                    <input id="main-search" name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">-->
+<!--                                    <div class="input-group-append">-->
+<!--                                        <button id="icon-search" class="btn btn-secondary" type="button" >-->
+<!--                                            <img class="" src="/templates/--><?php //echo TEMPLATE; ?><!--/images/glass.png" width="32" height="32" alt="search" />-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                    <ul class="search_result list-search"></ul>-->
+<!--                                </div>-->
+                                <?php $this->printModules('mysearch') ?>
                             </div>
+
 
                             <div class="col-lg-4 col-xl-4 mt-auto" >
                                 <div class="d-block">
@@ -393,6 +392,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
             </div>
         </div>
+
     </header>
 
     <div id="toast-wrap" class="d-none" aria-live="polite" aria-atomic="true" style="position: fixed; top: 10%; right: 0; z-index: 11000;">
@@ -409,6 +409,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </div>
     </div>
+
     <div class="main-body">
         <div class="container-fluid d-block d-lg-block d-xl-none mt-5 mb-5">
             <div class="search-mobile">
@@ -460,11 +461,11 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
             $model = new cms_model_banners();
 
-            $arrayBannerItems = $model->getAllPublishedBanner();
+            $arraySliderItems = $model->getAllPublishedSlider();
 
 
             ?>
-            <?php if (!empty($arrayBannerItems)) { ?>
+            <?php if (!empty($arraySliderItems)) { ?>
                 <div class="container-fluid">
                     <div class="row justify-content-center">
                         <section class="main-banner">
@@ -472,7 +473,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                             <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel" data-keyboard="true" data-touch="true">
 
                                 <ol class="carousel-indicators">
-                                    <?php foreach ($arrayBannerItems as $index => $item) {
+                                    <?php foreach ($arraySliderItems as $index => $item) {
                                         if($index == 0 && $item) { ?>
                                             <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $index; ?>" class="active"> </li>
                                         <?php } else if($item) { ?>
@@ -484,7 +485,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                 </ol>
                                 <div class="carousel-inner">
 
-                                    <?php foreach($arrayBannerItems as $index => $item) { ?>
+                                    <?php foreach($arraySliderItems as $index => $item) { ?>
 
                                         <?php  if($index == 0 )  {?>
                                             <div class="carousel-item active">
@@ -504,7 +505,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
                                 </div>
 
-                                <?php if (count($arrayBannerItems)) { ?>
+                                <?php if (count($arraySliderItems)) { ?>
 
                                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -531,6 +532,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
             <main class="main">
                 <div class="container-fluid">
+                    <div class="row">
+
+                    </div>
                     <div class="row">
                         <?php $this->printModules('mainbottom'); ?>
                     </div>
@@ -838,14 +842,14 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </div>
 </div>
 
-<div class=" cookies-notification d-none">
-    <p class="cookies-notification__text">
-        Cайт sanmarket.kz использует файлы cookie и другие технологии для вашего удобства пользования сайтом, анализа
-        использования наших товаров и услуг и повышения качества рекомендаций.
-        <a href="<?php $_SERVER['SERVER_NAME'] ?>/politika-konfidencialnosti.html">Подробнее</a>
-    </p>
-    <button id="btn-cookies" class="btn btn-success">Хорошо</button>
-</div>
+<!--<div class=" cookies-notification d-none d-sm-none">-->
+<!--    <p class="cookies-notification__text">-->
+<!--        Cайт sanmarket.kz использует файлы cookie и другие технологии для вашего удобства пользования сайтом, анализа-->
+<!--        использования наших товаров и услуг и повышения качества рекомендаций.-->
+<!--        <a href="--><?php //$_SERVER['SERVER_NAME'] ?><!--/politika-konfidencialnosti.html">Подробнее</a>-->
+<!--    </p>-->
+<!--    <button id="btn-cookies" class="btn btn-success">Хорошо</button>-->
+<!--</div>-->
 
 
 <div class="overlay entered"></div>

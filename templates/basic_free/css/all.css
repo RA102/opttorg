@@ -1578,10 +1578,11 @@ header {
     overflow-x: hidden;
     display: none;
     margin: 0 !important;
-    padding: 0 !important
+    padding: 10px 0 0 15px;
+    /*padding: 0 !important*/
 }
 
-.search_result li {
+.search_result div {
     list-style: none;
     padding: 2px 7px;
     margin: 0 !important;

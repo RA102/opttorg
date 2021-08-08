@@ -3,6 +3,8 @@
 {$col="1"}
 {$cols="1"}
 <div class="row">
+    1
+
     {foreach key=tid item=item from=$items name=shpv}
         {if $cols==3}
             {if $itembanner!=''}{$itembanner}{/if}
