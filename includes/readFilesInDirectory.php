@@ -18,12 +18,12 @@ include_once PATH . '/classes/LoadFilesInFolder.php';
 $instanceDb = cmsDatabase::getInstance();
 
 
-$pathCatalog = PATH . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
+$pathToCatalog = PATH . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR;
 
 
-$readFiles = new LoadFilesInFolder($pathCatalog);
+$readFiles = new LoadFilesInFolder($pathToCatalog);
 
-$files = $readFiles->getDirectioryUpdatedToday2($pathCatalog);
+$files = $readFiles->getDirectioryUpdatedToday2($pathToCatalog);
 
 var_dump('<pre>', $files, '</pre>');
 

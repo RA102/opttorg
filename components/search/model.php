@@ -336,7 +336,11 @@ class cms_model_search {
 			if ($itemlink = cmsTagItemLink($res['target'], $res['item_id'])){
 				$res['itemlink'] = $itemlink;
 				$res['tag_bar']  = cmsTagBar($res['target'], $res['item_id'], $this->query);
-				if($row % 2 == 0) { $res['class'] = 'search_row2'; } else { $res['class'] = 'search_row1'; }
+                if ($row % 2 == 0) {
+                    $res['class'] = 'search_row2';
+                } else {
+                    $res['class'] = 'search_row1';
+                }
 				$rs[] = $res;
 				$row++;
 			}

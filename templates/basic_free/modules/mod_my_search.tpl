@@ -7,6 +7,10 @@
                 <img class="" src="/templates/basic_free/images/glass.png" width="32" height="32" alt="search" />
             </button>
         </div>
-        <div class="search_result list-search"></div>
+        <div class="search_result list-search">
+            <div class="search_result_title">
+
+            </div>
+        </div>
     </div>
 </div>

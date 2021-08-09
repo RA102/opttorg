@@ -65,7 +65,7 @@ class ParsingPriceFile
 
     public function parsingFile()
     {
-        $pathToFile = $this->pathRoot . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . $this->folderName . DIRECTORY_SEPARATOR . $this->fileName;
+        $pathToFile = $this->pathRoot . DIRECTORY_SEPARATOR . 'filesUploadedByEmail' . DIRECTORY_SEPARATOR . $this->folderName . DIRECTORY_SEPARATOR . $this->fileName;
         $factoryExcel = PHPExcel_IOFactory::createReaderForFile($pathToFile);
         $definiteExcelFile = $factoryExcel->load($pathToFile);
 
@@ -74,32 +74,6 @@ class ParsingPriceFile
         }
 
         $activeSheet = $definiteExcelFile->getActiveSheet();
-//        $arrayFromFileXsl = $definiteExcelFile->getActiveSheet()->toArray();
-
-
-
-//        for ($i = $this->startRow; $i < $this->finishRow; $i++) {
-//            foreach ($this->paramsParsingXls as $index => $value) {
-//                $valueColumn[$value] = trim($arrayFromFileXsl[$i][$index - 1]);  // getCellByColumnAndRow($index, $i);
-//            }
-//            $this->writingInDatabase($valueColumn);
-////            $this->writingInDatabaseSqlite($valueColumn);
-//        }
-
-//        if (is_null($this->finishRow) || $this->finishRow = 0) {
-//            $this->finishRow = $definiteExcelFile->setActiveSheetIndex(0)->getHighestRow();
-//        }
-
-//        $arrAlfabet = [
-//            1 => 'A',
-//            2 => 'B',
-//            3 => 'C',
-//            4 => 'D',
-//            5 => 'E',
-//            6 => 'F',
-//            7 => 'G',
-//            8 => 'H'
-//        ];
 
         for ($i = $this->startRow; $i < $this->finishRow; $i++) {
             foreach ($this->paramsParsingXls as $index => $value) {

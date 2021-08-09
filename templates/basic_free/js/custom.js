@@ -202,14 +202,14 @@ function search(value) {
     $.ajax({
         type: 'post',
         url: url + value, //Путь к обработчику
-        // url: "/new-search.php", //Путь к обработчику
+
         data: {
             'referal': value,
         },
         success: function (data) {
 
             let arr = JSON.parse(data);
-            let div = $('<div></div>');
+            let div = $('<div class="search_result_title"></div>');
             
             $(".search_result").empty();
 
@@ -224,7 +224,7 @@ function search(value) {
                     $(".search_result").append('<h5 class="text-bold">Категории</h5>');
                     $(".category").remove();
                     arr['categories'].forEach(function (item, i) {
-                        $(".search_result").append(`<a href="/shop/${item.seolink}"><div class="category search_result_item">${item?.title}</div></a>`);
+                        $(".search_result").append(`<a class="d-block pl-3" href="/shop/${item.seolink}">${item?.title}</a>`);
                     });
                 }
 

@@ -137,7 +137,7 @@ function search(){
         // Поиск по 1с артиклу и коду производителя
         $queryForArticleNumber = "SELECT i.ven_code, i.seolink, i.title, i.art_no 
                                   FROM cms_shop_items as i 
-                                  WHERE ((i.ven_code LIKE '%$value%' OR i.art_no LIKE '%$value%') 
+                                  WHERE ((LOWER(i.ven_code) LIKE '%$value%' OR i.art_no LIKE '%$value%') 
                                   AND i.published <> 0 
                                   AND i.category_id <> 10991) LIMIT 20 ";
 
