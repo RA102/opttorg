@@ -1918,6 +1918,8 @@ class cms_model_shop
 
         $this->inDB->query($sql);
 
+        $quantityAffectedRows = $this->inDB->affected_rows();
+
         cmsInsertTags($item['tags'], 'shop', $id);
 
         //сохраняем варианты
@@ -1929,7 +1931,7 @@ class cms_model_shop
         //сохраняем характеристики
         $this->saveItemChars($item);
 
-        return true;
+        return $quantityAffectedRows;
 
     }
     
@@ -5105,6 +5107,7 @@ class cms_model_shop
             if ($weight != 0 && $volume != 0) {
 
                 $postField = [
+                    'public' => true,
                     "access_token" => '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
                     "cityfrom" => "Караганды-(Карагандинская область)",
                     "cityto" => $city,
@@ -5128,19 +5131,14 @@ class cms_model_shop
                 $curl = curl_init();
 
                 curl_setopt_array($curl, [
-                    CURLOPT_URL => 'https://jet7777.ru/cabinet/api/calc_transport',
+                    CURLOPT_URL => "https://jet7777.ru/cabinet/api/calc_transport",
                     CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_ENCODING => '',
-                    CURLOPT_MAXREDIRS => 10,
-                    CURLOPT_TIMEOUT => 0,
                     CURLOPT_FOLLOWLOCATION => true,
                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                     CURLOPT_CUSTOMREQUEST => 'POST',
                     CURLOPT_POSTFIELDS => json_encode($postField, JSON_UNESCAPED_UNICODE),
                     CURLOPT_HTTPHEADER => [
-                        'contentType: application/json; charset=UTF-8',
-                        'Content-Type: application/json; 
-                        charset=UTF-8',
+                            "Content-Type: application/json; charset=UTF-8"
                         ],
                     ]);
 
@@ -5149,6 +5147,10 @@ class cms_model_shop
                 curl_close($curl);
 
                 $response = json_decode($rawResponse, true);
+
+                if (!isset($response['success'])) {
+                    return $rawResponse;
+                }
 
                 $sumDelivery += ($response['result']['price_zabor'] + $response['result']['price_terminal'] + $response['result']['price_delivery'] + $response['result']['price_dop']);
             }

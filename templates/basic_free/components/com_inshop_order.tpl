@@ -136,6 +136,9 @@
                 </span>
                 {$cfg.currency}
             </div>
+            <div class="col-sm-12 col-lx-12">
+                {$errorResponseApi}
+            </div>
             <div class="pull-left result-clearfix" style="font-size:24px;line-height:32px;">
                 <strong>К оплате:</strong>
                 <span id="result">

@@ -1,14 +1,10 @@
 <?php
-require_once (PATH . '/components/sitemap/sm_components/SmCommaps.php');
-
-use components\sitemap\sm_components\SmCommaps;
-
 
 if (!defined('VALID_CMS')) {
     die('ACCESS DENIED');
 }
 
-class shop_map extends SmCommaps
+class shop_map extends comMaps
 {
     public $title = "Интернет магазин";
     public $link = "shop";

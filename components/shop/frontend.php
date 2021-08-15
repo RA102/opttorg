@@ -887,10 +887,16 @@ function shop()
 
         // Просчет доставки
         $isFreeDelivery = $model->isFreeDelivery($city);
-        $sumDelivery = $model->getPriceDelivery($city, $isFreeDelivery, $items);
 
+        $responseApi = $model->getPriceDelivery($city, $isFreeDelivery, $items);
 
-        if($isFreeDelivery) {
+        if (is_numeric($responseApi)) {
+            $sumDelivery = $responseApi;
+        } else {
+            $errorResponseApi = $responseApi;
+        }
+
+            if($isFreeDelivery) {
             unset($delivery_types[6]);
         }
         if (!$isFreeDelivery) {
@@ -912,6 +918,7 @@ function shop()
         $smarty->assign('delivery_types', $delivery_types);
         $smarty->assign('d_type', $d_type);
         $smarty->assign('sumDelivery',$sumDelivery);
+        $smarty->assign('errorResponseApi', $errorResponseApi);
         $smarty->assign('discount_size', $discount_size);
         $smarty->assign('totalsumm', round($totalsumm, 0));
         $smarty->assign('last_url', $_SESSION['inshop_last_url']);

@@ -66,4 +66,32 @@ $(document).ready(function(){
       })
     });
 
+    $('#date-table-control').on('change', function(event) {
+        let url = 'index.php?do=control_productivity';
+        let inputDateControl = $(this).val();
+        $.ajax({
+            url: url + '&query_date=' + inputDateControl,
+            success: function(data) {
+                $('#control-table--tbody').empty();
+                if (data) {
+                    data.forEach( function(item, index) {
+                        let tr = $('<tr />');
+                        $('#control-table--tbody').append($(tr).append($('<td />', {
+                            text: item.id
+                        })).append($('<td />', {
+                            text: item.nickname
+                        })). append($('<td />', {
+                            text: item.title
+                        })).append($('<td />', {
+                            text: item.actions
+                        })).append($('<td />', {
+                            text: item.created_at
+                        })));
+                    })
+                }
+
+            },
+        })
+    })
+
 });

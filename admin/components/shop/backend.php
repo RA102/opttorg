@@ -294,7 +294,7 @@ if ($opt == 'set_order_status') {
 
 }
 
-if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
+//if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {}
 
 //=================================================================================================//
 //=================================================================================================//
@@ -1075,6 +1075,11 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
         $item['id'] = $model->addItem($item);
 
+        if ($item['id'] && $inUser->id == 293) {
+            $userControlValues['user_id'] = $inUser->id;
+            $userControlValues['item_id'] = $item['id'];
+            $inDB->insert('users_control_productivity', $userControlValues);
+        }
 
         for ($i = 0; $i < count($titlePart); $i++) {
             $paramsItem[$i] = ['title' => $titlePart[$i], 'width' => $widthItem[$i], 'height' => $heightItem[$i], 'depth' => $depthItem[$i], 'weight' => $weightItem[$i]];
@@ -1129,6 +1134,7 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 //=================================================================================================//
 
     if ($opt == 'update_item') {
+
         if ($inCore->inRequest('item_id')) {
 
             $id = $inCore->request('item_id', 'int');
@@ -1188,7 +1194,13 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
 
             $item['img_delete'] = $inCore->request('img_delete', 'array');
 
-            $model->updateItem($id, $item);
+            $isUpdatedItem = $model->updateItem($id, $item);
+
+            if ($isUpdatedItem && $inUser->id == 293) {
+                $userControlValues['user_id'] = $inUser->id;
+                $userControlValues['item_id'] = $id;
+                $inDB->insert('users_control_productivity', $userControlValues);
+            }
 
             $partId = $inCore->request('partId', 'array');
 
@@ -5483,8 +5495,6 @@ if ($inUser->id == 1 || $inUser->id == 69 || $inUser->id == 221) {
         cmsCore::jsonOutput(['data' => $model->availableInStock($artNo)]);
     }
 
-
-}
 
 
 

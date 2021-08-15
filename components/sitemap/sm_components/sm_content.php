@@ -1,8 +1,5 @@
 <?php
 
-use components\sitemap\sm_components\comMaps;
-
-
 if(!defined('VALID_CMS')) {
     die('ACCESS DENIED');
 }

@@ -1,8 +1,7 @@
 <?php
 
-namespace components\sitemap\sm_components;
 
-class SmCommaps
+class comMaps
 {
     public $config; // Настройки генерации карт для текущего компонента
     public $host; // Ссылна сайта, не используется HOST так как при генерации CRON не работает
@@ -58,7 +57,9 @@ class SmCommaps
     public function set_map_url($item){
         if ($this->generateMap){
             $this->num++;
-            if ($this->num > $this->page*$this->max_items){ $this->re_map_start(); }
+            if ($this->num > $this->page * $this->max_items) {
+                $this->re_map_start();
+            }
             if (!isset($item[3])){ $item[3] = date('Y-m-d'); }
             $this->maps .= '<url><loc>'.$item[0].'</loc></url>';
             $this->user_set_map_url($item);

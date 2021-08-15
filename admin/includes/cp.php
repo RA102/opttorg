@@ -291,7 +291,7 @@ function cpMenu()
                             <a href="index.php?do=utmplacemarks">Utm метки</a>
                         </li>
                         <li>
-                            <a href="index.php?do=utmplacemarks">Настройка подгрузки прайсов поставщиков</a>
+                            <a href="index.php?do=control_productivity">Таблица производительности</a>
                         </li>
 
                     </ul>

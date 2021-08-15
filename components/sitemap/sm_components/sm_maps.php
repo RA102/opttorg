@@ -6,7 +6,8 @@ if(!defined('VALID_CMS')) { die('ACCESS DENIED'); }
 //                      instantcms-development@ds-soft.ru                     //
 /******************************************************************************/
 
-class maps_map extends comMaps{
+class maps_map extends comMaps
+{
     public $title = "Карта Объектов";
     public $link = "maps";
     
