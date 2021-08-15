@@ -27,7 +27,7 @@ function applet_main(){
 	$do = $inCore::request('do', 'str');
 	$column = $inCore::request('column', 'str');
 	$direction = $inCore::request('direction', 'str');
-	$query_date = $inCore::request('query_date', 'str')
+	$query_date = $inCore::request('query_date', 'str');
 	
 
 	global $_LANG;
