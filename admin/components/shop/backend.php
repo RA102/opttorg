@@ -1171,8 +1171,12 @@ if ($opt == 'set_order_status') {
             $item['old_price'] = number_format(str_replace(',', '.', $inCore->request('old_price', 'str', '0.00')), $cfg['show_decimals'], '.', '');
 
             $item['published'] = $inCore->request('published', 'int', 0);
+            /**
+             * TODO
+             * переписать получение даты
+            */
             $date = explode('.', $inCore->request('pubdate', 'str'));
-            $item['pubdate'] = $date[2] . '-' . $date[1] . '-' . $date[0] . ' ' . date('H:i');
+            $item['pubdate'] = $date[2] . '-' . $date[1] . '-' . $date[0]; //. ' ' . date('H:i')
 
             $item['is_hit'] = $inCore->request('is_hit', 'int', 0);
             $item['is_spec'] = $inCore->request('is_spec', 'int', 0);
@@ -1194,11 +1198,25 @@ if ($opt == 'set_order_status') {
 
             $item['img_delete'] = $inCore->request('img_delete', 'array');
 
-            $isUpdatedItem = $model->updateItem($id, $item);
+            $valueItemInBase = $inDB->get_fields('cms_shop_items', "id=$id");
 
-            if ($isUpdatedItem && $inUser->id == 293) {
+            $isChange = $valueItemInBase['category_id'] <> $item['category_id'];
+            
+//            $arrayDiff = array_diff($valueItemInBase, $item);
+//            $arrayIntersect = array_intersect($valueItemInBase, $item);
+
+            
+
+            $countAffectColumn = $model->updateItem($id, $item);
+
+            if ($countAffectColumn && $inUser->id == 293 && $isChange && $item['category_id'] == 10991 && $valueItemInBase['category_id'] != 10991) {
+//                foreach ($arrayIntersect as $index => $value) {
+//                    unset($item["$index"]);
+//                }
+                $actions = json_encode($item);
                 $userControlValues['user_id'] = $inUser->id;
                 $userControlValues['item_id'] = $id;
+                $userControlValues['actions'] = 'update';
                 $inDB->insert('users_control_productivity', $userControlValues);
             }
 

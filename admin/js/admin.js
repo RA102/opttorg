@@ -66,12 +66,19 @@ $(document).ready(function(){
       })
     });
 
-    $('#date-table-control').on('change', function(event) {
+    $("form[name='addform']").on('change', function(event) {
+        console.log(event.target);
+    })
+
+    $('#btn-filter-table-control').on('click', function(event) {
         let url = 'index.php?do=control_productivity';
-        let inputDateControl = $(this).val();
+        let inputDateControlWith = $('input[name=with-date]').val();
+        let inputDateControlFromTo = $('input[name=from-to-date]').val();
+        console.log(inputDateControlWith, inputDateControlFromTo);
         $.ajax({
-            url: url + '&query_date=' + inputDateControl,
+            url: url + '&with_date=' + inputDateControlWith + '&from_to_date=' + inputDateControlFromTo,
             success: function(data) {
+                console.log(data);
                 $('#control-table--tbody').empty();
                 if (data) {
                     data.forEach( function(item, index) {

@@ -27,8 +27,9 @@ function applet_main(){
 	$do = $inCore::request('do', 'str');
 	$column = $inCore::request('column', 'str');
 	$direction = $inCore::request('direction', 'str');
-	$query_date = $inCore::request('query_date', 'str');
-	
+	$dateWith = $inCore::request('with_date', 'str');
+	$dateFromTo = $inCore::request('from_to_date', 'str');
+
 
 	global $_LANG;
 
@@ -45,9 +46,10 @@ function applet_main(){
         $inDB->orderBy($column, $direction);
     }
     
-    if ($query_date) {
-        $date = date('Y-m-d', strtotime($query_date));
-        $where = "WHERE DATEDIFF(created_at, \"$date\") = 0";
+    if ($dateWith && $dateFromTo) {
+        $with = date('Y-m-d', strtotime($dateWith));
+        $fromTo = date('Y-m-d', strtotime($dateFromTo));
+        $where = "WHERE DATE(created_at) BETWEEN \"$with\"  AND \"$fromTo\"";
         $sql .= $where;
         $result = $inDB->query($sql);
         if ($inDB->num_rows($result)) {
@@ -68,23 +70,34 @@ function applet_main(){
         }
     }
 ?>
-
-    <table class="table table-hover mt-2">
+    <button id="btn-filter-table-control" class="btn btn-success float-right mb-2">Фильтр</button>
+    <table class="table table-hover table_control" col="5">
         <thead>
             <tr>
                 <th scope="col"><a href="?do=control_productivity&column=id&direction=desc">id</a></th>
-                <th scope="col"><a href="?do=control_productivity&column=user_id&direction=desc">User</a></th>
-                <th scope="col">Product</th>
-                <th scope="col">Action</th>
-                <th scope="col">Time</th>
+                <th scope="col"><a href="?do=control_productivity&column=user_id&direction=desc">Пользователь</a></th>
+                <th scope="col">Товар</th>
+                <th scope="col">Действие</th>
+                <th scope="col">Период</th>
             </tr>
         </thead>
         <tr>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input id="date-table-control" type="date"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="align-middle" valign="middle">
+                <input name="action" type="text">
+            </td>
+            <td rowspan="2">
+                <div>
+                    <span>c:&nbsp;&nbsp;&nbsp;</span>
+                    <input name="with-date" type="date">
+                </div>
+                <div class="mt-2">
+                    <span>по:&nbsp;</span>
+                    <input name="from-to-date" type="date">
+                </div>
+            </td>
         </tr>
         <tbody id="control-table--tbody">
         <?php foreach ($arrayData as $index => $item) {
