@@ -1,6 +1,6 @@
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="<?php echo date('); ?>">
-    <shop>Y-m-d H:i'
+<yml_catalog date="<?php echo date('Y-m-d H:i'); ?>">
+    <shop>
         <name><?php echo $cfg['yml']['shop_name']; ?></name>
         <company><?php echo $cfg['yml']['shop_company']; ?></company>
         <url><?php echo $cfg['yml']['shop_url']; ?></url>
