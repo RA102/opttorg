@@ -1574,6 +1574,10 @@ function shop()
 
         $inConf = cmsConfig::getInstance();
 
+        $cfg['yml']['shop_name'] = 'sanmarket.kz';
+        $cfg['yml']['shop_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+        $cfg['yml']['shop_company'] = 'СанТехОптТорг';
+
         if (!$cfg['yml']['shop_name']) {
             $cfg['yml']['shop_name'] = $inConf->sitename;
         }
@@ -1581,26 +1585,26 @@ function shop()
             $cfg['yml']['shop_url'] = 'http://' . $_SERVER['HTTP_HOST'] . '/';
         }
         if (!$cfg['yml']['base_curr']) {
-            $cfg['yml']['base_curr'] = 'RUR';
+            $cfg['yml']['base_curr'] = 'KZT';
         }
-        if (!$cfg['yml']['curr']['RUR']) {
-            $cfg['yml']['curr']['RUR'] = 'CBRF';
-        }
-        if (!$cfg['yml']['curr']['UAH']) {
-            $cfg['yml']['curr']['UAH'] = 'CBRF';
-        }
-        if (!$cfg['yml']['curr']['BYR']) {
-            $cfg['yml']['curr']['BYR'] = 'CBRF';
-        }
-        if (!$cfg['yml']['curr']['KZT']) {
-            $cfg['yml']['curr']['KZT'] = 'CBRF';
-        }
-        if (!$cfg['yml']['curr']['USD']) {
-            $cfg['yml']['curr']['USD'] = 'CBRF';
-        }
-        if (!$cfg['yml']['curr']['EUR']) {
-            $cfg['yml']['curr']['EUR'] = 'CBRF';
-        }
+//        if (!$cfg['yml']['curr']['RUR']) {
+//            $cfg['yml']['curr']['RUR'] = 'CBRF';
+//        }
+//        if (!$cfg['yml']['curr']['UAH']) {
+//            $cfg['yml']['curr']['UAH'] = 'CBRF';
+//        }
+//        if (!$cfg['yml']['curr']['BYR']) {
+//            $cfg['yml']['curr']['BYR'] = 'CBRF';
+//        }
+//        if (!$cfg['yml']['curr']['KZT']) {
+//            $cfg['yml']['curr']['KZT'] = 'CBRF';
+//        }
+//        if (!$cfg['yml']['curr']['USD']) {
+//            $cfg['yml']['curr']['USD'] = 'CBRF';
+//        }
+//        if (!$cfg['yml']['curr']['EUR']) {
+//            $cfg['yml']['curr']['EUR'] = 'CBRF';
+//        }
         if (!$cfg['yml']['ldc']) {
             $cfg['yml']['ldc'] = 0;
         }
@@ -1621,8 +1625,12 @@ function shop()
         $items = $model->getItems(true);
 
         $file = 'components/com_inshop_yml.php';
+        $pathToFile = PATH. '/market.yml';
+
+        ob_start();
 
         echo '<?xml version="1.0" encoding="utf-8"?>' . "\n";
+
 
         if (file_exists(TEMPLATE_DIR . $file)) {
             include(TEMPLATE_DIR . $file);
@@ -1630,11 +1638,9 @@ function shop()
             include(DEFAULT_TEMPLATE_DIR . $file);
         }
 
-        if (ob_get_level()) {
-            ob_end_clean();
-        }
+        $file = file_put_contents($pathToFile, ob_get_clean());
 
-        exit;
+        exit();
 
     }
 
@@ -1650,6 +1656,24 @@ function shop()
 
         cmsCore::jsonOutput(['error' => false, 'data' => $listCities]);
 
+    }
+
+    if ($do == 'upload_file_yml') {
+
+        $pathToFile = PATH. '/market.yml';
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename=' . basename($pathToFile));
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($pathToFile));
+
+        readfile($pathToFile);
+
+        exit();
     }
 
 }

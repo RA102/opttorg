@@ -4524,12 +4524,11 @@ if ($opt == 'set_order_status') {
 //=================================================================================================//
 
     if ($opt == 'saveymlcfg') {
-        $cfg['yml']['shop_name'] = time();
+        $cfg['yml']['shop_name'] = 'sanmarket.kz';
 
         $inCore->saveComponentConfig('shop', $cfg);
 
         $msg = 'Настройки успешно сохранены';
-
 
         $model->getKaspi();
 
@@ -4541,7 +4540,7 @@ if ($opt == 'set_order_status') {
     }
 
     if ($opt == 'savemerchantcfg') {
-        $cfg['merchant']['shop_name'] = time();
+        $cfg['yml']['shop_name'] = time();
 
         $inCore->saveComponentConfig('shop', $cfg);
 

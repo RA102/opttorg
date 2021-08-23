@@ -25,6 +25,8 @@ function routes_shop()
 
     $routes[] = array('_uri' => '/^shop\/export\/market\.yml$/i', 'do' => 'export_yml');
 
+    $routes[] = array('_uri' => '/^shop\/upload\/market$/i', 'do' => 'upload_file_yml');
+
     $routes[] = array('_uri' => '/^shop\/vendors.html$/i', 'do' => 'vendors');
 
     $routes[] = array('_uri' => '/^shop\/list\-cities$/i', 'do' => 'list_cities');

@@ -1,12 +1,23 @@
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
 <yml_catalog date="<?php echo date('Y-m-d H:i'); ?>">
     <shop>
         <name><?php echo $cfg['yml']['shop_name']; ?></name>
         <company><?php echo $cfg['yml']['shop_company']; ?></company>
         <url><?php echo $cfg['yml']['shop_url']; ?></url>
+
+        <version>2.0</version>
+        <agency>SanMarket</agency>
         <email>support@sanmarket.kz</email>
 
         <currencies>
             <currency id="<?php echo $cfg['yml']['base_curr']; ?>" rate="1"/>
+            <?php
+            foreach($cfg['yml']['curr'] as $c=>$kurs) {
+                if ($c == $cfg['yml']['base_curr']) {
+                    continue;
+                } ?>
+                <currency id="<?php echo $c; ?>" rate="<?php echo $kurs; ?>"/>
+            <?php } ?>
         </currencies>
 
         <categories>

@@ -56,7 +56,9 @@ class cmsCore {
         $inConf = cmsConfig::getInstance();
 
         //проверяем был ли переопределен язык через сессию
-        if (isset($_SESSION['lang'])) { $inConf->lang = $_SESSION['lang']; }
+        if (isset($_SESSION['lang'])) {
+            $inConf->lang = $_SESSION['lang'];
+        }
 		self::loadLanguage('lang');
 
         // определяем контекст использования

@@ -96,6 +96,7 @@
                                 <option value="price" <?php if ($orderby == 'price'){ ?>selected="selected"<?php } ?>>по цене</option>
                                 <option value="id" <?php if ($orderby == 'id'){ ?>selected="selected"<?php } ?>>по id</option>
                                 <option value="qty" <?php if ($orderby == 'qty'){ ?>selected="selected"<?php } ?>>по количеству</option>
+                                <option value="published" <?php if ($orderby == 'published'){ ?>selected="selected"<?php } ?>>по публикации</option>
 
                             </select>
                         </td>
