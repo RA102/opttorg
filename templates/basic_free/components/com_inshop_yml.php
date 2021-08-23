@@ -1,10 +1,10 @@
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="<?php echo date('Y-m-d H:i'); ?>">
-    <shop>
+<yml_catalog date="<?php echo date('); ?>">
+    <shop>Y-m-d H:i'
         <name><?php echo $cfg['yml']['shop_name']; ?></name>
         <company><?php echo $cfg['yml']['shop_company']; ?></company>
         <url><?php echo $cfg['yml']['shop_url']; ?></url>
-        <platform>InstantShop</platform>
+
         <version>2.0</version>
         <agency>SanMarket</agency>
         <email>support@sanmarket.kz</email>

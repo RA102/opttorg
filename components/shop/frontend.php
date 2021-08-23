@@ -1630,6 +1630,10 @@ function shop()
             include(DEFAULT_TEMPLATE_DIR . $file);
         }
 
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+
         exit;
 
     }

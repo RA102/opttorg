@@ -70,35 +70,44 @@ $(document).ready(function(){
         console.log(event.target);
     })
 
-    $('#btn-filter-table-control').on('click', function(event) {
-        let url = 'index.php?do=control_productivity';
-        let inputDateControlWith = $('input[name=with-date]').val();
-        let inputDateControlFromTo = $('input[name=from-to-date]').val();
-        console.log(inputDateControlWith, inputDateControlFromTo);
-        $.ajax({
-            url: url + '&with_date=' + inputDateControlWith + '&from_to_date=' + inputDateControlFromTo,
-            success: function(data) {
-                console.log(data);
-                $('#control-table--tbody').empty();
-                if (data) {
-                    data.forEach( function(item, index) {
-                        let tr = $('<tr />');
-                        $('#control-table--tbody').append($(tr).append($('<td />', {
-                            text: item.id
-                        })).append($('<td />', {
-                            text: item.nickname
-                        })). append($('<td />', {
-                            text: item.title
-                        })).append($('<td />', {
-                            text: item.actions
-                        })).append($('<td />', {
-                            text: item.created_at
-                        })));
-                    })
-                }
-
-            },
-        })
-    })
+    // $('#btn-filter-table-control').on('click', function(event) {
+    //     let url = 'index.php?do=control_productivity';
+    //     let inputDateControlWith = $('input[name=with-date]').val();
+    //     let inputDateControlFromTo = $('input[name=from-to-date]').val();
+    //     console.log(inputDateControlWith, inputDateControlFromTo);
+    //     $.ajax({
+    //         url: url + '&with_date=' + inputDateControlWith + '&from_to_date=' + inputDateControlFromTo,
+    //         success: function(data) {
+    //             console.log(data);
+    //             $('#control-table--tbody').empty();
+    //             if (data) {
+    //                 data.forEach( function(item, index) {
+    //                     let tr = $('<tr />');
+    //                     $('#control-table--tbody').append($(tr).append($('<td />', {
+    //                         text: item.id
+    //                     })).append($('<td />', {
+    //                         text: item.nickname
+    //                     })). append($('<td />', {
+    //                         text: item.title
+    //                     })).append($('<td />', {
+    //                         text: item.actions
+    //                     })).append($('<td />', {
+    //                         text: item.created_at
+    //                     })));
+    //                 });
+    //                 $('#control-table--tbody').append($('<tr />').append($('<td> /', {
+    //                     colspan: 4
+    //                 }).append($('<span />', {
+    //                     class: 'float-right',
+    //                     text: 'Всего:'
+    //                 }))).append($('<td />').append($('<span />', {
+    //                     text: data.length
+    //                 }))));
+    //                 // window.location += '&with_date=' + inputDateControlWith + '&from_to_date=' + inputDateControlFromTo;
+    //             }
+    //
+    //         },
+    //     })
+    // })
 
 });

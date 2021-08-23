@@ -1,5 +1,7 @@
 <?php
 
+include_once PATH . "/components/sitemap/sm_components/sm_commaps.php";
+
 if (!defined('VALID_CMS')) {
     die('ACCESS DENIED');
 }

@@ -328,6 +328,12 @@ class cms_model_shop
     /* ========================================================================== */
     /* ========================================================================== */
 
+    /**
+     * TODO
+     * оптимизировать
+     * function getItem и function getItemsCount объединить в один запрос
+     */
+
     public function getItems($only_published = true, $is_discounts = true, $filterFromFrontend = false)
     {
 
@@ -354,7 +360,7 @@ class cms_model_shop
         // кажется слишком перемудрил?
         // все же нет
         if ($filterFromFrontend) {
-            $this->where('(v.sell_warehouse = 1 AND i.qty > 1 ) OR (v.sell_to_order = 1 AND i.qty_from_vendor > 1 )');
+            $this->where("(v.sell_warehouse = 1 AND i.qty >= {$cfg['quantity_in_stock']} ) OR (v.sell_to_order = 1 AND i.qty_from_vendor >= {$cfg['quantity_from_vendor']} )");
         }
 
         $sql = "SELECT  DISTINCT i.id,
@@ -482,7 +488,7 @@ class cms_model_shop
 
     public function getItemsCount($only_published = true, $filterFromFrontend = false)
     {
-
+        $cfg = $this->getConfig();
         $items = array();
 
         $from_cats = mb_strstr($this->where, 'ic.') ? ', cms_shop_items_cats ic' : '';
@@ -493,25 +499,19 @@ class cms_model_shop
         }
 
         if ($filterFromFrontend) {
-            $this->where('(v.sell_warehouse = 1 AND i.qty > 1 ) OR (v.sell_to_order = 1 AND i.qty_from_vendor > 1 )');
+            $this->where("(v.sell_warehouse = 1 AND i.qty >= {$cfg['quantity_in_stock']} ) OR (v.sell_to_order = 1 AND i.qty_from_vendor >= {$cfg['quantity_from_vendor']} )");
             $this->where('i.vendor_id = v.id');
         }
-
-
 
         $sql = "SELECT  i.id
 
                 FROM    cms_shop_items i,
                         cms_shop_cats c,
                         cms_shop_vendors v
-                        {$from_cats}
-
-                WHERE   1=1
-                      
+                        $from_cats
+                WHERE 1=1
                 {$this->where}
-
                 {$this->group_by}
-
                 \n";
 
 

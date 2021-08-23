@@ -3,6 +3,11 @@ if (!defined('VALID_CMS_ADMIN')) {
     die('ACCESS DENIED');
 }
 
+const USER_ACTIONS = [
+        'Добавление',
+        'Редактирование'
+];
+
 function getField($table, $where, $field)
 {
     $inDB = cmsDatabase::getInstance();
@@ -1201,22 +1206,15 @@ if ($opt == 'set_order_status') {
             $valueItemInBase = $inDB->get_fields('cms_shop_items', "id=$id");
 
             $isChange = $valueItemInBase['category_id'] <> $item['category_id'];
-            
-//            $arrayDiff = array_diff($valueItemInBase, $item);
-//            $arrayIntersect = array_intersect($valueItemInBase, $item);
-
-            
 
             $countAffectColumn = $model->updateItem($id, $item);
 
-            if ($countAffectColumn && $inUser->id == 293 && $isChange && $item['category_id'] == 10991 && $valueItemInBase['category_id'] != 10991) {
-//                foreach ($arrayIntersect as $index => $value) {
-//                    unset($item["$index"]);
-//                }
-                $actions = json_encode($item);
+            if ($countAffectColumn  && $inUser->id == 293  && $isChange && $item['category_id'] != 10991 && $valueItemInBase['category_id'] == 10991 ) {
+
                 $userControlValues['user_id'] = $inUser->id;
                 $userControlValues['item_id'] = $id;
-                $userControlValues['actions'] = 'update';
+
+                $userControlValues['actions'] = USER_ACTIONS[1];
                 $inDB->insert('users_control_productivity', $userControlValues);
             }
 
@@ -4602,6 +4600,8 @@ if ($opt == 'set_order_status') {
         $cfg['ord_req'] = $inCore->request('ord_req', 'array');
         $cfg['compare_prices'] = $inCore->request('compare_prices', 'int', 1);
         $cfg['ratings'] = $inCore->request('ratings', 'int', 1);
+        $cfg['quantity_in_stock'] = $inCore->request('quantity_in_stock', 'int', 1);
+        $cfg['quantity_from_vendor'] = $inCore->request('quantity_from_vendor', 'int', 1);
 
         if (!$cfg['ord_req']) {
             $cfg['ord_req'] = '';
@@ -4866,6 +4866,20 @@ if ($opt == 'set_order_status') {
                             <td width=""><strong>Количество связанных товаров: </strong></td>
                             <td>
                                 <input type="text" name="related_count" value="<?php echo $cfg['related_count']; ?>"
+                                       style="width:40px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width=""><strong>Кол-во на складе для трансляции на сайте, больше или равно </strong></td>
+                            <td>
+                                <input type="number" min="0" name="quantity_in_stock" value="<?php echo $cfg['quantity_in_stock']; ?>"
+                                       style="width:40px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width=""><strong>Кол-во у поставщиков для трансляции на сайте, больше или равно </strong></td>
+                            <td>
+                                <input type="number" min="0" name="quantity_from_vendor" value="<?php echo $cfg['quantity_from_vendor']; ?>"
                                        style="width:40px;"/>
                             </td>
                         </tr>

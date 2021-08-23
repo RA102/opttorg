@@ -27,9 +27,10 @@ function applet_main(){
 	$do = $inCore::request('do', 'str');
 	$column = $inCore::request('column', 'str');
 	$direction = $inCore::request('direction', 'str');
-	$dateWith = $inCore::request('with_date', 'str');
-	$dateFromTo = $inCore::request('from_to_date', 'str');
+	$dateWith = $inCore::request('with-date', 'str');
+	$dateFromTo = $inCore::request('from-to-date', 'str');
 
+	$page = $inCore::request('page', 'str', 1);
 
 	global $_LANG;
 
@@ -37,30 +38,38 @@ function applet_main(){
 
 ?>
 <?php if ($do == 'control_productivity') {
-    $sql = 'SELECT ctrl.id, u.nickname, i.title, ctrl.actions, ctrl.created_at
+        $sql = 'SELECT ctrl.id, u.nickname, i.title, ctrl.actions, ctrl.created_at
             FROM users_control_productivity ctrl
             JOIN cms_users u ON ctrl.user_id = u.id
             JOIN cms_shop_items i ON ctrl.item_id = i.id
             ';
-    if ($column && $direction) {
-        $inDB->orderBy($column, $direction);
-    }
-    
-    if ($dateWith && $dateFromTo) {
-        $with = date('Y-m-d', strtotime($dateWith));
-        $fromTo = date('Y-m-d', strtotime($dateFromTo));
-        $where = "WHERE DATE(created_at) BETWEEN \"$with\"  AND \"$fromTo\"";
-        $sql .= $where;
-        $result = $inDB->query($sql);
-        if ($inDB->num_rows($result)) {
-            while($row = $inDB->fetch_assoc($result)) {
-                $arrayData[] = $row;
-            }
+
+        //$base_uri = 'index.php?docomponents&do=config&id=' . $component_id . '&opt=list_items'
+        $perpage = 30;
+        $offset = ($page - 1) * $perpage;
+        $inDB->limitIs($offset, $perpage);
+        $pages_url = "/admin/index.php?do=control_productivity&with-date=$dateWith&from-to-date=$dateFromTo&page=%page%";
+
+        if ($column && $direction) {
+            $inDB->orderBy($column, $direction);
         }
 
-        $inCore::jsonOutput($arrayData);
-        
-    }
+        if ($dateWith && $dateFromTo) {
+            $with = date('Y-m-d', strtotime($dateWith));
+            $fromTo = date('Y-m-d', strtotime($dateFromTo));
+            $where = "WHERE DATE(created_at) BETWEEN \"$with\"  AND \"$fromTo\"";
+            $sql .= $where;
+
+        }
+
+
+    $prepareResult= $inDB->query($sql);
+    $quantityRows = $inDB->num_rows($prepareResult);
+
+
+//    $offset = ($page - 1) * $perpage;
+//    $limit = "LIMIT $offset, $inDB->limit";
+    $sql .= "LIMIT $inDB->limit";
 
     $result = $inDB->query($sql);
 
@@ -69,8 +78,40 @@ function applet_main(){
             $arrayData[] = $row;
         }
     }
+
+    $pagebar = cmsPage::getPagebar($quantityRows, $page, $perpage, $pages_url);
+
 ?>
-    <button id="btn-filter-table-control" class="btn btn-success float-right mb-2">Фильтр</button>
+        <form action="/admin/index.php">
+            <input name="do" type="hidden" value="control_productivity" >
+            <table class="table table-hover" col="5">
+                <tr>
+                    <td colspan="1">
+
+                    </td>
+                    <td colspan="1">
+
+                    </td>
+                    <td class="align-middle" colspan="1">
+                        <input name="action" type="text">
+                    </td>
+                    <td class="d-flex flex-column align-items-end">
+                        <div class="">
+                            <span>c:&nbsp;&nbsp;&nbsp;</span>
+                            <input name="with-date" type="date" value="<?= $dateWith; ?>">
+                        </div>
+                        <div class="">
+                            <span>по:&nbsp;</span>
+                            <input name="from-to-date" type="date" value="<?= $dateFromTo; ?>">
+                        </div>
+                    </td>
+                    <td class="align-middle">
+                        <button class="btn btn-success float-right text-white" type="submit"> Фильтр </button>
+                    </td>
+
+                </tr>
+            </table>
+        </form>
     <table class="table table-hover table_control" col="5">
         <thead>
             <tr>
@@ -81,32 +122,21 @@ function applet_main(){
                 <th scope="col">Период</th>
             </tr>
         </thead>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="align-middle" valign="middle">
-                <input name="action" type="text">
-            </td>
-            <td rowspan="2">
-                <div>
-                    <span>c:&nbsp;&nbsp;&nbsp;</span>
-                    <input name="with-date" type="date">
-                </div>
-                <div class="mt-2">
-                    <span>по:&nbsp;</span>
-                    <input name="from-to-date" type="date">
-                </div>
-            </td>
-        </tr>
         <tbody id="control-table--tbody">
         <?php foreach ($arrayData as $index => $item) {
             printf("<tr class='table-tr-date'><th scope=\"row\">%d</th><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", $item['id'], $item['nickname'], $item['title'], $item['actions'], date('d.m.Y H:i:s', strtotime($item['created_at'])));
         } ?>
+        <tr>
+            <td colspan="4">
+               <span class="float-right">Всего:</span>
+            </td>
+            <td>
+                <span><?= $quantityRows; ?></span>
+            </td>
+        </tr>
         </tbody>
 
     </table>
-
 
 <?php } else { ?>
     <table width="100%" border="0" align="center" cellpadding="5" cellspacing="0">
