@@ -11,6 +11,7 @@ define("VALID_CMS", 1);
 
 require_once PATH . '/core/cms.php';
 
+
 $dir = 'cache/';
 
 $_SESSION['brand_option_name'] = 'Производитель';
@@ -382,10 +383,17 @@ if ($type == 'catalog') {
                 }
                 $z->next('Товар');
                 $current_product_num++;
+
             }
             $z->close();
             print "success\r\n";
             unset($_SESSION['last_1c_imported_product_num']);
+            if($current_product_num) {
+                include_once PATH . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'LoadItemXml.php';
+                $pathToFile = PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . 'import.xml';
+                $loadItemXmlInstance = new LoadItemXml($pathToFile);
+                $loadItemXmlInstance->importProduct();
+            }
         } elseif ($filename === 'offers.xml') {
             $z = new XMLReader;
             $z->open($dir . $filename);
@@ -424,6 +432,7 @@ if ($type == 'catalog') {
         }
     }
 }
+#region function import_categories
 /*
 function import_categories($xml, $parent_id = 1)
 {
@@ -454,6 +463,8 @@ function import_categories($xml, $parent_id = 1)
 
 }
 */
+#endregion
+#region  function import_features
 /*
 function import_features($xml)
 {
@@ -517,6 +528,7 @@ function import_features($xml)
     }
 }
 */
+#endregion
 function import_variant($xml_variant)
 {
     $variant = null;
@@ -561,6 +573,7 @@ foreach ($xml_variant->Цены->Цена as $value) {
 
     return true;
 }
+#region function importChars
 /*
 function importChars($product_id, $xml_product)
 {
@@ -604,6 +617,8 @@ function importChars($product_id, $xml_product)
     return true;
 }
 */
+#endregion
+
 function import_product($xml_product)
 {
 
