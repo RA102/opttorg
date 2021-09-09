@@ -23,9 +23,9 @@ if (isset($_POST['vens47jiklo']) || isset($_POST['catrehiu647uii'])) {
 			
 
 		$hostname="localhost";
-		$username="sopt1";
-		$password="sopt112151";
-		$dbname="sopt1";
+		$username="sopt1_2";
+		$password="root";
+		$dbname="root";
 		mysqli_connect($hostname,$username, $password) or die ("<html>script language='JavaScript'>alert('Не удается подключиться к базе данных. Повторите попытку позже.'),history.go(-1)/script></html>");
 		mysqli_select_db($dbname);
 		mysqli_query ("SET NAMES utf8");

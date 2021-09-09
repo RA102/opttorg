@@ -4,6 +4,7 @@
 
 tmp.*
 temp.*
+csv.php
 
 *.xml
 config.inc.php
