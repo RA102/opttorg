@@ -21,8 +21,8 @@ $model = new cms_model_shop();
 
 if (file_exists( __DIR__ . '/../'. $dir . $filename)) {
 
-    $z = new XMLReader;
-    $errorOpen = $z->open(__DIR__ . '/../' . "/cache/import.xml");
+    $z = new XMLReader();
+    $isOpen = $z->open(__DIR__ . '/../' . "/cache/import.xml");
 
     $z->read();
 
@@ -81,9 +81,8 @@ function import_product($xml_product)
             if ($instanceDb->num_rows($result)) {
                 $product_id = $instanceDb->fetch_assoc($result);
             }
-
         } else {
-            return;
+            return 0;
         }
 
     } catch (Exception $exception) {
