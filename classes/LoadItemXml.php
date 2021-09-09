@@ -44,7 +44,7 @@ class LoadItemXml
 
             if ($itemArticle) {
 
-                $sql = "SELECT id FROM cms_shop_items WHERE art_no LIKE \"$itemArticle\"";
+                $sql = "SELECT id FROM cms_shop_items WHERE art_no = \"$itemArticle\"";
                 $result = $instanceDb->query($sql);
                 if ($instanceDb->num_rows($result)) {
                     $productId = $instanceDb->fetch_assoc($result);

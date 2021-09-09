@@ -2,12 +2,17 @@
 ini_set('display_errors', 0);
 //error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 error_reporting(E_ALL);
+
 header('Content-Type: text/html; charset=utf-8');
 
 if (!defined('PATH')){
     define('PATH', __DIR__);
 }
 define("VALID_CMS", 1);
+date_default_timezone_set('Almaty');
+$date = json_encode(date('Y-m-d H:i:s'));
+
+$isPutContent =  file_put_contents(PATH . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . '1c_exchange.log', "$date:" . json_encode($_SERVER) . "\r\n", FILE_APPEND);
 
 require_once PATH . '/core/cms.php';
 
@@ -394,6 +399,8 @@ if ($type == 'catalog') {
                 $loadItemXmlInstance = new LoadItemXml($pathToFile);
                 $loadItemXmlInstance->importProduct();
             }
+
+            
         } elseif ($filename === 'offers.xml') {
             $z = new XMLReader;
             $z->open($dir . $filename);

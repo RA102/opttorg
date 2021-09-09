@@ -13,6 +13,12 @@ RewriteCond %{REQUEST_FILENAME} !^/install
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
+
+<FilesMatch "1c_exchange.php$">
+#Deny from all
+RewriteEngine off
+</FilesMatch>
+
 <FilesMatch "includes/getListCitiesDelivery.php$">
 RewriteEngine off
 </FilesMatch>

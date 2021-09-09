@@ -3538,3 +3538,24 @@ array (
 array (
   '/shop/akcii' => '',
 )
+09-09-2021 16:04:42
+array (
+)
+09-09-2021 16:05:08
+array (
+  '/shop/akcii' => '',
+)
+09-09-2021 16:05:21
+array (
+  'type' => 'catalog',
+  'mode' => 'import',
+  'filename' => 'import.xml',
+)
+09-09-2021 16:12:06
+array (
+  '/shop/akcii' => '',
+)
+09-09-2021 16:12:51
+array (
+  '/shop/vanny/akrilovye-uglovye/vanna-maiorka-xl-160-95-levaja-santek-25984_html' => '',
+)
