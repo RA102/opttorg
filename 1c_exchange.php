@@ -9,7 +9,7 @@ if (!defined('PATH')){
     define('PATH', __DIR__);
 }
 define("VALID_CMS", 1);
-date_default_timezone_set('Almaty');
+date_default_timezone_set('Asia/Almaty');
 $date = json_encode(date('Y-m-d H:i:s'));
 
 $isPutContent =  file_put_contents(PATH . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . '1c_exchange.log', "$date:" . json_encode($_SERVER) . "\r\n", FILE_APPEND);
