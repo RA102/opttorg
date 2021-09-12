@@ -2,12 +2,17 @@
 
 const USER = 'root';
 const PASSWORD = 'rTa354rDVb';
-const HOST = 'localhost';
+const HOST = '127.0.0.1'; //'185.116.194.174';
 const DB = 'sopt1';
-const POST = 9206;
+const PORT = 9206;
 
-
-
+$dsn = "mysql:host=" . HOST . ';port=' . PORT;
+$pdo = new PDO($dsn, USER, PASSWORD);
+$searchQuery = "SELECT * FROM sopt1 WHERE MATCH ('унитаз')";
+foreach ($pdo->query($searchQuery) as $row) {
+    print_r($row);
+}
+//var_dump($db);
 
 //$mysqli  = new mysqli(HOST, USER, PASSWORD, DB, 9206);
 //$mysqli->set_charset('utf8');

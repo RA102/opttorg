@@ -1587,24 +1587,7 @@ function shop()
         if (!$cfg['yml']['base_curr']) {
             $cfg['yml']['base_curr'] = 'KZT';
         }
-//        if (!$cfg['yml']['curr']['RUR']) {
-//            $cfg['yml']['curr']['RUR'] = 'CBRF';
-//        }
-//        if (!$cfg['yml']['curr']['UAH']) {
-//            $cfg['yml']['curr']['UAH'] = 'CBRF';
-//        }
-//        if (!$cfg['yml']['curr']['BYR']) {
-//            $cfg['yml']['curr']['BYR'] = 'CBRF';
-//        }
-//        if (!$cfg['yml']['curr']['KZT']) {
-//            $cfg['yml']['curr']['KZT'] = 'CBRF';
-//        }
-//        if (!$cfg['yml']['curr']['USD']) {
-//            $cfg['yml']['curr']['USD'] = 'CBRF';
-//        }
-//        if (!$cfg['yml']['curr']['EUR']) {
-//            $cfg['yml']['curr']['EUR'] = 'CBRF';
-//        }
+
         if (!$cfg['yml']['ldc']) {
             $cfg['yml']['ldc'] = 0;
         }
