@@ -4525,6 +4525,7 @@ if ($opt == 'set_order_status') {
 
     if ($opt == 'saveymlcfg') {
         $cfg['yml']['shop_name'] = 'sanmarket.kz';
+        $cfg['yml']['update_time'] = time();
 
         $inCore->saveComponentConfig('shop', $cfg);
 
@@ -5244,7 +5245,7 @@ if ($opt == 'set_order_status') {
                           method="post" name="optform" target="_self" id="form1">
 
                         <div id="config_tabs" style="margin-top:12px;">
-                            <?php $lastdate = getdate($cfg['yml']['shop_name']); ?>
+                            <?php $lastdate = getdate($cfg['yml']['update_time']); ?>
                             <div id="url">
                                 <p style="font-size:14px;color:#09C">1) Ссылка на прайс-лист для
                                     <b>Kaspi KZ</b> (последний от <?php echo $lastdate['mday'] . '.' . $lastdate['mon'] . '.' . $lastdate['year'] . ', ' . $lastdate['hours'] . ':' . $lastdate['minutes']; ?>):

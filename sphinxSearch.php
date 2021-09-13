@@ -8,33 +8,37 @@ const PORT = 9206;
 
 $dsn = "mysql:host=" . HOST . ';port=' . PORT;
 $pdo = new PDO($dsn, USER, PASSWORD);
-$searchQuery = "SELECT * FROM sopt1 WHERE MATCH ('унитаз')";
-foreach ($pdo->query($searchQuery) as $row) {
-    print_r($row);
-}
-//var_dump($db);
+$searchQuery = "SELECT id FROM indx_items WHERE MATCH ('унитаз')";
+$result = $pdo->query($searchQuery);
+//$squery = 'SELECT i.id, i.title FROM cms_shop_items i WHERE i.id = :id';
+$resultId = [];
+foreach ($result as $index => $row) {
+//    $stm = $pdo->prepare($squery);
+//    $stm->execute([':id' => $row['id']]);
 
-//$mysqli  = new mysqli(HOST, USER, PASSWORD, DB, 9206);
-//$mysqli->set_charset('utf8');
-//if ($mysqli->connect_errno) {
-//    throw new RuntimeException('ошибка mysqli: ' . $mysqli->connect_error);
-//}
-//
-//
-//
-//$request = 'унитаз';
-//try {
-//    $stmt = $mysqli->prepare("SELECT id, title FROM cms_shop_items WHERE  MATCH (?)");
-//    var_dump($stmt);
-//    $stmt->bind_param('s', $request);
-//    $result = $stmt->execute();
-//    $stmt->bind_result($id, $title);
-//    while ($stmt->fetch()) {
-//        printf("%i %s", $id, $title);
-//    }
-//
-//    $stmt->close();
-//    $mysqli->close();
-//} catch(Exception $exception) {
-//    echo $exception->getCode() . ' : ' . $exception->getMessage();
-//}
+    $resultId[] = $row['id'];
+    echo '<pre>';
+    print_r($row['id']);
+    echo '</pre>';
+}
+
+$strId = implode(',', $resultId);
+
+$dsn2 = "mysql:dbname=sopt1;host=localhost";
+
+$pdo2 = new PDO($dsn2, USER, PASSWORD);
+
+$sql = "SELECT i.id, i.title FROM cms_shop_items as i WHERE i.id IN ($strId)";
+
+
+$result2 = $pdo2->query($sql);
+$errorInfo = $pdo2->errorInfo();
+if($errorInfo[1]) {
+    var_dump($pdo2->errorInfo());
+} else {
+    foreach ($result2 as $index => $item) {
+        echo '<pre>';
+        print_r($item);
+        echo '</pre>';
+    }
+}
