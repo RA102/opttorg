@@ -302,15 +302,15 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-xl-9 px-0" >
                         <div class="row">
                             <div class=" col-xl-8 mt-auto">
-<!--                                <div class="input-group">-->
-<!--                                    <input id="main-search" name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">-->
-<!--                                    <div class="input-group-append">-->
-<!--                                        <button id="icon-search" class="btn btn-secondary" type="button" >-->
-<!--                                            <img class="" src="/templates/--><?php //echo TEMPLATE; ?><!--/images/glass.png" width="32" height="32" alt="search" />-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                    <ul class="search_result list-search"></ul>-->
-<!--                                </div>-->
+                                <div class="input-group">
+                                    <input id="main-search" name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
+                                    <div class="input-group-append">
+                                        <button id="icon-search" class="btn btn-secondary" type="button" >
+                                            <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
+                                        </button>
+                                    </div>
+                                    <ul class="search_result list-search"></ul>
+                                </div>
                                 <?php $this->printModules('mysearch') ?>
                             </div>
 

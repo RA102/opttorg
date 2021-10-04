@@ -97,6 +97,15 @@ function search(){
 
 	}
 
+
+    if ($do == 'newview') {
+
+        ob_start();
+        include_once $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'basic_free' . DIRECTORY_SEPARATOR . 'newsearch.php';
+
+        return true;
+    }
+
 /* ==================================================================================================== */
 /* ==================================================================================================== */
 	if ($do == 'tag') {
@@ -196,9 +205,9 @@ function search(){
 
         (cmsPage::getInstance())->setRequestIsAjax();
 
-        die(json_encode($response));
+//        die(json_encode($response));
 
-//        cmsCore::jsonOutput($response);
+        cmsCore::jsonOutput($response);
     }
 
 	return true;

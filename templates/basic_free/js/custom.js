@@ -207,8 +207,9 @@ function search(value) {
             'referal': value,
         },
         success: function (data) {
+            console.log(data);
+            let arr = data;//JSON.parse(data);
 
-            let arr = JSON.parse(data);
             let div = $('<div class="search_result_title"></div>');
             
             $(".search_result").empty();
