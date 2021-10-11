@@ -311,6 +311,17 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                     </div>
                                     <ul class="search_result list-search"></ul>
                                 </div>
+                                <?php if(intval($inUser->id) == 1){ ?>
+                                    <div class="input-group">
+                                        <input id="main-search2" name="referal2" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
+                                        <div class="input-group-append">
+                                            <button id="icon-search2" class="btn btn-secondary" type="button" >
+                                                <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
+                                            </button>
+                                        </div>
+                                        <ul class="search_result2 list-search"></ul>
+                                    </div>
+                                <?php } ?>
                                 <?php $this->printModules('mysearch') ?>
                             </div>
 

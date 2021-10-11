@@ -2764,7 +2764,8 @@ class cmsCore {
 
     }
 
-    public static function jsonOutput($data = [], $is_header = true){
+    public static function jsonOutput($data = [], $is_header = true)
+    {
         // очищаем буфер
         if (ob_get_length()) {
             ob_end_clean();

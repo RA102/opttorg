@@ -103,6 +103,7 @@ function search(){
         ob_start();
         include_once $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'basic_free' . DIRECTORY_SEPARATOR . 'newsearch.php';
 
+
         return true;
     }
 
@@ -208,6 +209,48 @@ function search(){
 //        die(json_encode($response));
 
         cmsCore::jsonOutput($response);
+    }
+
+    if ($do == 'words2') {
+//        $inCore::loadModel('sphinx');
+//
+//        $request = $inCore::request('value');
+//        var_dump($request);
+//
+//        $sphinx = new cms_model_sphinx();
+//        $result = $sphinx->querySpinx($request);
+
+        define("USER", ''); //root
+        define("PASSWORD", ''); //rTa354rDVb
+        define("HOST", '127.0.0.1'); //'185.116.194.174';
+        define("DB", 'sopt1');
+        define("PORT", '9206');
+
+//        $dsn = "mysql:host=" . HOST . ';port=' . PORT;
+        $dsn = "mysql:host=127.0.0.1;port=9206";
+        $pdo = new \PDO($dsn, '', '');
+        $searchQuery = "SELECT * FROM idx_items WHERE MATCH ('душ') LIMIT 100";
+
+        $resultId = [];
+        if(false === $result = $pdo->query($searchQuery)) {
+            var_dump($pdo->errorInfo());
+        } else {
+
+            while($row = $result->fetch()) {
+                $resultId[] = $row;
+            }
+        }
+//$squery = 'SELECT i.id, i.title FROM cms_shop_items i WHERE i.id = :id';
+//        $resultId = [];
+//        foreach ($result as $index => $row) {
+//            $resultId[] = $row['id'];
+//            echo '<pre>';
+//            print_r($row['id']);
+//            echo '</pre>';
+//        }
+
+        $inPage->setRequestIsAjax();
+        $inCore::jsonOutput($resultId);
     }
 
 	return true;

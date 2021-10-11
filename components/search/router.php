@@ -32,6 +32,12 @@
             1 => 'value'
         );
 
+        $routes[] = array(
+            '_uri' => '/^search\/words2\/(.+)$/i',
+            'do' => 'words2',
+            1 => 'value'
+        );
+
         return $routes;
 
     }
