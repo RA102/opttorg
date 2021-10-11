@@ -30,11 +30,17 @@ $(document).ready( function () {
             search(this.value);
         }
     });
+
+    $('#main-search2').bind("input", function (e) {
+        if (this.value.length >= 3) {
+            search(this.value);
+        }
+    });
     
     // поиск по сайту мобильный
     $('.search-mobile-input').bind("input", function (e) {
         if (this.value.length >= 3) {
-            search(this.value);
+            search2(this.value);
         }
     });
     
@@ -259,40 +265,19 @@ function search(value) {
     });
 }
 
-// не используется
-function fetchResponse() {
-    const url = 'https://jet7777.ru/cabinet/api/calc_transport';
-    const data = {
-        "access_token": '$2y$10$cSD56j/K4OmGe5stmop2.u2ddfKGwixPXaRqOJ3.qff0.aiLW0Dvy',
-        "cityfrom": "Караганды-(Карагандинская область)",
-        "cityto": 'Тараз-(Жамбыльская область)',
-        "ves": 30,
-        "obm3": 0.5,
-        "dlina":  '1.92',
-        "mest": 1,
-        "cost": '20700',
-        "naimenovanie": "САНТЕХНИКА",
-        "dops": {
-            "D_HARDPACK": 0,
-            "D_EP": 0,
-            "D_PB": 1,
-            "D_VPP": 0,
-            "D_SP": 0,
-            "D_SDOC": 0,
-            "D_EK": 0
+function search2(value) {
+    let url =  "/search?do=words2&value="; //"/432gsdt55gs34hhj.php";
+    $.ajax({
+        type: 'post',
+        url: url + value, //Путь к обработчику
+
+        data: {
+            'referal': value,
+        },
+        success: function (data) {
+            console.log(data);
         }
-    };
-    
-    const other_params = {
-        headers: {"content_type": "application/json; character=UTF-8"},
-        body: data,
-        method: "POST"
-    };
-    
-    fetch(url, other_params)
-        .then(function(response) {
-            console.log(response);
-        })
+    });
 }
 
 
