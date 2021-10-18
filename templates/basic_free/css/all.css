@@ -1437,39 +1437,7 @@ header {
     text-transform: capitalize;
 }
 
-.navbar-brand img {
-    max-height: 52px;
-    width: 180px;
-}
 
-
-@media (min-width: 576px) {
-    .navbar-brand img {
-        max-height: 52px;
-        width: 220px;
-    }
-}
-
-@media (min-width: 768px) {
-    .navbar-brand img {
-        max-height: 52px;
-        width: 245px;
-    }
-}
-
-@media (min-width: 992px) {
-    .navbar-brand img {
-        max-height: 52px;
-        width: 245px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .navbar-brand img {
-        max-height: 52px;
-        width: 245px;
-    }
-}
 
 
 /*  end header  */
@@ -2796,3 +2764,94 @@ input[type=number]{
 }
 
 
+input.form-control.search_input {
+    height: auto;
+    border: 1px solid #0C5DA5;
+}
+
+div.input-group-append.btn-search {
+    background: #0C5DA5;
+    border: 1px solid #0C5DA5;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.wrapper-button-search {
+    background: #0C5DA5;
+    border: 1px solid #0C5DA5;
+}
+
+.wrapper-list-search {
+    z-index: 100;
+    background: #fff;
+    width: 100%;
+    top: 60px;
+    border: 1px solid #0C5DA5;
+    box-shadow: 0 5px 5px 0 rgba(12, 93, 165, 0.5), 0 1px 3px 0 rgba(12, 93, 165, 0.5);
+}
+
+.wrapper-list-search::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-bottom-color: #0C5DA5;
+    top: -20px;
+    left: 25px;
+}
+
+.wrapper-list-search::after{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-bottom-color: #ffffff;
+    left: 25px;
+    top: -19px;
+}
+
+.wrapper-item-list-search {
+    margin-bottom: 20px;
+    width: 100%;
+    max-height: 550px;
+    overflow-y: scroll;
+
+}
+
+.title-list-search {
+    font-family: Tahoma, Arial, sans-serif;
+    width: 220px;
+    font-size: 15px;
+    line-height: 2.29;
+    padding-top: 5px;
+    color: black;
+    font-weight: bold;
+}
+
+.item-list-search {
+    color: #000000;
+    display: block;
+    padding: 5px 20px ;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-list-search:hover{
+    color: #000000;
+    background: rgba(47, 138, 227, 0.1);
+}
+
+.wrapper-mobile-search-input {
+    background-color: #E6E6E6;
+}
+
+/*header*/
+
+.navbar-brand img {
+    height: auto;
+    width: 100%;
+
+}

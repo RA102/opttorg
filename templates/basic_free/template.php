@@ -290,90 +290,91 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <header class="navbar-nav navbar-expand">
         <div class="main-body">
             <div class="container-fluid ">
-                <div class="row px-0 header-row">
-                    <!--  logo    -->
-                    <div class="col-6 col-lg-6 col-xl-3 mt-auto">
-                        <a class="navbar-brand" href="/" rel="home" title="Интернет-магазин сантехники sanmarket">
-                            <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
-                        </a>
+                <div class="row">
+                <!--  logo    -->
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 align-self-end">
+                        <div class="row px-0 header-row">
+                            <div class="col">
+                                <a class="navbar-brand" href="/" rel="home" title="Интернет-магазин сантехники sanmarket">
+                                    <img class="img-fluid" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <!-- /logo -->
-
-                    <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-xl-9 px-0" >
-                        <div class="row">
-                            <div class=" col-xl-8 mt-auto">
-                                <div class="input-group">
-                                    <input id="main-search" name="referal" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
-                                    <div class="input-group-append">
-                                        <button id="icon-search" class="btn btn-secondary" type="button" >
+                <!-- /logo -->
+                <!--    иконки мобильная версия (акции, телефон, корзина)     -->
+                    <div class="col-sm-6 col-md-6 col-lg-6 d-xl-none">
+                        <div class="row justify-content-end header-row">
+                            <div class="col-auto">
+                                <a href="https://wa.me/77775409927">
+                                    <img class="img-icon img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat">
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <!--					<a href="tel:+77212503272">+7 7212 47 78 24</a><br />-->
+                                <a href="tel:+77775409927">
+                                    <img class="img-icon " src="/templates/basic_free/images/top/PHONE.png" alt="phone">
+                                </a>
+                            </div>
+                            <div class="col-auto">
+                                <span class="hlink" data-href="<?php echo base64_encode('/shop/cart.html'); ?>"><?php $this->printModules('b-cart'); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                <!-- end иконки мобильная версия (акции, телефон, корзина)     -->
+                <!-- search input          -->
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 align-self-end my-sm-5 my-md-5 my-lg-5">
+                        <div class="input-group">
+                            <input id="main-search2" type="search" class="form-control search_input" placeholder="Поиск" aria-label="Recipient's username">
+                            <div class="input-group-append btn-search">
+                                        <span id="basic-addon2" class="input-group-text wrapper-button-search" >
                                             <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
-                                        </button>
+                                        </span>
+                            </div>
+                            <div class="position-absolute wrapper-list-search d-none">
+                                <div class="container">
+                                    <div class="row flex-column row-list-search">
+
                                     </div>
-                                    <ul class="search_result list-search"></ul>
+
                                 </div>
-                                <?php if(intval($inUser->id) == 1){ ?>
-                                    <div class="input-group">
-                                        <input id="main-search2" name="referal2" class="input-search form-control position-relative" type="search" placeholder="Начать поиск...">
-                                        <div class="input-group-append">
-                                            <button id="icon-search2" class="btn btn-secondary" type="button" >
-                                                <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
-                                            </button>
+                            </div>
+                        </div>
+                        <?php $this->printModules('mysearch') ?>
+                    </div>
+                <!-- end search input      -->
+                <!-- кнопка Заказать звонок  -->
+                    <div class="col-sm-none col-md-none col-lg-none col-xl-3 px-0" >
+                        <div class="row justify-content-end">
+                            <div class="d-block">
+                                <div class="d-block mb-2 wrapper-login">
+                                    <img class="d-inline-block mr-2" src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="userImg" width="26" height="26">
+                                    <?php $userlogs = $inUser->login;
+                                    $usgro = $inUser->group_id;
+                                    ?>
+                                    <?php if ($userlogs) { ?>
+                                        <div id="logout-wrapper">
+                                            <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
+                                            <div class="jlreg_auth_lgogout" style="display: inline-block;">
+                                                <img class="mx-2" src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
+                                                <a id="logout-exit" href="/logout">Выход</a>
+                                            </div>
                                         </div>
-                                        <ul class="search_result2 list-search"></ul>
-                                    </div>
-                                <?php } ?>
-                                <?php $this->printModules('mysearch') ?>
-                            </div>
-
-                            <div class="col-lg-4 col-xl-4 mt-auto" >
-                                <div class="d-block">
-                                    <div class="d-block mb-2 wrapper-login">
-                                        <img class="d-inline-block mr-2" src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="userImg" width="26" height="26">
-                                        <?php $userlogs = $inUser->login;
-                                        $usgro = $inUser->group_id;
-                                        ?>
-                                        <?php if ($userlogs) { ?>
-                                            <div id="logout-wrapper">
-                                                <a id="user-name" style="font-size: 16px; font-weight: 700;" href="/users/<?php echo $userlogs; ?>"><?php echo $userlogs; ?> </a>
-                                                <div class="jlreg_auth_lgogout" style="display: inline-block;">
-                                                    <img class="mx-2" src="/templates/<?php echo TEMPLATE; ?>/images/logout.png" alt="exit" width="18" height="18">
-                                                    <a id="logout-exit" href="/logout">Выход</a>
-                                                </div>
-                                            </div>
-                                        <?php } else { ?>
-                                            <div class="d-inline-block">
-                                                <span id="btn-login" class="login" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
-                                                <span class="mx-2">/</span>
-                                                <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
-                                            </div>
-                                        <?php } ?>
-                                    </div>
-                                    <a class="btn-order-call ml-auto" href="#" data-toggle="modal" data-target="#order-call" >Заказать звонок</a> <!--  -->
+                                    <?php } else { ?>
+                                        <div class="d-inline-block">
+                                            <span id="btn-login" class="login" style="background-color: #ffffff;" data-toggle="modal" data-target="#modalLogin">Войти</span>
+                                            <span class="mx-2">/</span>
+                                            <span id="registration" class="registration" data-toggle="modal" data-target="#modalAuth">Регистрация</span>
+                                        </div>
+                                    <?php } ?>
                                 </div>
+                                <a class="btn-order-call ml-auto" href="#" data-toggle="modal" data-target="#order-call" >Заказать звонок</a> <!--  -->
                             </div>
                         </div>
                     </div>
-
-                    <!--    иконки мобильная версия (акции, телефон, корзина)     -->
-                    <div class="col-6 col-md-6 col-lg-6 d-flex d-lg-flex d-xl-none justify-content-flex-end mobile-block">
-                        <div class="header-icon">
-                            <a href="https://wa.me/77775409927">
-                                <img class="img-icon img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat">
-                            </a>
-                        </div>
-                        <div class="header-icon">
-                            <!--					<a href="tel:+77212503272">+7 7212 47 78 24</a><br />-->
-                            <a href="tel:+77775409927">
-                                <img class="img-icon " src="/templates/basic_free/images/top/PHONE.png" alt="phone">
-                            </a>
-                        </div>
-                        <div class="header-icon">
-                            <span class="hlink" data-href="<?php echo base64_encode('/shop/cart.html'); ?>"><?php $this->printModules('b-cart'); ?></span>
-                        </div>
-                    </div>
+                <!-- end кнопка Заказать звонок                   -->
                 </div>
-                <div class="d-none">
-                </div>
+            </div>
 
                 <nav class="row d-none d-sm-none d-md-none d-lg-none d-xl-flex border-top justify-content-between">
                     <div class="position-relative">
@@ -421,15 +422,15 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         </div>
     </div>
     <div class="main-body">
-        <div class="container-fluid d-block d-lg-block d-xl-none mt-5 mb-5">
-            <div class="search-mobile">
-                <input class="search-mobile-input search-all" type="text" placeholder="Начать поиск...">
-                <ul class="search_result list-search"></ul>
-                <button id="icon-search" class="btn-search-mobile " type="submit">
-                    <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
-                </button>
-            </div>
-        </div>
+<!--        <div class="container-fluid d-block d-lg-block d-xl-none mt-5 mb-5">-->
+<!--            <div class="search-mobile">-->
+<!--                <input class="search-mobile-input search-all" type="text" placeholder="Начать поиск...">-->
+<!--                <ul class="search_result list-search"></ul>-->
+<!--                <button id="icon-search" class="btn-search-mobile " type="submit">-->
+<!--                    <img class="" src="/templates/--><?php //echo TEMPLATE; ?><!--/images/glass.png" width="32" height="32" alt="search" />-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
         <?php if ($this->pathway['1']['link'] == '/den-rozhdenie.html') { ?>
             <main class="main" style="margin-top: 0; background-color: #ffffff">
 
