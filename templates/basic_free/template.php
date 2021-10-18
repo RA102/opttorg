@@ -344,7 +344,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     </div>
                 <!-- end search input      -->
                 <!-- кнопка Заказать звонок  -->
-                    <div class="col-sm-none col-md-none col-lg-none col-xl-3 px-0" >
+                    <div class="d-sm-none d-md-none d-lg-none col-xl-3 px-0" >
                         <div class="row justify-content-end">
                             <div class="d-block">
                                 <div class="d-block mb-2 wrapper-login">
