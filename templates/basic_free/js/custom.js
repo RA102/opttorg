@@ -25,7 +25,7 @@ $(document).ready( function () {
     let ajaxSuccess = 0;
     
     //  поиск по сайту xl
-    $('.input-search').bind("input", function (e) {
+    $('#main-search').bind("input", function (e) {
         if (this.value.length >= 3) {
             search(this.value);
         }
@@ -36,6 +36,13 @@ $(document).ready( function () {
             search(this.value);
         }
     });
+
+    $('#icon-search').on('click', function(event) {
+        console.log($('.input-search').val().length);
+        if ($('.input-search').val().length >= 3) {
+            search($('.input-search').val());
+        }
+    })
     
     // поиск по сайту мобильный
     $('.search-mobile-input').bind("input", function (e) {
@@ -72,7 +79,7 @@ $(document).ready( function () {
         $(".search_result").fadeOut();
     });
     
-    $("input[name='referal']").keyup(function (e) {
+    $("#main-search").keyup(function (e) {
         if (e.which == 8 && this.length < 3) {
             $('.search_result').empty();
         }
@@ -203,60 +210,27 @@ $(document).ready( function () {
     
 })
 
-function search(value) {
+function search2(value) {
     let url =  "/search?do=words&value="; //"/432gsdt55gs34hhj.php";
     $.ajax({
         type: 'post',
         url: url + value, //Путь к обработчику
 
         data: {
-            'referal': value,
+            'value': value,
         },
         success: function (data) {
             console.log(data);
             let arr = data;//JSON.parse(data);
+            let titleListSearch = $('<div class="col title-list-search"></div>');
+            let itemListSearch = $('a', {
+                'class': 'item-list-search',
+                'href': ''
+            });
 
-            let div = $('<div class="search_result_title"></div>');
             
             $(".search_result").empty();
 
-            console.log("categories" in arr);
-            if (!("categoies" in arr) && !("vendors" in arr) && !("ven_code" in arr) && !("prod" in arr)) {
-                $(".search_result").append('<li class="search_result_item"><p class="">Ничего не найдено</p></li>')
-            }
-            if("categoies" in arr || "vendors" in arr || "ven_code" in arr || "prod" in arr ) {
-
-                if ("categories" in arr) {
-                    $('<div></div>').prependTo('#categories');
-                    $(".search_result").append('<h5 class="text-bold">Категории</h5>');
-                    $(".category").remove();
-                    arr['categories'].forEach(function (item, i) {
-                        $(".search_result").append(`<a class="d-block pl-3" href="/shop/${item.seolink}">${item?.title}</a>`);
-                    });
-                }
-
-                if ("vendors" in arr) {
-                    $(".search_result").append('<h5 class="text-bold">Производители</h5>');
-                    arr['vendors'].forEach(function (item, i) {
-                        $(".search_result").append(`<a href="/shop/vendors/${item.id}"><li class="vendor search_result_item">${item?.title}</li></a>`);
-                    });
-                }
-
-                if ("ven_code" in arr) {
-                    $(".search_result").append('<h5 class="text-bold">Артикул</h5>');
-                    arr['ven_code'].forEach(function (item, i) {
-                        $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="art_no search_result_item"><span style="color: #000000;">Арт:</span> ${item?.art_no} <br> <span style="color: #000000;">Код товара:</span>${item?.ven_code} <br><span style="color: #000000;">Название: </span> ${item?.title}</li></a>`);
-                    });
-                }
-
-                if ("prod" in arr) {
-                    $(".search_result").append('<h5 class="text-bold">Товары</h5>');
-                    $(".prod").remove();
-                    arr['prod'].forEach(function (item, i) {
-                        $(".search_result").append(`<a href="/shop/${item.seolink}.html"><li class="prod search_result_item">${item?.title}</li></a>`);
-                    });
-                }
-            }
             ajaxSuccess = 1;
 
             $(".search_result").fadeIn();

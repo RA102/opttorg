@@ -475,7 +475,7 @@ class cmsAdmin extends cmsCore {
 
     public function loadComponentInstaller($component){
 
-        return $this->includeFile('components/'.$component.'/install.php');;
+        return $this->includeFile('components/'.$component.'/install.php');
 
     }
 

@@ -1,14 +1,14 @@
 <?php
 
-const USER = 'root';
-const PASSWORD = 'rTa354rDVb';
+const USER = ''; //root
+const PASSWORD = ''; //rTa354rDVb
 const HOST = '127.0.0.1'; //'185.116.194.174';
 const DB = 'sopt1';
 const PORT = 9206;
 
 $dsn = "mysql:host=" . HOST . ';port=' . PORT;
 $pdo = new PDO($dsn, USER, PASSWORD);
-$searchQuery = "SELECT id FROM indx_items WHERE MATCH ('унитаз')";
+$searchQuery = "SELECT * FROM idx_items WHERE MATCH ('city')";
 $result = $pdo->query($searchQuery);
 //$squery = 'SELECT i.id, i.title FROM cms_shop_items i WHERE i.id = :id';
 $resultId = [];

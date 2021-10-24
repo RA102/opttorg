@@ -451,7 +451,7 @@ class Spyc {
       $lineArray = $this->_parseLine($line);
 
       if ($literalBlockStyle)
-        $lineArray = $this->revertLiteralPlaceHolder ($lineArray, $literalBlock);
+        $lineArray = $this->revertLiteralPlaceHolder($lineArray, $literalBlock);
 
       $this->addArray($lineArray, $this->indent);
 

@@ -11,15 +11,16 @@
 //                                                                            //
 /******************************************************************************/
 
-if(!defined('VALID_CMS')) {
+if (!defined('VALID_CMS')) {
     die('ACCESS DENIED');
 }
 
-function search(){
+function search()
+{
 
     $inCore = cmsCore::getInstance();
     $inPage = cmsPage::getInstance();
-    $inDB   = cmsDatabase::getInstance();
+    $inDB = cmsDatabase::getInstance();
 
     global $_LANG;
 
@@ -29,21 +30,21 @@ function search(){
 
     $pagetitle = $inCore->getComponentTitle();
 
-	$inPage->setTitle($pagetitle);
+    $inPage->setTitle($pagetitle);
     $inPage->addPathway($pagetitle, '/search');
-	$inPage->addHead('<link rel="canonical" href="https://sanmarket.kz/search" />');
-/* ==================================================================================================== */
-/* ==================================================================================================== */
-	if ($do == 'view'){
-		if (mb_strlen($model->query)<=3 && mb_strlen($model->query)>=1){
-			cmsCore::addSessionMessage($_LANG['ERROR'].': '.$_LANG['SHORT_QUERY'], 'error');
-			$inCore->redirect('/search');
-		}
+    $inPage->addHead('<link rel="canonical" href="https://sanmarket.kz/search" />');
+    /* ==================================================================================================== */
+    /* ==================================================================================================== */
+    if ($do == 'view') {
+        if (mb_strlen($model->query) <= 3 && mb_strlen($model->query) >= 1) {
+            cmsCore::addSessionMessage($_LANG['ERROR'] . ': ' . $_LANG['SHORT_QUERY'], 'error');
+            $inCore->redirect('/search');
+        }
 
-		if($model->query){
+        if ($model->query) {
 
-			$inPage->addPathway($model->query);
-			$inPage->addPathway($model->query);
+            $inPage->addPathway($model->query);
+            $inPage->addPathway($model->query);
 
 			// если параметры запроса изменились
 			// делаем полный поиск, заполняя кеш
@@ -66,18 +67,18 @@ function search(){
 
 			}
 
-			// формируем условия выборки
-			$model->whereSessionIs(session_id());
-			$model->wherePeriodIs();
-    		$inDB->orderBy('pubdate', ($model->order_by_date ? 'DESC' : 'ASC'));
+            // формируем условия выборки
+            $model->whereSessionIs(session_id());
+            $model->wherePeriodIs();
+            $inDB->orderBy('pubdate', ($model->order_by_date ? 'DESC' : 'ASC'));
 
-			// Получаем общее количество результатов
-			$total = $model->getCountResults();
+            // Получаем общее количество результатов
+            $total = $model->getCountResults();
 
-			// Получаем сами результаты поиска
-			if($total){
-				$results = $model->getResults();
-			}
+            // Получаем сами результаты поиска
+            if ($total) {
+                $results = $model->getResults();
+            }
 
 		}
 
@@ -97,48 +98,38 @@ function search(){
 
 	}
 
+    /* ==================================================================================================== */
+    /* ==================================================================================================== */
+    if ($do == 'tag') {
 
-    if ($do == 'newview') {
-
-        ob_start();
-        include_once $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'basic_free' . DIRECTORY_SEPARATOR . 'newsearch.php';
-
-
-        return true;
-    }
-
-/* ==================================================================================================== */
-/* ==================================================================================================== */
-	if ($do == 'tag') {
-
-		if (mb_strlen($model->query)<=3 && mb_strlen($model->query)>=1) {
-			cmsCore::addSessionMessage($_LANG['EMPTY_QUERY'], 'error');
-			$inCore->redirect('/search');
-		}
+        if (mb_strlen($model->query) <= 3 && mb_strlen($model->query) >= 1) {
+            cmsCore::addSessionMessage($_LANG['EMPTY_QUERY'], 'error');
+            $inCore->redirect('/search');
+        }
 
 		$inPage->setTitle($_LANG['SEARCH_BY_TAG'].' "'.$model->query.'"');
-		$inPage->addHead('<link rel="canonical" href="https://sanmarket.kz/search" />');	
+		$inPage->addHead('<link rel="canonical" href="https://sanmarket.kz/search" />');
 		if($model->query){
 			$inPage->addPathway($_LANG['SEARCH_BY_TAG'].' "'.$model->query.'"');
 		}
 		$inPage->initAutocomplete();
 
-		$total   = $model->getCountTags();
+        $total = $model->getCountTags();
 
 		$results = $model->searchByTag();
 
-		cmsPage::initTemplate('components', 'com_search_tag')->
-                assign('query', $model->query)->
-                assign('results', $results)->
-                assign('total', $total)->
-                assign('autocomplete_js', $inPage->getAutocompleteJS('tagsearch', 'query', false))->
-                assign('external_link', '/index.php?view=search&query='.urlencode($model->query).'&look=allwords')->
-                assign('pagebar', cmsPage::getPagebar($total, $model->page, $model->config['perpage'], '/search/tag/'.urlencode($model->query).'/page%page%.html'))->
-                display('com_search_tag.tpl');
+        cmsPage::initTemplate('components', 'com_search_tag')->
+        assign('query', $model->query)->
+        assign('results', $results)->
+        assign('total', $total)->
+        assign('autocomplete_js', $inPage->getAutocompleteJS('tagsearch', 'query', false))->
+        assign('external_link', '/index.php?view=search&query=' . urlencode($model->query) . '&look=allwords')->
+        assign('pagebar', cmsPage::getPagebar($total, $model->page, $model->config['perpage'], '/search/tag/' . urlencode($model->query) . '/page%page%.html'))->
+        display('com_search_tag.tpl');
 
 	}
 
-    if ($do == 'words') {
+    if ($do == '-words') {
         $request = $inCore::request('value');
         $value = $request;
 
@@ -211,48 +202,22 @@ function search(){
         cmsCore::jsonOutput($response);
     }
 
-    if ($do == 'words2') {
-//        $inCore::loadModel('sphinx');
-//
-//        $request = $inCore::request('value');
-//        var_dump($request);
-//
-//        $sphinx = new cms_model_sphinx();
-//        $result = $sphinx->querySpinx($request);
+    if ($do == 'words') {
 
-        define("USER", ''); //root
-        define("PASSWORD", ''); //rTa354rDVb
-        define("HOST", '127.0.0.1'); //'185.116.194.174';
-        define("DB", 'sopt1');
-        define("PORT", '9206');
+        $wordSearch = $inCore::request('value');
+        $inCore::loadModel('sphinx');
 
-//        $dsn = "mysql:host=" . HOST . ';port=' . PORT;
-        $dsn = "mysql:host=127.0.0.1;port=9206";
-        $pdo = new \PDO($dsn, '', '');
-        $searchQuery = "SELECT * FROM idx_items WHERE MATCH ('душ') LIMIT 100";
+        $sphinxClient = new cms_model_sphinx();
+        $sphinxClient->connectSphinx();
 
-        $resultId = [];
-        if(false === $result = $pdo->query($searchQuery)) {
-            var_dump($pdo->errorInfo());
-        } else {
+        $return['cats'] = $sphinxClient->searchByCategories($wordSearch);
 
-            while($row = $result->fetch()) {
-                $resultId[] = $row;
-            }
-        }
-//$squery = 'SELECT i.id, i.title FROM cms_shop_items i WHERE i.id = :id';
-//        $resultId = [];
-//        foreach ($result as $index => $row) {
-//            $resultId[] = $row['id'];
-//            echo '<pre>';
-//            print_r($row['id']);
-//            echo '</pre>';
-//        }
+        $return['items'] = $sphinxClient->searchByItems($wordSearch);
 
         $inPage->setRequestIsAjax();
-        $inCore::jsonOutput($resultId);
+        $inCore::jsonOutput($return);
     }
 
-	return true;
+    return true;
 
 }

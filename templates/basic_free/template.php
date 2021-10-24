@@ -290,21 +290,24 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <header class="navbar-nav navbar-expand">
         <div class="main-body">
             <div class="container-fluid ">
-                <div class="row">
+                <!-- удалить header-row-->
+                <div class="row header-top-block align-items-end">
+
                 <!--  logo    -->
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 align-self-end">
-                        <div class="row px-0 header-row">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 align-self-end py-0 py-xl-5 mb-4 mb-sm-4 mb-xl-0">
+
+                        <div class="row px-0 ">
                             <div class="col">
                                 <a class="navbar-brand" href="/" rel="home" title="Интернет-магазин сантехники sanmarket">
-                                    <img class="img-fluid" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
+                                    <img class="img-fluid header-logo" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
                                 </a>
                             </div>
                         </div>
                     </div>
                 <!-- /logo -->
                 <!--    иконки мобильная версия (акции, телефон, корзина)     -->
-                    <div class="col-sm-6 col-md-6 col-lg-6 d-xl-none">
-                        <div class="row justify-content-end header-row">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 d-lg-block d-xl-none mb-4 mb-sm-4 mb-xl-0">
+                        <div class="row justify-content-end flex-nowrap header-row">
                             <div class="col-auto">
                                 <a href="https://wa.me/77775409927">
                                     <img class="img-icon img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat">
@@ -323,11 +326,11 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     </div>
                 <!-- end иконки мобильная версия (акции, телефон, корзина)     -->
                 <!-- search input          -->
-                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 align-self-end my-sm-5 my-md-5 my-lg-5">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 align-self-end py-5 px-xl-0 bg-block-search-header">
                         <div class="input-group">
                             <input id="main-search2" type="search" class="form-control search_input" placeholder="Поиск" aria-label="Recipient's username">
                             <div class="input-group-append btn-search">
-                                        <span id="basic-addon2" class="input-group-text wrapper-button-search" >
+                                        <span id="basic-addon2" class="input-group-text wrapper-button-search justify-content-center" >
                                             <img class="" src="/templates/<?php echo TEMPLATE; ?>/images/glass.png" width="32" height="32" alt="search" />
                                         </span>
                             </div>
@@ -344,8 +347,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                     </div>
                 <!-- end search input      -->
                 <!-- кнопка Заказать звонок  -->
-                    <div class="d-sm-none d-md-none d-lg-none col-xl-3 px-0" >
-                        <div class="row justify-content-end">
+                    <div class="d-none d-sm-none d-md-none d-lg-none d-xl-block col-xl-3 px-0 py-5" >
+                        <div class="d-flex justify-content-end">
                             <div class="d-block">
                                 <div class="d-block mb-2 wrapper-login">
                                     <img class="d-inline-block mr-2" src="/templates/<?php echo TEMPLATE; ?>/images/user_img.png" alt="userImg" width="26" height="26">
@@ -376,8 +379,8 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                 </div>
             </div>
 
-                <nav class="row d-none d-sm-none d-md-none d-lg-none d-xl-flex border-top justify-content-between">
-                    <div class="position-relative">
+                <nav class="d-none d-sm-none d-md-none d-lg-none d-xl-flex border-top justify-content-between">
+                    <div class="position-relative col">
                         <?php $this->printModules('top'); ?>
                     </div>
 

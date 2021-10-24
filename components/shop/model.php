@@ -1551,7 +1551,7 @@ class cms_model_shop
         }
 
         //Изображение
-        if (isset($_FILES["imgfile"]["name"]) && @$_FILES["imgfile"]["name"] != '') {
+        if (isset($_FILES["imgfile"]["name"]) && $_FILES["imgfile"]["name"] != '') {
             $tmp_name = $_FILES["imgfile"]["tmp_name"];
             $file = 'shop' . $item_id . '.jpg';
             if (@move_uploaded_file($tmp_name, $_SERVER['DOCUMENT_ROOT'] . "/images/photos/$file")) {
