@@ -289,25 +289,35 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
     <header class="navbar-nav navbar-expand">
         <div class="main-body">
-            <div class="container-fluid ">
+            <div class="container-fluid">
                 <!-- удалить header-row-->
-                <div class="row header-top-block align-items-end">
-
+                <div class="row header-top-block px-0 pb-0 align-items-end">
                 <!--  logo    -->
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 align-self-end py-0 py-xl-5 mb-4 mb-sm-4 mb-xl-0">
+                    <div
+                        class="align-self-end py-0 mb-4 mb-sm-4 mb-xl-0 header-wrapper-block-logo"
+                    >
+                        <div
+                            class="d-flex justify-content-center justify-content-sm-between justify-content-md-between justify-content-lg-between justify-content-xl-between"
+                        >
+                                <a
+                                    class="navbar-brand"
+                                    href="/"
+                                    rel="home"
+                                    title="Интернет-магазин сантехники sanmarket"
+                                >
+                                    <img
+                                        class="img-fluid header-logo"
+                                        src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg"
+                                        alt="SanMarket интернет-магазин сантехники в Казахстане"
+                                    />
 
-                        <div class="row px-0 ">
-                            <div class="col">
-                                <a class="navbar-brand" href="/" rel="home" title="Интернет-магазин сантехники sanmarket">
-                                    <img class="img-fluid header-logo" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
                                 </a>
-                            </div>
                         </div>
                     </div>
                 <!-- /logo -->
                 <!--    иконки мобильная версия (акции, телефон, корзина)     -->
-                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 d-lg-block d-xl-none mb-4 mb-sm-4 mb-xl-0">
-                        <div class="row justify-content-end flex-nowrap header-row">
+                    <div class="mb-4 mb-sm-4 mb-xl-0 header-wrapper-block-mobile-icons">
+                        <div class="row justify-content-end flex-nowrap">
                             <div class="col-auto">
                                 <a href="https://wa.me/77775409927">
                                     <img class="img-icon img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat">

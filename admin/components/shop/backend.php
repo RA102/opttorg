@@ -133,6 +133,10 @@ if ($opt == 'list_items' || $opt == 'list_cats' || $opt == 'list_chars' || $opt 
     $toolmenu[16]['title'] = 'Фиксация цен';
     $toolmenu[16]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=fixprice';
 
+    $toolmenu[17]['icon'] = 'compare-icon-11532.png';
+    $toolmenu[17]['title'] = 'Товары которые давно не обновлялись';
+    $toolmenu[17]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=infoLastUpdated';
+
     if ($opt != 'load_chars') {
         cpToolMenu($toolmenu);
         $toolmenu = array();
@@ -3248,8 +3252,12 @@ if ($opt == 'set_order_status') {
             cpAddPathway($mod['title'], '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_discount&item_id=' . $_REQUEST['item_id']);
         }
         ?>
-        <form id="addform" name="addform" method="post"
-              action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>">
+        <form
+            id="addform"
+            name="addform"
+            method="post"
+            action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>"
+        >
             <table width="584" border="0" cellspacing="5" class="proptable">
                 <tr>
                     <td width="250"><strong>Название: </strong></td>
@@ -5526,6 +5534,64 @@ if ($opt == 'set_order_status') {
 
         cmsCore::jsonOutput(['data' => $model->availableInStock($artNo)]);
     }
+
+    if ($opt == 'infoLastUpdated') {
+        $component_id = $inCore->request('id', 'int', 0);
+        $page = $inCore->request('page', 'int', 1);
+        $perPage = 30;
+    ?>
+        <div class="container-fluid mt-2">
+            <div class="row ">
+                <div class="col-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="30">#</th>
+                                <th>id</th>
+                                <th>Название</th>
+                                <th>код 1с</th>
+                                <th>код произ-ля</th>
+                                <th width="200">Дата последнего обновления</th>
+                                <th>Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $query = "SELECT id, title, art_no, ven_code, update_at FROM cms_shop_items WHERE (DATEDIFF(CURRENT_DATE, update_at) > 2)";
+                        $queryLimit = " LIMIT $page, $perPage";
+                        $result = $inDB->query($query);
+                        $totalPages = $inDB->num_rows($result);
+                        $result = $inDB->query($query . $queryLimit);
+                        if ($totalPages) {
+                            $productsNotUpdatedMoreOneDay = $inDB->fetch_all($result);
+                            foreach ($productsNotUpdatedMoreOneDay as $index => $item) {
+                                echo "<tr>";
+                                echo "<td><input name='items[]' type='checkbox' value='" . $item->id . "'/></td>";
+                                echo "<td>$item->id</td>";
+                                echo "<td>$item->title</td>";
+                                echo "<td>$item->art_no</td>";
+                                echo "<td>$item->ven_code</td>";
+                                echo "<td>$item->update_at</td>";
+                                echo "<td><a href='#' onclick=\"jsmsg('$item->title', '?view=components&do=config&id={$_REQUEST['id']}&opt=delete_item&item_id=$item->id')\">Удалить</a></td>";
+                                echo "</tr>";
+                            }
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12">
+                    <?php
+                    $pages = ceil($totalPages / $perPage);
+                    if ($pages > 1) {
+                        echo cmsPage::getPagebar($totalPages, $page, $perPage, $base_uri . "/admin/index.php?view=components&do=config&id={$_REQUEST['id']}&opt=infoLastUpdated&page=%page%");
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+    <?php } ?>
 
 
 

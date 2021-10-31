@@ -222,6 +222,7 @@
                         <?php } ?>
                         <th class="lt_header" align="center" width="65">Действия</th>
                         <th class="lt_header" align="center" width="25">FixPrice</th>
+                        <th class="lt_header" align="center" width="25"><a href="">Дата последнего обновление</a></th>
                     </tr>
                     </thead>
                     <?php if ($items) { ?>
@@ -351,6 +352,9 @@
                                 </td>
                                 <td align="center">
                                     <input type="checkbox" value="1" name="fixprice">
+                                </td>
+                                <td align="center" width="100">
+                                    <?php echo $item['update_at']; ?>
                                 </td>
                             </tr>
                         <?php } ?>
