@@ -1455,7 +1455,8 @@ header {
     margin-right: auto;
     margin-left: auto;
     max-width: 1170px;
-    min-width: 100%;
+    min-width: auto;
+    width: 100%;
 }
 
 .listItemMainPage {
@@ -2823,19 +2824,13 @@ header .main-body {
 }
 
 .header-top-block {
-    padding-top: 45px;
-}
-
-.header-wrapper-block-logo {
-    flex: 1 1 50%;
-}
-
-.header-wrapper-block-mobile-icons {
-    flex: 1 1 50%;
+    padding: 45px 0 20px;
 }
 
 @media (min-width: 576px) {
-
+    .header-top-block {
+        padding-bottom: 0;
+    }
 }
 
 img.header-logo {
@@ -2843,7 +2838,7 @@ img.header-logo {
 }
 
 .bg-block-search-header {
-    background: #E6E6E6;
+    background: #FFFFFF;
 }
 
 
@@ -2953,7 +2948,6 @@ div.input-group-append.btn-search {
         margin-left: 0;
         margin-right: 0;
     }
-
 }
 
 @media (min-width: 768px) {
@@ -2995,6 +2989,10 @@ div.input-group-append.btn-search {
 
     .bg-block-search-header {
         background: #FFFFFF;
+    }
+
+    .header-top-block {
+        padding-top: 0;
     }
 
     img.header-logo {

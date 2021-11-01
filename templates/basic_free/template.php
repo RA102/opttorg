@@ -4,10 +4,14 @@
  * Доступны объекты $inCore $inUser $inPage($this) $inConf $inDB
  */
 
-$file = fopen(__DIR__ . '/../../log/utm.txt', 'a+');
-$write = fwrite($file, date('d-m-Y H:i:s') . PHP_EOL . var_export($_GET, true) . PHP_EOL);
 
+
+//$file = fopen(__DIR__ . '/../../log/utm.txt', 'a');
+//$write = fwrite($file, date('d-m-Y H:i:s') . PHP_EOL . var_export($_SERVER, true) . PHP_EOL);
+
+// save utm placemarks
 if(isset($_GET['utm_source'])) {
+
     $inDB->insert('utm_placemarks', $_GET);
 }
 
@@ -17,8 +21,6 @@ $mod_count['topmenu'] = $this->countModules('topmenu');
 $mod_count['sidebar'] = $this->countModules('sidebar');
 $mod_count['sidebar-1'] = $this->countModules('sidebar-1');
 $mod_count['accordeon'] = $this->countModules('accordeon');
-$mode_count['mysearch'] = $this->countModules('mysearch');
-
 // подключаем jQuery и js ядра в самое начало
 $this->prependHeadJS('core/js/common.js');
 $this->prependHeadJS('includes/jquery/jquery.js');
@@ -42,14 +44,18 @@ $this->addHeadJS('templates/' . TEMPLATE . '/js/bootstrap-select.js');
 
 
 // Подключаем colorbox (просмотр фото)
-$this->addHeadJS('templates/' . TEMPLATE . '/js/lib_timer.js');
+//$this->addHeadJS('templates/' . TEMPLATE . '/js/lib_timer.js');
 $this->addHeadJS('includes/jquery/colorbox/jquery.colorbox.js');
+$this->addHeadCSS('includes/jquery/colorbox/colorbox.css');
 $this->addHeadJS('includes/jquery/colorbox/init_colorbox.js');
 $this->addHeadJS('components/registration/js/check.js');
 $this->addHeadJS('components/shop/js/delivery.js');
-$this->addHeadJS('templates/'. TEMPLATE . '/js/custom.js');
+$this->addHeadJS('templates/' . TEMPLATE .'/js/custom.js?v=' . mt_rand(1, 100));
 
-$this->addHeadCSS('includes/jquery/colorbox/colorbox.css');
+
+
+
+
 // LANG фразы для colorbox
 $this->addHeadJsLang(array('CBOX_IMAGE', 'CBOX_FROM', 'CBOX_PREVIOUS', 'CBOX_NEXT', 'CBOX_CLOSE', 'CBOX_XHR_ERROR', 'CBOX_IMG_ERROR', 'CBOX_SLIDESHOWSTOP', 'CBOX_SLIDESHOWSTART'));
 /*
@@ -79,7 +85,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     $phn = urldecode($phn);
     $phn = trim($phn);
     $qty = $_POST['qtyy1'];
-    $prc = $_POST['price1'];
+    $prc = str_replace(' ', '', $_POST['price1']);
     $ttl = $_POST['ttl'];
     $art = $_POST['arts'];
     $mail = $_POST['email'];
@@ -97,9 +103,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 	';
     $headers = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-    $headers .= 'To: <santehopttorg00@mail.ru>' . "\r\n";
-    $headers .= 'From: <santehopttorg00@mail.ru>' . "\r\n";
-    mail('santehopttorg00@mail.ru', $subject, $message, $headers);
+    $headers .= 'To: <sales@sanmarket.kz>' . "\r\n";
+    $headers .= 'From: <admin@sanmarket.kz>' . "\r\n";
+    mail('sales@sanmarket.kz', $subject, $message, $headers);
 
     $data['name'] = $inDB->escape_string($usr);
     $data['phone'] = $inDB->escape_string($phn);
@@ -111,6 +117,39 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 <!DOCTYPE html>
 <html lang="ru" prefix="og: http://ogp.me/ns#">
 <head>
+    <!--     Global site tag (gtag.js) - Google Ads: 393443092 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-393443092"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'AW-393443092');
+    </script>
+    <!-- Event snippet for Order_accept conversion page -->
+    <script>
+        gtag('event', 'conversion', {
+            'send_to': 'AW-393443092/0IzNCN-D8_8BEJTuzbsB',
+            'value': 1.0,
+            'currency': 'USD',
+            'transaction_id': ''
+        });
+    </script>
+    <script>
+        function gtag_report_conversion(url) {
+            var callback = function () {
+                if (typeof(url) != 'undefined') {
+                    window.location = url;
+                }
+            };
+            gtag('event', 'conversion', {
+                'send_to': 'AW-393443092/htXHCNua8_8BEJTuzbsB',
+                'event_callback': callback
+            });
+            return false;
+        }
+    </script>
     <?php $LastModified_unix = strtotime(date("D, d M Y H:i:s", filectime($_SERVER['SCRIPT_FILENAME'])));
     $LastModified = gmdate("D, d M Y H:i:s \G\M\T", $LastModified_unix);
     $IfModifiedSince = false;
@@ -125,7 +164,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <meta charset="utf-8">
     <meta name="yandex-verification" content="312a4cd886e70dca"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-site-verification" content="DYDKBWosEuCVKRJ67c6OqTsTAZoxC2pionvAzroxARs"/>
+
     <?php $this->printHead(); ?>
 
 
@@ -151,6 +190,15 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </script>
     <!-- /Google Tag Manager -->
 
+    <!-- Ringostat  -->
+
+<!--    <script type="text/javascript">-->
+<!--        (function (d, s, u, e, p) {-->
+<!--            p = d.getElementsByTagName(s)[0], e = d.createElement(s), e.async = 1, e.src = u, p.parentNode.insertBefore(e, p);-->
+<!--        })(document, 'script', 'https://script.ringostat.com/v4/87/879dd20e1f58ab1e9980f5c3d3f690af942c4f62.js');-->
+<!--    </script>-->
+
+    <!-- /Ringostat   -->
 
     <meta property="og:locale" content="ru_KZ"/>
 
@@ -167,94 +215,31 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     if ($inUser->is_admin) {
         ?>
         <script src="/admin/js/modconfig.js" type="text/javascript"></script>
-        <link href="/templates/<?php echo TEMPLATE; ?>/css/modconfig.css" rel="stylesheet" type="text/css"/>
+<!--        <link href="/templates/--><?php //echo TEMPLATE; ?><!--/css/modconfig.css" rel="stylesheet" type="text/css"/>-->
     <?php } ?>
     <!--[if lt IE 9] -->
             <script src="/templates/<?php echo TEMPLATE; ?>/js/html5shiv.js"></script>
             <script src="/templates/<?php echo TEMPLATE; ?>/js/respond.min.js"></script>
             <script src="/templates/<?php echo TEMPLATE; ?>/js/css3-mediaqueries.js"></script>
-<!--            <script src="/templates/--><?php //echo TEMPLATE; ?><!--/js/jquery.cookie.js"></script>-->
+<!--            <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.cookie.js"></script>-->
 
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-
-
-
-
-    <link rel="stylesheet" href="/templates/<?php echo TEMPLATE; ?>/css/ie.css" type="text/css" media="all" />
-        <!-- [endif]-->
+<!--            <link rel="stylesheet" href="/templates/--><?php //echo TEMPLATE; ?><!--/css/ie.css" type="text/css" media="all" />-->
+    <!-- [endif lt IE 9]-->
     <link rel="icon" type="image/svg" href="/images/favicon.svg"/>
     <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"/>
 
     <!--  Новый слайдер  -->
 
-    <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/slicebox.css" />
     <!--    <link rel="stylesheet" type="text/css" href="/templates/basic_free/css/custom.css" />-->
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
-<!--    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">-->
-
-
 
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
 
-    <!-- VueJS and Vuetify  -->
-<!--    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>-->
-    <script src="https://unpkg.com/vue@3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-
-    <!-- /VueJS and Vuetify -->
-    <!-- Axios -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.js"></script>
-    <!--/Axios-->
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-393443092"></script>
-
     <meta name="mailru-domain" content="JfeuTFsOLTPijEWd"/>
-    <!-- Facebook Pixel Code -->
-    <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '218958602915744');
-        fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=218958602915744&ev=PageView&noscript=1"/></noscript>
-    <!-- / Facebook Pixel Code -->
 
-    <script>
-        function gtag_report_conversion(url) {
-            var callback = function () {
-                if (typeof(url) != 'undefined') {
-                    window.location = url;
-                }
-            };
-            gtag('event', 'conversion', {
-                'send_to': 'AW-393443092/htXHCNua8_8BEJTuzbsB',
-                'event_callback': callback
-            });
-            return false;
-        }
-    </script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-393443092"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'AW-393443092');
-    </script>
 
+    <meta name="google-site-verification" content="9zJmpIqyc1M_OPaSvKi55HwUQcG2zEMkxvIOLF6r0Fs"/>
 </head>
 <body>
 <div class="body-wrapper">
@@ -284,39 +269,30 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 				<a class="d-lg-none" href="#" data-toggle="modal" data-target="#city_modal"><span class="glyphicon glyphicon-map-marker"></span></a>
 				<a class="d-lg-none" href="tel:+77775409927"><span class="glyphicon glyphicon-phone"></span></a>
 			</span>
+
         </div>
     </div>
 
     <header class="navbar-nav navbar-expand">
         <div class="main-body">
-            <div class="container-fluid">
+            <div class="container-fluid ">
                 <!-- удалить header-row-->
-                <div class="row header-top-block px-0 pb-0 align-items-end">
-                <!--  logo    -->
-                    <div
-                        class="align-self-end py-0 mb-4 mb-sm-4 mb-xl-0 header-wrapper-block-logo"
-                    >
-                        <div
-                            class="d-flex justify-content-center justify-content-sm-between justify-content-md-between justify-content-lg-between justify-content-xl-between"
-                        >
-                                <a
-                                    class="navbar-brand"
-                                    href="/"
-                                    rel="home"
-                                    title="Интернет-магазин сантехники sanmarket"
-                                >
-                                    <img
-                                        class="img-fluid header-logo"
-                                        src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg"
-                                        alt="SanMarket интернет-магазин сантехники в Казахстане"
-                                    />
+                <div class="row header-top-block align-items-end">
 
+                <!--  logo    -->
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-3 align-self-end py-0 py-xl-5 mb-4 mb-sm-4 mb-xl-0">
+
+                        <div class="row px-0 ">
+                            <div class="col">
+                                <a class="navbar-brand" href="/" rel="home" title="Интернет-магазин сантехники sanmarket">
+                                    <img class="img-fluid header-logo" src="/templates/<?php echo TEMPLATE; ?>/images/LOGO_full_blue.svg" alt="SanMarket интернет-магазин сантехники в Казахстане"/>
                                 </a>
+                            </div>
                         </div>
                     </div>
                 <!-- /logo -->
                 <!--    иконки мобильная версия (акции, телефон, корзина)     -->
-                    <div class="mb-4 mb-sm-4 mb-xl-0 header-wrapper-block-mobile-icons">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 d-lg-block d-xl-none mb-4 mb-sm-4 mb-xl-0">
                         <div class="row justify-content-end flex-nowrap">
                             <div class="col-auto">
                                 <a href="https://wa.me/77775409927">
@@ -396,12 +372,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
                     <div class="d-inline-flex align-items-center">
                         <div class="icon-top-bar">
-                            <a href="https://wa.me/77775409927">
-                                <img class="img-fluid" src="/templates/basic_free/images/top/chat1.png" alt="chat" width="30">
-                                <a href="/shop/akcii">Whatsapp</a>
-                            </a>
-                        </div>
-                        <div class="icon-top-bar">
                             <img src="/templates/basic_free/images/stock.png" alt="Акции" width="30">
                             <a href="/shop/akcii">Акции</a>
                         </div>
@@ -424,29 +394,19 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         <div class="toast" role="alert" aria-live="assertive" aria-atomic="true"  data-autohide="true" data-delay="5000">
             <div class="toast-header">
                 <strong class="mr-auto">Заказ в один клик</strong>
-<!--                <small>sanmarket.kz</small>-->
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="toast-body" style="padding: 20px 30px;">
-                Заявка отправлена
             </div>
         </div>
     </div>
+
     <div class="main-body">
-<!--        <div class="container-fluid d-block d-lg-block d-xl-none mt-5 mb-5">-->
-<!--            <div class="search-mobile">-->
-<!--                <input class="search-mobile-input search-all" type="text" placeholder="Начать поиск...">-->
-<!--                <ul class="search_result list-search"></ul>-->
-<!--                <button id="icon-search" class="btn-search-mobile " type="submit">-->
-<!--                    <img class="" src="/templates/--><?php //echo TEMPLATE; ?><!--/images/glass.png" width="32" height="32" alt="search" />-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
+
         <?php if ($this->pathway['1']['link'] == '/den-rozhdenie.html') { ?>
             <main class="main" style="margin-top: 0; background-color: #ffffff">
-
                 <div class="component">
                     <div class="">
                         <?php $messages = cmsCore::getSessionMessages(); ?>
@@ -480,36 +440,33 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
         <?php } else { ?>
             <?php
 
-
             $inCore->loadModel('banners');
 
             $model = new cms_model_banners();
 
-            $arrayBannerItems = $model->getAllPublishedSlider();
+            $arraySliderItems = $model->getAllPublishedSlider();
 
 
             ?>
-            <?php if (!empty($arrayBannerItems)) { ?>
+            <?php if (!empty($arraySliderItems)) { ?>
                 <div class="container-fluid">
-                    <div class="row justify-content-center">
+                    <div class="row flex-column">
                         <section class="main-banner">
                             <!--  Слайдер html  -->
                             <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel" data-keyboard="true" data-touch="true">
 
                                 <ol class="carousel-indicators">
-                                    <?php foreach ($arrayBannerItems as $index => $item) {
+                                    <?php foreach ($arraySliderItems as $index => $item) {
                                         if($index == 0 && $item) { ?>
                                             <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $index; ?>" class="active"> </li>
                                         <?php } else if($item) { ?>
                                             <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $index; ?>"></li>
-                                        <?php } ?>
-                                    <?php } ?>
-
-
+                                        <?php }?>
+                                   <?php } ?>
                                 </ol>
                                 <div class="carousel-inner">
 
-                                    <?php foreach($arrayBannerItems as $index => $item) { ?>
+                                    <?php foreach($arraySliderItems as $index => $item) { ?>
 
                                         <?php  if($index == 0 )  {?>
                                             <div class="carousel-item active">
@@ -529,7 +486,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
                                 </div>
 
-                                <?php if (count($arrayBannerItems)) { ?>
+                                <?php if (count($arraySliderItems) > 1) { ?>
 
                                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -543,7 +500,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                                 <?php } ?>
 
                             </div>
-
 
                             <!--  END слайдер                   -->
 
@@ -617,15 +573,18 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
             </div>
         </footer>
     </div>
-    <div id="back-top" class="">
-        <a href="#top">
-            <img src="/templates/<?php echo TEMPLATE; ?>/img/totop.png"/>
-        </a>
-    </div>
+<!--    <div id="back-top" class="">-->
+<!--        <a href="#top">-->
+<!--            <img src="/templates/--><?php //echo TEMPLATE; ?><!--/img/totop.png"/>-->
+<!--        </a>-->
+<!--    </div>-->
 
+<!--    <script src="/templates/--><?php //echo TEMPLATE; ?><!--/js/bootstrap-4.js"></script>-->
     <script src="/templates/<?php echo TEMPLATE; ?>/js/truncatelines.js"></script>
+    <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.cookie.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.nicescroll.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/jquery.barrating.min.js"></script>
+    <!--    <script src="/templates/--><?php //echo TEMPLATE; ?><!--/js/vue.js"></script>-->
 
     <script>
         $(document).ready(function () {
@@ -683,6 +642,23 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
                 });
             });
         });
+    </script>
+    <script>
+        // jQuery.colorbox.settings.maxWidth = '95%';
+        // jQuery.colorbox.settings.maxHeight = '95%';
+        // var resizeTimer;
+        //
+        // function resizeColorBox() {
+        //     if (resizeTimer) clearTimeout(resizeTimer);
+        //     resizeTimer = setTimeout(function () {
+        //         if (jQuery('#cboxOverlay').is(':visible')) {
+        //             jQuery.colorbox.load(true);
+        //         }
+        //     }, 300);
+        // }
+        //
+        // jQuery(window).resize(resizeColorBox);
+        // window.addEventListener("orientationchange", resizeColorBox, false);
     </script>
 
     <noindex>
@@ -824,21 +800,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <noscript><div><img src="https://mc.yandex.ru/watch/51363598" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
 
-    <script type="application/ld+json">
-        {
-            "@context": "http://schema.org",
-            "@type": "Organization",
-            "name": "Интернет-магазин sanmarket.kz",
-            "url": "https://sanmarket.kz/",
-            "logo": "https://sanmarket.kz/templates/basic_free/images/LOGO_fuLL_blue.svg",
-            "sameAs": [
-                "https://www.instagram.com/sanmarket.kz/",
-                "https://ok.ru/group/56887491428360",
-                "https://www.facebook.com/sanmarket.kz/"
-            ]
-        }
-    </script>
-
 </div>
 
 <div class="d-none tapbar pt-2 pb-2 d-lg-none"> <!--fixed-bottom-->
@@ -863,14 +824,14 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </div>
 </div>
 
-<div class=" cookies-notification d-none">
-    <p class="cookies-notification__text">
-        Cайт sanmarket.kz использует файлы cookie и другие технологии для вашего удобства пользования сайтом, анализа
-        использования наших товаров и услуг и повышения качества рекомендаций.
-        <a href="<?php $_SERVER['SERVER_NAME'] ?>/politika-konfidencialnosti.html">Подробнее</a>
-    </p>
-    <button id="btn-cookies" class="btn btn-success">Хорошо</button>
-</div>
+<!--<div class=" cookies-notification d-sm-none">-->
+<!--    <p class="cookies-notification__text">-->
+<!--        Cайт sanmarket.kz использует файлы cookie и другие технологии для вашего удобства пользования сайтом, анализа-->
+<!--        использования наших товаров и услуг и повышения качества рекомендаций.-->
+<!--        <a href="--><?php //$_SERVER['SERVER_NAME'] ?><!--/politika-konfidencialnosti.html">Подробнее</a>-->
+<!--    </p>-->
+<!--    <button id="btn-cookies" class="btn btn-success">Хорошо</button>-->
+<!--</div>-->
 
 
 <div class="overlay entered"></div>
@@ -878,55 +839,17 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
 <div id="darkening"></div>
 
-<div id="order-call" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Заказать звонок</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="callback-form">
-                <div class="modal-body">
-                    <div class="my-4">
-                        <span class="text-center text-muted">Введите номер телефона и мы перезвоним вам через 30 секунд!</span>
-                    </div>
-
-                    <input type="text" class="form-control callback-input" name="phonecallback"  placeholder="Ваш номер*" required/>
-
-                    <div class="my-4">
-                        <small class="text-muted">введите номер в международном формате (7 *** *** ** **)</small>
-                    </div>
-                    <button id="btn-callback" class="btn text-white btn-callback" type="submit">Позвонить мне</button>
-                </div>
-
-                <div class="modal-footer">
-
-
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div id="app"></div>
 <script>
-
-    $('#btn-callback').on('click', function(event) {
+    
+    $('#callback-form').on('submit', function(event) {
         event.preventDefault();
         $.ajax({
             url: '/',
             type: 'post',
             success: function (data) {
-                $('#order-call .close').trigger('click');
+                console.log(data);
             }
-        });
-
-    });
-
-    $('#order-call .close').click(function () {
-        $('input[name=phonecallback]').val('');
+        })
     })
 
     $(function() {
@@ -1011,6 +934,21 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 
     });
 
+</script>
+
+<script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "Интернет-магазин sanmarket.kz",
+        "url": "https://sanmarket.kz/",
+        "logo": "https://sanmarket.kz/templates/basic_free/images/LOGO_fuLL_blue.svg",
+        "sameAs": [
+            "https://www.instagram.com/sanmarket.kz/",
+            "https://ok.ru/group/56887491428360",
+            "https://www.facebook.com/sanmarket.kz/"
+        ]
+    }
 </script>
 
 </body>

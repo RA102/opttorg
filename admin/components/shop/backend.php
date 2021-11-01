@@ -1303,6 +1303,7 @@ if ($opt == 'set_order_status') {
         $item['title'] = $inCore->request('title', 'str');
         $item['sign'] = $inCore->request('sign', 'str');
         $item['cats'] = $inCore->request('cats', 'array');
+        $item['vendors'] = $inCore->request('vandors', 'array');
         $item['groups'] = $inCore->request('groups', 'array');
         $item['amount'] = $inCore->request('amount', 'str');
         $item['is_percent'] = $inCore->request('is_percent', 'int', 0);
@@ -3317,8 +3318,9 @@ if ($opt == 'set_order_status') {
                         <strong>Действует до: </strong>
                     </td>
                     <td valign="top">
-                        <input name="date_until" type="text" id="date_until" style="width:142px"
-                               value="<?php echo $mod['date_until']; ?>"/>
+<!--                        <input name="date_until" type="text" id="date_until" style="width:142px"-->
+<!--                               value="--><?php //echo $mod['date_until']; ?><!--"/>-->
+                        <input id="date_until" type="date" name="date_until" value="<?php echo $mod['date_until']; ?>" />
                     </td>
                 </tr>
                 <tr>
@@ -3328,26 +3330,33 @@ if ($opt == 'set_order_status') {
                         <span class="hinttext">Можно выбрать несколько,<br/> удерживая CTRL</span>
                     </td>
                     <td valign="top">
-                        <select name="cats[]" id="cats" style="width:307px" size="10" multiple="1">
+                        <select name="vendors[]" id="vendors" style="width:307px" size="10" multiple="1">
                             <?php
 
-                            $sql = "SELECT title, id, NSLevel, NSLeft
-                                           FROM cms_shop_cats
-                                           WHERE parent_id>0
-                                           ORDER BY NSLeft";
+//                            $sql = "SELECT title, id, NSLevel, NSLeft
+//                                           FROM cms_shop_cats
+//                                           WHERE parent_id>0
+//                                           ORDER BY NSLeft";
+                            $sql = "SELECT id, title FROM cms_shop_vendors";
                             $res = $inDB->query($sql);
 
                             if ($inDB->num_rows($res)) {
-                                while ($cat = $inDB->fetch_assoc($res)) {
-                                    $pad = str_repeat('--', $cat['NSLevel'] - 1);
-                                    if (is_array($mod['cats'])) {
-                                        $sel = in_array($cat['id'], $mod['cats']) ? 'selected="selected"' : '';
-                                    } else {
-                                        $sel = '';
-                                    }
-                                    echo '<option value="' . $cat['id'] . '" ' . $sel . '>' . $pad . ' ' . $cat['title'] . '</option>';
+                                while ($vendors = $inDB->fetch_assoc($res)) {
+                                    echo "<option value=\"{$vendors['id']}\">{$vendors['title']}</option>";
                                 }
                             }
+
+//                            if ($inDB->num_rows($res)) {
+//                                while ($cat = $inDB->fetch_assoc($res)) {
+//                                    $pad = str_repeat('--', $cat['NSLevel'] - 1);
+//                                    if (is_array($mod['cats'])) {
+//                                        $sel = in_array($cat['id'], $mod['cats']) ? 'selected="selected"' : '';
+//                                    } else {
+//                                        $sel = '';
+//                                    }
+//                                    echo '<option value="' . $cat['id'] . '" ' . $sel . '>' . $pad . ' ' . $cat['title'] . '</option>';
+//                                }
+//                            }
 
                             ?>
                         </select>
@@ -3405,20 +3414,20 @@ if ($opt == 'set_order_status') {
             </p>
         </form>
 
-        <script type="text/javascript">
-
-            $(document).ready(function () {
-                var datePickerOptions = {showStatus: true, showOn: "focus"};
-                $('#date_until').datepicker({
-                    showOn: "both",
-                    buttonImage: "/admin/images/icons/calendar.png",
-                    buttonImageOnly: true,
-                    dateFormat: 'yy-mm-dd'
-                });
-
-            });
-
-        </script>
+<!--        <script type="text/javascript">-->
+<!---->
+<!--            $(document).ready(function () {-->
+<!--                var datePickerOptions = {showStatus: true, showOn: "focus"};-->
+<!--                $('#date_until').datepicker({-->
+<!--                    showOn: "both",-->
+<!--                    buttonImage: "/admin/images/icons/calendar.png",-->
+<!--                    buttonImageOnly: true,-->
+<!--                    dateFormat: 'yy-mm-dd'-->
+<!--                });-->
+<!---->
+<!--            });-->
+<!---->
+<!--        </script>-->
         <?php
     }
 

@@ -4397,6 +4397,8 @@ class cms_model_shop
                 '{$item['cats']}', '{$item['amount']}', '{$item['is_percent']}', '{$item['is_forever']}',
                 '{$item['date_until']}', 1)";
 
+
+
         $this->inDB->query($sql);
 
         $discount_id = $this->inDB->get_last_id('cms_shop_discounts');
