@@ -328,12 +328,6 @@ class cms_model_shop
     /* ========================================================================== */
     /* ========================================================================== */
 
-    /**
-     * TODO
-     * оптимизировать
-     * function getItem и function getItemsCount объединить в один запрос
-     */
-
     public function getItems($only_published = true, $is_discounts = true, $filterFromFrontend = false)
     {
 
@@ -4354,6 +4348,43 @@ class cms_model_shop
         $this->inDB->query("DELETE FROM cms_shop_discounts WHERE id = $id LIMIT 1");
     }
 
+    public function applyDiscount($id)
+    {
+        cmsCore::callEvent('APPLY_SHOP_DISCOUNT', $id);
+        $result = $this->inDB->query("SELECT * FROM cms_shop_discounts WHERE id = $id");
+        $listDiscount = '';
+        if ($this->inDB->num_rows($result)) {
+            $rawResult = $this->inDB->fetch_assoc($result);
+            $listDiscount = implode(',', unserialize($rawResult['vendors']));
+        }
+
+        if (empty($listDiscount)) {
+            return false;
+        }
+
+        $sql = "UPDATE cms_shop_items SET old_price = price, price = (price - (price * ({$rawResult['amount']} / 100))) WHERE vendor_id IN({$listDiscount}) AND old_price = 0";
+        return $this->inDB->query($sql);
+    }
+
+    function removeDiscount($id)
+    {
+        cmsCore::callEvent('REMOVE_SHOP_DISCOUNT', $id);
+        $result = $this->inDB->query("SELECT * FROM cms_shop_discounts WHERE id = $id");
+        $listDiscount = '';
+        if ($this->inDB->num_rows($result)) {
+            $rawResult = $this->inDB->fetch_assoc($result);
+            $listDiscount = implode(',', unserialize($rawResult['vendors']));
+        }
+
+        if (empty($listDiscount)) {
+            return false;
+        }
+
+        $sql = "UPDATE cms_shop_items SET price = old_price, old_price = 0 WHERE vendor_id IN({$listDiscount})";
+        return $this->inDB->query($sql);
+
+    }
+
     /* ========================================================================== */
     /* ========================================================================== */
 
@@ -4384,6 +4415,7 @@ class cms_model_shop
     /* ========================================================================== */
     /* ========================================================================== */
 
+
     public function addDiscount($item)
     {
 
@@ -4391,11 +4423,12 @@ class cms_model_shop
 
         $item['cats'] = $item['cats'] ? serialize($item['cats']) : '';
         $item['groups'] = $item['groups'] ? serialize($item['groups']) : '';
+        $item['vendors'] = $item['vendors'] ? serialize($item['vendors']) : '';
 
-        $sql = "INSERT INTO cms_shop_discounts (title, sign, groups, cats, amount, is_percent, is_forever, date_until, published)
+        $sql = "INSERT INTO cms_shop_discounts (title, sign, groups, cats, amount, is_percent, is_forever, date_until, published, vendors)
 				VALUES ('{$item['title']}', '{$item['sign']}', '{$item['groups']}',
                 '{$item['cats']}', '{$item['amount']}', '{$item['is_percent']}', '{$item['is_forever']}',
-                '{$item['date_until']}', 1)";
+                '{$item['date_until']}', 1, '{$item['vendors']}')";
 
 
 
@@ -4439,7 +4472,8 @@ class cms_model_shop
         if ($this->inDB->num_rows($res)) {
             $discounts = array();
             while ($discount = $this->inDB->fetch_assoc($res)) {
-                $discount['cats'] = $discount['cats'] ? unserialize($discount['cats']) : '';
+//                $discount['cats'] = $discount['cats'] ? unserialize($discount['cats']) : '';
+                $discount['vendors'] = $discount['vendors'] ? unserialize($discount['vendors']) : '';
                 $discount['groups'] = $discount['groups'] ? unserialize($discount['groups']) : '';
                 $discounts[$discount['id']] = $discount;
             }

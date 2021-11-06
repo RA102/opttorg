@@ -36,9 +36,13 @@ function sendShopForm(component_id, opt, object_id, subject_id){
 
     var link = 'index.php?view=components&do=config&id='+component_id+'&opt='+opt;
 
-    if (object_id && object_id.length>0) {link = link + '&obj_id='+ object_id;}
+    if (object_id && object_id.length > 0) {
+        link = link + '&obj_id=' + object_id;
+    }
 
-    if (subject_id>0) {link = link + '&subj_id='+ subject_id;}
+    if (subject_id > 0) {
+        link = link + '&subj_id=' + subject_id;
+    }
 
     var sel  = checked();
 

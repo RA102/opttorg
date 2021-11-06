@@ -278,7 +278,7 @@ function shop()
         $model->limitPage($page, $perpage);
 
         //получим все подходящие товары на текущей странице
-        $items = $model->getItems(true, true, true);
+        $items = $model->getItems(true, false, true);
 
         //считаем конечное число страниц 
         $pages = $total / $perpage;

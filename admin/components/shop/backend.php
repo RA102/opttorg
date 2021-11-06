@@ -39,6 +39,12 @@ function spellcount($num, $one, $two, $many)
     }
 }
 
+function unserializeVendorsFromTableDiscount($serealizeData)
+{
+    $data = unserialize($serealizeData);
+    return implode(',', $data);
+}
+
 $inCore = cmsCore::getInstance();
 $inUser = cmsUser::getInstance();
 $inCore::loadLib('tags');
@@ -736,7 +742,9 @@ if ($opt == 'set_order_status') {
     if ($opt == 'show_discount') {
         if (!isset($_REQUEST['item'])) {
             if (isset($_REQUEST['item_id'])) {
-                dbShow('cms_shop_discounts', $_REQUEST['item_id']);
+                if (dbShow('cms_shop_discounts', $_REQUEST['item_id'])) {
+                    $model->applyDiscount($_REQUEST['item_id']);
+                }
             }
         } else {
             dbShowList('cms_shop_discounts', $_REQUEST['item']);
@@ -751,7 +759,9 @@ if ($opt == 'set_order_status') {
     if ($opt == 'hide_discount') {
         if (!isset($_REQUEST['item'])) {
             if (isset($_REQUEST['item_id'])) {
-                dbHide('cms_shop_discounts', $_REQUEST['item_id']);
+                if (dbHide('cms_shop_discounts', $_REQUEST['item_id'])) {
+                    $model->removeDiscount($_REQUEST['item_id']);
+                }
             }
         } else {
             dbHideList('cms_shop_discounts', $_REQUEST['item']);
@@ -1303,14 +1313,17 @@ if ($opt == 'set_order_status') {
         $item['title'] = $inCore->request('title', 'str');
         $item['sign'] = $inCore->request('sign', 'str');
         $item['cats'] = $inCore->request('cats', 'array');
-        $item['vendors'] = $inCore->request('vandors', 'array');
+        $item['vendors'] = $inCore->request('vendors', 'array');
         $item['groups'] = $inCore->request('groups', 'array');
         $item['amount'] = $inCore->request('amount', 'str');
         $item['is_percent'] = $inCore->request('is_percent', 'int', 0);
         $item['is_forever'] = $inCore->request('is_forever', 'int', 1);
         $item['date_until'] = $inCore->request('date_until', 'str');
 
-        $model->addDiscount($item);
+        $discountId = $model->addDiscount($item);
+        if ($discountId) {
+            $model->applyDiscount($discountId);
+        }
 
         $inCore->redirect('?view=components&do=config&opt=list_discounts&id=' . $_REQUEST['id']);
 
@@ -1348,6 +1361,15 @@ if ($opt == 'set_order_status') {
             $model->deleteDiscount($id);
         }
         $inCore->redirect('?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=list_discounts');
+    }
+
+    if ($opt == 'apply_discount') {
+        if ($inCore->inRequest('item_id')) {
+            $id = $inCore->request('item_id', 'int');
+            $model->applyDiscount($id);
+        }
+        $inCore->redirect('?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=list_discounts');
+
     }
 
 //=================================================================================================//
@@ -1957,39 +1979,57 @@ if ($opt == 'set_order_status') {
 
         $fields[0]['title'] = 'id';
         $fields[0]['field'] = 'id';
-        $fields[0]['width'] = '30';
+        $fields[0]['width'] = '20';
 
         $fields[1]['title'] = 'Название';
         $fields[1]['field'] = 'title';
-        $fields[1]['width'] = '';
+        $fields[1]['width'] = '200';
         $fields[1]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_discount&item_id=%id%';
+
+        $fields[2]['title'] = 'Бренды';
+        $fields[2]['field'] = 'vendors';
+        $fields[2]['width'] = '400';
+        $fields[2]['prc'] = 'unserializeVendorsFromTableDiscount';
+
+        $fields[3]['title'] = 'Скидка';
+        $fields[3]['field'] = 'amount';
+        $fields[3]['width'] = '50';
+
 
         $fields[4]['title'] = 'Активна';
         $fields[4]['field'] = 'published';
-        $fields[4]['width'] = '100';
+        $fields[4]['width'] = '50';
         $fields[4]['do'] = 'opt';
         $fields[4]['do_suffix'] = '_discount';
 
         //ACTIONS
         $actions = array();
 
-        $actions[1]['title'] = 'Редактировать';
-        $actions[1]['icon'] = 'edit.gif';
-        $actions[1]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_discount&item_id=%id%';
+//        $actions[1]['title'] = 'Редактировать';
+//        $actions[1]['icon'] = 'edit.gif';
+//        $actions[1]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_discount&item_id=%id%';
 
         $actions[3]['title'] = 'Удалить';
         $actions[3]['icon'] = 'delete.gif';
         $actions[3]['confirm'] = 'Удалить коэффициент?';
         $actions[3]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=delete_discount&item_id=%id%';
 
+        $actions[4]['title'] = 'Применить';
+        $actions[4]['icon'] = 'play.gif';
+        $actions[4]['confirm'] = 'Применить?';
+        $actions[4]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=apply_discount&item_id=%id%';
+
         //Print table
         ob_start();
         cpListTable('cms_shop_discounts', $fields, $actions, '', 'id');
         $discount_table = ob_get_clean();
 
+
         ?>
 
-        <div id="discount_tabs" style="margin-top:12px;" class="uitabs">
+        <div class="row">
+            <div class="col-12">
+                <div id="discount_tabs" style="margin-top:12px;" class="uitabs">
 
             <ul id="tabs">
                 <li><a href="#items"><span>Скидки на товары</span></a></li>
@@ -2061,7 +2101,8 @@ if ($opt == 'set_order_status') {
             </div>
 
         </div>
-
+            </div>
+        </div>
         <?php
 
     }
@@ -3252,167 +3293,173 @@ if ($opt == 'set_order_status') {
             cpAddPathway('Скидки и наценки', '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=list_discounts');
             cpAddPathway($mod['title'], '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_discount&item_id=' . $_REQUEST['item_id']);
         }
+
         ?>
-        <form
-            id="addform"
-            name="addform"
-            method="post"
-            action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>"
-        >
-            <table width="584" border="0" cellspacing="5" class="proptable">
-                <tr>
-                    <td width="250"><strong>Название: </strong></td>
-                    <td width="315" valign="top">
-                        <input name="title" type="text" id="title" style="width:300px"
-                               value="<?php echo @$mod['title']; ?>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>Тип: </strong></td>
-                    <td valign="top"><label>
-                            <select name="sign" id="sign" style="width:307px" onchange="toggleDiscountLimit()">
-                                <option value="-1" <?php if (@$mod['sign'] == -1) {
-                                    echo 'selected';
-                                } ?>>Скидка
-                                </option>
-                                <option value="1" <?php if (@$mod['sign'] == 1) {
-                                    echo 'selected';
-                                } ?>>Наценка
-                                </option>
-                            </select> </label></td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Значение: </strong>
-                    </td>
-                    <td valign="top">
-                        <input name="amount" type="text" id="amount" style="width:80px"
-                               value="<?php if ($opt == 'edit_discount') {
-                                   echo $mod['amount'];
-                               } ?>"/> <select name="is_percent" id="is_percent" style="width:60px">
-                            <option value="1" <?php if ($mod['is_percent']) {
-                                echo 'selected';
-                            } ?>>%
-                            </option>
-                            <option value="0" <?php if (!$mod['is_percent']) {
-                                echo 'selected';
-                            } ?>><?php echo $cfg['currency']; ?></option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>Срок действия: </strong></td>
-                    <td valign="top"><label> <select name="is_forever" id="sign" style="width:307px">
-                                <option value="1" <?php if ($mod['is_forever']) {
-                                    echo 'selected';
-                                } ?>>Неограничен
-                                </option>
-                                <option value="0" <?php if (!$mod['is_forever']) {
-                                    echo 'selected';
-                                } ?>>До указанной даты
-                                </option>
-                            </select> </label></td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Действует до: </strong>
-                    </td>
-                    <td valign="top">
-<!--                        <input name="date_until" type="text" id="date_until" style="width:142px"-->
-<!--                               value="--><?php //echo $mod['date_until']; ?><!--"/>-->
-                        <input id="date_until" type="date" name="date_until" value="<?php echo $mod['date_until']; ?>" />
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top">
-                        <strong>Только для категорий:</strong><br/>
-                        <span class="hinttext">Если не выбрано, действует<br/> для всех категорий магазина.</span> <br/>
-                        <span class="hinttext">Можно выбрать несколько,<br/> удерживая CTRL</span>
-                    </td>
-                    <td valign="top">
-                        <select name="vendors[]" id="vendors" style="width:307px" size="10" multiple="1">
-                            <?php
+        <div class="row">
+            <div class="col-4">
+                <form
+                    id="addform"
+                    name="addform"
+                    method="post"
+                    action="index.php?view=components&do=config&id=<?php echo $_REQUEST['id']; ?>"
+                >
+                    <table border="0" cellspacing="5" class="proptable">
+                        <tr>
+                            <td width="250"><strong>Название: </strong></td>
+                            <td width="315" valign="top">
+                                <input name="title" type="text" id="title" style="width:300px"
+                                       value="<?php echo @$mod['title']; ?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Тип: </strong></td>
+                            <td valign="top"><label>
+                                    <select name="sign" id="sign" style="width:307px" onchange="toggleDiscountLimit()">
+                                        <option value="-1" <?php if (@$mod['sign'] == -1) {
+                                            echo 'selected';
+                                        } ?>>Скидка
+                                        </option>
+                                        <option value="1" <?php if (@$mod['sign'] == 1) {
+                                            echo 'selected';
+                                        } ?>>Наценка
+                                        </option>
+                                    </select> </label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Значение: </strong>
+                            </td>
+                            <td valign="top">
+                                <input name="amount" type="text" id="amount" style="width:80px"
+                                       value="<?php if ($opt == 'edit_discount') {
+                                           echo $mod['amount'];
+                                       } ?>" /> <select name="is_percent" id="is_percent" style="width:60px">
+                                    <option value="1" <?php if ($mod['is_percent']) {
+                                        echo 'selected';
+                                    } ?>>%
+                                    </option>
+                                    <option value="0" <?php if (!$mod['is_percent']) {
+                                        echo 'selected';
+                                    } ?>><?php echo $cfg['currency']; ?></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Срок действия: </strong></td>
+                            <td valign="top"><label> <select name="is_forever" id="sign" style="width:307px">
+                                        <option value="1" <?php if ($mod['is_forever']) {
+                                            echo 'selected';
+                                        } ?>>Неограничен
+                                        </option>
+                                        <option value="0" <?php if (!$mod['is_forever']) {
+                                            echo 'selected';
+                                        } ?>>До указанной даты
+                                        </option>
+                                    </select> </label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Действует до: </strong>
+                            </td>
+                            <td valign="top">
+                                <!--                        <input name="date_until" type="text" id="date_until" style="width:142px"-->
+                                <!--                               value="--><?php //echo $mod['date_until']; ?><!--"/>-->
+                                <input id="date_until" type="date" name="date_until" value="<?php echo $mod['date_until']; ?>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <strong>Только для брендов:</strong><br />
+                                <span class="hinttext">Если не выбрано, действует<br /> для всех брендов магазина.</span>
+                                <br />
+                                <span class="hinttext">Можно выбрать несколько,<br /> удерживая CTRL</span>
+                            </td>
+                            <td valign="top">
+                                <select name="vendors[]" id="vendors" style="width:307px" size="10" multiple="1">
+                                    <?php
 
-//                            $sql = "SELECT title, id, NSLevel, NSLeft
-//                                           FROM cms_shop_cats
-//                                           WHERE parent_id>0
-//                                           ORDER BY NSLeft";
-                            $sql = "SELECT id, title FROM cms_shop_vendors";
-                            $res = $inDB->query($sql);
+                                    //                            $sql = "SELECT title, id, NSLevel, NSLeft
+                                    //                                           FROM cms_shop_cats
+                                    //                                           WHERE parent_id>0
+                                    //                                           ORDER BY NSLeft";
+                                    $sql = "SELECT id, title FROM cms_shop_vendors";
+                                    $res = $inDB->query($sql);
 
-                            if ($inDB->num_rows($res)) {
-                                while ($vendors = $inDB->fetch_assoc($res)) {
-                                    echo "<option value=\"{$vendors['id']}\">{$vendors['title']}</option>";
-                                }
-                            }
+                                    if ($inDB->num_rows($res)) {
+                                        while ($vendors = $inDB->fetch_assoc($res)) {
+                                            echo "<option value=\"{$vendors['id']}\">{$vendors['title']}</option>";
+                                        }
+                                    }
 
-//                            if ($inDB->num_rows($res)) {
-//                                while ($cat = $inDB->fetch_assoc($res)) {
-//                                    $pad = str_repeat('--', $cat['NSLevel'] - 1);
-//                                    if (is_array($mod['cats'])) {
-//                                        $sel = in_array($cat['id'], $mod['cats']) ? 'selected="selected"' : '';
-//                                    } else {
-//                                        $sel = '';
-//                                    }
-//                                    echo '<option value="' . $cat['id'] . '" ' . $sel . '>' . $pad . ' ' . $cat['title'] . '</option>';
-//                                }
-//                            }
+                                    //                            if ($inDB->num_rows($res)) {
+                                    //                                while ($cat = $inDB->fetch_assoc($res)) {
+                                    //                                    $pad = str_repeat('--', $cat['NSLevel'] - 1);
+                                    //                                    if (is_array($mod['cats'])) {
+                                    //                                        $sel = in_array($cat['id'], $mod['cats']) ? 'selected="selected"' : '';
+                                    //                                    } else {
+                                    //                                        $sel = '';
+                                    //                                    }
+                                    //                                    echo '<option value="' . $cat['id'] . '" ' . $sel . '>' . $pad . ' ' . $cat['title'] . '</option>';
+                                    //                                }
+                                    //                            }
 
-                            ?>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td valign="top">
-                        <strong>Только для групп:</strong><br/> <span class="hinttext">Если не выбрано, действует<br/> для всех пользователей</span>
-                        <br/> <span class="hinttext">Можно выбрать несколько,<br/> удерживая CTRL</span>
-                    </td>
-                    <td valign="top">
-                        <select name="groups[]" id="groups" style="width:307px" size="5" multiple="1">
-                            <?php
+                                    ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                <strong>Только для групп:</strong><br /> <span class="hinttext">Если не выбрано, действует<br /> для всех пользователей</span>
+                                <br /> <span class="hinttext">Можно выбрать несколько,<br /> удерживая CTRL</span>
+                            </td>
+                            <td valign="top">
+                                <select name="groups[]" id="groups" style="width:307px" size="5" multiple="1">
+                                    <?php
 
-                            $sql = "SELECT title, id
+                                    $sql = "SELECT title, id
                                            FROM cms_user_groups
                                            WHERE alias <> 'guest'
                                            ORDER BY title";
-                            $res = $inDB->query($sql);
+                                    $res = $inDB->query($sql);
 
-                            if ($inDB->num_rows($res)) {
-                                while ($group = $inDB->fetch_assoc($res)) {
-                                    if (is_array($mod['groups'])) {
-                                        $sel = in_array($group['id'], $mod['groups']) ? 'selected="selected"' : '';
-                                    } else {
-                                        $sel = '';
+                                    if ($inDB->num_rows($res)) {
+                                        while ($group = $inDB->fetch_assoc($res)) {
+                                            if (is_array($mod['groups'])) {
+                                                $sel = in_array($group['id'], $mod['groups']) ? 'selected="selected"' : '';
+                                            } else {
+                                                $sel = '';
+                                            }
+                                            echo '<option value="' . $group['id'] . '" ' . $sel . '>' . $group['title'] . '</option>';
+                                        }
                                     }
-                                    echo '<option value="' . $group['id'] . '" ' . $sel . '>' . $group['title'] . '</option>';
-                                }
-                            }
 
-                            ?>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-            <p>
-                <input name="add_mod" type="submit" id="add_mod" <?php if ($opt == 'add_discount') {
-                    echo 'value="Создать"';
-                } else {
-                    echo 'value="Сохранить изменения"';
-                } ?> />
-                <input name="back3" type="button" id="back3" value="Отмена"
-                       onclick="window.location.href='index.php?view=components';"/>
-                <input name="opt" type="hidden" id="do" <?php if ($opt == 'add_discount') {
-                    echo 'value="submit_discount"';
-                } else {
-                    echo 'value="update_discount"';
-                } ?> />
-                <?php
-                if ($opt == 'edit_discount') {
-                    echo '<input name="item_id" type="hidden" value="' . $mod['id'] . '" />';
-                }
-                ?>
-            </p>
-        </form>
+                                    ?>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>
+                        <input name="add_mod" type="submit" id="add_mod" <?php if ($opt == 'add_discount') {
+                            echo 'value="Создать"';
+                        } else {
+                            echo 'value="Сохранить изменения"';
+                        } ?> />
+                        <input name="back3" type="button" id="back3" value="Отмена"
+                               onclick="window.location.href='index.php?view=components';" />
+                        <input name="opt" type="hidden" id="do" <?php if ($opt == 'add_discount') {
+                            echo 'value="submit_discount"';
+                        } else {
+                            echo 'value="update_discount"';
+                        } ?> />
+                        <?php
+                        if ($opt == 'edit_discount') {
+                            echo '<input name="item_id" type="hidden" value="' . $mod['id'] . '" />';
+                        }
+                        ?>
+                    </p>
+                </form>
+            </div>
+        </div> <!-- row -->
 
 <!--        <script type="text/javascript">-->
 <!---->
@@ -5545,58 +5592,65 @@ if ($opt == 'set_order_status') {
     }
 
     if ($opt == 'infoLastUpdated') {
+
         $component_id = $inCore->request('id', 'int', 0);
         $page = $inCore->request('page', 'int', 1);
         $perPage = 30;
+
+        //TABLE COLUMNS
+        $fields = array();
+
+        $fields[0]['title'] = 'id';
+        $fields[0]['field'] = 'id';
+        $fields[0]['width'] = '20';
+
+        $fields[1]['title'] = 'Название';
+        $fields[1]['field'] = 'title';
+        $fields[1]['width'] = '200';
+
+        $fields[2]['title'] = 'Код 1С';
+        $fields[2]['field'] = 'art_no';
+        $fields[2]['width'] = '50';
+
+        $fields[3]['title'] = 'Код производителя';
+        $fields[3]['field'] = 'ven_code';
+        $fields[3]['width'] = '50';
+
+        $fields[4]['title'] = 'Дата обновления';
+        $fields[4]['field'] = 'update_at';
+        $fields[4]['fdate'] = '%H:%i %d-%m-%Y';
+        $fields[4]['width'] = '100';
+
+        //ACTIONS
+        $actions = array();
+
+        //        $actions[1]['title'] = 'Редактировать';
+        //        $actions[1]['icon'] = 'edit.gif';
+        //        $actions[1]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_discount&item_id=%id%';
+
+        $actions[0]['title'] = 'Удалить';
+        $actions[0]['icon'] = 'delete.gif';
+        $actions[0]['confirm'] = 'Удалить коэффициент?';
+        $actions[0]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=delete_item&item_id=%id%';
+
+        ob_start();
+        cpListTable('cms_shop_items', $fields, $actions, '(DATEDIFF(CURRENT_DATE, update_at) > 2)', 'id');
+        $items_table = ob_get_clean();
+
     ?>
         <div class="container-fluid mt-2">
             <div class="row ">
-                <div class="col-12">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th width="30">#</th>
-                                <th>id</th>
-                                <th>Название</th>
-                                <th>код 1с</th>
-                                <th>код произ-ля</th>
-                                <th width="200">Дата последнего обновления</th>
-                                <th>Действие</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $query = "SELECT id, title, art_no, ven_code, update_at FROM cms_shop_items WHERE (DATEDIFF(CURRENT_DATE, update_at) > 2)";
-                        $queryLimit = " LIMIT $page, $perPage";
-                        $result = $inDB->query($query);
-                        $totalPages = $inDB->num_rows($result);
-                        $result = $inDB->query($query . $queryLimit);
-                        if ($totalPages) {
-                            $productsNotUpdatedMoreOneDay = $inDB->fetch_all($result);
-                            foreach ($productsNotUpdatedMoreOneDay as $index => $item) {
-                                echo "<tr>";
-                                echo "<td><input name='items[]' type='checkbox' value='" . $item->id . "'/></td>";
-                                echo "<td>$item->id</td>";
-                                echo "<td>$item->title</td>";
-                                echo "<td>$item->art_no</td>";
-                                echo "<td>$item->ven_code</td>";
-                                echo "<td>$item->update_at</td>";
-                                echo "<td><a href='#' onclick=\"jsmsg('$item->title', '?view=components&do=config&id={$_REQUEST['id']}&opt=delete_item&item_id=$item->id')\">Удалить</a></td>";
-                                echo "</tr>";
-                            }
-                        }
-                        ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-12">
-                    <?php
-                    $pages = ceil($totalPages / $perPage);
-                    if ($pages > 1) {
-                        echo cmsPage::getPagebar($totalPages, $page, $perPage, $base_uri . "/admin/index.php?view=components&do=config&id={$_REQUEST['id']}&opt=infoLastUpdated&page=%page%");
-                    }
-                    ?>
-                </div>
+                    <div class="col-12">
+                        <?= $items_table ?>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-inline-block">
+                            <span class="text-info">Отмеченые: </span>
+                        </div>
+                        <div class="d-inline-block">
+                            <input class="btn btn-outline-danger" type="button" name="" value="Удалить" onclick="sendShopForm(<?php echo $_REQUEST['id']; ?>, 'delete_item');" />
+                        </div>
+                    </div>
             </div>
         </div>
 

@@ -601,7 +601,7 @@ function cpListTable($table, $_fields, $_actions, $where = '', $orderby = 'title
 
         //DRAW LIST TABLE
         echo '<form name="selform" action="index.php?view=' . $GLOBALS['applet'] . '&do=saveorder" method="post">';
-        echo '<table id="listTable" border="0" class="tablesorter" width="100%" cellpadding="0" cellspacing="0">';
+        echo '<table id="listTable" border="0" class="table table-bordered"  cellpadding="0" cellspacing="0">';
         //TABLE HEADING
         echo '<thead>' . "\n";
         echo '<tr>' . "\n";
@@ -612,7 +612,7 @@ function cpListTable($table, $_fields, $_actions, $where = '', $orderby = 'title
             echo '</th>' . "\n";
         }
         if ($is_actions) {
-            echo '<th width="80" class="lt_header" align="center">' . $_LANG['AD_ACTIONS'] . '</th>' . "\n";
+            echo '<th width="50" class="lt_header" align="center">' . $_LANG['AD_ACTIONS'] . '</th>' . "\n";
         }
         echo '</tr>' . "\n";
         echo '</thead><tbody>' . "\n";
@@ -625,7 +625,7 @@ function cpListTable($table, $_fields, $_actions, $where = '', $orderby = 'title
             } else {
                 $row_class = 'lt_row2';
             }
-            echo '<tr id="lt_row2">' . "\n";
+            echo '<tr id="lt_row2">';
             echo '<td class="' . $row_class . '" align="center" valign="middle"><input type="checkbox" name="item[]" value="' . $item['id'] . '" /></td>' . "\n";
             foreach ($_fields as $key => $value) {
                 if (isset($_fields[$key]['link'])) {
@@ -638,9 +638,11 @@ function cpListTable($table, $_fields, $_actions, $where = '', $orderby = 'title
                                 $in_func_array[$func_field] = $item[$func_field];
                             }
                             $data = call_user_func($_fields[$key]['prc'], $in_func_array);
+
                         } else {
                             $data = call_user_func($_fields[$key]['prc'], $item[$_fields[$key]['field']]);
                         }
+
                     } else {
                         $data = $item[$_fields[$key]['field']];
                         if (isset($_fields[$key]['maxlen'])) {
@@ -683,6 +685,7 @@ function cpListTable($table, $_fields, $_actions, $where = '', $orderby = 'title
                                 $dos = '';
                                 $ids = 'id';
                             }
+
                             if ($item['published']) {
                                 $qs = cpAddParam($_SERVER['QUERY_STRING'], $do, 'hide' . $dos);
                                 $qs = cpAddParam($qs, $ids, $item['id']);
@@ -706,6 +709,7 @@ function cpListTable($table, $_fields, $_actions, $where = '', $orderby = 'title
                             if (isset($_fields[$key]['prc'])) {
                                 // функция обработки под названием $_fields[$key]['prc']
                                 // какие параметры передать функции - один ключ или произвольный массив ключей
+
                                 if (is_array($_fields[$key]['field'])) {
                                     foreach ($_fields[$key]['field'] as $func_field) {
                                         $in_func_array[$func_field] = $item[$func_field];
@@ -714,6 +718,19 @@ function cpListTable($table, $_fields, $_actions, $where = '', $orderby = 'title
                                 } else {
                                     $data = call_user_func($_fields[$key]['prc'], $item[$_fields[$key]['field']]);
                                 }
+
+                                // получение названия брендов
+                                if ($table == 'cms_shop_discounts') {
+                                    $resultVendors = $inDB->query("SELECT title FROM cms_shop_vendors WHERE id IN($data)");
+                                    if ($inDB->num_rows($resultVendors)) {
+                                        $listTitleVendors = $inDB->fetchAllFromArray($resultVendors);
+                                        $listTitleVendors2 = array_map(function($a) {
+                                            return $a['title'];
+                                        }, $listTitleVendors);
+                                        $data = implode(', ', $listTitleVendors2);
+                                    }
+                                }
+
                             } else {
                                 $data = $item[$_fields[$key]['field']];
                                 if (isset($_fields[$key]['maxlen'])) {
@@ -1006,7 +1023,7 @@ function dbShow($table, $id)
     $inDB = cmsDatabase::getInstance();
     $id = (int)$id;
     $sql = "UPDATE $table SET published = 1 WHERE id = $id";
-    $inDB->query($sql);
+    return $inDB->query($sql);
 }
 
 function dbShowList($table, $list)
@@ -1032,7 +1049,7 @@ function dbHide($table, $id)
     $inDB = cmsDatabase::getInstance();
     $id = (int)$id;
     $sql = "UPDATE $table SET published = 0 WHERE id = $id";
-    $inDB->query($sql);
+    return $inDB->query($sql);
 }
 
 function dbHideList($table, $list)
