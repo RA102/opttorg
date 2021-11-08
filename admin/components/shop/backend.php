@@ -67,6 +67,7 @@ cpAddPathway('InstantShop', '?view=components&do=config&id=' . $_REQUEST['id']);
 
 $toolmenu = array();
 
+
 if ($opt == 'list_items' || $opt == 'list_cats' || $opt == 'list_chars' || $opt == 'list_vendors' || $opt == 'list_delivery' || $opt == 'list_psys' || $opt == 'list_orders' || $opt == 'list_discounts') {
 
     echo '<h3>InstantShop</h3>';
@@ -581,6 +582,7 @@ if ($opt == 'set_order_status') {
 
         $items['price'] = $_REQUEST['price'];
         $items['old_price'] = $_REQUEST['old_price'];
+        $items['fix_price'] = $inCore->request('fix_price', 'array_str');
         $itemsId = $_REQUEST['item'];
 
         foreach ($itemsId as $item) {
@@ -591,9 +593,10 @@ if ($opt == 'set_order_status') {
 
             $itemOldPrice = str_replace(',', '.', $itemOldPrice);
             $itemOldPrice = number_format($itemOldPrice, $cfg['show_decimals'], '.', '');
+            $itemFixPrice = $items['fix_price'][$item] ? $items['fix_price'][$item] : 0;
 
             if ($itemPrice || $itemOldPrice) {
-                $sql = "UPDATE cms_shop_items SET price='$itemPrice', old_price=$itemOldPrice WHERE id = $item";
+                $sql = "UPDATE cms_shop_items SET price='$itemPrice', old_price=$itemOldPrice, fix_price='$itemFixPrice' WHERE id = $item";
                 $inDB->query($sql);
             }
         }
@@ -1033,49 +1036,40 @@ if ($opt == 'set_order_status') {
         $item['vendor_id'] = $inCore->request('vendor_id', 'int', 0);
         $item['art_no'] = $inCore->request('art_no', 'str', '000');
         $item['title'] = $inCore->request('title', 'str');
-
         $item['tpl'] = $inCore->request('tpl', 'str', 'com_inshop_item.tpl');
         $item['url'] = $inCore->request('url', 'str', '');
-
         $item['shortdesc'] = $inDB->escape_string($inCore->request('shortdesc', 'html'));
         $item['description'] = $inDB->escape_string($inCore->request('description', 'html'));
         $item['metakeys'] = $inDB->escape_string($inCore->request('metakeys', 'str'));
         $item['metadesc'] = $inDB->escape_string($inCore->request('metadesc', 'str'));
-
         $item['is_comments'] = $inCore->request('is_comments', 'int', 0);
         $item['metakeys'] = $inCore->request('metakeys', 'str');
         $item['metadesc'] = $inCore->request('metadesc', 'str');
         $item['tags'] = $inCore->request('tags', 'str');
-
         $item['ves'] = number_format(str_replace(',', '.', $inCore->request('ves', 'str', '0.00')), 2, '.', '');
         $item['vol'] = number_format(str_replace(',', '.', $inCore->request('vol', 'str', '0.00')), 2, '.', '');
         $item['ven_code'] = $inCore->request('ven_code', 'str');
         $item['ordering'] = $inCore->request('ordering', 'int', 0);
-
         $item['price'] = number_format(str_replace(',', '.', $inCore->request('price', 'str', '0.00')), $cfg['show_decimals'], '.', '');
         $item['old_price'] = number_format(str_replace(',', '.', $inCore->request('old_price', 'str', '0.00')), $cfg['show_decimals'], '.', '');
-
         $item['published'] = $inCore->request('published', 'int', 0);
         $date = explode('.', $inCore->request('pubdate', 'str'));
         $item['pubdate'] = $date[2] . '-' . $date[1] . '-' . $date[0] . ' ' . date('H:i');
-
         $item['is_hit'] = $inCore->request('is_hit', 'int', 0);
         $item['is_spec'] = $inCore->request('is_spec', 'int', 0);
         $item['is_front'] = $inCore->request('is_front', 'int', 0);
         $item['is_digital'] = $inCore->request('is_digital', 'int', 0);
-
         $item['qty'] = $inCore->request('qty', 'int', 1);
-
         $item['cats'] = $inCore->request('cats', 'array');
         $item['chars'] = $inCore->request('chars', 'array');
         $item['vars_art_no'] = $inCore->request('vars_art_no', 'array');
         $item['vars_title'] = $inCore->request('vars_title', 'array');
         $item['vars_price'] = $inCore->request('vars_price', 'array');
         $item['vars_qty'] = $inCore->request('vars_qty', 'array');
-
         $item['kaspikz'] = $inCore->request('kaspikz', 'str');
-
         $item['auto_thumb'] = $inCore->request('auto_thumb', 'int', 0);
+
+        $item['fix_price'] = $inCore->request('fix_price', 'int', 0);
 
 
         $titlePart = $inCore->request('titlePart', 'array');
@@ -1216,6 +1210,8 @@ if ($opt == 'set_order_status') {
             $item['auto_thumb'] = $inCore->request('auto_thumb', 'int', 0);
 
             $item['img_delete'] = $inCore->request('img_delete', 'array');
+
+            $item['fix_price'] = $inCore->request('fix_price', 'str');
 
             $valueItemInBase = $inDB->get_fields('cms_shop_items', "id=$id");
 
@@ -1984,7 +1980,6 @@ if ($opt == 'set_order_status') {
         $fields[1]['title'] = 'Название';
         $fields[1]['field'] = 'title';
         $fields[1]['width'] = '200';
-        $fields[1]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_discount&item_id=%id%';
 
         $fields[2]['title'] = 'Бренды';
         $fields[2]['field'] = 'vendors';
@@ -2005,9 +2000,6 @@ if ($opt == 'set_order_status') {
         //ACTIONS
         $actions = array();
 
-//        $actions[1]['title'] = 'Редактировать';
-//        $actions[1]['icon'] = 'edit.gif';
-//        $actions[1]['link'] = '?view=components&do=config&id=' . $_REQUEST['id'] . '&opt=edit_discount&item_id=%id%';
 
         $actions[3]['title'] = 'Удалить';
         $actions[3]['icon'] = 'delete.gif';
@@ -2027,82 +2019,87 @@ if ($opt == 'set_order_status') {
 
         ?>
 
-        <div class="row">
+        <div class="row">  <!-- row -->
             <div class="col-12">
                 <div id="discount_tabs" style="margin-top:12px;" class="uitabs">
 
-            <ul id="tabs">
-                <li><a href="#items"><span>Скидки на товары</span></a></li>
-                <li><a href="#order"><span>Скидки на сумму заказа</span></a></li>
-            </ul>
+                    <ul id="tabs">
+                        <li><a href="#items"><span>Скидки на товары</span></a></li>
+                        <li><a href="#order"><span>Скидки на сумму заказа</span></a></li>
+                    </ul>
 
-            <div id="items"><?php echo $discount_table; ?></div>
+                    <div id="items"><?php echo $discount_table; ?></div>
 
-            <div id="order">
+                    <div id="order">
 
-                <form method="post" action="">
-
-                    <div style="padding:10px;border:solid 1px #CCC">
-                        <table border="0" cellpadding="5" cellspacing="0" id="discounts">
-                            <tr>
-                                <th width="160">Сумма заказа от, <?php echo $cfg['currency']; ?></th>
-                                <th width="160">Скидка, %</th>
-                                <th width="17" class="dis_del">&nbsp;</th>
-                            </tr>
-                            <?php if (!$cfg['discount']) { ?>
-                                <tr class="var">
-                                    <td><input type="text" class="dis_amount" name="dis_amount[]" style="width:80px"/>
-                                    </td>
-                                    <td><input type="text" class="dis_price" name="dis_price[]" style="width:80px"/>
-                                    </td>
-                                    <td width="17" class="char_del">
-                                        <a href="javascript:" onclick="deleteDiscount(this)" title="Удалить скидку">
-                                            <img src="/admin/images/actions/delete.gif" alt="Удалить скидку" border="0">
-                                        </a>
-                                    </td>
-                                </tr>
-                            <?php } else { ?>
-                                <?php foreach ($cfg['discount'] as $amount => $price) { ?>
-                                    <tr class="var">
-                                        <td>
-                                            <input type="text" class="dis_amount" name="dis_amount[]" style="width:80px"
-                                                   value="<?php echo $amount; ?>"/>
-                                        </td>
-                                        <td>
-                                            <input type="text" class="dis_price" name="dis_price[]" style="width:80px"
-                                                   value="<?php echo $price; ?>"/>
-                                        </td>
-                                        <td width="17" class="char_del">
-                                            <a href="javascript:" onclick="deleteDiscount(this)" title="Удалить скидку">
-                                                <img src="/admin/images/actions/delete.gif" alt="Удалить скидку"
-                                                     border="0">
-                                            </a>
-                                        </td>
+                        <form method="post" action="">
+                            <div style="padding:10px;border:solid 1px #CCC">
+                                <table border="0" cellpadding="5" cellspacing="0" id="discounts">
+                                    <tr>
+                                        <th width="160">Сумма заказа от, <?php echo $cfg['currency']; ?></th>
+                                        <th width="160">Скидка, %</th>
+                                        <th width="17" class="dis_del">&nbsp;</th>
                                     </tr>
-                                <?php } ?>
-                            <?php } ?>
-                        </table>
+                                    <?php if (!$cfg['discount']) { ?>
+                                        <tr class="var">
+                                            <td><input type="text" class="dis_amount" name="dis_amount[]"
+                                                       style="width:80px"/>
+                                            </td>
+                                            <td><input type="text" class="dis_price" name="dis_price[]"
+                                                       style="width:80px"/>
+                                            </td>
+                                            <td width="17" class="char_del">
+                                                <a href="javascript:" onclick="deleteDiscount(this)"
+                                                   title="Удалить скидку">
+                                                    <img src="/admin/images/actions/delete.gif" alt="Удалить скидку"
+                                                         border="0">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php } else { ?>
+                                        <?php foreach ($cfg['discount'] as $amount => $price) { ?>
+                                            <tr class="var">
+                                                <td>
+                                                    <input type="text" class="dis_amount" name="dis_amount[]"
+                                                           style="width:80px"
+                                                           value="<?php echo $amount; ?>"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="dis_price" name="dis_price[]"
+                                                           style="width:80px"
+                                                           value="<?php echo $price; ?>"/>
+                                                </td>
+                                                <td width="17" class="char_del">
+                                                    <a href="javascript:" onclick="deleteDiscount(this)"
+                                                       title="Удалить скидку">
+                                                        <img src="/admin/images/actions/delete.gif" alt="Удалить скидку"
+                                                             border="0">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </table>
 
-                        <script type="text/javascript">
-                            updateDiscounts();
-                        </script>
+                                <script type="text/javascript">
+                                    updateDiscounts();
+                                </script>
 
-                        <div style="margin:15px 0; margin-left:17px;" class="add_discount">
-                            <a href="javascript:addDiscount()">Добавить скидку</a>
-                        </div>
+                                <div style="margin:15px 0; margin-left:17px;" class="add_discount">
+                                    <a href="javascript:addDiscount()">Добавить скидку</a>
+                                </div>
+                            </div>
+
+                            <p>
+                                <input name="submit" type="submit" value="Сохранить изменения"/>
+                            </p>
+                        </form>
+
                     </div>
 
-                    <p>
-                        <input name="submit" type="submit" value="Сохранить изменения"/>
-                    </p>
-
-                </form>
-
+                </div>
             </div>
-
-        </div>
-            </div>
-        </div>
+        </div> <!-- end row -->
         <?php
 
     }

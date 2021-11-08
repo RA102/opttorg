@@ -1759,11 +1759,11 @@ class cms_model_shop
         $sql = "INSERT INTO cms_shop_items (`category_id`, `vendor_id`, `art_no`, `title`, `shortdesc`, `description`,
                                             `metakeys`, `metadesc`, `ves`, `vol`, `longest_side`, `price`, `old_price`, `published`, `pubdate`,
                                             `is_hit`, `is_front`, `is_digital`, `seolink`, `qty`, `img_count`,
-                                            `filename`, `filesize`, `filedate`, `hits`, `tpl`, `url`, `kaspikz`, `is_spec`, `ven_code`)
+                                            `filename`, `filesize`, `filedate`, `hits`, `tpl`, `url`, `kaspikz`, `is_spec`, `ven_code`, `fix_price`)
 				VALUES ('{$item['category_id']}', '{$item['vendor_id']}', '{$item['art_no']}', '{$item['title']}', '{$item['shortdesc']}', '{$item['description']}',
                         '{$item['metakeys']}', '{$item['metadesc']}', '{$item['ves']}', '{$item['vol']}', '{$item['longest_side']}','{$item['price']}', '{$item['old_price']}', '{$item['published']}', '{$item['pubdate']}',
                         '{$item['is_hit']}', '{$item['is_front']}', '{$item['is_digital']}', '', '{$item['qty']}', '{$item['img_count']}',
-                        '{$item['filename']}', '{$item['rels']}', NOW(), 0, '{$item['tpl']}', '{$item['url']}', '{$item['kaspikz']}', '{$item['is_spec']}', '{$item['ven_code']}')";
+                        '{$item['filename']}', '{$item['rels']}', NOW(), 0, '{$item['tpl']}', '{$item['url']}', '{$item['kaspikz']}', '{$item['is_spec']}', '{$item['ven_code']}', '{$item['fix_price']}')";
 
         $this->inDB->query($sql);
 
@@ -1906,7 +1906,8 @@ class cms_model_shop
                     url='{$item['url']}',
 					kaspikz='{$item['kaspikz']}',
 					is_spec='{$item['is_spec']}',
-					ven_code='{$item['ven_code']}'
+					ven_code='{$item['ven_code']}',
+					fix_price='{$item['fix_price']}'
                 WHERE id = $id
                 LIMIT 1";
 
@@ -4368,6 +4369,7 @@ class cms_model_shop
 
     function removeDiscount($id)
     {
+
         cmsCore::callEvent('REMOVE_SHOP_DISCOUNT', $id);
         $result = $this->inDB->query("SELECT * FROM cms_shop_discounts WHERE id = $id");
         $listDiscount = '';
@@ -4380,7 +4382,7 @@ class cms_model_shop
             return false;
         }
 
-        $sql = "UPDATE cms_shop_items SET price = old_price, old_price = 0 WHERE vendor_id IN({$listDiscount})";
+        $sql = "UPDATE cms_shop_items SET price = old_price, old_price = 0 WHERE vendor_id IN({$listDiscount}) AND fix_price <> 'on' ";
         return $this->inDB->query($sql);
 
     }

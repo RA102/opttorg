@@ -351,7 +351,7 @@
                                     </div>
                                 </td>
                                 <td align="center">
-                                    <input type="checkbox" value="1" name="fixprice">
+                                    <input type="checkbox" name="fix_price[<?= $item['id']; ?>]" <?php if ($item['fix_price'] == 'on'){ echo 'checked'; } else { echo ''; } ?> />
                                 </td>
                                 <td align="center" width="100">
                                     <?php echo $item['update_at']; ?>
