@@ -1,0 +1,73 @@
+.black_friday_wrapper_div_cats {
+    margin-top: 90px;
+}
+
+.black_friday_div_cats {
+    height: 310px;
+    flex-basis: 50%;
+    margin-bottom: 63px;
+
+}
+
+.black_friday_bg_cats {
+    background-color: #474747;
+    height: 119px;
+    width: 119px;
+    border-radius: 50%;
+}
+
+.black_friday_div_cats:hover .black_friday_bg_cats {
+    background-color: #FFC930;
+}
+
+
+
+.black_friday_title_cats {
+    font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 28px;
+}
+
+
+@media (min-width: 576px) {
+    .black_friday_div_cats {
+        flex-basis: 50%;
+    }
+
+
+
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+    .black_friday_div_cats {
+        height: 310px;
+        flex: 1 285px;
+        max-width: 285px;
+        margin-bottom: 63px;
+
+    }
+}
+
+@media (min-width: 1200px) {
+    .black_friday_div_cats {
+        height: 310px;
+        flex: 1 285px;
+        max-width: 285px;
+        margin-bottom: 63px;
+
+    }
+
+    .black_friday_bg_cats {
+        background-color: #474747;
+        height: 180px;
+        width: 180px;
+        border-radius: 50%;
+    }
+
+}

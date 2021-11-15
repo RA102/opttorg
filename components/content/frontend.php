@@ -281,7 +281,21 @@ function content()
 
         $inPage->addHead('<link rel="canonical" href="https://sanmarket.kz/' . $article['seolink'] . '.html" />');
 
-        cmsPage::initTemplate('components', $article['tpl'])->assign('article', $article)->assign('cfg', $model->config)->assign('page', $page)->assign('is_pages', !empty($GLOBALS['pt']))->assign('pt_pages', $pt_pages)->assign('is_admin', $is_admin)->assign('is_editor', $is_editor)->assign('is_author', $is_author)->assign('is_author_del', $is_author_del)->assign('tagbar', cmsTagBar('content', $article['id']))->assign('karma_points', @$karma_points)->assign('karma_votes', @$karma['votes'])->assign('karma_buttons', @$btns)->display($article['tpl']);
+        cmsPage::initTemplate('components', $article['tpl'])
+            ->assign('article', $article)
+            ->assign('cfg', $model->config)
+            ->assign('page', $page)
+            ->assign('is_pages', !empty($GLOBALS['pt']))
+            ->assign('pt_pages', $pt_pages)
+            ->assign('is_admin', $is_admin)
+            ->assign('is_editor', $is_editor)
+            ->assign('is_author', $is_author)
+            ->assign('is_author_del', $is_author_del)
+            ->assign('tagbar', cmsTagBar('content', $article['id']))
+            ->assign('karma_points', @$karma_points)
+            ->assign('karma_votes', @$karma['votes'])
+            ->assign('karma_buttons', @$btns)
+            ->display($article['tpl']);
 
         // Комментарии статьи
         if ($article['published'] && $article['comments'] && $inCore->isComponentInstalled('comments')) {
@@ -681,7 +695,12 @@ function content()
         $content_list = $total ? $model->getArticlesList(false) : array();
         $inDB->resetConditions();
 
-        cmsPage::initTemplate('components', 'com_content_my')->assign('articles', $content_list)->assign('total', $total)->assign('user_can_delete', cmsUser::isUserCan('content/delete'))->assign('pagebar', cmsPage::getPagebar($total, $page, $perpage, '/content/my%page%.html'))->display('com_content_my.tpl');
+        cmsPage::initTemplate('components', 'com_content_my')
+            ->assign('articles', $content_list)
+            ->assign('total', $total)
+            ->assign('user_can_delete', cmsUser::isUserCan('content/delete'))
+            ->assign('pagebar', cmsPage::getPagebar($total, $page, $perpage, '/content/my%page%.html'))
+            ->display('com_content_my.tpl');
 
     }
 ///////////////////////////////////// BEST ARTICLES ///////////////////////////////////////////////////////////////////////////////////
@@ -704,12 +723,9 @@ function content()
 
     }
 
-    if ($do == 'payment-success') {
-
+    if ($do == 'black-friday') {
+        include_once(TEMPLATE_DIR . 'black-friday/black-friday.php');
     }
 
-    if ($do == 'delivery') {
-        echo 'delivery';
-    }
 
 }

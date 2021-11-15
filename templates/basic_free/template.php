@@ -58,22 +58,6 @@ $this->addHeadJS('templates/' . TEMPLATE .'/js/custom.js?v=' . mt_rand(1, 100));
 
 // LANG фразы для colorbox
 $this->addHeadJsLang(array('CBOX_IMAGE', 'CBOX_FROM', 'CBOX_PREVIOUS', 'CBOX_NEXT', 'CBOX_CLOSE', 'CBOX_XHR_ERROR', 'CBOX_IMG_ERROR', 'CBOX_SLIDESHOWSTOP', 'CBOX_SLIDESHOWSTART'));
-/*
-if (isset($_POST['my_city'])) {
-    $_SESSION['my_city'] = $_POST['my_city'];
-}
-if (isset($_SESSION['my_city'])) {
-    $gorod = $_SESSION['my_city'];
-} else {
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $quer = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip.'?lang=ru'));
-    if($quer && $quer['status'] == 'success') {
-        $gorod = $quer['city'];
-    } else {
-        $gorod = 'не определён';
-    }
-}
-*/
 
 if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     $usr = $_POST['yname'];
