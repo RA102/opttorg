@@ -21,6 +21,11 @@
 }
 
 
+.black_friday_img_cats {
+    width: 62px;
+}
+
+
 
 .black_friday_title_cats {
     font-family: Source Sans Pro;
@@ -41,6 +46,10 @@
 }
 
 @media (min-width: 768px) {
+    .black_friday_bg_cats {
+        height: 180px;
+        width: 180px;
+    }
 
 }
 
@@ -51,6 +60,11 @@
         max-width: 285px;
         margin-bottom: 63px;
 
+    }
+
+    .black_friday_bg_cats {
+        height: 180px;
+        width: 180px;
     }
 }
 
