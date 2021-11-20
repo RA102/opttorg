@@ -1203,7 +1203,7 @@ class cmsCore {
         if ($code == '301'){
             header('HTTP/1.1 301 Moved Permanently');
         } else {
-            header('HTTP/1.1 303 See Other');
+            header('HTTP/1.1 303 See Other', true, $code);
         }
         header('Location:'.$url);
         self::halt();

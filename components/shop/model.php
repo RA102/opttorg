@@ -524,7 +524,7 @@ class cms_model_shop
         if (!$item_id) {
             return false;
         }
-        return $this->getItem($item_id);
+        return $this->getItem($item_id, false);
     }
 
     /* ========================================================================== */
@@ -4382,7 +4382,7 @@ class cms_model_shop
             return false;
         }
 
-        $sql = "UPDATE cms_shop_items SET price = old_price, old_price = 0 WHERE vendor_id IN({$listDiscount}) AND fix_price <> 'on' ";
+        $sql = "UPDATE cms_shop_items SET price = old_price, old_price = 0 WHERE vendor_id IN({$listDiscount}) AND fix_price <> 'on'";
         return $this->inDB->query($sql);
 
     }

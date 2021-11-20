@@ -724,7 +724,10 @@ function content()
     }
 
     if ($do == 'black-friday') {
-        include_once(TEMPLATE_DIR . 'black-friday/black-friday.php');
+        $inPage->page_keys = 1;
+//        include_once(TEMPLATE_DIR . '/black-friday/black-friday.html');
+        cmsPage::initTemplate('components', 'black-friday')
+            ->display('black-friday.tpl');
     }
 
 

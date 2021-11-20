@@ -86,7 +86,7 @@ function activateListTable(){
 	}
 }
 
-function pub(id, qs, qs2, action, action2){
+function pub(id, qs, qs2, action, action2) {
 	old_img = $('img#pub'+id).attr('src');
 	$('img#pub'+id).attr('src', 'images/actions/loader.gif');
     $('a#publink'+id).attr('href', '');

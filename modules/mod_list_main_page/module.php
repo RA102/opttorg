@@ -8,6 +8,8 @@ function mod_list_main_page($module_id, $cfg)
     $inUser = cmsUser::getInstance();
     global $_LANG;
 
+
+
     if (!isset($cfg['show_title'])) {
         $cfg['show_title'] = 0;
     }
@@ -19,8 +21,8 @@ function mod_list_main_page($module_id, $cfg)
 
 
     cmsPage::initTemplate('modules', 'mod_list_main_page')->
-    assign('listItems', $items)->
-    display('mod_list_main_page.tpl');
+        assign('listItems', $items)->
+        display('mod_list_main_page.tpl');
 
     return true;
 }

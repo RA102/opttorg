@@ -102,38 +102,9 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
 <html lang="ru" prefix="og: http://ogp.me/ns#">
 <head>
     <!--     Global site tag (gtag.js) - Google Ads: 393443092 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-393443092"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'AW-393443092');
-    </script>
+
     <!-- Event snippet for Order_accept conversion page -->
-    <script>
-        gtag('event', 'conversion', {
-            'send_to': 'AW-393443092/0IzNCN-D8_8BEJTuzbsB',
-            'value': 1.0,
-            'currency': 'USD',
-            'transaction_id': ''
-        });
-    </script>
-    <script>
-        function gtag_report_conversion(url) {
-            var callback = function () {
-                if (typeof(url) != 'undefined') {
-                    window.location = url;
-                }
-            };
-            gtag('event', 'conversion', {
-                'send_to': 'AW-393443092/htXHCNua8_8BEJTuzbsB',
-                'event_callback': callback
-            });
-            return false;
-        }
-    </script>
+
     <?php $LastModified_unix = strtotime(date("D, d M Y H:i:s", filectime($_SERVER['SCRIPT_FILENAME'])));
     $LastModified = gmdate("D, d M Y H:i:s \G\M\T", $LastModified_unix);
     $IfModifiedSince = false;
@@ -146,7 +117,6 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     header('Last-Modified: ' . $LastModified);
     header('Vary: User-Agent'); ?>
     <meta charset="utf-8">
-    <meta name="yandex-verification" content="312a4cd886e70dca"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php $this->printHead(); ?>
@@ -158,29 +128,10 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <!--  /новый слайдер  -->
 
     <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NZN89PK');
-    </script>
+
     <!-- /Google Tag Manager -->
 
     <!-- Ringostat  -->
-
-<!--    <script type="text/javascript">-->
-<!--        (function (d, s, u, e, p) {-->
-<!--            p = d.getElementsByTagName(s)[0], e = d.createElement(s), e.async = 1, e.src = u, p.parentNode.insertBefore(e, p);-->
-<!--        })(document, 'script', 'https://script.ringostat.com/v4/87/879dd20e1f58ab1e9980f5c3d3f690af942c4f62.js');-->
-<!--    </script>-->
 
     <!-- /Ringostat   -->
 
@@ -219,19 +170,12 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     <script src="/templates/<?php echo TEMPLATE; ?>/js/fixedsticky.js"></script>
     <script src="/templates/<?php echo TEMPLATE; ?>/js/seohide.js"></script>
 
-    <meta name="mailru-domain" content="JfeuTFsOLTPijEWd"/>
-
-
-
-    <meta name="google-site-verification" content="9zJmpIqyc1M_OPaSvKi55HwUQcG2zEMkxvIOLF6r0Fs"/>
 </head>
 <body>
 <div class="body-wrapper">
     <div id="mass" style="position:fixed;top:0;left:0;background:#dedede;z-index:9999;font-size:8px;padding:1px;"></div>
     <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NZN89PK" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
+
     <!-- /Google Tag Manager (noscript) -->
     <a name="top"></a>
     <?php
@@ -768,20 +712,7 @@ if ((isset($_POST['price1'])) && (isset($_POST['ttl']))) {
     </script>
 
     <!-- Yandex.Metrika counter Вебвизор-->
-    <script type="text/javascript" >
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-        ym(51363598, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            webvisor:true,
-            ecommerce:"dataLayer"
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/51363598" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
 
 </div>

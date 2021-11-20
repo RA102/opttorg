@@ -64,6 +64,11 @@
             'do'        => 'delivery',
         ];
 
+        $routes[] = [
+            '_uri' => '/^content\/black-friday.html$/i',
+            'do' => 'black-friday'
+        ];
+
         $routes[] = array(
                             '_uri'      => '/^content\/(.+).html$/i',
                             'do'        => 'read',
@@ -82,9 +87,6 @@
             'do'        => 'view',
             1           => 'seolink'
         );
-
-
-
 
         return $routes;
 

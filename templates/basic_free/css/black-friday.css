@@ -1,3 +1,60 @@
+body {
+    background: #101018;
+}
+
+header {
+    background-color: #101018;
+}
+
+.border-top {
+    border: none !important;
+}
+
+.bg-block-search-header {
+    background: #101018 !important;
+}
+
+
+
+input.form-control.search_input {
+    border: 2px solid #FFFFFF !important;
+    background: #101018;
+    color: #FFFFFF;
+}
+
+input.form-control.search_input:hover {
+    border: 2px solid #FFFFFF !important;
+}
+
+
+.wrapper-button-search {
+    background: #FF9600;
+    border: 1px solid #FFFFFF;
+    outline: 1px solid #FFFFFF;
+    border-bottom-right-radius: 10%;
+    border-top-right-radius: 10%;
+}
+
+label#label25 > div,
+label#label25 > div:before,
+label#label25 > div:after {
+    background: #FFFFFF;
+}
+
+a {
+    color: #FFFFFF;
+}
+
+.menu-left {
+    background-color: #101018;
+}
+
+
+.site-footer {
+    background: #101018;
+    margin-top: 30px;
+}
+
 .top_text {
     font-size: 22px;
 }
@@ -113,7 +170,14 @@
     line-height: 28px;
 }
 
-
+.black_friday_notification_title {
+    font-family: Source Sans Pro;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 45px;
+    color: #ffffff;
+}
 
 
 @media (min-width: 576px) {
@@ -124,6 +188,11 @@
 }
 
 @media (min-width: 768px) {
+
+    .black_friday_div_cats {
+        max-height: 250px;
+    }
+
     .black_friday_bg_cats {
         min-height: 180px;
         min-width: 180px;
@@ -161,6 +230,55 @@
         height: 186px;
         min-width: 239px;
         min-height: 186px;
+    }
+
+    .black_friday_img_cat_5 {
+        width: 129px;
+        height: 149px;
+        min-width: 129px;
+        min-height: 149px;
+    }
+
+    .black_friday_img_cat_6 {
+        width: 120px;
+        height: 172px;
+        min-width: 120px;
+        min-height: 172px;
+    }
+
+    .black_friday_img_cat_7 {
+        width: 184px;
+        height: 130px;
+        min-width: 184px;
+        min-height: 130px;
+    }
+
+    .black_friday_img_cat_8 {
+        width: 160px;
+        height: 180px;
+        min-width: 160px;
+        min-height: 180px;
+    }
+
+    .black_friday_img_cat_9 {
+        width: 108px;
+        height: 186px;
+        min-width: 108px;
+        min-height: 186px;
+    }
+
+    .black_friday_img_cat_10 {
+        width: 79px;
+        height: 189px;
+        min-width: 79px;
+        min-height: 189px;
+    }
+
+    .black_friday_img_cat_11 {
+        width: 91px;
+        height: 191px;
+        min-width: 91px;
+        min-height: 191px;
     }
 
 }

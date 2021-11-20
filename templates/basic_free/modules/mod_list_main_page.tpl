@@ -117,8 +117,8 @@
 {*                    </form>*}
                     <div class="flex flex-column justify-content-center align-items-center">
                         {if $item->qty > 1 || $item->qty_from_vendor > 1}
-                            <form action="/shop/addtocart" method="POST">
-                                <input type="hidden" name="add_to_cart_item_id" value="{$item->id}"/>
+                            <form action="/shop/addtocart" method="GET">
+                                <input type="hidden" name="add_to_cart_item_id" value="{$item->id}" />
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-main add-basket{if $item->is_in_cart>0} btn-disabled{elseif $item->price==0}  btn-gray{/if}">{if $item->is_in_cart>0}В корзине{else}{if $item->price==0}Цену уточняйте{else}В корзину{/if}{/if}</button>
                                 </div>

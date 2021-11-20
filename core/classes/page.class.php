@@ -181,6 +181,12 @@ class cmsPage
     {
         return $this->addHead('<link href="/' . $src . '" rel="stylesheet" type="text/css" />');
     }
+
+    public function prependHeadCSS($src)
+    {
+        array_unshift($this->page_head, '<link href="/' . $src . '" rel="stylesheet" type="text/css" />');
+        return $this;
+    }
 ////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -383,6 +389,11 @@ class cmsPage
             $this->pathway[] = array('title' => $title, 'link' => $link);
         }
         return $this;
+    }
+
+    public function clearingPathway()
+    {
+        $this->pathway = [];
     }
 
 ////////////////////////////////////////////////////////////////////////////////

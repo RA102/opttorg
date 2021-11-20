@@ -13,6 +13,10 @@ if (!file_exists(PATH.'/includes/config.inc.php')) {
     die();
 }
 
+spl_autoload_register(function ($class) {
+    include ("core/classes/$class.class.php");
+});
+
 $referer = $_SERVER["HTTP_REFERER"];
 
 $file = fopen(PATH . '/RespLog.log', "a+");

@@ -2937,9 +2937,7 @@ div.input-group-append.btn-search {
 }
 
 @media (min-width: 576px) {
-    .bg-block-search-header {
-        background-color: #E6E6E6;
-    }
+
     input.form-control.search_input {
         border: 2px solid #0C5DA5;
     }
@@ -2951,9 +2949,7 @@ div.input-group-append.btn-search {
 }
 
 @media (min-width: 768px) {
-    .bg-block-search-header {
-        background: #E6E6E6;
-    }
+
     input.form-control.search_input {
         border: 2px solid #0C5DA5;
     }
@@ -2965,9 +2961,7 @@ div.input-group-append.btn-search {
 }
 
 @media (min-width: 992px) {
-    .bg-block-search-header {
-        background: #E6E6E6;
-    }
+
     input.form-control.search_input {
         border: 2px solid #0C5DA5;
     }
